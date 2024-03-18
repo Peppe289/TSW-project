@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Stile per la colonna sinistra */
+.left-column {
+    background-color: #f2f2f2;
+}
+
+/* Stile per la colonna destra */
+.right-column {
+    background-color: #e6e6e6;
+}

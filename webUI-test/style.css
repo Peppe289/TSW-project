@@ -1,4 +1,4 @@
-ul {
+.menu-bar ul {
     list-style-type: none;
     margin: 0 auto;
     /* Imposta i margini sinistro e destro su "auto" */
@@ -13,7 +13,7 @@ ul {
     user-select: none; /* Standard syntax */
 }
 
-li a {
+.menu-bar li a {
     display: block;
     text-align: center;
     padding: 14px 16px;
@@ -21,7 +21,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover {
+.menu-bar li a:hover {
     color: #00ae46;
 }
 
@@ -64,17 +64,17 @@ li a:hover {
     background-color: rgb(245, 245, 245);
 }
 
-.left-content,
-.center-content,
-.right-content {
+.menu-bar .left-content,
+.menu-bar .center-content,
+.menu-bar .right-content {
     flex: 1;
     text-align: center;
 }
 
-.left-content {
+.menu-bar .left-content {
     text-align: left;
 }
 
-.right-content {
+.menu-bar .right-content {
     text-align: right;
 }
