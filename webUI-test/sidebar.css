@@ -4,8 +4,9 @@
 
 /* Stile per la colonna sinistra (filtri) */
 .container-prodotti .left-column {
-    background-color: #b64949;
-    width: 400px;
+    background-color: rgb(245, 245, 245);
+    padding: 20px;
+    width: 300px;
 }
 
 /* Stile per la colonna destra */

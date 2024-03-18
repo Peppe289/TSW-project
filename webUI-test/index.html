@@ -5,10 +5,38 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="carosello.css">
     <link rel="stylesheet" href="sidebar.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Includi jQuery e jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         body {
             margin: 0;
         }
+
+        /**
+         * Per avere una barra da usare per il range del prezzo
+         */
+        #slider-range {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .left-column form>label,
+        .left-column form>input {
+            margin-top: 20px;
+        }
+
+        /**
+         * Relativo a jquery
+         */
+        .ui-slider-range {
+            background-color: #009719; /* Imposta il colore della traccia */
+        }
+        
     </style>
 </head>
 
@@ -41,12 +69,33 @@
 
     <div class="container-prodotti">
         <div class="left-column">
-            <h2>Colonna Sinistra</h2>
-            <p>Testo nella colonna sinistra.</p>
-            <p>Altri contenuti nella colonna sinistra.</p>
+            <h2>Filtro</h2>
+
+            <form>
+                <div>
+                    <p style="margin: 0; margin-top: 40px;">Categorie</p><br>
+                    <input type="radio" id="uccelli" name="categoria">
+                    <label for="uccelli">Uccelli</label><br>
+                    <input type="radio" id="rettili" name="categoria">
+                    <label for="rettili">Rettili</label><br>
+                </div>
+                <div>
+                    <p style="margin: 0; margin-top: 40px;">Alimentazione</p><br>
+                    <input type="radio" id="erbivoro" name="alimentazione">
+                    <label for="erbivoro">Erbivoro</label><br>
+                    <input type="radio" id="carnivoro" name="alimentazione">
+                    <label for="carnivoro">Carnivoro</label><br>
+                </div>
+                <label for="prezzo">Prezzo: </label>
+                <input type="text" id="prezzo" readonly name="prezzo"
+                    style="border:0; color:#009719; font-weight:bold; width: 150px;">
+                <div id="slider-range"></div>
+
+            </form>
         </div>
+
         <div class="right-column">
-            <h2>Colonna Destra</h2>
+            <h2>Prodotto</h2>
             <p>Testo nella colonna destra.</p>
             <p>Altri contenuti nella colonna destra.</p>
         </div>
@@ -88,6 +137,22 @@
             nextSlide.classList.add('current-slide');
         }
     };
+</script>
+<script>
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 3000 * 900,
+            step: 3000,
+            values: [0, 3000 * 700], // Valori predefiniti
+            slide: function (event, ui) {
+                $("#prezzo").val(ui.values[0] + " - " + ui.values[1]);
+            }
+        });
+        $("#prezzo").val($("#slider-range").slider("values", 0) +
+            " - " + $("#slider-range").slider("values", 1));
+    });
 </script>
 
 </html>
