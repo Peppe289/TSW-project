@@ -34,9 +34,9 @@
          * Relativo a jquery
          */
         .ui-slider-range {
-            background-color: #009719; /* Imposta il colore della traccia */
+            background-color: #009719;
+            /* Imposta il colore della traccia */
         }
-        
     </style>
 </head>
 
@@ -117,26 +117,30 @@
     // Add 'current-slide' class to the first slide
     slides[0].classList.add('current-slide');
 
-    // Move slides
     const moveSlide = (direction) => {
         // Find the current slide
         const currentSlide = track.querySelector('.current-slide');
         // Find the next slide index
         let nextSlideIndex = slides.findIndex((slide) => slide === currentSlide) + direction;
 
-        // Check if there is a slide available in the given direction
-        if (nextSlideIndex >= 0 && nextSlideIndex < slides.length) {
-            // Get the next slide
-            const nextSlide = slides[nextSlideIndex];
-
-            // Move the track
-            track.style.transform = 'translateX(-' + nextSlide.style.left + ')';
-
-            // Update current slide
-            currentSlide.classList.remove('current-slide');
-            nextSlide.classList.add('current-slide');
+        // If the next slide index is out of bounds, loop around
+        if (nextSlideIndex < 0) {
+            nextSlideIndex = slides.length - 1; // Move to the last slide
+        } else if (nextSlideIndex >= slides.length) {
+            nextSlideIndex = 0; // Move to the first slide
         }
+
+        // Get the next slide
+        const nextSlide = slides[nextSlideIndex];
+
+        // Move the track
+        track.style.transform = 'translateX(-' + nextSlide.style.left + ')';
+
+        // Update current slide
+        currentSlide.classList.remove('current-slide');
+        nextSlide.classList.add('current-slide');
     };
+
 </script>
 <script>
     $(function () {
