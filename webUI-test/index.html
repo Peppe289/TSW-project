@@ -3,12 +3,14 @@
 
 <head>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carosello.css">
     <style>
         body {
             margin: 0;
         }
     </style>
 </head>
+
 <body>
     <div class="menu-bar">
         <div class="left-content">
@@ -26,6 +28,53 @@
             <a href="login.html" class="remove-select"><img style="width: 26px; margin-top: 0;" src="log-in.png"></a>
         </div>
     </div>
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <div class="carousel-item"><img src="https://via.placeholder.com/600x300/ff0000/ffffff" alt="Image 1"></div>
+            <div class="carousel-item"><img src="https://via.placeholder.com/600x300/00ff00/ffffff" alt="Image 2"></div>
+            <div class="carousel-item"><img src="https://via.placeholder.com/600x300/0000ff/ffffff" alt="Image 3"></div>
+        </div>
+        <button class="carousel-button prev" onclick="moveSlide(-1)">Previous</button>
+        <button class="carousel-button next" onclick="moveSlide(1)">Next</button>
+    </div>
 </body>
+
+
+<script>
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const slideWidth = slides[0].getBoundingClientRect().width;
+
+    // Arrange slides next to each other
+    const setSlidePosition = (slide, index) => {
+        slide.style.left = slideWidth * index + 'px';
+    };
+
+    slides.forEach(setSlidePosition);
+
+    // Add 'current-slide' class to the first slide
+    slides[0].classList.add('current-slide');
+
+    // Move slides
+    const moveSlide = (direction) => {
+        // Find the current slide
+        const currentSlide = track.querySelector('.current-slide');
+        // Find the next slide index
+        let nextSlideIndex = slides.findIndex((slide) => slide === currentSlide) + direction;
+
+        // Check if there is a slide available in the given direction
+        if (nextSlideIndex >= 0 && nextSlideIndex < slides.length) {
+            // Get the next slide
+            const nextSlide = slides[nextSlideIndex];
+
+            // Move the track
+            track.style.transform = 'translateX(-' + nextSlide.style.left + ')';
+
+            // Update current slide
+            currentSlide.classList.remove('current-slide');
+            nextSlide.classList.add('current-slide');
+        }
+    };
+</script>
 
 </html>
