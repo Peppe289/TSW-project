@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="carosello.css">
     <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="prodotti.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Includi jQuery e jQuery UI -->
@@ -86,18 +87,58 @@
                     <input type="radio" id="carnivoro" name="alimentazione">
                     <label for="carnivoro">Carnivoro</label><br>
                 </div>
+
                 <label for="prezzo">Prezzo: </label>
                 <input type="text" id="prezzo" readonly name="prezzo"
                     style="border:0; color:#009719; font-weight:bold; width: 150px;">
                 <div id="slider-range"></div>
-
+                <input value="Filtra" type="submit" style="
+                background-color: #04AA6D;
+                border: none;
+                color: white;
+                padding: 10px 32px;
+                text-decoration: none;
+                margin: 20px 20px;
+                border-radius: 25px;
+                cursor: pointer;">
             </form>
         </div>
 
-        <div class="right-column">
-            <h2>Prodotto</h2>
-            <p>Testo nella colonna destra.</p>
-            <p>Altri contenuti nella colonna destra.</p>
+        <!-- lista dei prodotti -->
+        <div class="right-column lista-prodotti">
+            <div class="item-prodotto">
+                <!--
+                    il link farà riferimento alla servlet con il
+                    parametro passato in chiaro dove è presente l'ID.
+                    http://localhost:8080/prodotti?id=12345
+                -->
+                <a href="#">
+                    <img src="log-in.png">
+                </a>
+                <p class="prodotto_title">Descrizione</p>
+                <p>Magna voluptate veniam incididunt incididunt.</p>
+            </div>
+            <div class="item-prodotto">
+                <a href="#">
+                    <img src="log-in.png">
+                </a>
+                <p class="prodotto_title">Descrizione</p>
+                <p>Magna voluptate veniam incididunt incididunt.</p>
+            </div>
+            <div class="item-prodotto">
+                <a href="#">
+                    <img src="log-in.png">
+                </a>
+                <p class="prodotto_title">Descrizione</p>
+                <p>Magna voluptate veniam incididunt incididunt.</p>
+            </div>
+            <div class="item-prodotto">
+                <a href="#">
+                    <img src="log-in.png">
+                </a>
+                <p class="prodotto_title">Descrizione</p>
+                <p>Magna voluptate veniam incididunt incididunt.</p>
+            </div>
         </div>
     </div>
 </body>

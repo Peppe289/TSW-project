@@ -6,13 +6,10 @@
 .container-prodotti .left-column {
     background-color: rgb(245, 245, 245);
     padding: 20px;
-    width: 300px;
 }
 
 /* Stile per la colonna destra */
 .container-prodotti .right-column {
-    background-color: #e6e6e6;
-
     flex: 1;
     padding: 20px;
 }
