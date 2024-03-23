@@ -1,47 +1,66 @@
-drop database if exists ecommerce;
-create database ecommerce;
-use ecommerce;
+DROP DATABASE IF EXISTS ecommerce;
+CREATE DATABASE ecommerce;
+USE ecommerce;
 
 
 create table dinosauro (
 id varchar(255) primary key,
 nome varchar (100) not null,
 categoria varchar (50) not null,
-lunghezza float not null,
+lunghezza int not null,
 alimentazione varchar (50) not null,
 regione_geografica varchar (100) not null,
 prezzo float not null,
-descrizione varchar (255) not null
+descrizione varchar (255) not null,
+disponibilita enum ("SI", "NO") not null,
+quantità int default 0,
+iva_prodotti float default 0.22
 );
 
-create table ordini (
-numero_ordine int not null auto_increment,
-prezzo_totale double not null,
-lista_prodotti varchar (255) not null,
-data_acquisto date not null,
-primary key (numero_ordine) 
+create table uova (
+id_dinosauro VARCHAR(255) NOT NULL,
+id_uova varchar (255) not null,
+dimensione VARCHAR(50) NOT NULL,
+peso FLOAT NOT NULL,
+descrizione VARCHAR(255),
+prezzo float not null,
+disponibilita enum ("SI", "NO") not null,
+quantità int default 0,
+iva_prodotti float default 0.22,
+PRIMARY KEY (id_uova),
+FOREIGN KEY (id_dinosauro) REFERENCES dinosauro(id)
 );
+
 
 create table utente (
+id_utente varchar(255) primary key,
 password_utente varchar(255) not null,
 nome varchar(255) not null,
 cognome varchar(255) not null, 
-email varchar(255) not null,
-primary key (email)
+email varchar(255) not null
 );
 
-create table spedizione (
+create table ordini (
+numero_ordine int auto_increment primary key,
+prezzo_totale double not null,
+lista_prodotti varchar (255) not null,
+data_acquisto date not null,
+id_utente varchar(255) not null,
+foreign key (id_utente) references utente (id_utente)
+);
+
+create table indirizzo_spedizione (
 nome varchar (255) not null,
 cognome varchar (255) not null,
+cf char(16) primary key,
 via varchar(255) not null,
 cap char(5) not null,
-provincia varchar(255) not null,
+provincia char(2) not null,
 comune varchar(255) not null,
-numero_civico varchar(255) not null,
-primary key(nome, cognome)
+numero_civico varchar(255) not null
 );
 
-create table admin (
-identificativo varchar (50) not null,
-password varchar (255)
+create table amministratore (
+identificativo int auto_increment primary key,
+password varchar (255) not null
 );
