@@ -18,7 +18,7 @@ iva_prodotti float default 0.22
 );
 
 create table uova (
-id_dinosauro VARCHAR(255) NOT NULL,
+id_dinosauro VARCHAR(255),
 id_uova varchar (255) not null,
 dimensione VARCHAR(50) NOT NULL,
 peso FLOAT NOT NULL,
@@ -28,7 +28,7 @@ disponibilita enum ("SI", "NO") not null,
 quantità int default 0,
 iva_prodotti float default 0.22,
 PRIMARY KEY (id_uova),
-FOREIGN KEY (id_dinosauro) REFERENCES dinosauro(id)
+FOREIGN KEY (id_dinosauro) REFERENCES dinosauro(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 
@@ -45,8 +45,8 @@ numero_ordine int auto_increment primary key,
 prezzo_totale double not null,
 lista_prodotti varchar (255) not null,
 data_acquisto date not null,
-id_utente varchar(255) not null,
-foreign key (id_utente) references utente (id_utente)
+id_utente varchar(255) ,
+foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 create table indirizzo_spedizione (
