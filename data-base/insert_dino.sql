@@ -1,17 +1,22 @@
 USE ecommerce;
-INSERT INTO dinosauro (id, nome, categoria, lunghezza, alimentazione, regione_geografica, prezzo, descrizione, disponibilita, quantità) VALUES
-('TR', 'T-rex', 'rettile', 15, 'carnivoro', 'Nord America', 21.0, 'predatore gigantesco e uno dei più famosi dinosauri carnivori. Si ritiene che cacciasse grandi erbivori', 'SI', 30),
-('BR', 'Brachiosauro', 'rettile', 25, 'erbivoro', 'Nord America', 25.5, 'Il Brachiosaurus era un grande dinosauro erbivoro caratterizzato dal lungo collo e le zampe anteriori più lunghe delle zampe posteriori.', 'SI', 25),
-('ST', 'Stegosauro', 'rettile', 9, 'erbivoro', 'Europa Occidentale', 18.0, 'Aveva piccoli denti piatti adatti a triturare il materiale vegetale.', 'SI', 38),
-('VL', 'Velociraptor', 'rettile', 2 , 'carnivoro', 'Asia Centrale', 15.0, 'Si ritiene che cacciasse in branco e si nutrisse di piccoli animali come piccoli dinosauri, rettili e insetti.', 'SI', 50),
-('TC', 'Triceratopo', 'rettile', 9 , 'erbivoro', 'Nord America', 17.0, 'Aveva un becco robusto e denti adatti per strappare e triturare il cibo.', 'SI', 60);
 
-INSERT INTO uova (id_dinosauro, id_uova, dimensione, peso, descrizione, prezzo, disponibilita, quantità) VALUES
-('TR', 'UovoTR', 'Grande', 1.5, 'Uovo di T-rex trovato in buono stato', 10 ,'SI', 30),
-('BR', 'UovoBR', 'Molto grande', 2.0, 'Uovo di Brachiosauro parzialmente danneggiato', 15 , 'SI', 52),
-('ST', 'UovoST', 'Piccolo', 0.7, 'Uovo di Stegosauro ben conservato', 7, 'SI', 20),
-('VL', 'UovoVL', 'Grande', 1.7, 'Uovo di Velociraptor ben conservato',10 , 'SI', 25),
-('TC', 'UovoTC','Piccolo', 0.6, 'Uovo di Triceratopo leggermente aperto', 6, 'SI', 10);
+INSERT INTO prodotto (id_prodotto, nome, descrizione, prezzo, disponibilita, quantita, alimentazione, categoria) VALUES
+('TR','T-rex', 'predatore gigantesco e uno dei più famosi dinosauri carnivori. Si ritiene che cacciasse grandi erbivori', 21.00,'SI', 30, 'carnivoro', 'rettile'),
+('BR','Brachiosauro', 'Il Brachiosaurus era un grande dinosauro erbivoro caratterizzato dal lungo collo e le zampe anteriori più lunghe delle zampe posteriori.',25.50,  'SI', 25,'erbivoro', 'rettile'),
+('ST', 'Stegosauro', 'Aveva piccoli denti piatti adatti a triturare il materiale vegetale.', 18.00,  'SI', 38, 'erbivoro','rettile'),
+('VL', 'Velociraptor', 'Si ritiene che cacciasse in branco e si nutrisse di piccoli animali come piccoli dinosauri, rettili e insetti.', 15.00, 'SI', 50, 'carnivoro','rettile'),
+('TC', 'Triceratopo', 'Aveva un becco robusto e denti adatti per strappare e triturare il cibo.', 17.00, 'SI', 60,'erbivoro', 'rettile'),
+('PT', 'Pterodattilo', 'Era uno dei più grandi e più conosciuti dinosauri. Aveva una apertura alare di oltre 6 metri e si ritiene che fosse principalmente un pescatore.', 17.5, 'SI', 26, 'carnivoro', 'uccello'),
+('UTR', 'Uovo di T-rex', 'Uovo di T-rex trovato in buono stato', 10.5 ,'SI', 30, NULL, NULL),
+('UBR', 'Uovo di Brachiosauro', 'Uovo di Brachiosauro parzialmente danneggiato', 15.0 , 'SI', 52, NULL, NULL),
+('UST', 'Uovo di Stegosauro', 'Uovo di Stegosauro ben conservato', 7.99, 'SI', 20, NULL, NULL),
+('UVL', 'Uovo di Velociraptor', 'Uovo di Velociraptor ben conservato',10.00 , 'SI', 25, NULL, NULL),
+('UTC', 'Uovo di Triceratopo', 'Uovo di Triceratopo leggermente aperto', 6.99, 'SI', 10, NULL, NULL),
+('UPT', 'Uovo di Pterodattilo', 'Uovo di Pterodattilo ben conservato', 8.50, 'SI', 34, NULL, NULL), 
+('OC', 'Osso per dinosauro Carnivoro', 'Osso grande per dinosauro carnivoro', 25.00, 'SI', 20, NULL, NULL),
+('OE', 'Osso per dinosauro Erbivoro', 'Osso piccolo per dinosauro erbivoro', 15.00, 'SI', 30, NULL, NULL),
+('GM', 'Guizaglio medio', 'Guinzaglio in pelle per dinosauro di taglia media', 20.00, 'SI', 15, NULL, NULL),
+('GG', 'Guinzaglio gigante', 'Guinzaglio robusto per dinosauro gigante', 30.00, 'SI', 10, NULL, NULL);
 
 INSERT INTO utente (id_utente, password_utente, nome, cognome, email) VALUES 
 ('MR1', 'ciao1', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
@@ -26,5 +31,10 @@ INSERT INTO amministratore (password) VALUES
 ('admin2');
 
 INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto, id_utente) VALUES
-('35.5','UovoTR, BR','2024-01-20', 'MR1'),
-('26','UovoTC, TC','2024-03-15', 'CE1');
+('35.5','UTR, BR','2024-01-20', 'MR1'),
+('26','UTC, TC','2024-03-15', 'CE1');
+
+INSERT INTO offerte (descrizione, prezzo_scontato, data_inizio, data_fine) 
+VALUES 
+('Offerta speciale - 10% di sconto su tutti i dinosauri', 18.90, '2024-04-01', '2024-04-15'),
+('Offerta guinzagli - Acquista 2 e ottieni il 50% di sconto sul secondo', 7.50, '2024-04-05', '2024-04-30');

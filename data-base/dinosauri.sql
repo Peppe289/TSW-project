@@ -2,35 +2,17 @@ DROP DATABASE IF EXISTS ecommerce;
 CREATE DATABASE ecommerce;
 USE ecommerce;
 
-
-create table dinosauro (
-id varchar(255) primary key,
+CREATE TABLE prodotto (
+id_prodotto varchar (50) primary key,
 nome varchar (100) not null,
-categoria varchar (50) not null,
-lunghezza int not null,
-alimentazione varchar (50) not null,
-regione_geografica varchar (100) not null,
-prezzo float not null,
-descrizione varchar (255) not null,
-disponibilita enum ("SI", "NO") not null,
-quantità int default 0,
-iva_prodotti float default 0.22
+iva float default 0.22,
+descrizione VARCHAR(255) NOT NULL,
+prezzo FLOAT NOT NULL,
+disponibilita ENUM ("SI", "NO") NOT NULL,
+quantita INT DEFAULT 0,
+alimentazione varchar (50),
+categoria varchar (50)
 );
-
-create table uova (
-id_dinosauro VARCHAR(255),
-id_uova varchar (255) not null,
-dimensione VARCHAR(50) NOT NULL,
-peso FLOAT NOT NULL,
-descrizione VARCHAR(255),
-prezzo float not null,
-disponibilita enum ("SI", "NO") not null,
-quantità int default 0,
-iva_prodotti float default 0.22,
-PRIMARY KEY (id_uova),
-FOREIGN KEY (id_dinosauro) REFERENCES dinosauro(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
 
 create table utente (
 id_utente varchar(255) primary key,
@@ -63,4 +45,14 @@ numero_civico varchar(255) not null
 create table amministratore (
 identificativo int auto_increment primary key,
 password varchar (255) not null
+);
+
+CREATE TABLE offerte (
+    id_offerta INT AUTO_INCREMENT PRIMARY KEY,
+    id_prodotto varchar (50),
+    descrizione VARCHAR(255) NOT NULL,
+    prezzo_scontato FLOAT NOT NULL,
+    data_inizio DATE NOT NULL,
+    data_fine DATE NOT NULL,
+    foreign key (id_prodotto) references prodotto (id_prodotto) ON DELETE SET NULL ON UPDATE CASCADE
 );
