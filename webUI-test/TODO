@@ -2,3 +2,13 @@ filtro dei prodotti:
 - prezzo 
 - alimentazione (erbivori / carnivori / cazzi e mazzi)
 - categoria (rettili / uccelli / e poi non so)
+
+
+amministratore:
+- aggiungere prodotti (prezzo - foto - descrizione)
+- cambiare il prezzo dei prodotti
+
+
+
+log-in e registrazione:
+- separati per comodità (è più facile adattare)
