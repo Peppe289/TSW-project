@@ -32,6 +32,7 @@ nav {
     background-color: #F4F5F5;
     overflow: hidden;
     font-family: 'Open Sans';
+    z-index: 20;
 }
 
 nav ul {
