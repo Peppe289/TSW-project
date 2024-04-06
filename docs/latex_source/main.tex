@@ -1,0 +1,263 @@
+\documentclass[a4paper, 11pt, oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=3cm, bindingoffset=1cm]{geometry}
+\usepackage[italian]{babel}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{array}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\linespread{1.7}
+\usepackage{url}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{comment}
+\usepackage[breaklinks]{hyperref}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{fancyhdr}
+\setlength{\parindent}{1cm}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ \uppercase{#1}}{}}
+\fancyhf{}
+\fancyhead[C]{\textbf{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\usepackage[Conny]{fncychap}
+
+\usepackage[demo]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{lmodern}  % for bold teletype font
+\usepackage{amsmath}  % for \hookrightarrow
+\usepackage{tabularx}
+\usepackage[backend=bibtex, style=authortitle-comp, natbib=true]{biblatex}
+\addbibresource{bib.bib}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{verdino}{HTML}{00AE45}
+\definecolor{biancosporco}{rgb}{245,245,245}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegray},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+\title{Appunti}
+\author{}
+\date{}
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top 
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+  
+  
+  
+\newcommand\summaryname{Abstract}
+\newenvironment{Abstract}%
+    {\small\begin{center}%
+    \bfseries{\summaryname} \end{center}}
+    
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+  
+\renewcommand\lstlistingname{Codice}
+\renewcommand\lstlistlistingname{Elenco dei codici}  
+  
+  
+\begin{document}
+% Frontespizio
+\begin{titlepage}
+    \begin{center}
+        \LARGE{\uppercase{\textbf{Università degli Studi di Salerno}}}\\
+        \vspace{5mm}
+        % Dipartimento
+        \fontsize{15}{14}\selectfont{\uppercase{Dipartimento di INFORMATICA}}\\
+    \end{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.45\textwidth]{immagini/logo_standard.png}
+    \end{figure}
+    
+    \begin{center}
+    	%Titolo
+        {\LARGE{\bf PROGRAMMAZIONE WEB}}\\
+        \fontsize{15}{14}\selectfont{\textbf{Website Design}}
+    	\vspace{5mm}
+    \end{center}
+
+    \begin{center}
+        {\Large \bfseries ``DinoStore''}
+    \end{center}
+   
+\noindent\begin{minipage}[t]{8cm}
+\flushleft
+\textsc{Docente}
+
+Prof. \textbf{Gennaro Costagliola} \\
+Prof. \textbf{Mattia De Rosa} \\
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}[t]{6cm}
+\flushright
+\textsc{Studenti}
+
+\textbf{Sorridi Generoso} \\
+Matricola: 05121 16784
+
+\textbf{Speranza Giuseppe} \\
+Matricola: 05121 16601
+
+\textbf{Zaino Alessandra} \\
+Matricola: 05121 16280
+\end{minipage}
+
+
+    
+    \vspace{15mm}
+    \noindent
+    
+    \vspace{20mm}
+    
+\centering    
+\normalsize Anno Accademico 2023-2024
+
+\end{titlepage}
+
+
+%Corpo della Tesi
+\tableofcontents
+\clearpage
+\sloppy
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 1
+%--------------------------------------------------------------------------------
+
+\input{Chapter1}
+
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 2
+%--------------------------------------------------------------------------------
+
+\input{Chapter2}
+
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 3
+%--------------------------------------------------------------------------------
+
+\input{Chapter3}
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 4
+%--------------------------------------------------------------------------------
+
+\input{Chapter4}
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 5
+%--------------------------------------------------------------------------------
+
+\input{Chapter5}
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 6
+%--------------------------------------------------------------------------------
+
+%\input{Chapter6}
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 6
+%--------------------------------------------------------------------------------
+
+\input{Chapter6}
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 7
+%--------------------------------------------------------------------------------
+
+\input{Chapter7}
+
+
+
+%--------------------------------------------------------------------------------
+%	CHAPTER 8
+%--------------------------------------------------------------------------------
+
+\input{Chapter8}
+
+
+
+
+\clearpage
+\nocite{*}
+\raggedright
+\clearpage
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+\clearpage
+
+
+
+\end{document}
+
