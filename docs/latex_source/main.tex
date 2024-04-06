@@ -1,4 +1,4 @@
-\documentclass[a4paper, 11pt, oneside]{book}
+\documentclass[a4paper, 11pt, onesid]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=3cm, bindingoffset=1cm]{geometry}
 \usepackage[italian]{babel}
@@ -15,11 +15,10 @@
 \usepackage{float}
 \usepackage{csquotes}
 \usepackage{subfig}
+\usepackage{graphicx}
 \usepackage{afterpage}
 \usepackage{fancyhdr}
 \setlength{\parindent}{1cm}
-\pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ \uppercase{#1}}{}}
 \fancyhf{}
 \fancyhead[C]{\textbf{\leftmark}}
 \fancyfoot[C]{\thepage}
@@ -27,22 +26,16 @@
 \renewcommand{\footrulewidth}{1pt}
 \usepackage[Conny]{fncychap}
 
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{listings}
-\usepackage{lmodern}  % for bold teletype font
-\usepackage{amsmath}  % for \hookrightarrow
-\usepackage{tabularx}
-\usepackage[backend=biber, style=authortitle-comp, natbib=true]{biblatex}
-\addbibresource{bib.bib}
-
+\begin{comment}
 \lstset{
   basicstyle=\ttfamily,
   columns=fullflexible,
   frame=single,
   breaklines=true,
   postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-}
+}    
+\end{comment}
+
 
 \usepackage{xcolor}
 
@@ -53,7 +46,8 @@
 \definecolor{verdino}{HTML}{00AE45}
 \definecolor{biancosporco}{rgb}{245,245,245}
 
-\lstdefinestyle{mystyle}{
+\begin{comment}
+    \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegray},
     keywordstyle=\color{magenta},
@@ -71,8 +65,8 @@
     showtabs=false,                  
     tabsize=2
 }
+\end{comment}
 
-\lstset{style=mystyle}
 
 
 \title{Appunti}
@@ -104,8 +98,7 @@
     \addtocounter{page}{-1}%
     \newpage}
   
-\renewcommand\lstlistingname{Codice}
-\renewcommand\lstlistlistingname{Elenco dei codici}  
+ 
   
   
 \begin{document}
@@ -183,7 +176,7 @@ Matricola: 05121 16280
 %	CHAPTER 1
 %--------------------------------------------------------------------------------
 
-\input{Chapter1}
+\input{OBIETTIVO DEL PROGETTO}
 
 
 
@@ -191,7 +184,7 @@ Matricola: 05121 16280
 %	CHAPTER 2
 %--------------------------------------------------------------------------------
 
-\input{Chapter2}
+\input{ANALISI DI SITI ESISTENTI}
 
 
 
@@ -199,21 +192,21 @@ Matricola: 05121 16280
 %	CHAPTER 3
 %--------------------------------------------------------------------------------
 
-\input{Chapter3}
+\input{FUNZIONALITA' DEL SITO}
 
 
 %--------------------------------------------------------------------------------
 %	CHAPTER 4
 %--------------------------------------------------------------------------------
 
-\input{Chapter4}
+\input{DIAGRAMMA NAVGAZIONALE}
 
 
 %--------------------------------------------------------------------------------
 %	CHAPTER 5
 %--------------------------------------------------------------------------------
 
-\input{Chapter5}
+\input{LAYOUT}
 
 
 %--------------------------------------------------------------------------------
@@ -227,14 +220,14 @@ Matricola: 05121 16280
 %	CHAPTER 6
 %--------------------------------------------------------------------------------
 
-\input{Chapter6}
+\input{SCELTA DEI COLORI}
 
 
 %--------------------------------------------------------------------------------
 %	CHAPTER 7
 %--------------------------------------------------------------------------------
 
-\input{Chapter7}
+%\input{Chapter7}
 
 
 
@@ -242,7 +235,7 @@ Matricola: 05121 16280
 %	CHAPTER 8
 %--------------------------------------------------------------------------------
 
-\input{Chapter8}
+\input{BASE DI DATI}
 
 
 
@@ -252,7 +245,7 @@ Matricola: 05121 16280
 \raggedright
 \clearpage
 \listoffigures
-\addcontentsline{toc}{chapter}{\listfigurename}
+%\addcontentsline{toc}{chapter}{\listfigurename}
 \clearpage
 
 
