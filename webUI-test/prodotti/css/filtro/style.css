@@ -1,0 +1,34 @@
+#filter {
+    background-color: #F4F5F5;
+    padding: 20px;
+    height: 100%;
+
+    /**
+     * Per fissare il filtro in alto quando si scorre
+     */
+    position: sticky;
+    top: 0px;
+}
+
+#filter,
+#filter h4 {
+    margin: 0px;
+}
+
+#filter h4 {
+    width: 180px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#filter input {
+    margin-left: 20px;
+}
+
+#filter input[type="submit"] {
+    border: none;
+    background-color: #3CB371;
+    color: white;
+    margin-top: 20px;
+    font-size: 12pt;
+}
