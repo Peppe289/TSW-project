@@ -1,4 +1,8 @@
 nav {
+    /**
+     * Il colore incide anche nell'icona di ricerca
+     * poiché quella non ha background.
+     */
     background-color: #F4F5F5;
     overflow: hidden;
     font-family: 'Open Sans';
@@ -187,7 +191,7 @@ nav li .curr-page {
 
 #mobile-bar .form-bar button,
 #mobile-bar .form-bar button img {
-    background-color: white;
+    background-color: #F4F5F5;
     border: none;
 }
 
@@ -195,63 +199,3 @@ nav li .curr-page {
 #mobile-bar .form-bar button {
     margin-bottom: 20px;
 }
-
-/*
-#mobile-bar {
-    height: 40px;
-    background-color: #00AE46;
-    padding: 10px;
-
-    /**
-     * In questo modo si metteranno automaticamente
-     * tutte le robe equamente distribuite su tutto
-     * il div che fa da barra
-     
-    display: flex;
-    justify-content: space-between;
-}
-
-#mobile-bar .open-btn {
-    cursor: pointer;
-    font-size: 24px;
-    color: #F4F5F5;
-    padding-right: 5px;
-
-    /* remove selectable text 
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-#mobile-bar img {
-    padding-left: 10px;
-}
-
-#mobile-bar {
-    display: flex;
-    justify-content: space-between;
-}
-
-#mobile-bar .form-bar * {
-    border: none;
-    outline: none;
-}
-
-#mobile-bar .form-bar input[type="text"],
-#mobile-bar .form-bar input[type="text"]:focus {
-    padding: 10px;
-    font-size: 16px;
-    width: 300px;
-}
-
-#mobile-bar .form-bar button,
-#mobile-bar .form-bar button img {
-    background: white;
-    border: none;
-    cursor: pointer;
-}
-
-#mobile-bar .form-bar button {
-    margin: 0;
-}
-*/
