@@ -81,7 +81,8 @@ nav li.left {
     float: left;
 }
 
-nav li a {
+nav li a,
+.dropdown .dropbtn {
     display: block;
     color: black;
     text-align: center;
