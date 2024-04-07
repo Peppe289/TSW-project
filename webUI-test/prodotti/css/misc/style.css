@@ -1,0 +1,74 @@
+#parent-cont {
+    /* Lista responsive */
+    display: flex;
+    flex-wrap: wrap;
+
+    overflow: hidden;
+}
+
+#parent-cont .item {
+    margin: 20px;
+    width: 300px;
+    text-decoration: none;
+    position: relative;
+}
+
+#parent-cont .item img {
+
+    /**
+     * Lascia un po' di spazio ai margini della foto
+     */
+    margin: 5px;
+    width: calc(100% - 10px);
+
+    /**
+     * Necessario per far uscire l'immagine
+     * sempre come un quadrato
+     */
+    height: 300px;
+    object-fit: contain;
+
+    background-color: #F4F5F5;
+}
+
+#parent-cont .item .item-desc {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+#parent-cont .item .item-desc * {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+}
+
+#parent-cont .item .item-desc .prezzo {
+    color: black;
+    font-size: 30px;
+}
+
+#parent-cont .item .off {
+    position: absolute;
+    background-color: red;
+    
+    height: 40px;
+    width: 80px;
+    text-align: center;
+    padding-bottom: 5px;
+
+    /**
+     * Rigurado la posizione: 
+     * max img size (300px) - height(40) = 260px
+     */
+    top: 260px;
+    /* Per considerare anche il padding */
+    right: 5px;
+    color: white;
+}
+
+@media only screen and (max-width: 900px) {
+    #parent-cont .item {
+        width: 100%;
+    }
+}
