@@ -10,6 +10,15 @@
     top: 0px;
 }
 
+#filter form {
+    display: flex;
+    flex-direction: column;
+}
+
+#filter form .single-table {
+    display: inline;
+}
+
 #filter,
 #filter h4 {
     margin: 0px;
