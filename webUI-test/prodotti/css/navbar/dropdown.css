@@ -20,8 +20,8 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
     background-color: transparent;
     color: black;
     margin: 0;
-    padding-top: 26px; 
-    padding-bottom: 25px;
+    padding-top: 24px;  
+    padding-bottom: 24px;
 }
 
 .navbar a:hover,
@@ -54,4 +54,16 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .dropdown, .dropbtn {
+        width: 100%;
+    }
+
+    .dropdown-content,
+    .dropdown-content a {
+        width: 100%;
+    }
 }
