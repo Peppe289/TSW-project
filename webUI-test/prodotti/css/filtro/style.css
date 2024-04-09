@@ -56,11 +56,15 @@
     font-size: 12pt;
 }
 
+#button-mobile-form-submit {
+    display: none;
+}
+
 @media screen and (max-width: 1000px) {
 
     #filter {
         position: relative;
-        overflow: scroll;
+        overflow-x: scroll;
         white-space: nowrap;
     }
 
