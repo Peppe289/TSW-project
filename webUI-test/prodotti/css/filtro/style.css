@@ -11,11 +11,17 @@
 }
 
 #filter form {
+    /**
+     * Per metterlo in colonna in modo responsivo.
+     * (non devo mettere <br> e posso adattare per mobile
+     * in questo modo).
+     */
     display: flex;
     flex-direction: column;
 }
 
 #filter form .single-table {
+    /* Il gruppo del form sta sulla stessa riga. */
     display: inline;
 }
 
@@ -38,10 +44,77 @@
     margin-left: 20px;
 }
 
+#filter label {
+    user-select: none;
+}
+
 #filter input[type="submit"] {
     border: none;
     background-color: #3CB371;
     color: white;
     margin-top: 20px;
     font-size: 12pt;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #filter {
+        position: relative;
+        overflow: scroll;
+        white-space: nowrap;
+    }
+
+    #filter form {
+        display: inline-block;
+        flex-direction: none;
+    }
+
+    #filter h4 {
+        display: none;
+    }
+
+    #filter input[type="checkbox"] {
+        display: none;
+    }
+
+    #filter label {
+        border: 1px solid rgb(184, 184, 184);
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    #filter input[type="checkbox"]:checked + label {
+        background-color: rgb(30, 255, 86);
+        color: #121212;
+    }
+
+    #filter form .single-table {
+        width: min-content;
+        margin: 0px;
+    }
+
+    #filter input[type="submit"] {
+        display: none;
+    }
+
+    #button-mobile-form-submit {
+        margin: 0px;
+        margin-top: 10px;
+        padding: 10px;
+        text-transform:uppercase;
+        width: calc(100% - 10px);
+        background-color: #3CB371;
+        border: none;
+        color: white;
+        margin-left: 5px;
+        margin-right: 5px;
+        /**
+         * Per mettere il bottone filtra sempre in basso all'ultima riga.
+         */
+        display: block;
+    }
+
+    #button-mobile-form-submit:hover {
+        cursor: pointer;
+    }
 }

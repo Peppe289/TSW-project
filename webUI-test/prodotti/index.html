@@ -23,6 +23,12 @@
     html {
         scroll-behavior: smooth
     }
+
+    @media screen and (min-width: 900px) {
+        #content-main {
+            display: flex;
+        }
+    }
 </style>
 
 <body style="margin: 0px; padding: 0">
@@ -96,48 +102,50 @@
     </div>
     <!-- end carosello -->
 
-    <div style="display: flex;">
+    <div id="content-main">
         <!-- filtro ricerca -->
         <div id="filter">
             <h4>Filtri di ricerca</h4>
-            <form action="">
+            <form id="filter-form" action="">
                 <h4>Ambiente</h4>
 
                 <div class="single-table">
-                    <input type="checkbox" name="terrestri">
+                    <input type="checkbox" id="terrestri" name="terrestri">
                     <label for="terrestri">Terrestri</label>
                 </div>
 
                 <div class="single-table">
-                    <input type="checkbox" name="volatili">
+                    <input type="checkbox" id="volatili" name="volatili">
                     <label for="volatili">Volatili</label>
                 </div>
 
                 <div class="single-table">
-                    <input type="checkbox" name="acquatici">
+                    <input type="checkbox" id="acquatici" name="acquatici">
                     <label for="acquatici">Acquatici</label>
                 </div>
 
                 <h4>Alimentazione</h4>
 
                 <div class="single-table">
-                    <input type="checkbox" name="carnivori">
+                    <input type="checkbox" id="carnivori" name="carnivori">
                     <label for="carnivori">Carnivori</label>
                 </div>
 
                 <div class="single-table">
-                    <input type="checkbox" name="onnivori">
+                    <input type="checkbox" id="onnivori" name="onnivori">
                     <label for="onnivori">Onnivori</label>
                 </div>
 
                 <div class="single-table">
-                    <input type="checkbox" name="erbivori">
+                    <input type="checkbox" id="erbivori" name="erbivori">
                     <label for="erbivori">Erbivori</label>
                 </div>
 
                 <input type="submit" value="filtra">
             </form>
         </div>
+        <button id="button-mobile-form-submit" type="submit" form="filter-form">Submit</button>
+
         <!-- end filtro ricerca-->
 
         <div id="parent-cont">
