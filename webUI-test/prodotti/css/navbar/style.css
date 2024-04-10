@@ -181,6 +181,7 @@ nav li .curr-page {
     display: flex;
 	align-items: center;
     padding-bottom: 10px;
+    z-index: 999999;
 }
 
 #mobile-bar .form-bar input[type="text"],
