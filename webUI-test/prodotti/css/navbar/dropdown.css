@@ -11,10 +11,6 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
     overflow: hidden;
 }
 
-.dropdown {
-    margin: 0;
-}
-
 .dropdown .dropbtn {
     border: none;
     background-color: transparent;
