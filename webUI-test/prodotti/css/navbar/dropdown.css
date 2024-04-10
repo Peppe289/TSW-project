@@ -19,9 +19,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
     border: none;
     background-color: transparent;
     color: black;
-    margin: 0;
-    padding-top: 24px;  
-    padding-bottom: 24px;
+    height: 100%;
 }
 
 .navbar a:hover,
@@ -31,11 +29,15 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 }
 
 .dropdown-content {
-    display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     z-index: 1;
+
+    /* Aggiungi l'animazione per il dropdown */
+    height: 0px;
+    overflow: hidden;
+    transition: height 1s ease;
 }
 
 .dropdown-content a {
@@ -53,9 +55,8 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+    height: 150px;
 }
-
 
 @media screen and (max-width: 1000px) {
     .dropdown, .dropbtn {
