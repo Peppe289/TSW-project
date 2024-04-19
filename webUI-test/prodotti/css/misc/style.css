@@ -72,3 +72,9 @@
         width: 100%;
     }
 }
+
+@media screen and (min-width: 900px) {
+    #content-main {
+        display: flex;
+    }
+}
