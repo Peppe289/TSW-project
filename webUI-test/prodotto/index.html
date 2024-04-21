@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="css/navbar/style.css">
+    <link rel="stylesheet" href="css/navbar/dropdown.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
+</head>
+<style>
+
+    body {
+        margin: 0px;
+    }
+
+    #container {
+        display: flex;
+    }
+
+    #img-container {
+        margin: 20px;
+        height: 200px;
+        width: 200px;
+        border: 2px solid rgb(170, 170, 170);
+    }
+
+    #img-container img {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .some-photo {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #view-container .some-photo {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    #view-container .some-photo img {
+        width: 50px;
+        border: 1px solid rgb(177, 177, 177);
+        padding: 5px;
+        cursor: pointer;
+        margin: 2px;
+    }
+
+    #view-container .some-photo img:hover {
+        border: 1px solid rgb(90, 90, 90);
+    }
+
+    #description h1 {
+        margin: 20px;
+        font-size: 25px;
+        font-family: 'Open Sans';
+    }
+
+    @media screen and (max-width: 600px) {
+        #container {
+            flex-direction: column;
+        }
+
+        #img-container {
+            width: calc(100%  - 40px);
+        }
+    }
+
+</style>
+<body>
+    <!-- nav bar stuff -->
+    <div id="mobile-bar">
+        <img src="img/solo_logo.png">
+        <form class="form-bar" action="search">
+            <input type="text">
+            <button><img src="img/search_ico.png"></button>
+        </form>
+        <div class="open-btn" onclick="openNav()">☰</div>
+    </div>
+
+    <nav id="navbar">
+        <ul>
+            <!-- il logo si nasconde quando siamo da mobile -->
+            <li class="logo"><img src="img/logo.png"></li>
+            <li><a class="curr-page" href="#">Home</a></li>
+            <li><a class="" href="#">Offerte</a></li>
+            <li><a class="" href="#">Categorie</a></li>
+            <li><a class="" href="#">Prodotti</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Area Utente
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Carrello</a>
+                        <a href="#">Log out</a>
+                        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">RickRoll</a>
+                    </div>
+                </div>
+            </li>
+            <li></li>
+            <form class="form-bar" action="search">
+                <input type="text">
+                <button><img src="img/search_ico.png"></button>
+            </form>
+        </ul>
+    </nav>
+    <!-- end nav bar stuff -->
+
+    <div id="container">
+        <div id="view-container">
+            <div id="img-container">
+                 <!-- l'immagina viene caricata dopo da js -->
+                <img id="img-main">
+            </div>
+            <div class="some-photo">
+                <img class="preview-img" onclick="changeit(this.src)" src="img/solo_logo.png">
+                <img class="preview-img" onclick="changeit(this.src)" src="img/search_ico.png">
+            </div>
+        </div>
+        <div id="description">
+            <h1>Titolo del prodotto</h1>
+        </div>
+    </div>
+</body>
+<footer>
+
+</footer>
+<script src="js/navbar/move.js"></script>
+<script>
+    /* carica di default la prima immagine dalla lista della preview */
+    document.getElementById("img-main").src = document.getElementsByClassName("preview-img")[0].src;
+
+    /* funzinoe per cambiare immagine dalla preview */
+    function changeit(path) {
+        var img = document.getElementById("img-main");
+        img.src = path;
+    }
+</script>
+</html>
