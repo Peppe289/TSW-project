@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" href="css/navbar/style.css">
     <link rel="stylesheet" href="css/navbar/dropdown.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
@@ -88,6 +89,22 @@
             height: 300px;
         }
     }
+
+    input[type="submit"] {
+        background-color: white;
+        border: 2px solid #3CB371;
+        color: #3CB371;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #3CB371;
+        color: white;
+    }
+
 </style>
 
 <body>
@@ -149,6 +166,9 @@
                 Duis dolore in consectetur qui exercitation magna eiusmod voluptate.
                 Eu sint irure officia ea sunt.
             </p>
+            <form action="">
+                <input type="submit" value="Aggiungi al carrello">
+            </form>
         </div>
     </div>
 </body>
