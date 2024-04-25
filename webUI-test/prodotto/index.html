@@ -5,107 +5,12 @@
 
     <link rel="stylesheet" href="css/navbar/style.css">
     <link rel="stylesheet" href="css/navbar/dropdown.css">
+    <link rel="stylesheet" href="css/page/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
 </head>
-<style>
-    body {
-        margin: 0px;
-    }
-
-    #container {
-        display: flex;
-        margin-left: 15%;
-        margin-right: 15%;
-    }
-
-    #view-container {
-        width: 40%;
-        min-width: 400px;
-    }
-
-    #img-container {
-        margin: 20px;
-        border: 2px solid rgb(170, 170, 170);
-    }
-
-    #img-container img {
-        margin: 0px;
-        /**
-         * Fai in modo che l'immagine copra tutto lo spazio
-         * centrale senza che cambia ratio.
-         */
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-    }
-
-    #view-container .some-photo {
-        margin-left: 20px;
-        margin-right: 20px;
-        /* per far si che i div sulla nuova riga si posizionino a sinistra */
-        justify-content: flex-start;
-        display: flex;
-        flex-wrap: wrap;
-        /* per eventuali rapporti ratio diversi */
-        overflow: hidden;
-    }
-
-    #view-container .some-photo img {
-        width: 50px;
-        border: 1px solid rgb(177, 177, 177);
-        padding: 5px;
-        cursor: pointer;
-        margin: 2px;
-    }
-
-    #view-container .some-photo img:hover {
-        border: 1px solid rgb(90, 90, 90);
-    }
-
-    #description * {
-        margin: 20px;
-        font-family: 'Open Sans';
-    }
-
-    #description h1 {
-        font-size: 35px;
-    }
-
-    @media screen and (max-width: 1000px) {
-        #container {
-            flex-direction: column;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-
-        #view-container {
-            width: 100%;
-        }
-
-        #img-container {
-            height: 300px;
-        }
-    }
-
-    input[type="submit"] {
-        background-color: white;
-        border: 2px solid #3CB371;
-        color: #3CB371;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: 0.3s;
-        font-weight: bold;
-    }
-
-    input[type="submit"]:hover {
-        background-color: #3CB371;
-        color: white;
-    }
-
-</style>
 
 <body>
     <!-- nav bar stuff -->
@@ -160,12 +65,16 @@
         </div>
         <div id="description">
             <h1>Titolo del prodotto</h1>
-            <p>
+            <p class="paragraph-desc">
                 Anim nostrud ipsum aute non do officia fugiat minim ea quis eu eiusmod enim.
                 Ullamco incididunt sint ex minim velit mollit occaecat veniam.
                 Duis dolore in consectetur qui exercitation magna eiusmod voluptate.
                 Eu sint irure officia ea sunt.
             </p>
+            <div class="price">
+                <p>4000€</p>
+                <s>5000€</s>
+            </div>
             <form action="">
                 <input type="submit" value="Aggiungi al carrello">
             </form>
