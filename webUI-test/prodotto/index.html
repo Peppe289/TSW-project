@@ -6,11 +6,24 @@
     <link rel="stylesheet" href="css/navbar/style.css">
     <link rel="stylesheet" href="css/navbar/dropdown.css">
     <link rel="stylesheet" href="css/page/style.css">
+    <link rel="stylesheet" href="css/footer/style.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
 </head>
+<style>
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+</style>
 
 <body>
     <!-- nav bar stuff -->
@@ -81,9 +94,33 @@
         </div>
     </div>
 </body>
-<footer>
 
+<footer>
+    <div id="footer">
+        <ul>
+            <li>Contattaci</li>
+            <li><a href="#">Email</a></li>
+            <li><a href="#">Altre cose</a></li>
+        </ul>
+
+        <ul>
+            <li>Chi siamo</li>
+            <li><a href="#">3 tizi</a></li>
+        </ul>
+
+        <ul>
+            <li>Pagamenti tramite</li>
+            <li>GPay</li>
+            <li>VISA</li>
+            <li>Altre cose</li>
+            <li>L'importante è pagare</li>
+        </ul>
+    </div>
+    <div id="disclamer">
+        <p>Sito creato per progetto universitario</p>
+    </div>
 </footer>
+
 <script src="js/navbar/move.js"></script>
 <script>
     /* carica di default la prima immagine dalla lista della preview */

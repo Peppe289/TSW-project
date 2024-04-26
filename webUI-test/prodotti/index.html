@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/carosello/style.css">
     <link rel="stylesheet" href="css/filtro/style.css">
     <link rel="stylesheet" href="css/misc/style.css">
+    <link rel="stylesheet" href="css/footer/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
@@ -22,6 +23,16 @@
      */
     html {
         scroll-behavior: smooth
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    footer {
+        margin-top: auto;
     }
 </style>
 
@@ -208,7 +219,29 @@
 
 </body>
 <footer>
-    
+    <div id="footer">
+        <ul>
+            <li>Contattaci</li>
+            <li><a href="#">Email</a></li>
+            <li><a href="#">Altre cose</a></li>
+        </ul>
+
+        <ul>
+            <li>Chi siamo</li>
+            <li><a href="#">3 tizi</a></li>
+        </ul>
+
+        <ul>
+            <li>Pagamenti tramite</li>
+            <li>GPay</li>
+            <li>VISA</li>
+            <li>Altre cose</li>
+            <li>L'importante è pagare</li>
+        </ul>
+    </div>
+    <div id="disclamer">
+        <p>Sito creato per progetto universitario</p>
+    </div>
 </footer>
 
 <script src="js/carosello/move.js"></script>
