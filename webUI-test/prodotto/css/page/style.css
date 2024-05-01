@@ -48,8 +48,11 @@
     border: 1px solid rgb(90, 90, 90);
 }
 
-#description * {
+#description {
     margin: 20px;
+}
+
+#description * {
     font-family: 'Open Sans';
 }
 
@@ -91,7 +94,6 @@ input[type="submit"]:hover {
 .price {
     display: flex;
     flex-direction: row;
-
 }
 
 .price p {
@@ -104,7 +106,7 @@ input[type="submit"]:hover {
 .price s {
     padding: 0px;
     margin: 0px;
-    margin-left: 10px;
+    margin-left: 20px;
     font-style: italic;
     font-size: small;
 }
