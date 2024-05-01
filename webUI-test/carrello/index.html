@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="css/navbar/style.css">
+    <link rel="stylesheet" href="css/navbar/dropdown.css">
+    <link rel="stylesheet" href="css/footer/style.css">
+    <link rel="stylesheet" href="css/page/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
+    <title>DinoStore - Carrello</title>
+
+</head>
+<style>
+    /* serve per far stare il footer in basso */
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+</style>
+
+<body>
+    <!-- nav bar stuff -->
+    <div id="mobile-bar">
+        <img src="img/solo_logo.png">
+        <form class="form-bar" action="search">
+            <input type="text">
+            <button><img src="img/search_ico.png"></button>
+        </form>
+        <div class="open-btn" onclick="openNav()">☰</div>
+    </div>
+
+    <nav id="navbar">
+        <ul>
+            <!-- il logo si nasconde quando siamo da mobile -->
+            <li class="logo"><img src="img/logo.png"></li>
+            <li><a class="" href="#">Home</a></li>
+            <li><a class="" href="#">Offerte</a></li>
+            <li><a class="" href="#">Categorie</a></li>
+            <li><a class="" href="#">Prodotti</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Area Utente
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Carrello</a>
+                        <a href="#">Log out</a>
+                        <a href="#">Ordini</a>
+                        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">RickRoll</a>
+                    </div>
+                </div>
+            </li>
+            <li></li>
+            <form class="form-bar" action="search">
+                <input type="text">
+                <button><img src="img/search_ico.png"></button>
+            </form>
+        </ul>
+    </nav>
+    <!-- end nav bar stuff -->
+
+    <div id="container">
+        <div id="left-div">
+            Occaecat laborum tempor id amet velit laborum nostrud voluptate ut veniam.
+        </div>
+        <div id="right-div">
+            <div id="dati-ordine">
+                <p>Totale Carrello</p>
+                <hr>
+                <p class="uppercase">spedizione</p>
+                <div id="indirizzo">
+                    <form action="indirizzo">
+                        <input type="text" style="display: none;" readonly value="id_indirizzo">
+                    </form>
+
+                    <!-- in caso non ci sono indirizzi registrati non far vedere nulla qui -->
+                    <p>Via, qualcosa 2</p>
+                    <!-- -->
+                    <button onclick="openMenu()">Modifica indirizzo</button>
+                    <div id="openMenu">
+                        <div id="menu-indirizzi">
+                            <div>
+                                <h2>Scegli l'indirizzo</h2>
+                                <!-- codifica della X -->
+                                <button id="exit-menu" onclick="openMenu()">&#x2715;</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button onclick="useThis(0)">usa questo indirizzo</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button>usa questo indirizzo</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button>usa questo indirizzo</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button>usa questo indirizzo</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button>usa questo indirizzo</button>
+                            </div>
+                            <div class="menu-item">
+                                <div>
+                                    <p>Nome Cognome</p>
+                                    <p>Indirizzo</p>
+                                </div>
+                                <button>usa questo indirizzo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="uppercase" id="totale-prezzo">
+                    <p>totale</p>
+                    <p>30€</p>
+                </div>
+                <button form="indirizzo">Prodcedi con l'ordine</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div id="footer">
+            <ul>
+                <li>Contattaci</li>
+                <li><a href="#">Email</a></li>
+                <li><a href="#">Altre cose</a></li>
+            </ul>
+
+            <ul>
+                <li>Chi siamo</li>
+                <li><a href="#">3 tizi</a></li>
+            </ul>
+
+            <ul>
+                <li>Pagamenti tramite</li>
+                <li>GPay</li>
+                <li>VISA</li>
+                <li>Altre cose</li>
+                <li>L'importante è pagare</li>
+            </ul>
+        </div>
+        <div id="disclamer">
+            <p>Sito creato per progetto universitario</p>
+        </div>
+    </footer>
+</body>
+<script src="js/navbar/move.js"></script>
+<script>
+
+    var isOpen = false;
+    var menu = document.getElementById("openMenu").classList;
+    function openMenu() {
+
+        if (!isOpen) {
+            menu.remove("hide");
+        } else {
+            menu.add("hide");
+        }
+
+        isOpen = !isOpen;
+    }
+
+</script>
+
+</html>
