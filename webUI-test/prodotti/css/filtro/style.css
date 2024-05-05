@@ -83,13 +83,12 @@
 
     #filter label {
         border: 1px solid rgb(184, 184, 184);
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 5px;
     }
 
     #filter input[type="checkbox"]:checked + label {
-        background-color: rgb(30, 255, 86);
-        color: #121212;
+        background-color: rgb(60, 134, 78);
+        color: #ffffff;
     }
 
     #filter form .single-table {
