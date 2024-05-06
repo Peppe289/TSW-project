@@ -90,19 +90,26 @@
                     <button onclick="openMenu()">Modifica indirizzo</button>
                     <div id="openMenu" class="hide">
                         <div id="menu-indirizzi">
-                            <div>
-                                <h2>Scegli l'indirizzo</h2>
-                                <!-- codifica della X -->
-                                <button id="exit-menu" onclick="openMenu()">&#x2715;</button>
+                            <div id="title">
+                                <h1>Scegli l'indirizzo</h1>
+                                <button onclick="openMenu()">&#x2715;</button>
                             </div>
-                            <div class="menu-item">
-                                <div>
-                                    <p>Nome Cognome</p>
-                                    <p>Indirizzo</p>
-                                </div>
-                                <!--DA CAPIRE COME IMPLEMENTARE -->
-                                <button onclick="useThis(0)">usa questo indirizzo</button>
+                            <div id="container-addr">
+                                <form action="" id="address-form">
+                                    <div class="list-address">
+                                        <input type="radio" id="addr1" name="address" value="addr1">
+                                        <label for="addr2" class="address-info"
+                                            onclick="changeSelect('addr1')">Indirizzo 1</label>
+                                    </div>
+                                    <div class="list-address">
+                                        <input type="radio" id="addr2" name="address" value="addr2">
+                                        <label for="addr2" class="address-info"
+                                            onclick="changeSelect('addr2')">Indirizzo 2</label>
+                                    </div>
+                                </form>
                             </div>
+                            <button class="submit" form="address-form" value="submit" type="submit">Usa questo
+                                indirizzo</button>
                         </div>
                     </div>
                 </div>
@@ -156,6 +163,9 @@
         }
 
         isOpen = !isOpen;
+    }
+
+    function changeSelect(id) {
     }
 
 </script>
