@@ -42,28 +42,24 @@ nav {
     height: 45px;
 }
 
-.form-bar button,
+.form-bar button {
+    border: none;
+    background: none;
+    height: 45px;
+    width: 45px;
+    margin: 0px;
+    padding: 0px;
+}
+
 .form-bar button img {
     background: none;
-    border: none;
     cursor: pointer;
     width: 45px;
     height: 45px;
-    padding: 0;
-}
-
-.form-bar button img {
     padding: 10px;
-}
-
-/* Per fare l'effetto del bottone di ricerca unito al input text */
-.form-bar button img {
     border: 2px solid #3CB371;
     box-sizing: border-box;
     border-left: none;
-}
-
-.form-bar button {
     margin: 0 20px 0 0;
 }
 
@@ -125,6 +121,17 @@ nav li .curr-page {
 }
 
 @media screen and (max-width: 1000px) {
+
+    .form-bar button img {
+        width: 46px;
+        height: 46px;
+    }
+
+    .form-bar button {
+        padding: 0px;
+        margin: 0px;
+    }
+
     .logo {
         display: none;
     }
