@@ -18,9 +18,9 @@ INSERT INTO prodotto (id_prodotto, nome, descrizione, prezzo, disponibilita, qua
 ('GM', 'Guizaglio medio', 'Guinzaglio in pelle per dinosauro di taglia media', 20.00, 'SI', 15, NULL, NULL),
 ('GG', 'Guinzaglio gigante', 'Guinzaglio robusto per dinosauro gigante', 30.00, 'SI', 10, NULL, NULL);
 
-INSERT INTO utente (id_utente, password_utente, nome, cognome, email) VALUES 
-('MR1', 'ciao1', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
-('CE1', 'sole2', 'Ciro', 'Esposito', 'ciro.esposito@gmail.com');
+INSERT INTO utente (password_utente, nome, cognome, email) VALUES 
+('ciao1', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
+('sole2', 'Ciro', 'Esposito', 'ciro.esposito@gmail.com');
 
 INSERT INTO indirizzo_spedizione (nome, cognome, cf, via, cap, provincia, comune, numero_civico) VALUES
 ('Mario', 'Rossi', 'RSSMRA80M07L219U','via Roma', '10024', 'TO', 'Torino', '3' ),
@@ -30,9 +30,9 @@ INSERT INTO amministratore (password) VALUES
 ('admin1'),
 ('admin2');
 
-INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto, id_utente) VALUES
-('35.5','UTR, BR','2024-01-20', 'MR1'),
-('26','UTC, TC','2024-03-15', 'CE1');
+INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto) VALUES
+('35.5','UTR, BR','2024-01-20'),
+('26','UTC, TC','2024-03-15');
 
 INSERT INTO offerte (descrizione, prezzo_scontato, data_inizio, data_fine) 
 VALUES 
