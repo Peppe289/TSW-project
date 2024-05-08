@@ -21,7 +21,7 @@ id_utente int auto_increment primary key,
 password_utente varchar(255) not null,
 nome varchar(255) not null,
 cognome varchar(255) not null, 
-email varchar(255) not null
+email varchar(255) not null unique
 );
 
 create table ordini (

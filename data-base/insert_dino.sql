@@ -1,6 +1,6 @@
 USE ecommerce;
 
-INSERT INTO prodotto (id_prodotto, nome, descrizione, prezzo, disponibilita, quantita, alimentazione, categoria) VALUES
+INSERT INTO prodotto (id_categoria, nome, descrizione, prezzo, disponibilita, quantita, alimentazione, categoria) VALUES
 ('TR','T-rex', 'predatore gigantesco e uno dei più famosi dinosauri carnivori. Si ritiene che cacciasse grandi erbivori', 21.00,'SI', 30, 'carnivoro', 'rettile'),
 ('BR','Brachiosauro', 'Il Brachiosaurus era un grande dinosauro erbivoro caratterizzato dal lungo collo e le zampe anteriori più lunghe delle zampe posteriori.',25.50,  'SI', 25,'erbivoro', 'rettile'),
 ('ST', 'Stegosauro', 'Aveva piccoli denti piatti adatti a triturare il materiale vegetale.', 18.00,  'SI', 38, 'erbivoro','rettile'),
@@ -19,8 +19,8 @@ INSERT INTO prodotto (id_prodotto, nome, descrizione, prezzo, disponibilita, qua
 ('GG', 'Guinzaglio gigante', 'Guinzaglio robusto per dinosauro gigante', 30.00, 'SI', 10, NULL, NULL);
 
 INSERT INTO utente (password_utente, nome, cognome, email) VALUES 
-('ciao1', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
-('sole2', 'Ciro', 'Esposito', 'ciro.esposito@gmail.com');
+(sha1('ciao1'), 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
+(sha1('sole2'), 'Ciro', 'Esposito', 'ciro.esposito@gmail.com');
 
 INSERT INTO indirizzo_spedizione (nome, cognome, cf, via, cap, provincia, comune, numero_civico) VALUES
 ('Mario', 'Rossi', 'RSSMRA80M07L219U','via Roma', '10024', 'TO', 'Torino', '3' ),
