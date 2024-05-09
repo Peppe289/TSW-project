@@ -15,7 +15,23 @@ public class ConnectionService {
     private static DataSource datasource;
 
     public static Connection getConnection() throws SQLException {
-        return getConnection("ecommerce", "root", "12345678");
+
+        /**
+         * Prendi la variabile d'ambiente per recuperare la password e il nome del database.
+         * In questo modo non dobbiamo esporre la password nel progetto (la variabile di ambiente è locale).
+         * Se la variabile di ambiente non è presente allora metti una password di default.
+         *
+         * Possiamo avere password e username differenti senza concorrenza sulla history di git.
+         */
+        String env_password = System.getenv("PASSWORD_DB");
+        if (env_password == null)
+            env_password = "12345678";
+
+        String env_user = System.getenv("USER_DB");
+        if (env_user == null)
+            env_user = "root";
+
+        return getConnection("ecommerce", env_user, env_password);
     }
 
     /**
