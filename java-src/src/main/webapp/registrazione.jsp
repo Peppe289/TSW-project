@@ -1,14 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DinoStore - Log in</title>
+    <title>DinoStore - Registrazione</title>
 </head>
 <style>
+    /**
+     * CSS riciclato da login
+     */
     body {
         display: flex;
         justify-content: center;
@@ -33,10 +35,10 @@
         margin: 10px;
     }
 
-    input[type="text"]:focus + label,
-    input[type="text"]:valid + label,
-    input[type="password"]:focus + label,
-    input[type="password"]:valid + label {
+    input[type="text"]:focus+label,
+    input[type="text"]:valid+label,
+    input[type="password"]:focus+label,
+    input[type="password"]:valid+label {
         top: -10px;
         font-size: 12px;
         color: #3CB371;
@@ -102,26 +104,30 @@
 </style>
 
 <body>
-<div id="content">
-    <img src="img/login-ico.png">
-    <form id="login" action="loginServlet" method="post">
-        <div class="input">
-            <input type="text" name="email" id="email" required>
-            <label>Email</label>
-        </div>
-        <div class="input">
-            <input type="password" name="password" id="password" required>
-            <label>Password</label>
-        </div>
-    </form>
-    <c:if test="${message}">
-        <p style="color: red; margin: 4px; padding: 0;">${message}</p>
-    </c:if>
+    <div id="content">
+        <img src="img/login-ico.png">
+        <form id="registrazione" action="loginServlet" method="post">
+            <div class="input">
+                <input type="text" name="nome" id="nome" required>
+                <label>Nome</label>
+            </div>
+            <div class="input">
+                <input type="text" name="cognome" id="cognome" required>
+                <label>Cognome</label>
+            </div>
+            <div class="input">
+                <input type="text" name="email" id="email" required>
+                <label>Email</label>
+            </div>
+            <div class="input">
+                <input type="password" name="password" id="password" required>
+                <label>Password</label>
+            </div>
+        </form>
 
-    <button form="login">Log in</button>
-    <button onclick="location.href='registrazione.jsp'">Registrati</button>
-    <br><a href="#">Password dimenticata?</a>
-</div>
+        <button form="registrazione">Registrati</button>
+        <button onclick="location.href='login.jsp'">Accedi</button>
+    </div>
 </body>
 
 </html>

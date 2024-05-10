@@ -22,9 +22,11 @@ public class LoginServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
-        String passowrd = req.getParameter("password");
+        String password = req.getParameter("password");
+        String nome = req.getParameter("nome");
+        String cognome = req.getParameter("cognome");
 
-        if (email == null || passowrd == null) {
+        if (email == null || password == null) {
             throw new ServletException("Nome and password are required");
         }
 
@@ -32,12 +34,28 @@ public class LoginServlet extends HttpServlet {
         /**
          * Se il ritorno è null allora non è stato trovato nessun utente con queste caratteristiche.
          * Se il ritorno non è null allora siamo riusciti a creare l'oggetto User.
+         * 
+         * NOTE:    Se anche i dati come nome e cognome sono null allora siamo in login.
+         *          Se invece questi campi non sono null, siamo nella registrazione.
+         * 
+         * Il ritorno null di user indica che non è stato strovato alcun utente con quelle
+         * credenziali.
          */
-        User user = userDAO.doRetrieveUser(email, passowrd);
-        if (user == null) {
+        User user = userDAO.doRetrieveUser(email, password);
+        if (user == null && (nome == null || cognome == null)) {
+            /* errore nel login */
             req.setAttribute("message", "Password o email errati");
             RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
             rd.forward(req, resp);
+        } else if (user == null) {
+            /* effettua registrazione dell'utente */
+            user = new User();
+            user.setEmail(email);
+            user.setNome(nome);
+            user.setCognome(cognome);
+            /* inserisci nel database il nuovo utente e ritorna l'id che il database ha assegnato a questo utente */
+            String id = userDAO.insertInDatabase(nome, cognome, password, email);
+            user.setId(id);
         }
 
         req.getSession().setAttribute("user", user);
