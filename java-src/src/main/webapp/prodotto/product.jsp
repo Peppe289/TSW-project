@@ -11,6 +11,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
+    <title>DinoStore - Prodotto</title>
+
 </head>
 <style>
     /* serve per far stare il footer in basso */
