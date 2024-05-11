@@ -23,8 +23,7 @@ public class UserDAO {
         User utente = null;
         List<User> users = new ArrayList<User>();
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps =
-                    con.prepareStatement("SELECT id_utente, nome, cognome, email FROM utente WHERE email=? AND password_utente=SHA1(?)");
+            PreparedStatement ps = con.prepareStatement("SELECT id_utente, nome, cognome, email FROM utente WHERE email=? AND password_utente=SHA1(?)");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -45,8 +44,7 @@ public class UserDAO {
     public String insertInDatabase(String nome, String cognome, String password, String email) throws SQLException {
         User user = null;
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps =
-                con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
+        PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
         ps.setString(1, nome);
         ps.setString(2, cognome);
         ps.setString(3, email);

@@ -10,13 +10,11 @@ import org.dinosauri.dinosauri.model.User;
 import org.dinosauri.dinosauri.model.UserDAO;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 /**
  * Con il metodo post al login/registazione i dati vengono passati in questa
  * servlet che si occupa di validare la sessione ed aggiungere informazioni personali.
- *
  * Inoltre si occupa di gestire anche il database per la parte utente.
  */
 @WebServlet("/loginServlet")
@@ -36,10 +34,10 @@ public class LoginServlet extends HttpServlet {
         /**
          * Se il ritorno è null allora non è stato trovato nessun utente con queste caratteristiche.
          * Se il ritorno non è null allora siamo riusciti a creare l'oggetto User.
-         * 
+         *
          * NOTE:    Se anche i dati come nome e cognome sono null allora siamo in login.
          *          Se invece questi campi non sono null, siamo nella registrazione.
-         * 
+         *
          * Il ritorno null di user indica che non è stato strovato alcun utente con quelle
          * credenziali.
          */

@@ -24,12 +24,10 @@ public class ConnectionService {
          * Possiamo avere password e username differenti senza concorrenza sulla history di git.
          */
         String env_password = System.getenv("PASSWORD_DB");
-        if (env_password == null)
-            env_password = "12345678";
+        if (env_password == null) env_password = "12345678";
 
         String env_user = System.getenv("USER_DB");
-        if (env_user == null)
-            env_user = "root";
+        if (env_user == null) env_user = "root";
 
         return getConnection("ecommerce", env_user, env_password);
     }
