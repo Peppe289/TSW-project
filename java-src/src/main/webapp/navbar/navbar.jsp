@@ -331,7 +331,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
                         <c:when test="${not empty user}">
-                            <a href="#">Log out</a>
+                            <a href="${pageContext.request.contextPath}/logout">Log out</a>
                             <a href="#">Ordini</a>
                         </c:when>
                         <c:otherwise>
