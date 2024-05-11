@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/page/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
@@ -40,34 +40,34 @@
 
 <body>
 <jsp:include page="../navbar/navbar.jsp"/>
-    <div id="container">
-        <div id="view-container">
-            <div id="img-container">
-                <!-- l'immagina viene caricata dopo da js -->
-                <img id="img-main">
-            </div>
-            <div class="some-photo">
-                <img class="preview-img" onclick="changeit(this.src, this)" src="img/solo_logo.png">
-                <img class="preview-img" onclick="changeit(this.src, this)" src="img/search_ico.png">
-            </div>
+<div id="container">
+    <div id="view-container">
+        <div id="img-container">
+            <!-- l'immagina viene caricata dopo da js -->
+            <img id="img-main">
         </div>
-        <div id="description">
-            <h1>Titolo del prodotto</h1>
-            <p class="paragraph-desc">
-                Anim nostrud ipsum aute non do officia fugiat minim ea quis eu eiusmod enim.
-                Ullamco incididunt sint ex minim velit mollit occaecat veniam.
-                Duis dolore in consectetur qui exercitation magna eiusmod voluptate.
-                Eu sint irure officia ea sunt.
-            </p>
-            <div class="price">
-                <p>4000€</p>
-                <s>5000€</s>
-            </div>
-            <form action="">
-                <input type="submit" value="Aggiungi al carrello">
-            </form>
+        <div class="some-photo">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="img/solo_logo.png">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="img/search_ico.png">
         </div>
     </div>
+    <div id="description">
+        <h1>Titolo del prodotto</h1>
+        <p class="paragraph-desc">
+            Anim nostrud ipsum aute non do officia fugiat minim ea quis eu eiusmod enim.
+            Ullamco incididunt sint ex minim velit mollit occaecat veniam.
+            Duis dolore in consectetur qui exercitation magna eiusmod voluptate.
+            Eu sint irure officia ea sunt.
+        </p>
+        <div class="price">
+            <p>4000€</p>
+            <s>5000€</s>
+        </div>
+        <form action="">
+            <input type="submit" value="Aggiungi al carrello">
+        </form>
+    </div>
+</div>
 
 <jsp:include page="../footer/footer.jsp"/>
 </body>
