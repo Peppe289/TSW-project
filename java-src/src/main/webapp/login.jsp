@@ -114,7 +114,8 @@
             <label>Password</label>
         </div>
     </form>
-    <c:if test="${message}">
+
+    <c:if test="${not empty message}">
         <p style="color: red; margin: 4px; padding: 0;">${message}</p>
     </c:if>
 
