@@ -11,6 +11,12 @@
 </head>
 
 <body>
+
+<!-- Nel caso in cui l'utente sia già loggato fai un redirect verso la pagina di index. -->
+<c:if test="${not empty user}" >
+    <c:redirect url="index.jsp"/>
+</c:if>
+
 <div id="content">
     <img src="img/login-ico.png">
     <form id="registrazione" action="loginServlet" method="post">
