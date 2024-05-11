@@ -10,6 +10,8 @@ import org.dinosauri.dinosauri.model.User;
 import org.dinosauri.dinosauri.model.UserDAO;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 /**
  * Con il metodo post al login/registazione i dati vengono passati in questa
@@ -53,9 +55,31 @@ public class LoginServlet extends HttpServlet {
             user.setEmail(email);
             user.setNome(nome);
             user.setCognome(cognome);
-            /* inserisci nel database il nuovo utente e ritorna l'id che il database ha assegnato a questo utente */
-            String id = userDAO.insertInDatabase(nome, cognome, password, email);
-            user.setId(id);
+            String id;
+            try {
+                /* inserisci nel database il nuovo utente e ritorna l'id che il database ha assegnato a questo utente */
+                id = userDAO.insertInDatabase(nome, cognome, password, email);
+                user.setId(id);
+            } catch (SQLException e) {
+                /**
+                 * Errore nella registrazione
+                 *
+                 * cattura l'errore, prendi il messaggio e controlla il motivo del messaggio.
+                 * L'email è unique, quindi se qualcuno si registra con un'altra email nel messaggio
+                 * sarà presente "Duplicate entry" quindi è un errore relativo all'utente.
+                 * Per qualsiasi altro errore gestisci in modo diverso.
+                 */
+                String message = e.getMessage();
+                if (message.contains("Duplicate entry")) {
+                    /* l'errore è relativo alla email già presente */
+                    req.setAttribute("message", "Email già esistente");
+                    RequestDispatcher rd = req.getRequestDispatcher("registrazione.jsp");
+                    rd.forward(req, resp);
+                } else {
+                    /* TODO: implementare la schermata di errore appropriata */
+                    throw new RuntimeException();
+                }
+            }
         }
 
         req.getSession().setAttribute("user", user);

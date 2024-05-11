@@ -42,21 +42,18 @@ public class UserDAO {
         return utente;
     }
 
-    public String insertInDatabase(String nome, String cognome, String password, String email) {
+    public String insertInDatabase(String nome, String cognome, String password, String email) throws SQLException {
         User user = null;
-        try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps =
-                    con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
-            ps.setString(1, nome);
-            ps.setString(2, cognome);
-            ps.setString(3, email);
-            ps.setString(4, password);
-            ps.execute();
+        Connection con = ConnectionService.getConnection();
+        PreparedStatement ps =
+                con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
+        ps.setString(1, nome);
+        ps.setString(2, cognome);
+        ps.setString(3, email);
+        ps.setString(4, password);
+        ps.execute();
 
-            user = doRetrieveUser(email, password);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        user = doRetrieveUser(email, password);
 
         return user.getId();
     }
