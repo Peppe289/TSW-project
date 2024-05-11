@@ -3,8 +3,6 @@
 
 <head>
     <link rel="stylesheet" href="css/page/style.css">
-    <link type="text/css" rel="stylesheet" href="../navbar/style.css">
-    <link type="text/css" rel="stylesheet" href="../navbar/dropdown.css">
     <link rel="stylesheet" href="../footer/style.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +25,6 @@
         margin-top: auto;
     }
 </style>
-<script src="../navbar/move.js"></script>
 
 <style>
     /* serve per far stare il footer in basso */
