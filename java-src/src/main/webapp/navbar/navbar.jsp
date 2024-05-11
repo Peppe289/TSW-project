@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html>
 <head>
     <!--
@@ -327,8 +328,17 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
                 </button>
                 <div class="dropdown-content">
                     <a href="#">Carrello</a>
-                    <a href="#">Log out</a>
-                    <a href="#">Ordini</a>
+                    <!-- user dovrebbe stare nella sessione -->
+                    <c:choose>
+                        <c:when test="${not empty user}">
+                            <a href="#">Log out</a>
+                            <a href="#">Ordini</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/login.jsp">Accedi</a>
+                            <a href="${pageContext.request.contextPath}/registrazione.jsp">Registrati</a>
+                        </c:otherwise>
+                    </c:choose>
                     <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">RickRoll</a>
                 </div>
             </div>
