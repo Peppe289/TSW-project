@@ -305,10 +305,10 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 </style>
 <body>
 <div id="mobile-bar">
-    <img src="../img/solo_logo.png">
+    <img src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="search">
         <input type="text">
-        <button><img src="../img/search_ico.png"></button>
+        <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
     </form>
     <div class="open-btn" onclick="openNav()">☰</div>
 </div>
@@ -316,7 +316,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 <nav id="navbar">
     <ul>
         <!-- il logo si nasconde quando siamo da mobile -->
-        <li class="logo"><img src="../img/logo.png"></li>
+        <li class="logo"><img src="${pageContext.request.contextPath}/img/logo.png"></li>
         <li><a class="" href="#">Home</a></li>
         <li><a class="" href="#">Offerte</a></li>
         <li><a class="" href="#">Categorie</a></li>
@@ -346,7 +346,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
         <li></li>
         <form class="form-bar" action="search">
             <input type="text">
-            <button><img src="../img/search_ico.png"></button>
+            <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
         </form>
     </ul>
 </nav>

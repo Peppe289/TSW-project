@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
@@ -47,8 +47,8 @@
             <img id="img-main">
         </div>
         <div class="some-photo">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="../img/solo_logo.png">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="../img/search_ico.png">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="${pageContext.request.contextPath}/img/solo_logo.png">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="${pageContext.request.contextPath}/img/search_ico.png">
         </div>
     </div>
     <div id="description">
