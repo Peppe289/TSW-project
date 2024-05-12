@@ -118,7 +118,7 @@
 
     <div id="parent-cont">
         <c:forEach items="${products}" var="product">
-            <a href="#" class="item">
+            <a href="p?product=${product.id}" class="item">
                 <img src="https://via.placeholder.com/600x200/00ff00/ffffff">
                 <div class="off">
                     <p>-30%</p>

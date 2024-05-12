@@ -317,7 +317,14 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
     <ul>
         <!-- il logo si nasconde quando siamo da mobile -->
         <li class="logo"><img src="${pageContext.request.contextPath}/img/logo.png"></li>
-        <li><a class="" href="#">Home</a></li>
+        <c:choose>
+            <c:when test="${not empty isHome}">
+                <li><a class="curr-page" href="#">Home</a></li>
+            </c:when>
+            <c:otherwise>
+                <li><a class="" href="#">Home</a></li>
+            </c:otherwise>
+        </c:choose>
         <li><a class="" href="#">Offerte</a></li>
         <li><a class="" href="#">Categorie</a></li>
         <li><a class="" href="#">Prodotti</a></li>

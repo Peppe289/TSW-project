@@ -21,7 +21,9 @@ public class IndexServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDAO productDAO = new ProductDAO();
         List<Product> products = productDAO.doRetriveProducts();
+        Boolean isHome = true;
 
+        req.setAttribute("isHome", isHome);
         req.setAttribute("products", products);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/index.jsp");
         rd.forward(req, resp);
