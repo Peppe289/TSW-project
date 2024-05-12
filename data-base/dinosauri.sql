@@ -3,18 +3,45 @@ CREATE DATABASE ecommerce;
 USE ecommerce;
 
 CREATE TABLE prodotto (
-    id_categoria VARCHAR(50),
-    id_prodotto INT AUTO_INCREMENT PRIMARY KEY,
+    /* Identifica univocamente le proprietà del prodotto */
+    id_prodotto VARCHAR(50) unique,
     nome VARCHAR(100) NOT NULL,
-    iva FLOAT DEFAULT 0.22,
-    descrizione VARCHAR(255) NOT NULL,
-    prezzo FLOAT NOT NULL,
-    disponibilita ENUM("SI", "NO") NOT NULL,
-    quantita INT DEFAULT 0,
+    photo_path VARCHAR(50),
     alimentazione VARCHAR(50),
-    categoria VARCHAR(50)
+    descrizione VARCHAR(255) NOT NULL,
+    /* identifica la classificazione per tipo */
+    categoria VARCHAR(50),
+    prezzo float
 );
-CREATE INDEX idx_id_categoria ON prodotto (id_categoria);
+
+CREATE TABLE elemento_prodotto (
+    /* id_prodotto specifica il tipo di prodotto. */
+    id_prodotto VARCHAR(50),
+    /* id_elemento specifica il singolo elemento come prodotto. */
+    id_elemento INT AUTO_INCREMENT PRIMARY KEY,
+    iva FLOAT DEFAULT 0.22,
+    /**
+     * Consideriamo questo valore solo se non c'è più disponibilità.
+     * Significa che il prodotto è già acquistato e dobbiamo vedere il prezzo "congelato".
+     * Se c'è disponibilità allora andiamo a vedere il prezzo dentro prodotto.
+     */
+    prezzo FLOAT,
+    /**
+     * Disponibilità per singola entità.
+     * Quando si va a vedere un prodotto di questo tipo si cerca
+     * il primo con la disponibilità true.
+     */
+    disponibilita boolean NOT NULL,
+    /**
+     * quantita INT DEFAULT 0, => non è necessario, tramite
+     * il model java andiamo a vedere tutta la tabella con
+     * quelli venduti e quelli disponibili:
+     * 	ResultSet rs = ps.executeQuery();
+     * 		while (rs.next()) {...}
+     */
+     foreign key (id_prodotto) references prodotto (id_prodotto) ON DELETE SET NULL ON UPDATE CASCADE
+);
+CREATE INDEX idx_id_prodotto ON prodotto (id_prodotto);
 
 create table utente (
 id_utente int auto_increment primary key,
@@ -51,10 +78,10 @@ password varchar (255) not null
 
 CREATE TABLE offerte (
     id_offerta INT AUTO_INCREMENT PRIMARY KEY,
-    id_categoria varchar (50),
+    id_prodotto varchar (50),
     descrizione VARCHAR(255) NOT NULL,
     prezzo_scontato FLOAT NOT NULL,
     data_inizio DATE NOT NULL,
     data_fine DATE NOT NULL,
-    foreign key (id_categoria) references prodotto (id_categoria) ON DELETE SET NULL ON UPDATE CASCADE
+    foreign key (id_prodotto) references prodotto (id_prodotto) ON DELETE SET NULL ON UPDATE CASCADE
 );
