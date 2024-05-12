@@ -1,12 +1,12 @@
 USE ecommerce;
 
 INSERT INTO prodotto (id_prodotto, nome, photo_path, descrizione, alimentazione, categoria, prezzo) VALUES
-('TR', 'T-rex', NULL, 'predatore gigantesco e uno dei più famosi dinosauri carnivori. Si ritiene che cacciasse grandi erbivori', 'carnivoro', 'rettile',  21.00),
-('BR', 'Brachiosauro', NULL, 'Il Brachiosaurus era un grande dinosauro erbivoro caratterizzato dal lungo collo e le zampe anteriori più lunghe delle zampe posteriori.', 'erbivoro', 'rettile',  25.50),
-('ST', 'Stegosauro', NULL, 'Aveva piccoli denti piatti adatti a triturare il materiale vegetale.', 'erbivoro','rettile',  18.00),
-('VL', 'Velociraptor', NULL, 'Si ritiene che cacciasse in branco e si nutrisse di piccoli animali come piccoli dinosauri, rettili e insetti.', 'carnivoro', 'rettile',  15.00),
-('TC', 'Triceratopo', NULL, 'Aveva un becco robusto e denti adatti per strappare e triturare il cibo.', 'erbivoro', 'rettile',  17.00),
-('PT', 'Pterodattilo', NULL, 'Era uno dei più grandi e più conosciuti dinosauri. Aveva una apertura alare di oltre 6 metri e si ritiene che fosse principalmente un pescatore.', 'carnivoro', 'uccello',  17.50),
+('TR', 'T-rex', NULL, 'Il Tyrannosaurus rex, comunemente noto come T-rex, è uno dei più grandi e famosi dinosauri carnivori. Caratterizzato da un cranio massiccio con denti lunghi e appuntiti, è un predatore formidabile. Con le sue poderose zampe posteriori, il T-rex è in grado di raggiungere velocità sorprendenti durante la caccia, rendendolo uno dei predatori dominanti.', 'carnivoro', 'rettile',  21.00),
+('BR', 'Brachiosauro', NULL, 'Il Brachiosaurus è uno dei più grandi e imponenti dinosauri erbivori conosciuti. Caratterizzato da un corpo massiccio sostenuto da zampe anteriori più lunghe delle zampe posteriori, il Brachiosaurus si distingue per il suo lungo collo che gli consente di raggiungere i rami più alti degli alberi per nutrirsi. ', 'erbivoro', 'rettile',  25.50),
+('ST', 'Stegosauro', NULL, 'Lo Stegosauro era un dinosauro erbivoro caratterizzato da una serie di placche ossee lungo il dorso e una lunga coda dotata di punte o spuntoni. Questa creatura preistorica vagava sulle terre del periodo Giurassico, nutrendosi di materiale vegetale grazie ai suoi piccoli denti piatti adatti a triturare.', 'erbivoro','rettile',  18.00),
+('VL', 'Velociraptor', NULL, 'Il Velociraptor era un dinosauro carnivoro noto per la sua agilità e intelligenza. Viveva durante il periodo Cretaceo e si ritiene che cacciasse in branco, nutrendosi principalmente di piccoli animali come altri dinosauri, rettili e insetti. Con le sue lunghe zampe posteriori e artigli affilati sulle zampe, il Velociraptor era un predatore formidabile, capace di raggiungere velocità sorprendenti durante la caccia.', 'carnivoro', 'rettile',  15.00),
+('TC', 'Triceratopo', NULL, 'Il Triceratopo era un grande dinosauro erbivoro caratterizzato da tre corna distintive sul cranio. Viveva durante il periodo Cretaceo e si distingueva per il suo becco robusto e i denti adatti per strappare e triturare il cibo. Con il suo aspetto imponente e le sue difese naturali, il Triceratopo rappresentava una presenza dominante nel suo habitat. Si pensa che fosse un animale pacifico, ma capace di difendersi dagli attacchi dei predatori con le sue corna e il suo grande corpo robusto.', 'erbivoro', 'rettile',  17.00),
+('PT', 'Pterodattilo', NULL, 'Lo Pterodattilo era un dinosauro volante appartenente al gruppo dei pterosauri. Viveva durante il periodo Cretaceo e si distingueva per la sua grande apertura alare, che poteva superare i sei metri. Si ritiene che fosse principalmente un pescatore, ma poteva cacciare anche piccoli animali terrestri. Con il suo corpo leggero e le sue ali membranose, lo Pterodattilo dominava i cieli preistorici, rappresentando una delle più grandi creature volanti conosciute nella storia della Terra.', 'carnivoro', 'uccello',  17.50),
 ('CR', 'Ciro', NULL, 'Cir o Dinosaur', 'carnivoro', NULL, 120000),
 ('UTR', 'Uovo di T-rex', NULL, 'Uovo di T-rex trovato in buono stato', NULL, 'uovo',  10.5),
 ('UBR', 'Uovo di Brachiosauro', NULL, 'Uovo di Brachiosauro parzialmente danneggiato', NULL, 'uovo',  15.0),
@@ -14,8 +14,12 @@ INSERT INTO prodotto (id_prodotto, nome, photo_path, descrizione, alimentazione,
 ('UVL', 'Uovo di Velociraptor', NULL, 'Uovo di Velociraptor ben conservato', NULL, 'uovo',  10.0),
 ('UTC', 'Uovo di Triceratopo', NULL, 'Uovo di Triceratopo leggermente aperto', NULL, 'uovo',  6.99),
 ('UPT', 'Uovo di Pterodattilo', NULL, 'Uovo di Pterodattilo ben conservato', NULL, 'uovo',  8.50),
-('OC', 'Osso per dinosauro Carnivoro', NULL, 'Osso grande per dinosauro carnivoro', NULL, 'osso',  25.00),
-('OE', 'Osso per dinosauro Erbivoro', NULL, 'Osso piccolo per dinosauro erbivoro', NULL, 'osso',  15.00),
+('OTR', 'Ossa di T-rex', NULL, 'Ossa di uno dei più grandi e famosi dinosauri carnivori', NULL, 'ossa',  25.00),
+('OBR', 'Ossa di Brachiosauro', NULL, 'Ossa del più grande dinosauro erbivoro', NULL, 'ossa',  15.00),
+('OST', 'Ossa di Stegosauro', NULL, 'Ossa di uno dei più iconici dinosauri erbivori, con le caratteristiche placche dorsali', NULL, 'ossa',  7.99),
+('OVL', 'Ossa di Velociraptor', NULL, 'Ossa di uno dei più noti e agili dinosauri carnivori, famoso per la sua velocità e intelligenza', NULL, 'ossa',  10.0),
+('OTC', 'Ossa di Triceratopo', NULL, 'Ossa del grande dinosauro erbivoro dotato di corna distintive', NULL, 'ossa',  6.99),
+('OPT', 'Uovo di Pterodattilo', NULL, 'Ossa del grande rettile volante noto come Pterodattilo, con una vasta apertura alare', NULL, 'ossa',  8.50),
 ('GM', 'Guizaglio medio', NULL, 'Guinzaglio in pelle per dinosauro di taglia media', NULL, 'guinzaglio',  20.00),
 ('GG', 'Guinzaglio gigante', NULL, 'Guinzaglio robusto per dinosauro gigante', NULL, 'guinzaglio',  30.00);
 
