@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
          * nella barra di navigazione e nelle specifiche pagine.
          */
         req.getSession().setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/");
         rd.forward(req, resp);
     }
 

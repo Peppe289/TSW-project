@@ -25,7 +25,7 @@ public class IndexServlet extends HttpServlet {
 
         req.setAttribute("isHome", isHome);
         req.setAttribute("products", products);
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/index.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");
         rd.forward(req, resp);
     }
 
