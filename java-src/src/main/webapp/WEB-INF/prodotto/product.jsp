@@ -1,3 +1,4 @@
+<%@ page import="org.dinosauri.dinosauri.model.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
@@ -64,7 +65,7 @@
                     ${product.description}
             </p>
             <div class="price">
-                <p>${product.price}&#8364;</p>
+                <p><%= String.format("%.2f", ((Product) request.getAttribute("product")).getPrice()) %>&#8364;</p>
                 <s>5000&#8364;</s>
             </div>
             <p>Disponibili: <span id="disp">${product.quantity}</span></p>
