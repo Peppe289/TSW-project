@@ -49,6 +49,7 @@
 <jsp:include page="navbar/navbar.jsp"/>
 
 <!-- carosello -->
+<c:if test="${not empty isHome}">
 <div class="slideshow-container">
     <div class="slides">
         <img src="https://via.placeholder.com/600x300/0000ff/ffffff" style="width:100%">
@@ -68,6 +69,7 @@
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <a class="next" onclick="plusSlides(1)">❯</a>
 </div>
+</c:if>
 <!-- end carosello -->
 
 <div id="content-main">
