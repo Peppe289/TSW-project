@@ -72,6 +72,7 @@
 
 <div id="content-main">
     <!-- filtro ricerca -->
+    <c:if test="${empty isHome}">
     <div id="filter">
         <h4>Filtri di ricerca</h4>
         <form id="filter-form" action="">
@@ -113,7 +114,7 @@
         </form>
     </div>
     <button id="button-mobile-form-submit" type="submit" form="filter-form">Filtra</button>
-
+    </c:if>
     <!-- end filtro ricerca-->
 
     <div id="parent-cont">
