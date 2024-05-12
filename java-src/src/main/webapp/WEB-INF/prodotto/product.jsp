@@ -24,6 +24,10 @@
     footer {
         margin-top: auto;
     }
+
+    .hide {
+        display: none;
+    }
 </style>
 
 <style>
@@ -63,8 +67,9 @@
                 <p>${product.price}&#8364;</p>
                 <s>5000&#8364;</s>
             </div>
+            <p>Disponibili: <span id="disp">${product.quantity}</span></p>
         </c:if>
-        <form action="">
+        <form action="" id="shop-btn">
             <input type="submit" value="Aggiungi al carrello">
         </form>
     </div>
@@ -81,6 +86,19 @@
         var img = document.getElementById("img-main");
         img.src = path;
     }
+
+    function disableButton() {
+        var disp = document.getElementById("disp").innerHTML;
+        console.log(disp);
+        if (disp < 1) {
+            document.getElementById("shop-btn").classList.add("hide");
+        }
+    }
+
+    /* esegui il codice dopo che il DOM è stato caricato */
+    document.addEventListener('DOMContentLoaded', function() {
+        disableButton();
+    });
 </script>
 
 </html>
