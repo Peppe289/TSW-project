@@ -4,7 +4,7 @@ USE ecommerce;
 
 CREATE TABLE prodotto (
     /* Identifica univocamente le proprietà del prodotto */
-    id_prodotto VARCHAR(50) unique,
+    id_prodotto VARCHAR(50) PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     photo_path VARCHAR(50),
     alimentazione VARCHAR(50),
