@@ -60,8 +60,8 @@
             Eu sint irure officia ea sunt.
         </p>
         <div class="price">
-            <p>4000€</p>
-            <s>5000€</s>
+            <p>4000&#8364;</p>
+            <s>5000&#8364;</s>
         </div>
         <form action="">
             <input type="submit" value="Aggiungi al carrello">
