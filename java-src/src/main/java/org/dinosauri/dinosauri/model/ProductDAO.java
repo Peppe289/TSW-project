@@ -8,6 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
+    public List<Product> doRetriveProductsByKeyword(String keyword) {
+        List<Product> products = new ArrayList<>();
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE descrizione LIKE ?");
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product prod = new Product();
+                prod.setId(rs.getString("id_prodotto"));
+                prod.setName(rs.getString("nome"));
+                prod.setPrice(rs.getDouble("prezzo"));
+                prod.setDescription(rs.getString("descrizione"));
+                prod.setAlimentazione(rs.getString("alimentazione"));
+                prod.setPhoto_path(rs.getString("photo_path"));
+                prod.setCategoria(rs.getString("categoria"));
+                products.add(prod);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return products;
+    }
 
     public List<Product> doRetriveProducts() {
         List<Product> products = new ArrayList<>();

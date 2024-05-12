@@ -14,6 +14,12 @@ public class Product {
         super();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Product product = (Product) o;
+        return product.getId().equals(this.id);
+    }
+
     public String getCategoria() {
         return categoria;
     }
