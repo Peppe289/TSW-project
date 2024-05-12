@@ -18,15 +18,13 @@ public class ProductServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id_prodotto = req.getParameter("product");
 
-        if (id_prodotto == null)
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (id_prodotto == null) resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 
         ProductDAO productDAO = new ProductDAO();
         Product product;
 
         product = productDAO.doRetrieveProductByID(id_prodotto);
-        if (product == null)
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        if (product == null) resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 
         product.setQuantity(productDAO.doRetrieveProductDispByID(id_prodotto, true).size());
 

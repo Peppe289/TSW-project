@@ -73,47 +73,47 @@
 <div id="content-main">
     <!-- filtro ricerca -->
     <c:if test="${empty isHome}">
-    <div id="filter">
-        <h4>Filtri di ricerca</h4>
-        <form id="filter-form" action="">
-            <h4>Ambiente</h4>
+        <div id="filter">
+            <h4>Filtri di ricerca</h4>
+            <form id="filter-form" action="">
+                <h4>Ambiente</h4>
 
-            <div class="single-table">
-                <input type="checkbox" id="terrestri" name="terrestri">
-                <label for="terrestri">Terrestri</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="terrestri" name="terrestri">
+                    <label for="terrestri">Terrestri</label>
+                </div>
 
-            <div class="single-table">
-                <input type="checkbox" id="volatili" name="volatili">
-                <label for="volatili">Volatili</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="volatili" name="volatili">
+                    <label for="volatili">Volatili</label>
+                </div>
 
-            <div class="single-table">
-                <input type="checkbox" id="acquatici" name="acquatici">
-                <label for="acquatici">Acquatici</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="acquatici" name="acquatici">
+                    <label for="acquatici">Acquatici</label>
+                </div>
 
-            <h4>Alimentazione</h4>
+                <h4>Alimentazione</h4>
 
-            <div class="single-table">
-                <input type="checkbox" id="carnivori" name="carnivori">
-                <label for="carnivori">Carnivori</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="carnivori" name="carnivori">
+                    <label for="carnivori">Carnivori</label>
+                </div>
 
-            <div class="single-table">
-                <input type="checkbox" id="onnivori" name="onnivori">
-                <label for="onnivori">Onnivori</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="onnivori" name="onnivori">
+                    <label for="onnivori">Onnivori</label>
+                </div>
 
-            <div class="single-table">
-                <input type="checkbox" id="erbivori" name="erbivori">
-                <label for="erbivori">Erbivori</label>
-            </div>
+                <div class="single-table">
+                    <input type="checkbox" id="erbivori" name="erbivori">
+                    <label for="erbivori">Erbivori</label>
+                </div>
 
-            <input type="submit" value="filtra">
-        </form>
-    </div>
-    <button id="button-mobile-form-submit" type="submit" form="filter-form">Filtra</button>
+                <input type="submit" value="filtra">
+            </form>
+        </div>
+        <button id="button-mobile-form-submit" type="submit" form="filter-form">Filtra</button>
     </c:if>
     <!-- end filtro ricerca-->
 
@@ -157,8 +157,12 @@
     function showSlides(n) {
         let i;
         let slides = document.getElementsByClassName("slides");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }

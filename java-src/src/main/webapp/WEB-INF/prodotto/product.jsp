@@ -31,7 +31,7 @@
         padding: 0;
     }
 
-    li.propriety *{
+    li.propriety * {
         display: inline;
         padding: 0;
     }
@@ -54,8 +54,10 @@
             <img id="img-main">
         </div>
         <div class="some-photo">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="${pageContext.request.contextPath}/img/solo_logo.png">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="${pageContext.request.contextPath}/img/search_ico.png">
+            <img class="preview-img" onclick="changeit(this.src, this)"
+                 src="${pageContext.request.contextPath}/img/solo_logo.png">
+            <img class="preview-img" onclick="changeit(this.src, this)"
+                 src="${pageContext.request.contextPath}/img/search_ico.png">
         </div>
     </div>
     <div id="description">
@@ -70,10 +72,12 @@
             </div>
             <ul id="show-propriety">
                 <c:if test="${not empty product.categoria}">
-                    <li class="propriety"><p>Categoria: </p><p>${product.categoria}</p></li>
+                    <li class="propriety"><p>Categoria: </p>
+                        <p>${product.categoria}</p></li>
                 </c:if>
                 <c:if test="${not empty product.alimentazione}">
-                    <li class="propriety"><p>Alimentazione: </p><p>${product.alimentazione}</p></li>
+                    <li class="propriety"><p>Alimentazione: </p>
+                        <p>${product.alimentazione}</p></li>
                 </c:if>
             </ul>
             <p>Disponibili: <span id="disp">${product.quantity}</span></p>
@@ -105,7 +109,7 @@
     }
 
     /* esegui il codice dopo che il DOM è stato caricato */
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         disableButton();
     });
 </script>
