@@ -47,8 +47,8 @@
             <img id="img-main">
         </div>
         <div class="some-photo">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="img/solo_logo.png">
-            <img class="preview-img" onclick="changeit(this.src, this)" src="img/search_ico.png">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="../img/solo_logo.png">
+            <img class="preview-img" onclick="changeit(this.src, this)" src="../img/search_ico.png">
         </div>
     </div>
     <div id="description">
