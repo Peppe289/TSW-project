@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 
@@ -52,17 +54,16 @@
         </div>
     </div>
     <div id="description">
-        <h1>Titolo del prodotto</h1>
-        <p class="paragraph-desc">
-            Anim nostrud ipsum aute non do officia fugiat minim ea quis eu eiusmod enim.
-            Ullamco incididunt sint ex minim velit mollit occaecat veniam.
-            Duis dolore in consectetur qui exercitation magna eiusmod voluptate.
-            Eu sint irure officia ea sunt.
-        </p>
-        <div class="price">
-            <p>4000&#8364;</p>
-            <s>5000&#8364;</s>
-        </div>
+        <c:if test="${not empty product}">
+            <h1>${product.name}</h1>
+            <p class="paragraph-desc">
+                    ${product.description}
+            </p>
+            <div class="price">
+                <p>${product.price}&#8364;</p>
+                <s>5000&#8364;</s>
+            </div>
+        </c:if>
         <form action="">
             <input type="submit" value="Aggiungi al carrello">
         </form>
