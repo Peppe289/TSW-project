@@ -26,22 +26,22 @@
         margin-top: auto;
     }
 
+    #show-propriety {
+        list-style: none;
+        padding: 0;
+    }
+
+    li.propriety *{
+        display: inline;
+        padding: 0;
+    }
+
+    li.propriety p:first-child {
+        font-weight: bold;
+    }
+
     .hide {
         display: none;
-    }
-</style>
-
-<style>
-    /* serve per far stare il footer in basso */
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-    }
-
-    footer {
-        margin-top: auto;
     }
 </style>
 
@@ -68,6 +68,14 @@
                 <p><%= String.format("%.2f", ((Product) request.getAttribute("product")).getPrice()) %>&#8364;</p>
                 <s>5000&#8364;</s>
             </div>
+            <ul id="show-propriety">
+                <c:if test="${not empty product.categoria}">
+                    <li class="propriety"><p>Categoria: </p><p>${product.categoria}</p></li>
+                </c:if>
+                <c:if test="${not empty product.alimentazione}">
+                    <li class="propriety"><p>Alimentazione: </p><p>${product.alimentazione}</p></li>
+                </c:if>
+            </ul>
             <p>Disponibili: <span id="disp">${product.quantity}</span></p>
         </c:if>
         <form action="" id="shop-btn">
