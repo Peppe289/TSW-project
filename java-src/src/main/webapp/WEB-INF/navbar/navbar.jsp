@@ -352,7 +352,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
         </li>
         <li></li>
         <form class="form-bar" action="${pageContext.request.contextPath}/search">
-            <input type="text" name="search">
+            <input type="text" name="search" value="${lastSearch}">
             <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
         </form>
     </ul>

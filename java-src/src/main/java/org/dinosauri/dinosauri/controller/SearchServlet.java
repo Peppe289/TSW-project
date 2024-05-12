@@ -36,6 +36,7 @@ public class SearchServlet extends HttpServlet {
             list.clear();
         }
 
+        req.setAttribute("lastSearch", keyword);
         req.setAttribute("products", products);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");
         rd.forward(req, resp);
