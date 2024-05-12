@@ -85,7 +85,7 @@
     <div id="footer">
         <ul>
             <li>Contattaci</li>
-            <li><a href="#">Email</a></li>
+            <li><a href="#">${initParam["emailSupport"]}</a></li>
             <li><a href="#">Altre cose</a></li>
         </ul>
 

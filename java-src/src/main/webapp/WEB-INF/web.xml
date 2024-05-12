@@ -3,4 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+<context-param>
+    <!--
+    Definisci l'email come parametro di init.
+    In questo modo tutte le servlet possono accedervi tramite initParam["emailSupport"] o initParam.emailSupport.
+    -->
+    <param-name>emailSupport</param-name>
+    <param-value>support@dinostore.com</param-value>
+</context-param>
 </web-app>
