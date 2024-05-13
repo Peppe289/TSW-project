@@ -19,7 +19,7 @@ INSERT INTO prodotto (id_prodotto, nome, photo_path, descrizione, alimentazione,
 ('OST', 'Ossa di Stegosauro', NULL, 'Ossa di uno dei più iconici dinosauri erbivori, con le caratteristiche placche dorsali', NULL, 'ossa',  7.99),
 ('OVL', 'Ossa di Velociraptor', NULL, 'Ossa di uno dei più noti e agili dinosauri carnivori, famoso per la sua velocità e intelligenza', NULL, 'ossa',  10.0),
 ('OTC', 'Ossa di Triceratopo', NULL, 'Ossa del grande dinosauro erbivoro dotato di corna distintive', NULL, 'ossa',  6.99),
-('OPT', 'Uovo di Pterodattilo', NULL, 'Ossa del grande rettile volante noto come Pterodattilo, con una vasta apertura alare', NULL, 'ossa',  8.50),
+('OPT', 'Ossa di Pterodattilo', NULL, 'Ossa del grande rettile volante noto come Pterodattilo, con una vasta apertura alare', NULL, 'ossa',  8.50),
 ('GM', 'Guizaglio medio', NULL, 'Guinzaglio in pelle per dinosauro di taglia media', NULL, 'guinzaglio',  20.00),
 ('GG', 'Guinzaglio gigante', NULL, 'Guinzaglio robusto per dinosauro gigante', NULL, 'guinzaglio',  30.00);
 
@@ -36,8 +36,12 @@ INSERT INTO elemento_prodotto (id_prodotto, prezzo, disponibilita) VALUES
 ('UVL', NULL, true),
 ('UTC', NULL, true),
 ('UPT', NULL, true),
-('OC', NULL, true),
-('OE', NULL, true),
+('OTR', NULL, true),
+('OBR',NULL, true),
+('OST', NULL, true),
+('OVL', NULL, true),
+('OTC', NULL, true),
+('OPT', NULL, true),
 ('GM', NULL, true),
 ('GG', NULL, true);
 
