@@ -77,4 +77,9 @@
     #content-main {
         display: flex;
     }
+
+    #parent-cont {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 }
