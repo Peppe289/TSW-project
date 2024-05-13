@@ -8,7 +8,7 @@ CREATE TABLE prodotto (
     nome VARCHAR(100) NOT NULL,
     photo_path VARCHAR(50),
     alimentazione VARCHAR(50),
-    descrizione VARCHAR(255) NOT NULL,
+    descrizione TEXT NOT NULL,
     /* identifica la classificazione per tipo */
     categoria VARCHAR(50),
     prezzo float
