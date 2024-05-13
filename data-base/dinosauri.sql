@@ -60,10 +60,10 @@ id_utente int,
 foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-create table indirizzo_spedizione (
+create table dati_spedizione (
 nome varchar (255) not null,
 cognome varchar (255) not null,
-cf char(16) primary key,
+id_spedizione int auto_increment primary key,
 via varchar(255) not null,
 cap char(5) not null,
 provincia char(2) not null,

@@ -49,9 +49,9 @@ INSERT INTO utente (password_utente, nome, cognome, email) VALUES
 (sha1('ciao1'), 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
 (sha1('sole2'), 'Ciro', 'Esposito', 'ciro.esposito@gmail.com');
 
-INSERT INTO indirizzo_spedizione (nome, cognome, cf, via, cap, provincia, comune, numero_civico) VALUES
-('Mario', 'Rossi', 'RSSMRA80M07L219U','via Roma', '10024', 'TO', 'Torino', '3' ),
-('Ciro', 'Esposito', 'SPSCRI78L06F839T', 'via Chiaia', '80013', 'NA', 'Napoli', '144');
+INSERT INTO dati_spedizione (nome, cognome, via, cap, provincia, comune, numero_civico) VALUES
+('Mario', 'Rossi', 'via Roma', '10024', 'TO', 'Torino', '3' ),
+('Ciro', 'Esposito', 'via Chiaia', '80013', 'NA', 'Napoli', '144');
 
 INSERT INTO amministratore (password) VALUES
 ('admin1'),
