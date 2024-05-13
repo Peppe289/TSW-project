@@ -306,8 +306,8 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
 <body>
 <div id="mobile-bar">
     <img src="${pageContext.request.contextPath}/img/solo_logo.png">
-    <form class="form-bar" action="search">
-        <input type="text">
+    <form class="form-bar" action="${pageContext.request.contextPath}/search">
+        <input type="text" name="search" value="${lastSearch}">
         <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
     </form>
     <div class="open-btn" onclick="openNav()">☰</div>
