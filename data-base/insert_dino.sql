@@ -7,7 +7,8 @@ INSERT INTO prodotto (id_prodotto, nome, photo_path, descrizione, alimentazione,
 ('VL', 'Velociraptor', NULL, 'Il Velociraptor era un dinosauro carnivoro noto per la sua agilità e intelligenza. Viveva durante il periodo Cretaceo e si ritiene che cacciasse in branco, nutrendosi principalmente di piccoli animali come altri dinosauri, rettili e insetti. Con le sue lunghe zampe posteriori e artigli affilati sulle zampe, il Velociraptor era un predatore formidabile, capace di raggiungere velocità sorprendenti durante la caccia.', 'carnivoro', 'rettile',  15.00),
 ('TC', 'Triceratopo', NULL, 'Il Triceratopo era un grande dinosauro erbivoro caratterizzato da tre corna distintive sul cranio. Viveva durante il periodo Cretaceo e si distingueva per il suo becco robusto e i denti adatti per strappare e triturare il cibo. Con il suo aspetto imponente e le sue difese naturali, il Triceratopo rappresentava una presenza dominante nel suo habitat. Si pensa che fosse un animale pacifico, ma capace di difendersi dagli attacchi dei predatori con le sue corna e il suo grande corpo robusto.', 'erbivoro', 'rettile',  17.00),
 ('PT', 'Pterodattilo', NULL, 'Lo Pterodattilo era un dinosauro volante appartenente al gruppo dei pterosauri. Viveva durante il periodo Cretaceo e si distingueva per la sua grande apertura alare, che poteva superare i sei metri. Si ritiene che fosse principalmente un pescatore, ma poteva cacciare anche piccoli animali terrestri. Con il suo corpo leggero e le sue ali membranose, lo Pterodattilo dominava i cieli preistorici, rappresentando una delle più grandi creature volanti conosciute nella storia della Terra.', 'carnivoro', 'uccello',  17.50),
-('CR', 'Ciro', NULL, 'Cir o Dinosaur', 'carnivoro', NULL, 120000),
+('CR', 'Ciro', NULL, 'Cir o Dinosaur', 'carnivoro', 'rettile', 120000),
+('MR', 'Microraptor', NULL, 'Il Microraptor è un  piccolo dinosauro provvisto di quattro ali, originario del Cretaceo. Con i suo circa 40 cm di lunghezza in età adulta ed un peso di circa 1 Kg, il Microraptor rappresenta il più piccolo dinosauro carnivoro mai scoperto', 'carnivoro', 'uccello', 9.0),
 ('UTR', 'Uovo di T-rex', NULL, 'Uovo di T-rex trovato in buono stato', NULL, 'uovo',  10.5),
 ('UBR', 'Uovo di Brachiosauro', NULL, 'Uovo di Brachiosauro parzialmente danneggiato', NULL, 'uovo',  15.0),
 ('UST', 'Uovo di Stegosauro', NULL, 'Uovo di Stegosauro ben conservato', NULL, 'uovo',  7.99),
@@ -30,6 +31,8 @@ INSERT INTO elemento_prodotto (id_prodotto, prezzo, disponibilita) VALUES
 ('VL', NULL, true),
 ('TC', NULL, true),
 ('PT', NULL, true),
+('CR', NULL, true),
+('MR', NULL, true),
 ('UTR', NULL, true),
 ('UBR', NULL, true),
 ('UST', NULL, true),
@@ -61,7 +64,6 @@ INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto) VALUES
 ('35.5','UTR, BR','2024-01-20'),
 ('26','UTC, TC','2024-03-15');
 
-INSERT INTO offerte (descrizione, prezzo_scontato, data_inizio, data_fine) 
-VALUES 
-('Offerta speciale - 10% di sconto su tutti i dinosauri', 18.90, '2024-04-01', '2024-04-15'),
-('Offerta guinzagli - Acquista 2 e ottieni il 50% di sconto sul secondo', 7.50, '2024-04-05', '2024-04-30');
+INSERT INTO offerte (id_prodotto, descrizione, percentuale, data_inizio, data_fine) VALUES 
+('TR', 'Offerta speciale - 10% di sconto sui T-rex', 10, '2024-04-01', '2024-04-15'),
+('GM', 'Offerta guinzagli medi - 20% di sconto sui guinzagli medi', 20, '2024-04-05', '2024-04-30');

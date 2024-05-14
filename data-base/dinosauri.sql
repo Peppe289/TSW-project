@@ -80,7 +80,7 @@ CREATE TABLE offerte (
     id_offerta INT AUTO_INCREMENT PRIMARY KEY,
     id_prodotto varchar (50),
     descrizione VARCHAR(255) NOT NULL,
-    prezzo_scontato FLOAT NOT NULL,
+    percentuale INT NOT NULL,
     data_inizio DATE NOT NULL,
     data_fine DATE NOT NULL,
     foreign key (id_prodotto) references prodotto (id_prodotto) ON DELETE SET NULL ON UPDATE CASCADE
