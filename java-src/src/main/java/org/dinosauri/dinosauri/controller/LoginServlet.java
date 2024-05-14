@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("message", "Password o email errati");
             RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
             rd.forward(req, resp);
-        } else if (user == null) {
+        } else if (nome != null && cognome != null) {
             /* effettua registrazione dell'utente */
             user = new User();
             user.setEmail(email);
