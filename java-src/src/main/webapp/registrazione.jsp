@@ -42,7 +42,7 @@
         <p style="color: red; margin: 4px; padding: 0;">${message}</p>
     </c:if>
 
-    <button form="registrazione">Registrati</button>
+    <button form="registrazione" name="button" value="registrazione">Registrati</button>
     <button onclick="location.href='login.jsp'">Accedi</button>
 </div>
 </body>

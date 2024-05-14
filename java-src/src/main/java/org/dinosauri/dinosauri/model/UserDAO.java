@@ -21,7 +21,6 @@ public class UserDAO {
      */
     public User doRetrieveUser(String email, String password) {
         User utente = null;
-        List<User> users = new ArrayList<User>();
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id_utente, nome, cognome, email FROM utente WHERE email=? AND password_utente=SHA1(?)");
             ps.setString(1, email);
@@ -41,7 +40,7 @@ public class UserDAO {
         return utente;
     }
 
-    public String insertInDatabase(String nome, String cognome, String password, String email) throws SQLException {
+    public User insertInDatabase(String nome, String cognome, String password, String email) throws SQLException {
         User user = null;
         Connection con = ConnectionService.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
@@ -53,7 +52,7 @@ public class UserDAO {
 
         user = doRetrieveUser(email, password);
 
-        return user.getId();
+        return user;
     }
 }
 

@@ -20,64 +20,58 @@ import java.sql.SQLException;
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
 
+    private User register(String nome, String cognome, String email, String password) throws SQLException {
+        User user = null;
+        UserDAO userDAO = new UserDAO();
+        user = userDAO.insertInDatabase(nome, cognome, email, password);
+        return user;
+    }
+
+    private User login(String email, String password) {
+        User user = null;
+        UserDAO userDAO = new UserDAO();
+        user = userDAO.doRetrieveUser(email, password);
+        return user;
+    }
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
+        User user = null;
+        String button = req.getParameter("button");
 
-        if (email == null || password == null) {
-            throw new ServletException("Nome and password are required");
+        switch (button) {
+            case "registrazione":
+                if (email.isEmpty() || password.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
+                    req.setAttribute("message", "I campi sono richiesti");
+                    req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                }
+                try {
+                    user = register(nome, cognome, email, password);
+                } catch (SQLException e) {
+                    if (e.getMessage().contains("Duplicate entry")) req.setAttribute("message", "Email già in uso");
+                    else req.setAttribute("message", e.getMessage());
+
+                    req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                }
+                break;
+            case "login":
+                if (email.isEmpty() || password.isEmpty()) {
+                    req.setAttribute("message", "I campi sono richiesti");
+                    req.getRequestDispatcher("/login.jsp").forward(req, resp);
+                }
+                user = login(email, password);
+                break;
+            default:
+                throw new ServletException("Bruh");
         }
 
-        UserDAO userDAO = new UserDAO();
-        /**
-         * Se il ritorno è null allora non è stato trovato nessun utente con queste caratteristiche.
-         * Se il ritorno non è null allora siamo riusciti a creare l'oggetto User.
-         *
-         * NOTE:    Se anche i dati come nome e cognome sono null allora siamo in login.
-         *          Se invece questi campi non sono null, siamo nella registrazione.
-         *
-         * Il ritorno null di user indica che non è stato strovato alcun utente con quelle
-         * credenziali.
-         */
-        User user = userDAO.doRetrieveUser(email, password);
-        if (user == null && (nome == null || cognome == null)) {
-            /* errore nel login */
-            req.setAttribute("message", "Password o email errati");
-            RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
-            rd.forward(req, resp);
-        } else if (nome != null && cognome != null) {
-            /* effettua registrazione dell'utente */
-            user = new User();
-            user.setEmail(email);
-            user.setNome(nome);
-            user.setCognome(cognome);
-            String id;
-            try {
-                /* inserisci nel database il nuovo utente e ritorna l'id che il database ha assegnato a questo utente */
-                id = userDAO.insertInDatabase(nome, cognome, password, email);
-                user.setId(id);
-            } catch (SQLException e) {
-                /**
-                 * Errore nella registrazione
-                 *
-                 * cattura l'errore, prendi il messaggio e controlla il motivo del messaggio.
-                 * L'email è unique, quindi se qualcuno si registra con un'altra email nel messaggio
-                 * sarà presente "Duplicate entry" quindi è un errore relativo all'utente.
-                 * Per qualsiasi altro errore gestisci in modo diverso.
-                 */
-                String message = e.getMessage();
-                if (message.contains("Duplicate entry")) {
-                    /* l'errore è relativo alla email già presente */
-                    req.setAttribute("message", "Email già esistente");
-                    RequestDispatcher rd = req.getRequestDispatcher("registrazione.jsp");
-                    rd.forward(req, resp);
-                } else {
-                    /* TODO: implementare la schermata di errore appropriata */
-                    throw new RuntimeException();
-                }
-            }
+        if (user == null) {
+            String page = button.equals("login") ? "login" : "registrazione";
+            req.setAttribute("message", "Errore di " + page);
+            req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
         }
 
         /**

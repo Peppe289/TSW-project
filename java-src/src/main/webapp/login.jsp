@@ -35,7 +35,7 @@
         <p style="color: red; margin: 4px; padding: 0;">${message}</p>
     </c:if>
 
-    <button form="login">Log in</button>
+    <button form="login" name="button" value="login">Log in</button>
     <button onclick="location.href='registrazione.jsp'">Registrati</button>
     <br><a href="#">Password dimenticata?</a>
 </div>
