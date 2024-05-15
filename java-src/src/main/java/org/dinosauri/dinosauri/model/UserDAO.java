@@ -40,7 +40,7 @@ public class UserDAO {
         return utente;
     }
 
-    public User insertInDatabase(String nome, String cognome, String password, String email) throws SQLException {
+    public User insertInDatabase(String nome, String cognome, String email, String password) throws SQLException {
         User user = null;
         Connection con = ConnectionService.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
