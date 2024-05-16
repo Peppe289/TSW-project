@@ -13,6 +13,11 @@
     position: relative;
 }
 
+#parent-cont .item .title-product {
+    font-size: 24px;
+    line-height: 42px;
+}
+
 #parent-cont .item img {
 
     /**
@@ -35,6 +40,7 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
+    font-size: 16px;
 }
 
 #parent-cont .item .item-desc * {

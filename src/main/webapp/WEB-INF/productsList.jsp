@@ -36,6 +36,14 @@
     footer {
         margin-top: auto;
     }
+
+    a, a:visited, a:hover, a:active {
+        color: inherit;
+    }
+
+    .item {
+        font-family: 'Open Sans', Arial, sans-serif;
+    }
 </style>
 
 <body style="margin: 0; padding: 0">
@@ -130,11 +138,11 @@
                     </div>
                 </c:if>
                 <div class="item-desc">
-                    <h2>${product.name}</h2>
+                    <p class="title-product">${product.name}</p>
                     <p class="desc">
                             ${product.description}
                     </p>
-                    <div style="display: flex; margin: 0; padding: 0;">
+                    <div style="display: flex; margin: 0; padding: 5px 0 0;">
                         <c:choose>
                             <c:when test="${product.sconto != 0}">
                                 <p class="prezzo">
