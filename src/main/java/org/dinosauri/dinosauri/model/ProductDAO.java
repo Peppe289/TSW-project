@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductDAO {
     public List<Product> doRetriveProductsByKeyword(String keyword) {
         List<Product> products = new ArrayList<>();
+        HashMap<String, Integer> offerte = getOfferte();
+
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE descrizione LIKE ?");
             ps.setString(1, "%" + keyword + "%");
@@ -23,6 +27,11 @@ public class ProductDAO {
                 prod.setAlimentazione(rs.getString("alimentazione"));
                 prod.setPhoto_path(rs.getString("photo_path"));
                 prod.setCategoria(rs.getString("categoria"));
+
+                Integer off = offerte.get(prod.getId());
+                if (off != null) prod.setSconto(off);
+                else prod.setSconto(0);
+
                 products.add(prod);
             }
         } catch (SQLException e) {
@@ -32,8 +41,40 @@ public class ProductDAO {
         return products;
     }
 
+    /**
+     * Questa funzione si occupa di prendere la coppia chiave valore delle offerte dove:
+     * chiave > id_prodotto per capire quale prodotto è coinvolto
+     * valore > il numero intero della percentuale
+     * <p>
+     * Vengono restituiti solo gli sconti attualmente validi, quindi viene anche effettuato
+     * il controllo con la data attuale.
+     */
+    public HashMap<String, Integer> getOfferte() {
+        HashMap<String, Integer> offerte = new HashMap<String, Integer>();
+
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT id_prodotto, percentuale, data_inizio, data_fine FROM offerte");
+            ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LocalDate start = rs.getDate("data_inizio").toLocalDate();
+                LocalDate stop = rs.getDate("data_fine").toLocalDate();
+                LocalDate today = LocalDate.now();
+
+                if ((today.isEqual(start) || today.isAfter(start)) && today.isBefore(stop)) {
+                    offerte.put(rs.getString("id_prodotto"), rs.getInt("percentuale"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return offerte;
+    }
+
     public List<Product> doRetriveProducts() {
         List<Product> products = new ArrayList<>();
+        HashMap<String, Integer> offerte = getOfferte();
 
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto");
@@ -48,6 +89,10 @@ public class ProductDAO {
                 prod.setPhoto_path(rs.getString("photo_path"));
                 prod.setCategoria(rs.getString("categoria"));
 
+                Integer off = offerte.get(prod.getId());
+                if (off != null) prod.setSconto(off);
+                else prod.setSconto(0);
+
                 products.add(prod);
             }
         } catch (SQLException e) {
@@ -59,6 +104,7 @@ public class ProductDAO {
 
     public Product doRetrieveProductByID(String id) {
         Product prod = null;
+        HashMap<String, Integer> offerte = getOfferte();
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE id_prodotto = ?");
             ps.setString(1, id);
@@ -72,6 +118,10 @@ public class ProductDAO {
                 prod.setAlimentazione(rs.getString("alimentazione"));
                 prod.setPhoto_path(rs.getString("photo_path"));
                 prod.setCategoria(rs.getString("categoria"));
+
+                Integer off = offerte.get(prod.getId());
+                if (off != null) prod.setSconto(off);
+                else prod.setSconto(0);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

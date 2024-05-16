@@ -12,7 +12,7 @@ public class Product {
     private int sconto;
 
     public Product() {
-        super(); sconto=40;
+        super();
     }
 
     @Override
