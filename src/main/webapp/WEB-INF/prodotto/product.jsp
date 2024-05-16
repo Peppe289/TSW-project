@@ -87,6 +87,10 @@
                 </c:choose>
             </div>
             <ul id="show-propriety">
+                <c:if test="${product.sconto != 0}">
+                    <li class="propriety"><p>Sconto: </p>
+                        <p>-${product.sconto}%</p></li>
+                </c:if>
                 <c:if test="${not empty product.categoria}">
                     <li class="propriety"><p>Categoria: </p>
                         <p>${product.categoria}</p></li>
