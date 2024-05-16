@@ -1,6 +1,7 @@
 <%@ page import="org.dinosauri.dinosauri.model.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -67,8 +68,23 @@
                     ${product.description}
             </p>
             <div class="price">
-                <p><%= String.format("%.2f", ((Product) request.getAttribute("product")).getPrice()) %>&#8364;</p>
-                <s>5000&#8364;</s>
+                <c:choose>
+                    <c:when test="${product.sconto != 0}">
+                        <p class="prezzo">
+                            <fmt:formatNumber value="${product.price * (1 - (product.sconto / 100))}"
+                                              type="number" minFractionDigits="2" maxFractionDigits="2"/>&#8364;
+                        </p>
+                        <s style="height: 100%; margin-top: 15px; padding: 0">
+                            <fmt:formatNumber value="${product.price}"
+                                              type="number" minFractionDigits="2"
+                                              maxFractionDigits="2"/>&#8364;</s>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="prezzo"><fmt:formatNumber value="${product.price}"
+                                                            type="number" minFractionDigits="2"
+                                                            maxFractionDigits="2"/>&#8364;</p>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <ul id="show-propriety">
                 <c:if test="${not empty product.categoria}">

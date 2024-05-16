@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,25 +51,25 @@
 
 <!-- carosello -->
 <c:if test="${not empty isHome}">
-<div class="slideshow-container">
-    <div class="slides">
-        <img src="https://via.placeholder.com/600x300/0000ff/ffffff" style="width:100%">
-        <div class="text">Caption Text</div>
-    </div>
+    <div class="slideshow-container">
+        <div class="slides">
+            <img src="https://via.placeholder.com/600x300/0000ff/ffffff" style="width:100%">
+            <div class="text">Caption Text</div>
+        </div>
 
-    <div class="slides">
-        <img src="https://via.placeholder.com/600x200/00ff00/ffffff" style="width:100%">
-        <div class="text">Caption Two</div>
-    </div>
+        <div class="slides">
+            <img src="https://via.placeholder.com/600x200/00ff00/ffffff" style="width:100%">
+            <div class="text">Caption Two</div>
+        </div>
 
-    <div class="slides">
-        <img src="https://via.placeholder.com/600x300/ff0000/ffffff" style="width:100%">
-        <div class="text">Caption Three</div>
-    </div>
+        <div class="slides">
+            <img src="https://via.placeholder.com/600x300/ff0000/ffffff" style="width:100%">
+            <div class="text">Caption Three</div>
+        </div>
 
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
-</div>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
 </c:if>
 <!-- end carosello -->
 
@@ -123,17 +124,34 @@
         <c:forEach items="${products}" var="product">
             <a href="p?product=${product.id}" class="item">
                 <img src="https://via.placeholder.com/600x200/00ff00/ffffff">
-                <div class="off">
-                    <p>-30%</p>
-                </div>
+                <c:if test="${product.sconto != 0}">
+                    <div class="off">
+                        <p>-${product.sconto}%</p>
+                    </div>
+                </c:if>
                 <div class="item-desc">
                     <h2>${product.name}</h2>
                     <p class="desc">
                             ${product.description}
                     </p>
-                    <div style="display: flex; margin: 0px; padding: 0px;">
-                        <p class="prezzo">${product.price}</p>
-                        <s style="height: 100%; margin-top: 15px; padding: 0px">499999€</s>
+                    <div style="display: flex; margin: 0; padding: 0;">
+                        <c:choose>
+                            <c:when test="${product.sconto != 0}">
+                                <p class="prezzo">
+                                    <fmt:formatNumber value="${product.price * (1 - (product.sconto / 100))}"
+                                                      type="number" minFractionDigits="2" maxFractionDigits="2"/>&#8364;
+                                </p>
+                                <s style="height: 100%; margin-top: 15px; padding: 0">
+                                    <fmt:formatNumber value="${product.price}"
+                                                      type="number" minFractionDigits="2"
+                                                      maxFractionDigits="2"/>&#8364;</s>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="prezzo"><fmt:formatNumber value="${product.price}"
+                                                                    type="number" minFractionDigits="2"
+                                                                    maxFractionDigits="2"/>&#8364;</p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </a>

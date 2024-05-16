@@ -9,15 +9,24 @@ public class Product {
     private int quantity;
     private String photo_path;
     private String categoria;
+    private int sconto;
 
     public Product() {
-        super();
+        super(); sconto=40;
     }
 
     @Override
     public boolean equals(Object o) {
         Product product = (Product) o;
         return product.getId().equals(this.id);
+    }
+
+    public int getSconto() {
+        return sconto;
+    }
+
+    public void setSconto(int sconto) {
+        this.sconto = sconto;
     }
 
     public String getCategoria() {
