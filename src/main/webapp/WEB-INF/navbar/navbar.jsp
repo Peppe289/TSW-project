@@ -346,7 +346,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar
                             <a href="${pageContext.request.contextPath}/registrazione.jsp">Registrati</a>
                         </c:otherwise>
                     </c:choose>
-                    <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">RickRoll</a>
+                    <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank">RickRoll</a>
                 </div>
             </div>
         </li>
