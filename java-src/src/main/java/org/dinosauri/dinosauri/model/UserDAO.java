@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDAO {
 
@@ -26,7 +24,7 @@ public class UserDAO {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 utente = new User();
                 utente.setId(rs.getString("id_utente"));
                 utente.setNome(rs.getString("nome"));
