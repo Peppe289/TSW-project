@@ -27,5 +27,4 @@ jobs:
         distribution: 'oracle'
         cache: maven
     - name: Build with Maven
-      working-directory: java-src
       run: mvn -B package --file pom.xml
