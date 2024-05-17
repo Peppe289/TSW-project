@@ -139,7 +139,7 @@
                 </c:if>
                 <div class="item-desc">
                     <p class="title-product">${product.name}</p>
-                    <p class="desc">
+                    <p class="desc overtext">
                             ${product.description}
                     </p>
                     <div style="display: flex; margin: 0; padding: 5px 0 0;">
