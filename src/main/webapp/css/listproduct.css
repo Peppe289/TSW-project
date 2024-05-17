@@ -1,16 +1,22 @@
 #parent-cont {
     /* Lista responsive */
-    display: flex;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 0.4rem;
+    justify-content: center;
     overflow: hidden;
+    width: 80%;
+    margin: auto;
 }
 
 #parent-cont .item {
     margin: 20px;
     width: 300px;
     text-decoration: none;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
     position: relative;
+    min-width: auto;
 }
 
 #parent-cont .item .title-product {
@@ -74,6 +80,12 @@
 }
 
 @media only screen and (max-width: 900px) {
+    #parent-cont {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
     #parent-cont .item {
         width: 100%;
     }
