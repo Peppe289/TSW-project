@@ -29,7 +29,7 @@ public class ProductServlet extends HttpServlet {
         product.setQuantity(productDAO.doRetrieveProductDispByID(id_prodotto, true).size());
 
         req.setAttribute("product", product);
-        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/prodotto/product.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/product.jsp");
         rd.forward(req, resp);
     }
 

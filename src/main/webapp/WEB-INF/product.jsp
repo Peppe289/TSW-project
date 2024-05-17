@@ -47,7 +47,7 @@
 </style>
 
 <body>
-<jsp:include page="../navbar/navbar.jsp"/>
+<jsp:include page="include/navbar.jsp"/>
 <div id="container">
     <div id="view-container">
         <div id="img-container">
@@ -108,7 +108,7 @@
     </div>
 </div>
 
-<jsp:include page="../footer/footer.jsp"/>
+<jsp:include page="include/footer.jsp"/>
 </body>
 <script>
     /* carica di default la prima immagine dalla lista della preview */

@@ -8,9 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" href="css/carosello/style.css">
-    <link type="text/css" rel="stylesheet" href="css/filtro/style.css">
-    <link type="text/css" rel="stylesheet" href="css/misc/style.css">
+    <link type="text/css" rel="stylesheet" href="css/carosello.css">
+    <link type="text/css" rel="stylesheet" href="css/filter.css">
+    <link type="text/css" rel="stylesheet" href="css/listproduct.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
@@ -55,7 +55,7 @@
     <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
-<jsp:include page="navbar/navbar.jsp"/>
+<jsp:include page="include/navbar.jsp"/>
 
 <!-- carosello -->
 <c:if test="${not empty isHome}">
@@ -167,7 +167,7 @@
     </div>
 </div>
 
-<jsp:include page="footer/footer.jsp"/>
+<jsp:include page="include/footer.jsp"/>
 </body>
 <script>
     let slideIndex = 1;
