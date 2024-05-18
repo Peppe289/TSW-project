@@ -10,24 +10,21 @@ import org.dinosauri.dinosauri.model.Product;
 import org.dinosauri.dinosauri.model.ProductDAO;
 
 import java.io.IOException;
-import java.util.*;
-
-import static java.util.Collections.addAll;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
 
-        if (keyword == null)
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (keyword == null) resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 
         String[] keywords = keyword.split(" ");
-        ProductDAO productDAO = new ProductDAO();
 
         List<Product> products = new ArrayList<>();
         for (String tmp : keywords) {
-            List<Product> list = productDAO.doRetriveProductsByKeyword(tmp);
+            List<Product> list = ProductDAO.doRetriveProducts(tmp);
             for (Product prod : list) {
                 if (!products.contains(prod)) {
                     products.add(prod);

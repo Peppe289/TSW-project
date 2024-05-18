@@ -10,7 +10,39 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ProductDAO {
-    public List<Product> doRetriveProductsByKeyword(String keyword) {
+
+    /**
+     * Questa funzione si occupa di prendere la coppia chiave valore delle offerte dove:
+     * chiave > id_prodotto per capire quale prodotto è coinvolto
+     * valore > il numero intero della percentuale
+     * <p>
+     * Vengono restituiti solo gli sconti attualmente validi, quindi viene anche effettuato
+     * il controllo con la data attuale.
+     */
+    public static HashMap<String, Integer> getOfferte() {
+        HashMap<String, Integer> offerte = new HashMap<String, Integer>();
+
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT id_prodotto, percentuale, data_inizio, data_fine FROM offerte");
+            ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LocalDate start = rs.getDate("data_inizio").toLocalDate();
+                LocalDate stop = rs.getDate("data_fine").toLocalDate();
+                LocalDate today = LocalDate.now();
+
+                if ((today.isEqual(start) || today.isAfter(start)) && today.isBefore(stop)) {
+                    offerte.put(rs.getString("id_prodotto"), rs.getInt("percentuale"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return offerte;
+    }
+
+    public static List<Product> doRetriveProducts(String keyword) {
         List<Product> products = new ArrayList<>();
         HashMap<String, Integer> offerte = getOfferte();
 
@@ -41,38 +73,7 @@ public class ProductDAO {
         return products;
     }
 
-    /**
-     * Questa funzione si occupa di prendere la coppia chiave valore delle offerte dove:
-     * chiave > id_prodotto per capire quale prodotto è coinvolto
-     * valore > il numero intero della percentuale
-     * <p>
-     * Vengono restituiti solo gli sconti attualmente validi, quindi viene anche effettuato
-     * il controllo con la data attuale.
-     */
-    public HashMap<String, Integer> getOfferte() {
-        HashMap<String, Integer> offerte = new HashMap<String, Integer>();
-
-        try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT id_prodotto, percentuale, data_inizio, data_fine FROM offerte");
-            ps.executeQuery();
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                LocalDate start = rs.getDate("data_inizio").toLocalDate();
-                LocalDate stop = rs.getDate("data_fine").toLocalDate();
-                LocalDate today = LocalDate.now();
-
-                if ((today.isEqual(start) || today.isAfter(start)) && today.isBefore(stop)) {
-                    offerte.put(rs.getString("id_prodotto"), rs.getInt("percentuale"));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return offerte;
-    }
-
-    public List<Product> doRetriveProducts() {
+    public static List<Product> doRetriveProducts() {
         List<Product> products = new ArrayList<>();
         HashMap<String, Integer> offerte = getOfferte();
 
@@ -102,7 +103,7 @@ public class ProductDAO {
         return products;
     }
 
-    public Product doRetrieveProductByID(String id) {
+    public static Product doRetrieveProductByID(String id) {
         Product prod = null;
         HashMap<String, Integer> offerte = getOfferte();
         try (Connection con = ConnectionService.getConnection()) {
@@ -135,7 +136,7 @@ public class ProductDAO {
      * non sono disponibili (= numero di prodotti venduti) di una determinata categoria.
      * Qui viene ritornata la lista degli id_elemento (singolo prodotto).
      */
-    public List<Integer> doRetrieveProductDispByID(String id, boolean disp) {
+    public static List<Integer> doRetrieveProductByID(String id, boolean disp) {
         List<Integer> counter = new ArrayList<>();
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id_elemento FROM elemento_prodotto WHERE id_prodotto = ? AND disponibilita = ?");

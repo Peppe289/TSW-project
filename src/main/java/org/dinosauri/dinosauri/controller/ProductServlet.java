@@ -20,13 +20,11 @@ public class ProductServlet extends HttpServlet {
 
         if (id_prodotto == null) resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 
-        ProductDAO productDAO = new ProductDAO();
-        Product product;
+        Product product = ProductDAO.doRetrieveProductByID(id_prodotto);
 
-        product = productDAO.doRetrieveProductByID(id_prodotto);
         if (product == null) resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 
-        product.setQuantity(productDAO.doRetrieveProductDispByID(id_prodotto, true).size());
+        product.setQuantity(ProductDAO.doRetrieveProductByID(id_prodotto, true).size());
 
         req.setAttribute("product", product);
         RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/product.jsp");

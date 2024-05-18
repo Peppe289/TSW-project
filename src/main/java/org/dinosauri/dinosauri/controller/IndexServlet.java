@@ -19,8 +19,7 @@ import java.util.List;
 public class IndexServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> products = productDAO.doRetriveProducts();
+        List<Product> products = ProductDAO.doRetriveProducts();
         Boolean isHome = true;
 
         req.setAttribute("isHome", isHome);
