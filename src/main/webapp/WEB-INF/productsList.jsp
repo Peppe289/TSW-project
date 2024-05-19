@@ -170,33 +170,34 @@
 
 <jsp:include page="include/footer.jsp"/>
 </body>
-<script>
-    let slideIndex = 1;
+<c:if test="${not empty isHome}">
+    <script>
+        let slideIndex = 1;
 
-    showSlides(slideIndex);
+        showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("slides");
-        if (n > slides.length) {
-            slideIndex = 1
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slides[slideIndex - 1].style.display = "block";
-    }
-</script>
 
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+    </script>
+</c:if>
 </html>
