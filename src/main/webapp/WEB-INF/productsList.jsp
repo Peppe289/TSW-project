@@ -123,10 +123,10 @@
                     <label for="erbivori">Erbivori</label>
                 </div>
 
-                <input type="submit" value="filtra">
+                <input class="bg-3CB371" type="submit" value="filtra">
             </form>
         </div>
-        <button id="button-mobile-form-submit" type="submit" form="filter-form">Filtra</button>
+        <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
     </c:if>
     <!-- end filtro ricerca-->
 
