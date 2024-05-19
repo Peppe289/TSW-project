@@ -61,7 +61,7 @@
 
 <!-- carosello -->
 <c:if test="${not empty isHome}">
-    <div class="slideshow-container">
+    <div class="slideshow-container not-select">
         <div class="slides">
             <img src="https://via.placeholder.com/600x300/0000ff/ffffff" style="width:100%">
             <div class="text">Caption Text</div>
@@ -86,7 +86,7 @@
 <div id="content-main">
     <!-- filtro ricerca -->
     <c:if test="${empty isHome}">
-        <div id="filter" class="bg-f4f5f5 sticky-top">
+        <div id="filter" class="not-select bg-f4f5f5 sticky-top">
             <h4>Filtri di ricerca</h4>
             <form id="filter-form" action="">
                 <h4>Ambiente</h4>

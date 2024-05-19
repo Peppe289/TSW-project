@@ -37,10 +37,6 @@
     margin-left: 20px;
 }
 
-#filter label {
-    user-select: none;
-}
-
 #filter input[type="submit"] {
     border: none;
     color: white;

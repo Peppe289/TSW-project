@@ -247,11 +247,6 @@ nav li .curr-page {
     font-size: 50px;
     color: #F4F5F5;
 
-    /* remove selectable text */
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
     /* Allinea verticalmente */
     display: flex;
     align-items: center;

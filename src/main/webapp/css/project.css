@@ -3,6 +3,12 @@
     top: 0;
 }
 
+.not-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .bg-f4f5f5 {
     background-color: #F4F5F5;
 }
