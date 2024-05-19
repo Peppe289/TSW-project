@@ -10,7 +10,6 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="css/navbar.css">
-    <link type="text/css" rel="stylesheet" href="css/project.css">
 </head>
 <body>
 <div id="mobile-bar">

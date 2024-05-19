@@ -103,7 +103,6 @@ nav {
 
 .form-bar button {
     border: none;
-    background: none;
     height: 45px;
     width: 45px;
     margin: 0px;
@@ -176,6 +175,10 @@ nav li .curr-page {
     #mobile-bar {
         /* senza !important non funziona */
         display: none !important;
+    }
+
+    .form-bar button {
+        background: none;
     }
 }
 
