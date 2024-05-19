@@ -45,8 +45,6 @@
      */
     height: 300px;
     object-fit: contain;
-
-    background-color: #F4F5F5;
 }
 
 #parent-cont .item .item-desc {

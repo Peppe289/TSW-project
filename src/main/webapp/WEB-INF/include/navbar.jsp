@@ -10,18 +10,19 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="css/navbar.css">
+    <link type="text/css" rel="stylesheet" href="css/project.css">
 </head>
 <body>
 <div id="mobile-bar">
     <img src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
-        <input type="text" name="search" value="${lastSearch}">
-        <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
+        <input class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
+        <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
     </form>
     <div class="open-btn" onclick="openNav()">☰</div>
 </div>
 
-<nav id="navbar">
+<nav class="bg-f4f5f5" id="navbar">
     <ul>
         <!-- il logo si nasconde quando siamo da mobile -->
         <li class="logo"><img src="${pageContext.request.contextPath}/img/logo.png"></li>

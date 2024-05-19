@@ -11,6 +11,7 @@
     <link type="text/css" rel="stylesheet" href="css/carosello.css">
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
+    <link type="text/css" rel="stylesheet" href="css/project.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
@@ -84,7 +85,7 @@
 <div id="content-main">
     <!-- filtro ricerca -->
     <c:if test="${empty isHome}">
-        <div id="filter">
+        <div id="filter" class="bg-f4f5f5 sticky-top">
             <h4>Filtri di ricerca</h4>
             <form id="filter-form" action="">
                 <h4>Ambiente</h4>
@@ -131,7 +132,7 @@
     <div id="parent-cont">
         <c:forEach items="${products}" var="product">
             <a href="p?product=${product.id}" class="item">
-                <img src="https://via.placeholder.com/600x200/00ff00/ffffff">
+                <img class="bg-f4f5f5" src="https://via.placeholder.com/600x200/00ff00/ffffff">
                 <c:if test="${product.sconto != 0}">
                     <div class="off">
                         <p>-${product.sconto}%</p>

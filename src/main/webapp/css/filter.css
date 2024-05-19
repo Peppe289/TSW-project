@@ -1,13 +1,6 @@
 #filter {
-    background-color: #F4F5F5;
     padding: 20px;
     height: 100%;
-
-    /**
-     * Per fissare il filtro in alto quando si scorre
-     */
-    position: sticky;
-    top: 0px;
 }
 
 #filter form {

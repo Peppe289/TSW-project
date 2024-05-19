@@ -63,7 +63,6 @@ nav {
      * Il colore incide anche nell'icona di ricerca
      * poiché quella non ha background.
      */
-    background-color: #F4F5F5;
     overflow: hidden;
     font-family: 'Open Sans';
     z-index: 20;
@@ -268,7 +267,6 @@ nav li .curr-page {
 
 #mobile-bar .form-bar button,
 #mobile-bar .form-bar button img {
-    background-color: #F4F5F5;
     border: none;
 }
 
