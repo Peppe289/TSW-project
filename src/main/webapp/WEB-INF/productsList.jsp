@@ -12,6 +12,7 @@
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
+    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 

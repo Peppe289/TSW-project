@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <title>DinoStore - Prodotto</title>
 
