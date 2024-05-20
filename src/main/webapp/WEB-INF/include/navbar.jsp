@@ -35,7 +35,7 @@
         </c:choose>
         <li><a class="" href="#">Offerte</a></li>
         <li><a class="" href="#">Categorie</a></li>
-        <li><a class="" href="#">Prodotti</a></li>
+        <li><a class="" href="${pageContext.request.contextPath}/product">Prodotti</a></li>
         <li>
             <div class="dropdown">
                 <button class="dropbtn">

@@ -13,26 +13,54 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/search")
+@WebServlet(name = "search", urlPatterns = {"/search", "/product"})
 public class SearchServlet extends HttpServlet {
+
+    final public int max_prod_page = 10;
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
+        String page = req.getParameter("page");
+        List<Product> products;
+        if (page == null) page = "0";
 
-        if (keyword == null) resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        /**
+         * Viene chiamata la servlet come search.
+         * In questo caso cerca dal pattern.
+         */
+        if (keyword != null) {
+            String[] keywords = keyword.split(" ");
 
-        String[] keywords = keyword.split(" ");
-
-        List<Product> products = new ArrayList<>();
-        for (String tmp : keywords) {
-            List<Product> list = ProductDAO.doRetriveProducts(tmp);
-            for (Product prod : list) {
-                if (!products.contains(prod)) {
-                    products.add(prod);
+            products = new ArrayList<>();
+            for (String tmp : keywords) {
+                List<Product> list = ProductDAO.doRetriveProducts(tmp);
+                for (Product prod : list) {
+                    if (!products.contains(prod)) {
+                        products.add(prod);
+                    }
                 }
+                list.clear();
             }
-            list.clear();
+        } else {
+            /**
+             *  Viene chiamata la servlet come lista prodotti.
+             *  In questo caso ci servono tutti i prodotti
+             */
+            products = ProductDAO.doRetriveProducts();
         }
 
+        int min = max_prod_page * Integer.parseInt(page);
+        int max = max_prod_page + (max_prod_page * Integer.parseInt(page));
+
+        /* assicurati di non uscire dagli index */
+        if (max >= products.size()) max = products.size() - 1;
+
+        products = products.subList(min, max);
+
+        Integer btn_page = products.size() / max_prod_page + (products.size() % max_prod_page != 0 ? 1 : 0) + 1;
+
+        req.setAttribute("page", page);
+        req.setAttribute("btn_page", btn_page);
         req.setAttribute("lastSearch", keyword);
         req.setAttribute("products", products);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");

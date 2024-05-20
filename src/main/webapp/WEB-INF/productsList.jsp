@@ -169,6 +169,81 @@
     </div>
 </div>
 
+<style>
+    #btn-page {
+        display: inline-block;
+        text-align: center;
+        margin: auto;
+        overflow: hidden;
+        position: relative;
+        width: auto;
+        font-family: Arial, Helvetica, sans-serif;
+
+        & ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        & a,
+        & a:visited,
+        & a:hover,
+        & a:active {
+            color: inherit;
+        }
+
+        & * {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        & li {
+            border-radius: 5px;
+        }
+
+        & a {
+            padding: 10px;
+        }
+
+        & .active {
+            color: white;
+        }
+
+        & .other {
+            background-color: #ececec;
+        }
+
+        & .deactive {
+            pointer-events: none;
+            background-color: #939393;
+            color: #cdcdcd;
+        }
+    }
+</style>
+<div id="btn-page" class="not-select">
+    <c:choose>
+        <c:when test="${empty isHome}">
+            <ul>
+                <li class="${page > 0 ? 'bg-3CB371 active' : 'deactive'}">
+                    <a href="${pageContext.request.contextPath}/product?page=${page - 1}">Precedente</a>
+                </li>
+                <c:forEach var="number" begin="0" end="${btn_page}">
+                    <li class="${page == number ? 'bg-3CB371 active' : 'other'}">
+                        <a href="${pageContext.request.contextPath}/product?page=${number}">${number}</a>
+                    </li>
+                </c:forEach>
+                <li class="${page < btn_page ? 'bg-3CB371 active' : 'deactive'}">
+                    <a href="${pageContext.request.contextPath}/product?page=${page + 1}">Successiva</a>
+                </li>
+            </ul>
+        </c:when>
+        <c:otherwise>
+            <ul>
+                <li class="bg-3CB371 active"><a href="${pageContext.request.contextPath}/product">Mostra più
+                    prodotti</a></li>
+            </ul>
+        </c:otherwise>
+    </c:choose>
+</div>
 <jsp:include page="include/footer.jsp"/>
 </body>
 <c:if test="${not empty isHome}">

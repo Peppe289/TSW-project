@@ -22,6 +22,10 @@ public class IndexServlet extends HttpServlet {
         List<Product> products = ProductDAO.doRetriveProducts();
         Boolean isHome = true;
 
+        /* nella pagina index non vogliamo mostrare più di 5 prodotti */
+        if (products.size() > 5)
+            products = products.subList(0,5);
+
         req.setAttribute("isHome", isHome);
         req.setAttribute("products", products);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");
