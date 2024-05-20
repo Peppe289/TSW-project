@@ -228,7 +228,7 @@
                 </li>
                 <c:forEach var="number" begin="0" end="${btn_page}">
                     <li class="${page == number ? 'bg-3CB371 active' : 'other'}">
-                        <a href="${pageContext.request.contextPath}/product?page=${number}">${number}</a>
+                        <a href="${pageContext.request.contextPath}/product?page=${number}">${number + 1}</a>
                     </li>
                 </c:forEach>
                 <li class="${page < btn_page ? 'bg-3CB371 active' : 'deactive'}">

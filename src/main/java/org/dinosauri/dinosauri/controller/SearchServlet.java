@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet(name = "search", urlPatterns = {"/search", "/product"})
 public class SearchServlet extends HttpServlet {
 
-    final public int max_prod_page = 10;
+    final public int max_prod_page = 30;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
@@ -53,11 +53,16 @@ public class SearchServlet extends HttpServlet {
         int max = max_prod_page + (max_prod_page * Integer.parseInt(page));
 
         /* assicurati di non uscire dagli index */
-        if (max >= products.size()) max = products.size() - 1;
+        if (max >= products.size()) max = products.size();
 
+        /**
+         * Unico modo decente per partizionare gli elementi e far vedere il numero di pagine esatte.
+         */
+        Integer btn_page = (int) Math.ceil((double) products.size() / max_prod_page) - 1;
+        System.out.println("Dimesione della lista: " + products.size());
         products = products.subList(min, max);
 
-        Integer btn_page = products.size() / max_prod_page + (products.size() % max_prod_page != 0 ? 1 : 0) + 1;
+        System.out.println("Dimesione della lista: " + products.size());
 
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);
