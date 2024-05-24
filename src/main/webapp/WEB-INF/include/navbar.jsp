@@ -25,14 +25,7 @@
     <ul>
         <!-- il logo si nasconde quando siamo da mobile -->
         <li class="logo"><img src="${pageContext.request.contextPath}/img/logo.png"></li>
-        <c:choose>
-            <c:when test="${not empty isHome}">
-                <li><a class="curr-page" href="${pageContext.request.contextPath}/">Home</a></li>
-            </c:when>
-            <c:otherwise>
-                <li><a class="" href="${pageContext.request.contextPath}/">Home</a></li>
-            </c:otherwise>
-        </c:choose>
+        <li><a id="home_nav" href="${pageContext.request.contextPath}/">Home</a></li>
         <li><a class="" href="#">Offerte</a></li>
         <li><a class="" href="#">Categorie</a></li>
         <li><a class="" href="${pageContext.request.contextPath}/product">Prodotti</a></li>

@@ -1,5 +1,7 @@
 package org.dinosauri.dinosauri.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,24 +17,31 @@ import java.util.List;
 /**
  * Usa la path root /
  */
-@WebServlet("")
+@WebServlet("/requestIndexProduct")
 public class IndexServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Product> products = ProductDAO.doRetriveProducts();
-        Boolean isHome = true;
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonArray = "";
         /* nella pagina index non vogliamo mostrare più di 5 prodotti */
         if (products.size() > 5)
-            products = products.subList(0,5);
+            products = products.subList(0, 5);
 
-        req.setAttribute("isHome", isHome);
-        req.setAttribute("products", products);
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");
-        rd.forward(req, resp);
+        try {
+            jsonArray
+                    = objectMapper.writeValueAsString(products.toArray());
+            System.out.println(jsonArray);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(jsonArray);
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doGet(req, resp);
     }
 
