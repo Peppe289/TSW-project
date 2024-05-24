@@ -59,75 +59,49 @@
 
 <jsp:include page="include/navbar.jsp"/>
 
-<!-- carosello -->
-<c:if test="${not empty isHome}">
-    <div class="slideshow-container not-select">
-        <div class="slides">
-            <img src="https://via.placeholder.com/600x300/0000ff/ffffff" style="width:100%">
-            <div class="text">Caption Text</div>
-        </div>
-
-        <div class="slides">
-            <img src="https://via.placeholder.com/600x200/00ff00/ffffff" style="width:100%">
-            <div class="text">Caption Two</div>
-        </div>
-
-        <div class="slides">
-            <img src="https://via.placeholder.com/600x300/ff0000/ffffff" style="width:100%">
-            <div class="text">Caption Three</div>
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
-</c:if>
-<!-- end carosello -->
-
 <div id="content-main">
     <!-- filtro ricerca -->
-    <c:if test="${empty isHome}">
-        <div id="filter" class="not-select bg-f4f5f5 sticky-top">
-            <h4>Filtri di ricerca</h4>
-            <form id="filter-form" action="">
-                <h4>Ambiente</h4>
+    <div id="filter" class="not-select bg-f4f5f5 sticky-top">
+        <h4>Filtri di ricerca</h4>
+        <form id="filter-form" action="">
+            <h4>Ambiente</h4>
 
-                <div class="single-table">
-                    <input type="checkbox" id="terrestri" name="terrestri">
-                    <label for="terrestri">Terrestri</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="terrestri" name="terrestri">
+                <label for="terrestri">Terrestri</label>
+            </div>
 
-                <div class="single-table">
-                    <input type="checkbox" id="volatili" name="volatili">
-                    <label for="volatili">Volatili</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="volatili" name="volatili">
+                <label for="volatili">Volatili</label>
+            </div>
 
-                <div class="single-table">
-                    <input type="checkbox" id="acquatici" name="acquatici">
-                    <label for="acquatici">Acquatici</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="acquatici" name="acquatici">
+                <label for="acquatici">Acquatici</label>
+            </div>
 
-                <h4>Alimentazione</h4>
+            <h4>Alimentazione</h4>
 
-                <div class="single-table">
-                    <input type="checkbox" id="carnivori" name="carnivori">
-                    <label for="carnivori">Carnivori</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="carnivori" name="carnivori">
+                <label for="carnivori">Carnivori</label>
+            </div>
 
-                <div class="single-table">
-                    <input type="checkbox" id="onnivori" name="onnivori">
-                    <label for="onnivori">Onnivori</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="onnivori" name="onnivori">
+                <label for="onnivori">Onnivori</label>
+            </div>
 
-                <div class="single-table">
-                    <input type="checkbox" id="erbivori" name="erbivori">
-                    <label for="erbivori">Erbivori</label>
-                </div>
+            <div class="single-table">
+                <input type="checkbox" id="erbivori" name="erbivori">
+                <label for="erbivori">Erbivori</label>
+            </div>
 
-                <input class="bg-3CB371" type="submit" value="filtra">
-            </form>
-        </div>
-        <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
-    </c:if>
+            <input class="bg-3CB371" type="submit" value="filtra">
+        </form>
+    </div>
+    <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
     <!-- end filtro ricerca-->
 
     <div id="parent-cont">
@@ -220,60 +194,20 @@
     }
 </style>
 <div id="btn-page" class="not-select">
-    <c:choose>
-        <c:when test="${empty isHome}">
-            <ul>
-                <li class="${page > 0 ? 'bg-3CB371 active' : 'deactive'}">
-                    <a href="${pageContext.request.contextPath}/product?page=${page - 1}&search=${lastSearch}">Precedente</a>
-                </li>
-                <c:forEach var="number" begin="0" end="${btn_page}">
-                    <li class="${page == number ? 'bg-3CB371 active' : 'other'}">
-                        <a href="${pageContext.request.contextPath}/product?page=${number}&search=${lastSearch}">${number + 1}</a>
-                    </li>
-                </c:forEach>
-                <li class="${page < btn_page ? 'bg-3CB371 active' : 'deactive'}">
-                    <a href="${pageContext.request.contextPath}/product?page=${page + 1}&search=${lastSearch}">Successiva</a>
-                </li>
-            </ul>
-        </c:when>
-        <c:otherwise>
-            <ul>
-                <li class="bg-3CB371 active"><a href="${pageContext.request.contextPath}/product">Mostra più
-                    prodotti</a></li>
-            </ul>
-        </c:otherwise>
-    </c:choose>
+    <ul>
+        <li class="${page > 0 ? 'bg-3CB371 active' : 'deactive'}">
+            <a href="${pageContext.request.contextPath}/product?page=${page - 1}&search=${lastSearch}">Precedente</a>
+        </li>
+        <c:forEach var="number" begin="0" end="${btn_page}">
+            <li class="${page == number ? 'bg-3CB371 active' : 'other'}">
+                <a href="${pageContext.request.contextPath}/product?page=${number}&search=${lastSearch}">${number + 1}</a>
+            </li>
+        </c:forEach>
+        <li class="${page < btn_page ? 'bg-3CB371 active' : 'deactive'}">
+            <a href="${pageContext.request.contextPath}/product?page=${page + 1}&search=${lastSearch}">Successiva</a>
+        </li>
+    </ul>
 </div>
 <jsp:include page="include/footer.jsp"/>
 </body>
-<c:if test="${not empty isHome}">
-    <script>
-        let slideIndex = 1;
-
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("slides");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slides[slideIndex - 1].style.display = "block";
-        }
-    </script>
-</c:if>
 </html>
