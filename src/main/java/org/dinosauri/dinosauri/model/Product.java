@@ -13,6 +13,7 @@ public class Product {
 
     public Product() {
         super();
+        sconto = 0;
     }
 
     @Override

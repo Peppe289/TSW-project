@@ -51,8 +51,9 @@ function formatString(product) {
         "                                <s style=\"height: 100%; margin-top: 15px; padding: 0\"> ?? </s>\n";
 
     offPercentage = offPercentage.replace(" ? ", product.sconto);
-    off = off.replace(" ?? ", product.sconto === 0 ? "" : product.price)
-    off = off.replace(" ? ", product.sconto === 0 ? product.price : product.price * (1 - (product.sconto / 100)));
+    off = off.replace(" ?? ", product.sconto === 0 ? "" : (product.price.toFixed(2) + "€") )
+    const price = product.sconto === 0 ? product.price : (product.price * (1 - (product.sconto / 100)));
+    off = off.replace(" ? ", price.toFixed(2) + "€");
     string = string.replace(" ??? ", product.sconto === 0 ? "" : offPercentage);
     string = string.replace(" ???? ", off);
     string = string.replace("?????description?????", product.description);
