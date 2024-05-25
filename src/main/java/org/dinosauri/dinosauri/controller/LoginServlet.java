@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
         }
 
-        if (!stayLogged.isEmpty()) {
+        if (stayLogged == null) {
             // TODO: automatizzare il prossimo login
         }
 
