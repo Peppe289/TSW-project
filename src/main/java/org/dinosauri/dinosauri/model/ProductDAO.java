@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * The ProductDAO class provides methods to interact with the product database.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class ProductDAO {
 
     /**

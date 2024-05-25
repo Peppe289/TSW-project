@@ -4,6 +4,7 @@ package org.dinosauri.dinosauri.model;
  * The Product class represents a product with various attributes such as id, name, description,
  * power source, price, quantity, photo path, category, and discount.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Product {
     private String id;
     private String name;

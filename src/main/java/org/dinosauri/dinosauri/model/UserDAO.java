@@ -8,6 +8,7 @@ import java.sql.SQLException;
 /**
  * This class manages user data access operations in the database.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class UserDAO {
 
     /**
