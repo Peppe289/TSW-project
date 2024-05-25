@@ -3,6 +3,7 @@ package org.dinosauri.dinosauri.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,6 +40,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
+        String stayLogged = req.getParameter("stay_connect");
         User user = null;
         String button = req.getParameter("button");
 
@@ -72,6 +74,10 @@ public class LoginServlet extends HttpServlet {
             String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+        }
+
+        if (!stayLogged.isEmpty()) {
+            // TODO: automatizzare il prossimo login
         }
 
         /**

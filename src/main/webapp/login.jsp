@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/login.css">
+    <link type="text/css" rel="stylesheet" href="css/project.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <title>DinoStore - Log in</title>
@@ -24,11 +25,15 @@
     <form id="login" action="loginServlet" method="post">
         <div class="input">
             <input type="text" name="email" id="email" required>
-            <label>Email</label>
+            <label class="field">Email</label>
         </div>
         <div class="input">
             <input type="password" name="password" id="password" required>
-            <label>Password</label>
+            <label class="field">Password</label>
+        </div>
+        <div class="add_cookie not-select ">
+            <input type="checkbox" value="stay_connect" name="checkbox" id="checkbox">
+            <label for="checkbox">Resta connesso</label>
         </div>
     </form>
 

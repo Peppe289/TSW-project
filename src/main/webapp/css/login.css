@@ -25,10 +25,10 @@ form {
     margin: 10px;
 }
 
-input[type="text"]:focus + label,
-input[type="text"]:valid + label,
-input[type="password"]:focus + label,
-input[type="password"]:valid + label {
+input[type="text"]:focus + label.field,
+input[type="text"]:valid + label.field,
+input[type="password"]:focus + label.field,
+input[type="password"]:valid + label.field {
     top: -10px;
     font-size: 12px;
     color: #3CB371;
@@ -48,7 +48,7 @@ input[type="password"]:focus {
     border-color: #3CB371;
 }
 
-label {
+label.field {
     /* positione assoluta relativa al div dentro il form */
     position: absolute;
     top: 10px;
@@ -72,6 +72,18 @@ button:first-of-type {
 button:first-of-type:hover {
     background-color: #3CB371;
     color: white;
+}
+
+.add_cookie {
+    top: 0px;
+
+    & * {
+        position: static !important;
+    }
+}
+
+input[type="checkbox"] {
+    position: absolute;
 }
 
 button {

@@ -23,19 +23,23 @@
     <form id="registrazione" action="loginServlet" method="post">
         <div class="input">
             <input type="text" name="nome" id="nome" required>
-            <label>Nome</label>
+            <label class="field">Nome</label>
         </div>
         <div class="input">
             <input type="text" name="cognome" id="cognome" required>
-            <label>Cognome</label>
+            <label class="field">Cognome</label>
         </div>
         <div class="input">
             <input type="text" name="email" id="email" required>
-            <label>Email</label>
+            <label class="field">Email</label>
         </div>
         <div class="input">
             <input type="password" name="password" id="password" required>
-            <label>Password</label>
+            <label class="field">Password</label>
+        </div>
+        <div class="add_cookie not-select ">
+            <input type="checkbox" value="stay_connect" name="checkbox" id="checkbox">
+            <label for="checkbox">Resta connesso</label>
         </div>
     </form>
 
