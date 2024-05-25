@@ -8,32 +8,42 @@ import java.sql.SQLException;
 import java.util.TimeZone;
 
 /**
- * Serve soltanto per la connessione al database. Dopo di che abbiamo nella variabile statica.
- * Dovrebbe avviarsi solo una volta.
+ * This class handles the database connection setup and management.
+ * It uses a connection pool to optimize performance and resource utilization.
+ * The database connection details are retrieved from environment variables to enhance security.
  */
 public class ConnectionService {
     private static DataSource datasource;
 
+    /**
+     * Retrieves a connection to the database.
+     * It uses environment variables for the database username and password.
+     * If the environment variables are not set, default values are used.
+     *
+     * @return a connection to the database.
+     * @throws SQLException if a database access error occurs.
+     */
     public static Connection getConnection() throws SQLException {
+        // Retrieve database credentials from environment variables
+        String envPassword = System.getenv("PASSWORD_DB");
+        if (envPassword == null) envPassword = "12345678";
 
-        /**
-         * Prendi la variabile d'ambiente per recuperare la password e il nome del database.
-         * In questo modo non dobbiamo esporre la password nel progetto (la variabile di ambiente è locale).
-         * Se la variabile di ambiente non è presente allora metti una password di default.
-         *
-         * Possiamo avere password e username differenti senza concorrenza sulla history di git.
-         */
-        String env_password = System.getenv("PASSWORD_DB");
-        if (env_password == null) env_password = "12345678";
+        String envUser = System.getenv("USER_DB");
+        if (envUser == null) envUser = "root";
 
-        String env_user = System.getenv("USER_DB");
-        if (env_user == null) env_user = "root";
-
-        return getConnection("ecommerce", env_user, env_password);
+        // Establish connection using the retrieved credentials
+        return getConnection("ecommerce", envUser, envPassword);
     }
 
     /**
-     * Stabilisci la connessione con il database. i dati sono statici per inizializzarli una sola volta
+     * Establishes a connection to the specified database using the given username and password.
+     * The connection details are configured to initialize a connection pool only once.
+     *
+     * @param server   the name of the database server.
+     * @param username the username for the database.
+     * @param password the password for the database.
+     * @return a connection to the database.
+     * @throws SQLException if a database access error occurs.
      */
     public static Connection getConnection(String server, String username, String password) throws SQLException {
         if (datasource == null) {
