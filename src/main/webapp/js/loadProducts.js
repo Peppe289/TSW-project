@@ -27,7 +27,7 @@ export function requestProducts() {
 function formatString(product) {
     var string =
         "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
-        "                <img class=\"bg-f4f5f5\" src=\"https://via.placeholder.com/600x200/00ff00/ffffff\"" +
+        "                <img class=\"bg-f4f5f5\" src=\"img/logo.png\" loading=\"lazy\"" +
         "                   onError=\"this.onerror=null; this.src='img/missing.jpg';\">\n" +
         " ??? " +
         "                <div class=\"item-desc\">\n" +
