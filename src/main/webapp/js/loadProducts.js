@@ -12,7 +12,7 @@
  * @param {Object} product - The product object to add.
  */
 function addProduct(product) {
-    var string = formatString(product);
+    let string = formatString(product);
 
     document.getElementById("parent-cont").innerHTML += string;
 }
@@ -27,8 +27,8 @@ function addProduct(product) {
 export function requestProducts() {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
-        var json = JSON.parse(this.responseText);
-        for (var i = 0; i < json.length; i++) {
+        let json = JSON.parse(this.responseText);
+        for (let i = 0; i < json.length; i++) {
             addProduct(json[i]);
         }
     }
@@ -44,7 +44,7 @@ export function requestProducts() {
  * @returns {string} The formatted HTML string.
  */
 function formatString(product) {
-    var string =
+    let string =
         "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
         "                <img class=\"bg-f4f5f5\" src=\"img/logo.png\" loading=\"lazy\"" +
         "                   onError=\"this.onerror=null; this.src='img/missing.jpg';\">\n" +
@@ -60,12 +60,12 @@ function formatString(product) {
         "                </div>\n" +
         "            </a>\n";
 
-    var offPercentage =
+    let offPercentage =
         "                   <div class=\"off\">\n" +
         "                        <p>- ? %</p>\n" +
         "                    </div>\n";
 
-    var off =
+    let off =
         "                                <p class=\"prezzo\">\n ? </p>\n" +
         "                                <s style=\"height: 100%; margin-top: 15px; padding: 0\"> ?? </s>\n";
 
