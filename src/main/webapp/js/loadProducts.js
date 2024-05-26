@@ -1,15 +1,15 @@
 /**
- * Questo file js si occupa di caricare dinamicamente tramite
- * AJAX i prodotti da mostrare nella schermata home.
+ * This JavaScript file is responsible for dynamically loading
+ * products to display on the home screen using AJAX.
  *
- * @module productLoader
+ * @module loadProducts
  */
 
 /**
- * Aggiunge un prodotto formattato al contenitore nella pagina.
+ * Adds a formatted product to the container on the page.
  *
  * @function addProduct
- * @param {Object} product - L'oggetto prodotto da aggiungere.
+ * @param {Object} product - The product object to add.
  */
 function addProduct(product) {
     var string = formatString(product);
@@ -18,8 +18,8 @@ function addProduct(product) {
 }
 
 /**
- * Effettua una richiesta AJAX per ottenere i prodotti da mostrare
- * nella schermata home e li aggiunge al contenitore.
+ * Makes an AJAX request to get the products to display
+ * on the home screen and adds them to the container.
  *
  * @function requestProducts
  * @exports requestProducts
@@ -37,11 +37,11 @@ export function requestProducts() {
 }
 
 /**
- * Crea la stringa formattata HTML per visualizzare un prodotto.
+ * Creates the formatted HTML string to display a product.
  *
  * @function formatString
- * @param {Object} product - L'oggetto prodotto da formattare.
- * @returns {string} La stringa HTML formattata.
+ * @param {Object} product - The product object to format.
+ * @returns {string} The formatted HTML string.
  */
 function formatString(product) {
     var string =
