@@ -1,10 +1,15 @@
 /**
  * Questo file js si occupa di caricare dinamicamente tramite
- * ajax i prodotti da mostrare nella schermata home.
+ * AJAX i prodotti da mostrare nella schermata home.
  *
- * @requestProducts: si occupa di fare la richiesta ajax
- * @formatString: si occupa di crare la formattazione corretta per mostrare il prodotto
- * @addProduct: si occupa di aggiungere l'elemento formattato nel div.
+ * @module productLoader
+ */
+
+/**
+ * Aggiunge un prodotto formattato al contenitore nella pagina.
+ *
+ * @function addProduct
+ * @param {Object} product - L'oggetto prodotto da aggiungere.
  */
 function addProduct(product) {
     var string = formatString(product);
@@ -12,6 +17,13 @@ function addProduct(product) {
     document.getElementById("parent-cont").innerHTML += string;
 }
 
+/**
+ * Effettua una richiesta AJAX per ottenere i prodotti da mostrare
+ * nella schermata home e li aggiunge al contenitore.
+ *
+ * @function requestProducts
+ * @exports requestProducts
+ */
 export function requestProducts() {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
@@ -24,6 +36,13 @@ export function requestProducts() {
     xhttp.send();
 }
 
+/**
+ * Crea la stringa formattata HTML per visualizzare un prodotto.
+ *
+ * @function formatString
+ * @param {Object} product - L'oggetto prodotto da formattare.
+ * @returns {string} La stringa HTML formattata.
+ */
 function formatString(product) {
     var string =
         "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
