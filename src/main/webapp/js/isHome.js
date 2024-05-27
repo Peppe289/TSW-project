@@ -4,11 +4,12 @@ function delay(ms) {
 
 function homeStyle(isHome) {
     const home_nav = document.getElementById("home_nav");
-    home_nav.classList.add("curr-page");
+    if (isHome)
+        home_nav.classList.add("curr-page");
 }
 
 export function isHomeCheck() {
-    const url = window.location.pathname.valueOf();
+    const url = window.location.pathname.indexOf("/product");
 
-    homeStyle(url === '/index.jsp' || url === '/');
+    homeStyle(url === -1);
 }

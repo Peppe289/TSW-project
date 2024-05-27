@@ -47,7 +47,6 @@
         font-family: 'Open Sans', Arial, sans-serif;
     }
 </style>
-
 <body style="margin: 0; padding: 0">
 
 <a id="top-button" href="#" style="position: fixed;
@@ -58,7 +57,10 @@
 </a>
 
 <jsp:include page="include/navbar.jsp"/>
-
+<script defer>
+    const product_nav = document.getElementById("product_nav");
+    product_nav.classList.add("curr-page");
+</script>
 <div id="content-main">
     <!-- filtro ricerca -->
     <div id="filter" class="not-select bg-f4f5f5 sticky-top">
