@@ -107,7 +107,7 @@
     <div id="parent-cont">
         <c:forEach items="${products}" var="product">
             <a href="p?product=${product.id}" class="item">
-                <img class="bg-f4f5f5" src="https://via.placeholder.com/600x200/00ff00/ffffff">
+                <img class="bg-f4f5f5" src="${pageContext.request.contextPath}/img/logo.png">
                 <c:if test="${product.sconto != 0}">
                     <div class="off">
                         <p>-${product.sconto}%</p>
