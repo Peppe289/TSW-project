@@ -63,17 +63,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product prod = new Product();
-                prod.setId(rs.getString("id_prodotto"));
-                prod.setName(rs.getString("nome"));
-                prod.setPrice(rs.getDouble("prezzo"));
-                prod.setDescription(rs.getString("descrizione"));
-                prod.setAlimentazione(rs.getString("alimentazione"));
-                prod.setPhoto_path(rs.getString("photo_path"));
-                prod.setCategoria(rs.getString("categoria"));
-
-                Integer off = offerte.get(prod.getId());
-                if (off != null) prod.setSconto(off);
-                else prod.setSconto(0);
+                LoadFromResult(prod, offerte, rs);
 
                 products.add(prod);
             }
@@ -98,17 +88,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product prod = new Product();
-                prod.setId(rs.getString("id_prodotto"));
-                prod.setName(rs.getString("nome"));
-                prod.setPrice(rs.getDouble("prezzo"));
-                prod.setDescription(rs.getString("descrizione"));
-                prod.setAlimentazione(rs.getString("alimentazione"));
-                prod.setPhoto_path(rs.getString("photo_path"));
-                prod.setCategoria(rs.getString("categoria"));
-
-                Integer off = offerte.get(prod.getId());
-                if (off != null) prod.setSconto(off);
-                else prod.setSconto(0);
+                LoadFromResult(prod, offerte, rs);
 
                 products.add(prod);
             }
@@ -134,23 +114,47 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 prod = new Product();
-                prod.setId(rs.getString("id_prodotto"));
-                prod.setName(rs.getString("nome"));
-                prod.setPrice(rs.getDouble("prezzo"));
-                prod.setDescription(rs.getString("descrizione"));
-                prod.setAlimentazione(rs.getString("alimentazione"));
-                prod.setPhoto_path(rs.getString("photo_path"));
-                prod.setCategoria(rs.getString("categoria"));
-
-                Integer off = offerte.get(prod.getId());
-                if (off != null) prod.setSconto(off);
-                else prod.setSconto(0);
+                LoadFromResult(prod, offerte, rs);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return prod;
+    }
+
+    /**
+     * Populates a Product object with data obtained from a ResultSet and sets any applicable discounts.
+     * <p>
+     * This method performs the following operations:
+     * - Sets the product ID using the value from the "id_prodotto" column of the ResultSet.
+     * - Sets the product name using the value from the "nome" column of the ResultSet.
+     * - Sets the product price using the value from the "prezzo" column of the ResultSet.
+     * - Sets the product description using the value from the "descrizione" column of the ResultSet.
+     * - Sets the product alimentation using the value from the "alimentazione" column of the ResultSet.
+     * - Sets the product photo path using the value from the "photo_path" column of the ResultSet.
+     * - Sets the product category using the value from the "categoria" column of the ResultSet.
+     * - Checks if the product ID is present in the discounts map:
+     * - If present, sets the product discount to the corresponding value from the map.
+     * - If not present, sets the product discount to 0.
+     *
+     * @param prod    The product to be populated with data.
+     * @param offerte A map containing discounts for products, where the key is the product ID and the value is the discount.
+     * @param rs      The ResultSet containing the product data.
+     * @throws SQLException If an error occurs while accessing the ResultSet data.
+     */
+    private static void LoadFromResult(Product prod, HashMap<String, Integer> offerte, ResultSet rs) throws SQLException {
+        prod.setId(rs.getString("id_prodotto"));
+        prod.setName(rs.getString("nome"));
+        prod.setPrice(rs.getDouble("prezzo"));
+        prod.setDescription(rs.getString("descrizione"));
+        prod.setAlimentazione(rs.getString("alimentazione"));
+        prod.setPhoto_path(rs.getString("photo_path"));
+        prod.setCategoria(rs.getString("categoria"));
+
+        Integer off = offerte.get(prod.getId());
+        if (off != null) prod.setSconto(off);
+        else prod.setSconto(0);
     }
 
     /**
