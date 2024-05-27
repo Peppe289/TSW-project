@@ -61,6 +61,9 @@ public class SearchServlet extends HttpServlet {
         Integer btn_page = (int) Math.ceil((double) products.size() / max_prod_page) - 1;
         products = products.subList(min, max);
 
+        if (btn_page < 0)
+            btn_page = 0;
+
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);
         req.setAttribute("lastSearch", keyword);
