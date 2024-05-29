@@ -66,8 +66,44 @@ function sererStatsPage() {
     xhttp.send();
 }
 
+function createTableHead() {
+    const table = document.createElement("table");
+    const table_head_row = document.createElement("tr");
+    const head = ["ID", "Nome", "Prezzo"];
+
+    head.forEach(function (value) {
+        let table_head = document.createElement("th");
+        table_head.innerHTML = value;
+
+        table_head_row.innerHTML += table_head.outerHTML;
+    });
+
+    table.innerHTML = table_head_row.outerHTML;
+
+    return table;
+}
+
+function createRowTableElement(json) {
+    return "<tr> <td>" + json.id + "</td> <td> " + json.name + " </td><td> " + json.price + " </td></tr>";
+}
+
 function webStatPage() {
     container.innerHTML = '';
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        let json = JSON.parse(this.responseText);
+        const table = createTableHead();
+
+        json.forEach(function(value) {
+            //console.log(value.id);
+            table.innerHTML += createRowTableElement(value);
+        });
+
+        container.appendChild(table);
+    }
+    xhttp.open("GET", "stats?reason=webstat", true);
+    xhttp.send();
 }
 
 function generalPage() {

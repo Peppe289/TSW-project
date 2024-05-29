@@ -12,6 +12,25 @@
         margin: 0;
         overflow: hidden;
     }
+
+    table {
+        overflow-y:scroll;
+        min-height:300px;
+        height: 50%;
+        display:block;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #eeeeee;
+        box-shadow: 1px 1px 1px black;
+    }
+
+    td {
+        min-width: 300px;
+        text-align: center;
+    }
 </style>
 </head>
 <body>

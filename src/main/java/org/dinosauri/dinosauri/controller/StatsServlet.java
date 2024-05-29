@@ -6,11 +6,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.dinosauri.dinosauri.model.Product;
+import org.dinosauri.dinosauri.model.ProductDAO;
 import org.dinosauri.dinosauri.model.stats.MBeanStats;
 
 import javax.management.*;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * StatsServlet is a HttpServlet that handles requests to the "/stats" endpoint.
@@ -60,6 +64,7 @@ public class StatsServlet extends HttpServlet {
 
         switch (reason) {
             case "serverstats" -> jsonArray = serverStats();
+            case "webstat" -> jsonArray = webStat();
             default -> jsonArray = null;
         }
 
@@ -101,5 +106,36 @@ public class StatsServlet extends HttpServlet {
         }
 
         return jsonArray;
+    }
+
+    protected String webStat() throws JsonProcessingException {
+        String result = null;
+        List<Product> shelled;
+
+        shelled = ProductDAO.doRetriveProducts();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        result = objectMapper.writeValueAsString(shelled);
+
+        /*
+        result = "[\n" +
+                "    [\n" +
+                "        {\"Name\": \"John Doe\", \"Age\": 30, \"City\": \"New York\"},\n" +
+                "        {\"Name\": \"Jane Smith\", \"Age\": 25, \"City\": \"Los Angeles\"},\n" +
+                "        {\"Name\": \"Emily Johnson\", \"Age\": 35, \"City\": \"Chicago\"}\n" +
+                "    ],\n" +
+                "    [\n" +
+                "        {\"Product\": \"Laptop\", \"Price\": 999.99, \"Quantity\": 10},\n" +
+                "        {\"Product\": \"Smartphone\", \"Price\": 599.99, \"Quantity\": 20},\n" +
+                "        {\"Product\": \"Tablet\", \"Price\": 399.99, \"Quantity\": 15}\n" +
+                "    ]\n" +
+                "]\n";
+        */
+        return result;
+    }
+
+    protected String webStat(String id_prodotto) {
+        return null;
     }
 }
