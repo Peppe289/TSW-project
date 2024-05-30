@@ -69,7 +69,20 @@
     justify-content: space-evenly;
     height: 100vh;
 
-    & div {
+    & p {
+        padding: 0;
+        margin: 0;
+    }
+
+    & p:first-child {
+        font-size: 24px;
+    }
+
+    & p:last-child {
+        font-size: 18px;
+    }
+
+    & .listbox {
         cursor: pointer;
         margin: 5px;
         width: 350px;
@@ -84,20 +97,7 @@
         box-shadow: 0 0 13px #cfcfcf;
     }
 
-    & p {
-        padding: 0;
-        margin: 0;
-    }
-
-    & p:first-child {
-        font-size: 24px;
-    }
-
-    & p:last-child {
-        font-size: 18px;
-    }
-
-    & div:hover {
+    & .listbox:hover {
         background-color: #22e60d;
         -webkit-transition: background-color 100ms linear;
         -ms-transition: background-color 100ms linear;
@@ -171,4 +171,119 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+table {
+    overflow-y:scroll;
+    min-height:300px;
+    height: 50%;
+    display:block;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #eeeeee;
+    box-shadow: 1px 1px 1px black;
+}
+
+td {
+    min-width: 300px;
+    text-align: center;
+}
+
+tr td:first-of-type {
+    cursor: pointer;
+}
+
+tr td:first-of-type:hover {
+    color: #0b0bff;
+}
+
+.containerpopup {
+    position: absolute;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999999999;
+}
+
+h1 {
+    text-align: center;
+}
+
+.product-form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-form .form-group label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.product-form .form-group input,
+.product-form .form-group textarea {
+    flex: 2;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-form .form-group button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.product-form .form-group button:hover {
+    background-color: #0056b3;
+}
+
+.product-form .form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.product-form .form-actions button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+.product-form .form-actions button:hover {
+    background-color: #218838;
+}
+
+.product-form .form-actions button:nth-child(2) {
+    background-color: #dc3545;
+}
+
+.product-form .form-actions button:nth-child(2):hover {
+    background-color: #c82333;
+}
+
+.product-form .form-actions button:nth-child(3) {
+    background-color: #6c757d;
+}
+
+.product-form .form-actions button:nth-child(3):hover {
+    background-color: #5a6268;
 }

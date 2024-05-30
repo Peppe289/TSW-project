@@ -64,7 +64,7 @@ public class StatsServlet extends HttpServlet {
 
         switch (reason) {
             case "serverstats" -> jsonArray = serverStats();
-            case "webstat" -> jsonArray = webStat();
+            case "products" -> jsonArray = products();
             default -> jsonArray = null;
         }
 
@@ -108,7 +108,7 @@ public class StatsServlet extends HttpServlet {
         return jsonArray;
     }
 
-    protected String webStat() throws JsonProcessingException {
+    protected String products() throws JsonProcessingException {
         String result = null;
         List<Product> shelled;
 

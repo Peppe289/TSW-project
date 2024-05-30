@@ -7,32 +7,6 @@
     <link type="text/css" rel="stylesheet" href="css/dashboard/dashboard.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
 </head>
-<style>
-    body {
-        margin: 0;
-        overflow: hidden;
-    }
-
-    table {
-        overflow-y:scroll;
-        min-height:300px;
-        height: 50%;
-        display:block;
-    }
-
-    th {
-        position: sticky;
-        top: 0;
-        background-color: #eeeeee;
-        box-shadow: 1px 1px 1px black;
-    }
-
-    td {
-        min-width: 300px;
-        text-align: center;
-    }
-</style>
-</head>
 <body>
 <div id="cotinaner">
     <div id="side_bar">
@@ -45,7 +19,7 @@
         <hr>
         <ul>
             <li id="general" class="item">Generale</li>
-            <li id="webStat" class="item">Visualizza statistiche</li>
+            <li id="products" class="item">Gestione Prodotti</li>
         </ul>
         <h2>Per sviluppatori</h2>
         <hr>
