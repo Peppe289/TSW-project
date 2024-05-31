@@ -208,8 +208,15 @@ tr td:first-of-type:hover {
 .containerpopup {
     position: absolute;
     font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 50px auto;
+    min-width: 700px;
+    min-height: 400px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    max-height: 600px;
+    margin: auto;
+    max-width: 1000px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -218,6 +225,10 @@ tr td:first-of-type:hover {
 
 h1 {
     text-align: center;
+}
+
+.product-form {
+    padding: 40px 60px;
 }
 
 .product-form .form-group {
