@@ -25,7 +25,7 @@
             object-fit: cover;
         }
 
-        & .img-prev {
+        & #img-prev {
             width: 100%;
             gap: 10px;
             object-fit: cover;
@@ -34,6 +34,8 @@
 
             & img {
                 height: 60px;
+                width: 60px;
+                object-fit: contain;
                 padding: 5px;
                 border: 1px solid #494949;
             }
@@ -89,22 +91,10 @@
 <div class="containerpopup"><h1>Modifica Prodotto</h1>
     <div id="container-img">
         <img id="image-src" src="${pageContext.request.contextPath}/img/login-ico.png">
-        <div class="img-prev">
-            <div id="imgDiv0" class="img-item">
-                <img id="img0" src="${pageContext.request.contextPath}/img/login-ico.png">
-                <span onclick="removeImg(this, 0)">&#10006;</span>
-            </div>
-            <div id="imgDiv1" class="img-item">
-                <img id="img1" src="${pageContext.request.contextPath}/img/login-ico.png">
-                <span onclick="removeImg(this, 1)">&#10006;</span>
-            </div>
-            <div id="imgDiv2" class="img-item">
-                <img id="img2" src="${pageContext.request.contextPath}/img/login-ico.png">
-                <span onclick="removeImg(this, 2)">&#10006;</span>
-            </div>
-            <div id="imgDiv3" class="img-item">
-                <img id="img3" src="${pageContext.request.contextPath}/img/login-ico.png">
-                <span onclick="removeImg(this, 3)">&#10006;</span>
+        <div id="img-prev">
+            <div class="img-item">
+                <img src="${pageContext.request.contextPath}/img/login-ico.png">
+                <span onclick="removeImg(this)">&#10006;</span>
             </div>
             <form action="Upload" method="post" enctype="multipart/form-data">
                 <label for="file-upload" class="custom-file-upload">
@@ -181,6 +171,54 @@
     }
 
     editImg();
+
+    function removeImg(element) {
+        const parent = element.parentNode;
+        const img = parent.getElementsByTagName("img")[0];
+        const imgpath = img.src;
+        console.log(imgpath);
+        parent.classList.add("hide");
+    }
+
+    // Funzione per creare un nuovo elemento div con un'immagine e un pulsante di rimozione
+    function createImgItem(e) {
+        // Creare l'elemento div
+        let imgItem = document.createElement('div');
+        imgItem.classList.add('img-item');
+
+        // Creare l'elemento img
+        let img = document.createElement('img');
+        img.src = e.target.result;
+
+        // Creare l'elemento span
+        let span = document.createElement('span');
+        span.innerHTML = '&#10006;';
+        span.onclick = function() { removeImg(this); };
+
+        // Aggiungere img e span a imgItem
+        imgItem.appendChild(img);
+        imgItem.appendChild(span);
+
+        return imgItem;
+    }
+
+    document.getElementById('file-upload').addEventListener('change', function(event) {
+        let file = event.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                const container = document.getElementById("img-prev");
+                let imgElement = createImgItem(e);
+                container.prepend(imgElement);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert("Il file selezionato non è un'immagine.");
+        }
+    });
 
 </script>
 </html>
