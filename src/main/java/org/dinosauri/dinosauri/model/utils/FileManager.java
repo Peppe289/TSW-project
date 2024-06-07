@@ -23,7 +23,7 @@ public class FileManager {
         for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             if (!fileEntry.isDirectory()) {
                 System.out.println(fileEntry.getName());
-                if (fileEntry.getName().contains(id)) {
+                if (fileEntry.getName().indexOf(id + "_") == 0) {
                     imageList.add(fileEntry);
                 }
             }
