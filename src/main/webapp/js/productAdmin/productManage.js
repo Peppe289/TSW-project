@@ -22,8 +22,8 @@ function applyChanges() {
             .then(blob => {
                 const formData = new FormData();
                 formData.append('image', blob, 'image.jpg'); // Append the Blob with a filename
-
-                return fetch('http://localhost:8080/dinosauri_war_exploded/uploadimg', {
+                const id = document.getElementById("id-product").innerHTML;
+                return fetch('http://localhost:8080/dinosauri_war_exploded/uploadimg?id=' + id, {
                     method: 'POST',
                     body: formData
                 });

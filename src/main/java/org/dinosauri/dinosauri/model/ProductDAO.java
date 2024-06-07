@@ -149,7 +149,6 @@ public class ProductDAO {
         prod.setPrice(rs.getDouble("prezzo"));
         prod.setDescription(rs.getString("descrizione"));
         prod.setAlimentazione(rs.getString("alimentazione"));
-        prod.setPhoto_path(rs.getString("photo_path"));
         prod.setCategoria(rs.getString("categoria"));
 
         Integer off = offerte.get(prod.getId());

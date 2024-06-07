@@ -75,11 +75,21 @@
     }
 
     @keyframes vibrate {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(-3px); }
-        50% { transform: translateX(3px); }
-        75% { transform: translateX(-3px); }
-        100% { transform: translateX(0); }
+        0% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-3px);
+        }
+        50% {
+            transform: translateX(3px);
+        }
+        75% {
+            transform: translateX(-3px);
+        }
+        100% {
+            transform: translateX(0);
+        }
     }
 
     .vibrate {
@@ -88,14 +98,18 @@
 </style>
 <script src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
 <body>
-<div class="containerpopup"><h1>Modifica Prodotto</h1>
+<div class="containerpopup">
+    <p style="display: none" id="id-product">${product.id}</p>
+    <h1>Modifica Prodotto</h1>
     <div id="container-img">
         <img id="image-src" src="${pageContext.request.contextPath}/img/login-ico.png">
         <div id="img-prev">
-            <div class="img-item">
-                <img src="${pageContext.request.contextPath}/img/login-ico.png">
-                <span onclick="removeImg(this)">&#10006;</span>
-            </div>
+            <c:forEach items="${product.photo_path}" var="photo">
+                <div class="img-item">
+                    <img src="${pageContext.request.contextPath}${photo}">
+                    <span onclick="removeImg(this)">&#10006;</span>
+                </div>
+            </c:forEach>
             <form action="Upload" method="post" enctype="multipart/form-data">
                 <label for="file-upload" class="custom-file-upload">
                     <img src="${pageContext.request.contextPath}/img/plus-icon.jpg">
@@ -123,7 +137,8 @@
                                                                                      disabled>
             <button onclick="enableEdit('nutrition')">Modifica</button>
         </div>
-        <div class="form-group"><label for="description">Descrizione:</label> <textarea id="description" style="resize: none;" rows="5"
+        <div class="form-group"><label for="description">Descrizione:</label> <textarea id="description"
+                                                                                        style="resize: none;" rows="5"
                                                                                         disabled>${product.description}</textarea>
             <button onclick="enableEdit('description')">Modifica</button>
         </div>
@@ -153,16 +168,17 @@
         let img_items = document.getElementsByClassName("img-item");
 
         for (let i = 0; i < img_items.length; ++i) {
-
             if (isEditingImg) {
                 try {
                     img_items[i].getElementsByTagName("span")[0].classList.remove("hide");
-                } catch (e) {}
+                } catch (e) {
+                }
                 img_items[i].classList.add("vibrate");
             } else {
                 try {
                     img_items[i].getElementsByTagName("span")[0].classList.add("hide");
-                } catch (e) {}
+                } catch (e) {
+                }
                 img_items[i].classList.remove("vibrate");
             }
         }
@@ -193,7 +209,9 @@
         // Creare l'elemento span
         let span = document.createElement('span');
         span.innerHTML = '&#10006;';
-        span.onclick = function() { removeImg(this); };
+        span.onclick = function () {
+            removeImg(this);
+        };
 
         // Aggiungere img e span a imgItem
         imgItem.appendChild(img);
@@ -202,13 +220,13 @@
         return imgItem;
     }
 
-    document.getElementById('file-upload').addEventListener('change', function(event) {
+    document.getElementById('file-upload').addEventListener('change', function (event) {
         let file = event.target.files[0];
 
         if (file && file.type.startsWith('image/')) {
             let reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 const container = document.getElementById("img-prev");
                 let imgElement = createImgItem(e);
                 container.prepend(imgElement);

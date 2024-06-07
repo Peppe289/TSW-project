@@ -1,5 +1,8 @@
 package org.dinosauri.dinosauri.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The Product class represents a product with various attributes such as id, name, description,
  * power source, price, quantity, photo path, category, and discount.
@@ -12,7 +15,7 @@ public class Product {
     private String alimentazione;
     private double price;
     private int quantity;
-    private String photo_path; // photo path
+    private List<String> photo_path; // photo path
     private String categoria; // category
     private int sconto; // discount
 
@@ -22,6 +25,7 @@ public class Product {
     public Product() {
         super();
         sconto = 0;
+        this.photo_path = new ArrayList<>();
     }
 
     /**
@@ -77,7 +81,7 @@ public class Product {
      *
      * @return the photo path of the product.
      */
-    public String getPhoto_path() {
+    public List<String> getPhoto_path() {
         return photo_path;
     }
 
@@ -87,7 +91,7 @@ public class Product {
      * @param photo_path the new photo path of the product.
      */
     public void setPhoto_path(String photo_path) {
-        this.photo_path = photo_path;
+        this.photo_path.add(photo_path);
     }
 
     /**

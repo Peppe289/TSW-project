@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServlet;
+import org.dinosauri.dinosauri.model.utils.FileManager;
 
 import java.io.IOException;
 
@@ -23,13 +24,14 @@ public class UploadImg extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("image");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String id = request.getParameter("id");
 
         String destinazione = CARTELLA_UPLOAD + File.separator + fileName;
         Path pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
 
         // se un file con quel nome esiste già, gli cambia nome
         for (int i = 2; Files.exists(pathDestinazione); i++) {
-            destinazione = CARTELLA_UPLOAD + File.separator + i + "_" + fileName;
+            destinazione = CARTELLA_UPLOAD + File.separator + id + "_" + i + "_" + fileName;
             pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
         }
 
