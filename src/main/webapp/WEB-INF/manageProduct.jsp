@@ -23,6 +23,7 @@
 
         & > img {
             object-fit: cover;
+            max-width: 400px;
         }
 
         & #img-prev {
@@ -31,6 +32,7 @@
             object-fit: cover;
             display: flex;
             flex-wrap: wrap;
+            overflow: scroll;
 
             & img {
                 height: 60px;
