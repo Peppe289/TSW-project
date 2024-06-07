@@ -102,11 +102,11 @@
     <p style="display: none" id="id-product">${product.id}</p>
     <h1>Modifica Prodotto</h1>
     <div id="container-img">
-        <img id="image-src" src="${pageContext.request.contextPath}/img/login-ico.png">
+        <img id="image-src">
         <div id="img-prev">
             <c:forEach items="${product.photo_path}" var="photo">
                 <div class="img-item">
-                    <img src="${pageContext.request.contextPath}${photo}">
+                    <img src="${pageContext.request.contextPath}${photo}" onclick="changeit(this.src, this)">
                     <span onclick="removeImg(this)">&#10006;</span>
                 </div>
             </c:forEach>
@@ -163,6 +163,15 @@
             }
         });
     });
+
+    /* carica di default la prima immagine dalla lista della preview */
+    document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
+
+    /* funzinoe per cambiare immagine dalla preview */
+    function changeit(path, el) {
+        var img = document.getElementById("image-src");
+        img.src = path;
+    }
 
     function editImg() {
         let img_items = document.getElementsByClassName("img-item");
