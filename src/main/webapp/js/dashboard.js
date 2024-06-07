@@ -63,7 +63,7 @@ function sererStatsPage() {
             children[5].innerHTML = "Tempo di servizio: " + json.processingTime;
         }
     }
-    xhttp.open("GET", "stats?reason=serverstats", true);
+    xhttp.open("GET", "adminControl?reason=serverstats", true);
     xhttp.send();
 }
 
@@ -110,7 +110,7 @@ function productsPage() {
 
         container.appendChild(table);
     }
-    xhttp.open("GET", "stats?reason=products", true);
+    xhttp.open("GET", "adminControl?reason=products", true);
     xhttp.send();
 }
 

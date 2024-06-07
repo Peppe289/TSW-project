@@ -24,10 +24,7 @@ public class SearchServlet extends HttpServlet {
         List<Product> products;
         if (page == null) page = "0";
 
-        /**
-         * Viene chiamata la servlet come search.
-         * In questo caso cerca dal pattern.
-         */
+        //Viene chiamata la servlet come search. In questo caso cerca dal pattern.
         if (keyword != null) {
             String[] keywords = keyword.split(" ");
 
@@ -42,27 +39,21 @@ public class SearchServlet extends HttpServlet {
                 list.clear();
             }
         } else {
-            /**
-             *  Viene chiamata la servlet come lista prodotti.
-             *  In questo caso ci servono tutti i prodotti.
-             */
+            //Viene chiamata la servlet come lista prodotti. In questo caso ci servono tutti i prodotti.
             products = ProductDAO.doRetriveProducts();
         }
 
         int min = max_prod_page * Integer.parseInt(page);
         int max = max_prod_page + (max_prod_page * Integer.parseInt(page));
 
-        /* assicurati di non uscire dagli index */
+        // assicurati di non uscire dagli index
         if (max >= products.size()) max = products.size();
 
-        /**
-         * Unico modo decente per partizionare gli elementi e far vedere il numero di pagine esatte.
-         */
-        Integer btn_page = (int) Math.ceil((double) products.size() / max_prod_page) - 1;
+        // Unico modo decente per partizionare gli elementi e far vedere il numero di pagine esatte.
+        int btn_page = (int) Math.ceil((double) products.size() / max_prod_page) - 1;
         products = products.subList(min, max);
 
-        if (btn_page < 0)
-            btn_page = 0;
+        if (btn_page < 0) btn_page = 0;
 
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);

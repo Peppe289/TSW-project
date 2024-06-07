@@ -18,7 +18,7 @@ public class UserDAO {
      * @param password The user's password.
      * @return The corresponding User object if present in the database; otherwise null.
      */
-    public User doRetrieveUser(String email, String password) {
+    public static User doRetrieveUser(String email, String password) {
         User user = null;
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id_utente, nome, cognome, email FROM utente WHERE email=? AND password_utente=SHA1(?)");
@@ -49,8 +49,8 @@ public class UserDAO {
      * @return The User object just inserted into the database.
      * @throws SQLException If an error occurs during the execution of the SQL query.
      */
-    public User insertInDatabase(String nome, String cognome, String email, String password) throws SQLException {
-        User user = null;
+    public static User insertInDatabase(String nome, String cognome, String email, String password) throws SQLException {
+        User user;
         Connection con = ConnectionService.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
         ps.setString(1, nome);

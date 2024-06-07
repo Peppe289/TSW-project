@@ -3,7 +3,6 @@ package org.dinosauri.dinosauri.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,17 +21,11 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
 
     private User register(String nome, String cognome, String email, String password) throws SQLException {
-        User user = null;
-        UserDAO userDAO = new UserDAO();
-        user = userDAO.insertInDatabase(nome, cognome, email, password);
-        return user;
+        return UserDAO.insertInDatabase(nome, cognome, email, password);
     }
 
     private User login(String email, String password) {
-        User user = null;
-        UserDAO userDAO = new UserDAO();
-        user = userDAO.doRetrieveUser(email, password);
-        return user;
+        return UserDAO.doRetrieveUser(email, password);
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,10 +73,8 @@ public class LoginServlet extends HttpServlet {
             // TODO: automatizzare il prossimo login
         }
 
-        /**
-         * Crea la sessione con i dati dell'utente. i dati verrano visti
-         * nella barra di navigazione e nelle specifiche pagine.
-         */
+
+        // Crea la sessione con i dati dell'utente. i dati verrano visti nella barra di navigazione e nelle specifiche pagine.
         req.getSession().setAttribute("user", user);
         RequestDispatcher rd = req.getRequestDispatcher("/");
         rd.forward(req, resp);

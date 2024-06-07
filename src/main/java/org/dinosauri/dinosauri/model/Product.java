@@ -7,7 +7,7 @@ import java.util.List;
  * The Product class represents a product with various attributes such as id, name, description,
  * power source, price, quantity, photo path, category, and discount.
  */
-@SuppressWarnings("SpellCheckingInspection")
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 public class Product {
     private String id;
     private String name;
@@ -15,7 +15,7 @@ public class Product {
     private String alimentazione;
     private double price;
     private int quantity;
-    private List<String> photo_path; // photo path
+    private final List<String> photo_path; // photo path
     private String categoria; // category
     private int sconto; // discount
 
@@ -36,8 +36,23 @@ public class Product {
      */
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Product product = (Product) o;
-        return product.getId().equals(this.id);
+        return id.equals(product.id);
+    }
+
+    /**
+     * Generates a hash code for the product based on its ID.
+     * This method is consistent with the equals' method. If two products are equal
+     * (according to the equals method), they will have the same hash code.
+     *
+     * @return the hash code value for this product
+     */
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     /**

@@ -22,8 +22,7 @@ public class ProductServlet extends HttpServlet {
 
         Product product = ProductDAO.doRetrieveProductByID(id_prodotto);
 
-        if (product == null) resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-
+        assert product != null;
         product.setQuantity(ProductDAO.doRetrieveProductByID(id_prodotto, true).size());
 
         req.setAttribute("product", product);

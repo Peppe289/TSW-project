@@ -3,7 +3,6 @@ package org.dinosauri.dinosauri.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ import java.util.List;
 @WebServlet("/editid")
 public class EditProduct extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String id = (String) req.getParameter("id");
+        String id = req.getParameter("id");
         if (id == null) {
             throw new RuntimeException("Errore");
         }

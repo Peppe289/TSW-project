@@ -13,7 +13,6 @@ import org.dinosauri.dinosauri.model.stats.MBeanStats;
 import javax.management.*;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,9 +52,9 @@ import java.util.List;
  * @see javax.servlet.http.HttpServlet
  * @see com.fasterxml.jackson.databind.ObjectMapper
  */
-@WebServlet("/stats")
+@WebServlet("/adminControl")
 @SuppressWarnings("DataFlowIssue") // ignore null string
-public class StatsServlet extends HttpServlet {
+public class DashBoardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -109,33 +108,13 @@ public class StatsServlet extends HttpServlet {
     }
 
     protected String products() throws JsonProcessingException {
-        String result = null;
+        String result;
         List<Product> shelled;
-
-        shelled = ProductDAO.doRetriveProducts();
-
         ObjectMapper objectMapper = new ObjectMapper();
 
+        shelled = ProductDAO.doRetriveProducts();
         result = objectMapper.writeValueAsString(shelled);
 
-        /*
-        result = "[\n" +
-                "    [\n" +
-                "        {\"Name\": \"John Doe\", \"Age\": 30, \"City\": \"New York\"},\n" +
-                "        {\"Name\": \"Jane Smith\", \"Age\": 25, \"City\": \"Los Angeles\"},\n" +
-                "        {\"Name\": \"Emily Johnson\", \"Age\": 35, \"City\": \"Chicago\"}\n" +
-                "    ],\n" +
-                "    [\n" +
-                "        {\"Product\": \"Laptop\", \"Price\": 999.99, \"Quantity\": 10},\n" +
-                "        {\"Product\": \"Smartphone\", \"Price\": 599.99, \"Quantity\": 20},\n" +
-                "        {\"Product\": \"Tablet\", \"Price\": 399.99, \"Quantity\": 15}\n" +
-                "    ]\n" +
-                "]\n";
-        */
         return result;
-    }
-
-    protected String webStat(String id_prodotto) {
-        return null;
     }
 }

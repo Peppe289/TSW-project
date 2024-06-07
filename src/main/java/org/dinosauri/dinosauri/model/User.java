@@ -3,7 +3,7 @@ package org.dinosauri.dinosauri.model;
 /**
  * The User class represents a user with an ID, first name, last name, and email.
  */
-@SuppressWarnings("SpellCheckingInspection")
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 public class User {
     public String id;
     public String nome;
