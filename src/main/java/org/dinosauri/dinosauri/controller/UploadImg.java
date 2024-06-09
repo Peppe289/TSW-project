@@ -7,38 +7,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.dinosauri.dinosauri.model.utils.FileManager;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @WebServlet("/uploadimg")
 @MultipartConfig
 public class UploadImg extends HttpServlet {
-    private static final String CARTELLA_UPLOAD = "upload";
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("image");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String id = request.getParameter("id");
+        Path destination;
+        destination = FileManager.getNextDiskPath(id, getServletContext().getRealPath("/"));
 
-        String destinazione = CARTELLA_UPLOAD + File.separator + fileName;
-        Path pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
-
-        // se un file con quel nome esiste già, gli cambia nome
-        for (int i = 2; Files.exists(pathDestinazione); i++) {
-            destinazione = CARTELLA_UPLOAD + File.separator + id + "_" + i + "_" + fileName;
-            pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
-        }
-
-        InputStream fileInputStream = filePart.getInputStream();
-        // crea CARTELLA_UPLOAD, se non esiste
-        Files.createDirectories(pathDestinazione.getParent());
-        // scrive il file
-        Files.copy(fileInputStream, pathDestinazione);
+        FileManager.createDirectory(destination.getParent());
+        FileManager.writeFile(filePart.getInputStream(), destination);
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print("{\"status\":\"success\"}");

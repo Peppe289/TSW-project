@@ -167,11 +167,14 @@
     });
 
     /* carica di default la prima immagine dalla lista della preview */
-    document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
-
+    try {
+        document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
+    } catch (e) {
+        document.getElementById("image-src").src = "img/missing.jpg"
+    }
     /* funzinoe per cambiare immagine dalla preview */
     function changeit(path, el) {
-        var img = document.getElementById("image-src");
+        let img = document.getElementById("image-src");
         img.src = path;
     }
 
