@@ -210,6 +210,6 @@
         </li>
     </ul>
 </div>
-<jsp:include page="include/footer.jsp"/>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>

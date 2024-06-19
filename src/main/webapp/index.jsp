@@ -143,7 +143,7 @@
             prodotti</a></li>
     </ul>
 </div>
-<jsp:include page="WEB-INF/include/footer.jsp"/>
+<%@ include file="WEB-INF/include/footer.jsp" %>
 </body>
 <script>
     let slideIndex = 1;
