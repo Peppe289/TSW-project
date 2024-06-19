@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.dinosauri.dinosauri.model.Product;
 import org.dinosauri.dinosauri.model.ProductDAO;
 
+import java.io.File;
 import java.io.IOException;
 
 @WebServlet("/p")
@@ -22,12 +23,17 @@ public class ProductServlet extends HttpServlet {
 
         Product product = ProductDAO.doRetrieveProductByID(id_prodotto);
 
-        assert product != null;
-        product.setQuantity(ProductDAO.doRetrieveProductByID(id_prodotto, true).size());
+        if (product != null) {
+            String id = product.getId();
 
-        req.setAttribute("product", product);
-        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/product.jsp");
-        rd.forward(req, resp);
+            Product prod = ProductDAO.doRetrieveProductByID(id);
+            prod.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
+            product.setQuantity(ProductDAO.doRetrieveProductByID(id_prodotto, true).size());
+
+            req.setAttribute("product", product);
+            RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/product.jsp");
+            rd.forward(req, resp);
+        } else resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

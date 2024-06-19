@@ -1,5 +1,8 @@
 package org.dinosauri.dinosauri.model;
 
+import org.dinosauri.dinosauri.model.utils.FileManager;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,14 @@ public class Product {
         super();
         sconto = 0;
         this.photo_path = new ArrayList<>();
+    }
+
+    public void SaveFileList(String contextPath) {
+        List<File> files = FileManager.RetriveFileFromID(this.id, contextPath);
+        for (File file : files) {
+            if (!file.getName().isEmpty())
+                setPhoto_path(FileManager.directory + "/" +  file.getName());
+        }
     }
 
     /**

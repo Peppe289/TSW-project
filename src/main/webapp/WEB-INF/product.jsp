@@ -56,10 +56,12 @@
             <img id="img-main">
         </div>
         <div class="some-photo">
-            <img class="preview-img" onclick="changeit(this.src, this)"
-                 src="${pageContext.request.contextPath}/img/solo_logo.png">
-            <img class="preview-img" onclick="changeit(this.src, this)"
-                 src="${pageContext.request.contextPath}/img/search_ico.png">
+            <c:if test="${not empty product}">
+                <c:forEach items="${product.photo_path}" var="photo">
+                    <img class="preview-img" onclick="changeit(this.src, this)"
+                         src="${pageContext.request.contextPath}${photo}">
+                </c:forEach>
+            </c:if>
         </div>
     </div>
     <div id="description">
