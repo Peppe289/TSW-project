@@ -34,13 +34,20 @@ public class FileManager {
         List<File> imageList = new ArrayList<>();
         System.out.println("Start reading directory" + path);
         final File folder = new File(path + directory);
-        for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-            if (!fileEntry.isDirectory()) {
-                // The name must be like "TR_1_image.jpg"
-                if (fileEntry.getName().indexOf(id + "_") == 0) {
-                    imageList.add(fileEntry);
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File fileEntry : files) {
+                    if (!fileEntry.isDirectory()) {
+                        // The name must be like "TR_1_image.jpg"
+                        if (fileEntry.getName().indexOf(id + "_") == 0) {
+                            imageList.add(fileEntry);
+                        }
+                    }
                 }
             }
+        } else {
+            System.out.println("Directory does not exist: " + folder.getAbsolutePath());
         }
 
         return imageList;

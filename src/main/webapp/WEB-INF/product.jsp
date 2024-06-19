@@ -114,8 +114,12 @@
 <jsp:include page="include/footer.jsp"/>
 </body>
 <script>
-    /* carica di default la prima immagine dalla lista della preview */
-    document.getElementById("img-main").src = document.getElementsByClassName("preview-img")[0].src;
+    try {
+        /* carica di default la prima immagine dalla lista della preview */
+        document.getElementById("img-main").src = document.getElementsByClassName("preview-img")[0].src;
+    } catch (e) {
+        document.getElementById("img-main").src = "img/missing.jpg";
+    }
 
     /* funzinoe per cambiare immagine dalla preview */
     function changeit(path, el) {
