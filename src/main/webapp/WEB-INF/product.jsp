@@ -48,7 +48,7 @@
 </style>
 
 <body>
-<jsp:include page="include/navbar.jsp"/>
+<%@ include file="include/navbar.jsp" %>
 <div id="container">
     <div id="view-container">
         <div id="img-container">

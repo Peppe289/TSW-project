@@ -56,7 +56,7 @@
     <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
-<jsp:include page="include/navbar.jsp"/>
+<%@ include file="include/navbar.jsp" %>
 <script defer>
     const product_nav = document.getElementById("product_nav");
     product_nav.classList.add("curr-page");

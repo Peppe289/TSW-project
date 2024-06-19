@@ -57,7 +57,7 @@
     <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
-<jsp:include page="WEB-INF/include/navbar.jsp"/>
+<%@ include file="WEB-INF/include/navbar.jsp" %>
 
 <!-- carosello -->
 <div class="slideshow-container not-select">
