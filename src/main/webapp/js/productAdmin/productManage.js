@@ -11,6 +11,14 @@ function applyChanges() {
     const uploadImg = document.getElementsByClassName("img-item");
     for (let i = 0; i < uploadImg.length; ++i){
         let src = uploadImg[i].getElementsByTagName("img")[0].src;
+
+        /**
+         * Se questa sotto stringa non è presente allora è stata presa dal server l'immagine.
+         * Non caricarla di nuovo sul server.
+         */
+        if (!src.includes("data:image/"))
+            continue;
+
         console.log(src);
         fetch(src)
             .then(response => {
