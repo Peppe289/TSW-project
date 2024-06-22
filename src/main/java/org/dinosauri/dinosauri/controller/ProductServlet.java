@@ -24,10 +24,7 @@ public class ProductServlet extends HttpServlet {
         Product product = ProductDAO.doRetrieveProductByID(id_prodotto);
 
         if (product != null) {
-            String id = product.getId();
-
-            Product prod = ProductDAO.doRetrieveProductByID(id);
-            prod.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
+            product.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
             product.setQuantity(ProductDAO.doRetrieveProductByID(id_prodotto, true).size());
 
             req.setAttribute("product", product);

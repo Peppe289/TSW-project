@@ -18,7 +18,7 @@ public class Product {
     private String alimentazione;
     private double price;
     private int quantity;
-    private final List<String> photo_path; // photo path
+    private List<String> photo_path; // photo path
     private String categoria; // category
     private int sconto; // discount
 
@@ -33,10 +33,13 @@ public class Product {
 
     public void SaveFileList(String contextPath) {
         List<File> files = FileManager.RetriveFileFromID(this.id, contextPath);
+        List<String> paths = new ArrayList<>();
         for (File file : files) {
             if (!file.getName().isEmpty())
-                setPhoto_path(FileManager.directory + "/" +  file.getName());
+                paths.add(FileManager.directory + "/" + file.getName());
         }
+
+        this.photo_path = paths;
     }
 
     /**
@@ -109,15 +112,6 @@ public class Product {
      */
     public List<String> getPhoto_path() {
         return photo_path;
-    }
-
-    /**
-     * Sets the photo path of the product.
-     *
-     * @param photo_path the new photo path of the product.
-     */
-    public void setPhoto_path(String photo_path) {
-        this.photo_path.add(photo_path);
     }
 
     /**
