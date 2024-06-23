@@ -22,9 +22,6 @@ function applyChanges() {
         console.log(src);
         fetch(src)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
                 return response.blob();
             })
             .then(blob => {
@@ -37,9 +34,6 @@ function applyChanges() {
                 });
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
                 return response.json();
             })
             .then(data => {
