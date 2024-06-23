@@ -60,7 +60,6 @@ public class UploadImg extends HttpServlet {
         }
 
         String jsonPath = objectMapper.writeValueAsString(newPath.toArray());
-        System.out.println(jsonPath);
 
         /* set status for response to 200 (OK) */
         response.setStatus(HttpServletResponse.SC_OK);

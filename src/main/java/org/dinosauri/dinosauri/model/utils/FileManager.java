@@ -46,7 +46,7 @@ public class FileManager {
                 }
             }
         } else {
-            System.out.println("Directory does not exist: " + folder.getAbsolutePath());
+            System.err.println("Directory does not exist: " + folder.getAbsolutePath());
         }
 
         return imageList;

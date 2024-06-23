@@ -31,7 +31,6 @@ public class IndexServlet extends HttpServlet {
 
         try {
             jsonArray = objectMapper.writeValueAsString(products.toArray());
-            System.out.println(jsonArray);
         } catch (JsonProcessingException e) {
             logger.error("An error occurred while creating json", e);
         }
