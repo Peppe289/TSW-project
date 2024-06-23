@@ -32,7 +32,6 @@ public class FileManager {
      */
     public static List<File> RetriveFileFromID(String id, String path) {
         List<File> imageList = new ArrayList<>();
-        System.out.println("Start reading directory" + path);
         final File folder = new File(path + directory);
         if (folder.exists() && folder.isDirectory()) {
             File[] files = folder.listFiles();

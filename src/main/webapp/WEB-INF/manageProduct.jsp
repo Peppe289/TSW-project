@@ -3,6 +3,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
+    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
     <title>Modifica ${product.name}</title>
 </head>
 <style>
@@ -98,7 +100,7 @@
         animation: vibrate 0.4s linear infinite;
     }
 </style>
-<script src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
 <body>
 <div class="containerpopup">
     <p style="display: none" id="id-product">${product.id}</p>
@@ -145,112 +147,11 @@
             <button onclick="enableEdit('description')">Modifica</button>
         </div>
         <div class="form-actions">
-            <button onclick="applyChanges()">Applica</button>
+            <button id="applica-btn">Applica</button>
             <button onclick="deleteProduct()">Elimina Prodotto</button>
             <button onclick="window.close()">Chiudi</button>
         </div>
     </div>
 </div>
 </body>
-<script defer>
-    let isEditingImg = false;
-    let removedPath = []; // lista delle immagini rimosse
-    const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #description');
-
-    fields.forEach(field => {
-        field.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault(); // Evita che il tasto Invio invii il form
-                disableAllFields();
-            }
-        });
-    });
-
-    /* carica di default la prima immagine dalla lista della preview */
-    try {
-        document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
-    } catch (e) {
-        document.getElementById("image-src").src = "img/missing.jpg"
-    }
-    /* funzinoe per cambiare immagine dalla preview */
-    function changeit(path, el) {
-        let img = document.getElementById("image-src");
-        img.src = path;
-    }
-
-    function editImg() {
-        let img_items = document.getElementsByClassName("img-item");
-
-        for (let i = 0; i < img_items.length; ++i) {
-            if (isEditingImg) {
-                try {
-                    img_items[i].getElementsByTagName("span")[0].classList.remove("hide");
-                } catch (e) {
-                }
-                img_items[i].classList.add("vibrate");
-            } else {
-                try {
-                    img_items[i].getElementsByTagName("span")[0].classList.add("hide");
-                } catch (e) {
-                }
-                img_items[i].classList.remove("vibrate");
-            }
-        }
-
-        isEditingImg = !isEditingImg;
-    }
-
-    editImg();
-
-    function removeImg(element) {
-        const parent = element.parentNode;
-        const img = parent.getElementsByTagName("img")[0];
-        const imgpath = img.src;
-        console.log(imgpath);
-        parent.classList.add("hide");
-    }
-
-    // Funzione per creare un nuovo elemento div con un'immagine e un pulsante di rimozione
-    function createImgItem(e) {
-        // Creare l'elemento div
-        let imgItem = document.createElement('div');
-        imgItem.classList.add('img-item');
-
-        // Creare l'elemento img
-        let img = document.createElement('img');
-        img.src = e.target.result;
-
-        // Creare l'elemento span
-        let span = document.createElement('span');
-        span.innerHTML = '&#10006;';
-        span.onclick = function () {
-            removeImg(this);
-        };
-
-        // Aggiungere img e span a imgItem
-        imgItem.appendChild(img);
-        imgItem.appendChild(span);
-
-        return imgItem;
-    }
-
-    document.getElementById('file-upload').addEventListener('change', function (event) {
-        let file = event.target.files[0];
-
-        if (file && file.type.startsWith('image/')) {
-            let reader = new FileReader();
-
-            reader.onload = function (e) {
-                const container = document.getElementById("img-prev");
-                let imgElement = createImgItem(e);
-                container.prepend(imgElement);
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            alert("Il file selezionato non è un'immagine.");
-        }
-    });
-
-</script>
 </html>
