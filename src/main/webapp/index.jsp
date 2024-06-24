@@ -54,7 +54,7 @@
     height: 50px; width: 50px; border-radius: 50%; display: flex;
     justify-content: space-around; bottom: 20px; right: 20px;
     background-color: rgb(232, 232, 232); z-index: 600000">
-    <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
+    <img alt="Torna su" src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
 <%@ include file="WEB-INF/include/navbar.jsp" %>
@@ -62,22 +62,22 @@
 <!-- carosello -->
 <div class="slideshow-container not-select">
     <div class="slides">
-        <img src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
         <div class="text">Caption Text</div>
     </div>
 
     <div class="slides">
-        <img src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
         <div class="text">Caption Two</div>
     </div>
 
     <div class="slides">
-        <img src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
         <div class="text">Caption Three</div>
     </div>
 
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
+    <button class="prev" onclick="plusSlides(-1)">❮</button>
+    <button class="next" onclick="plusSlides(1)">❯</button>
 </div>
 <!-- end carosello -->
 

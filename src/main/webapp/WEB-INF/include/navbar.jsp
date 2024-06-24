@@ -9,13 +9,16 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="css/navbar.css">
+    <title></title>
 </head>
 <body>
 <div id="mobile-bar">
-    <img src="${pageContext.request.contextPath}/img/solo_logo.png">
+    <img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
-        <input class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
-        <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
+        <!-- Use this just for support accessibility -->
+        <label for="search-mobile" style="display: none">Search Bar</label>
+        <input id="search-mobile" class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
+        <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico"></button>
     </form>
     <div class="open-btn not-select" onclick="openNav()">☰</div>
 </div>
@@ -23,7 +26,7 @@
 <nav class="bg-f4f5f5" id="navbar">
     <ul>
         <!-- il logo si nasconde quando siamo da mobile -->
-        <li class="logo"><img src="${pageContext.request.contextPath}/img/logo.png"></li>
+        <li class="logo"><img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/logo.png"></li>
         <li><a id="home_nav" href="${pageContext.request.contextPath}/">Home</a></li>
         <li><a class="" href="#">Offerte</a></li>
         <li><a class="" href="#">Categorie</a></li>
@@ -52,17 +55,71 @@
         </li>
         <li></li>
         <form class="form-bar" action="${pageContext.request.contextPath}/search">
-            <input type="text" name="search" value="${lastSearch}">
-            <button><img src="${pageContext.request.contextPath}/img/search_ico.png"></button>
+            <input id="search-desktop" type="text" name="search" value="${lastSearch}" >
+            <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
+            <label for="search-desktop" id="label_desktop">Search Bar</label>
+            <button><img alt="search ico" src="${pageContext.request.contextPath}/img/search_ico.png"></button>
         </form>
     </ul>
 </nav>
 <script>
-    var isOpen = false;
-    var navBarStyle = document.getElementById("navbar").style;
 
+    let input_label_desktop = document.getElementById("label_desktop");
+    let input_desktop = document.getElementById("search-desktop");
+    let navBarStyle = document.getElementById("navbar").style;
+    let isOpen = false;
+
+    /**
+     * When from desktop input (for search) is focused
+     * disable label used for placeholder.
+     */
+    input_desktop.addEventListener("focusin", function () {
+        input_label_desktop.style.display = "none";
+    });
+
+    /**
+     * Hide label used for placeholder. This is only for desktop view.
+     * @function check_for_hide_label
+     * @param value - Check if is present some string in box. if is present hide this label.
+     */
+    function check_for_hide_label(value) {
+        if (value === "") {
+            input_label_desktop.style.display = "unset";
+        } else {
+            input_label_desktop.style.display = "none";
+        }
+    }
+
+    /**
+     * For first time whe need to hide label if is necessary.
+     * (If input isn't empty)
+     */
+    check_for_hide_label(input_desktop.value);
+
+    /**
+     * For accessibility and flexibility I use label as placeholder.
+     * So, when some text are in input area I need to hide this "placeholder".
+     * Check it at focusout.
+     *
+     * @function check_for_hide_label
+     */
+    input_desktop.addEventListener("focusout", function () {
+        check_for_hide_label(input_desktop.value);
+    });
+
+    input_desktop.addEventListener("keypress", function() {
+        //console.log("Sto scrivendo");
+        /**
+         * TODO: suggerimenti in tempo reale.
+         */
+    });
+
+    /**
+     * Needed for mobile view. This can open and close sidebar.
+     *
+     * @function openNav - used from button in html.
+     */
     function openNav() {
-
         if (!isOpen) {
             navBarStyle.left = "0";
         } else {

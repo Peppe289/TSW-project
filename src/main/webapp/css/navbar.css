@@ -170,6 +170,15 @@ nav li .curr-page {
     width: 60px;
 }
 
+nav .form-bar {
+    position: relative;
+
+    & label {
+        position: absolute;
+        left: 10px;
+        color: rgba(0, 0, 0, 0.41);
+    }
+}
 
 /**
  * Devo tenermi +1 altrimenti a 1000 sparisce tutto

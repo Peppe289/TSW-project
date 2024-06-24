@@ -46,7 +46,7 @@ export function requestProducts() {
 function formatString(product) {
     let string =
         "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
-        "                <img class=\"bg-f4f5f5\" src=\"img/logo.png\" loading=\"lazy\"" +
+        "                <img class=\"bg-f4f5f5\" src=\"img/logo.png\" loading=\"lazy\" alt='????ACCESSIBILITY????'" +
         "                   onError=\"this.onerror=null; this.src='img/missing.jpg';\">\n" +
         " ??? " +
         "                <div class=\"item-desc\">\n" +
@@ -73,6 +73,7 @@ function formatString(product) {
     off = off.replace(" ?? ", product.sconto === 0 ? "" : (product.price.toFixed(2) + "€") )
     const price = product.sconto === 0 ? product.price : (product.price * (1 - (product.sconto / 100)));
     off = off.replace(" ? ", price.toFixed(2) + "€");
+    string = string.replace("????ACCESSIBILITY????", product.name);
     string = string.replace(" ??? ", product.sconto === 0 ? "" : offPercentage);
     string = string.replace(" ???? ", off);
     string = string.replace("?????description?????", product.description);
