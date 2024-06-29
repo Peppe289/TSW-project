@@ -4,9 +4,7 @@ footer {
 
 #footer {
     margin: 0;
-    padding: 20px;
-    padding-bottom: 50px;
-    padding-top: 50px;
+    padding: 50px 20px;
     width: calc(100% - 40px);
     background-color: #003D1D;
     color: #ffffff;
@@ -38,9 +36,7 @@ footer {
     padding-top: 5px;
     background-color: #002e16;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    text-align: center;
 }
 
 @media screen and (min-width: 800px) {
