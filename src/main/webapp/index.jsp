@@ -14,39 +14,40 @@
     <link type="text/css" rel="stylesheet" href="css/project.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
+    <style>
+        /**
+         * Scrolling fluido per i collegamenti interni
+         * Es. Il tasto per tornare in alto alla pagina.
+         */
+        html {
+            scroll-behavior: smooth
+        }
+
+        /* serve per far stare il footer in basso */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        a, a:visited, a:hover, a:active {
+            color: inherit;
+        }
+
+        .item {
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+    </style>
+
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
     <title>DinoStore</title>
 </head>
 <script type="module" src="js/eventListener.js"></script>
-<style>
-    /**
-     * Scrolling fluido per i collegamenti interni
-     * Es. Il tasto per tornare in alto alla pagina.
-     */
-    html {
-        scroll-behavior: smooth
-    }
-
-    /* serve per far stare il footer in basso */
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    footer {
-        margin-top: auto;
-    }
-
-    a, a:visited, a:hover, a:active {
-        color: inherit;
-    }
-
-    .item {
-        font-family: 'Open Sans', Arial, sans-serif;
-    }
-</style>
 
 <body style="margin: 0; padding: 0">
 
