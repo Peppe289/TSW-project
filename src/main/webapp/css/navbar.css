@@ -68,7 +68,7 @@ nav {
     top: 0;
     font-family: 'Open Sans';
     z-index: 20;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 /* metti la nav bar a sinistra */
