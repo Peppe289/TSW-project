@@ -12,7 +12,7 @@ import java.util.*;
 
 @WebServlet("/edit-prod-request")
 @MultipartConfig
-public class UploadImg extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     private String remove_image(HttpServletRequest request, HttpServletResponse response) throws IOException {
         BufferedReader reader = request.getReader();
@@ -24,8 +24,7 @@ public class UploadImg extends HttpServlet {
         List<File> files;
         List<String> newPath = new ArrayList<>();
 
-        while ((line = reader.readLine()) != null)
-            buffer.append(line);
+        while ((line = reader.readLine()) != null) buffer.append(line);
 
         /* string with url path of image to remove. */
         String[] array = objectMapper.readValue(buffer.toString(), String[].class);
@@ -46,17 +45,11 @@ public class UploadImg extends HttpServlet {
         for (int i = 0; i < array.length; ++i) {
             String[] name = array[i].split("/");
             String filename = name[name.length - 1];
-            System.out.println(filename);
-            /*if (array[i].indexOf(id + "_") == 0) {
-                array[i] = filename;
-            } else {
-                array[i] = null;
-            }*/
             array[i] = filename;
         }
 
         /* Delete files as request. */
-        for(String string : array) {
+        for (String string : array) {
             FileManager.removeFileByPath(getServletContext().getRealPath("/") + FileManager.directory + "/" + string);
         }
 
@@ -73,7 +66,7 @@ public class UploadImg extends HttpServlet {
     /**
      * This control the image upload.
      *
-     * @param request take resource from request.
+     * @param request  take resource from request.
      * @param response not needed but is better to keep here for set status code.
      */
     private String upload_image(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -137,7 +130,6 @@ public class UploadImg extends HttpServlet {
 
         /* return json page with status success */
         response.getWriter().print(json_result);
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
