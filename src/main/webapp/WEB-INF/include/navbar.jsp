@@ -21,7 +21,7 @@
         <input id="search-mobile" class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
         <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico"></button>
     </form>
-    <div class="open-btn not-select" onclick="openNav()">☰</div>
+    <div class="open-btn not-select" onclick="openNav()">&#9776;</div>
 </div>
 
 <nav class="bg-f4f5f5" id="navbar">
