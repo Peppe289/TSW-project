@@ -1,32 +1,84 @@
 package org.dinosauri.dinosauri.controller;
 
 import com.fasterxml.jackson.databind.*;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import org.dinosauri.dinosauri.model.utils.FileManager;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
+import org.dinosauri.dinosauri.model.utils.*;
 
 import java.io.*;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.*;
 
 @WebServlet("/edit-prod-request")
 @MultipartConfig
 public class UploadImg extends HttpServlet {
 
-    /**
-     * This servlet is used for write in server directory the new immage taked from client
-     * About this we can consider:
-     *
-     * @exception IOException if we can't write in that directory, we need to catch this error and return the right status response.
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Part filePart = request.getPart("image");
+    private String remove_image(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedReader reader = request.getReader();
         String id = request.getParameter("id");
+        /* read array from json (request) */
+        String line;
+        StringBuilder buffer = new StringBuilder();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<File> files;
+        List<String> newPath = new ArrayList<>();
+
+        while ((line = reader.readLine()) != null)
+            buffer.append(line);
+
+        /* string with url path of image to remove. */
+        String[] array = objectMapper.readValue(buffer.toString(), String[].class);
+        /*
+         * Use this as filter. whe need only name of file, so remove other stuff.
+         * Is better make this from server bcs whe need to check file to remove.
+         * This work as filter for save file remove.
+         *
+         * For example for block request from client to remove /etc/passwd
+         * (in this case whe receive only "passwd" and this can be safe).
+         *
+         * Also check if ID is equal to keywords in filename.
+         *
+         * Work as:
+         * input : http://localhost:8080/dinosauri_war_exploded/upload/OTC_3_image.jpg
+         * output : OTC_3_image.jpg
+         */
+        for (int i = 0; i < array.length; ++i) {
+            String[] name = array[i].split("/");
+            String filename = name[name.length - 1];
+            System.out.println(filename);
+            /*if (array[i].indexOf(id + "_") == 0) {
+                array[i] = filename;
+            } else {
+                array[i] = null;
+            }*/
+            array[i] = filename;
+        }
+
+        /* Delete files as request. */
+        for(String string : array) {
+            FileManager.removeFileByPath(getServletContext().getRealPath("/") + FileManager.directory + "/" + string);
+        }
+
+        /* get update image list */
+        files = FileManager.RetriveFileFromID(id, new File(getServletContext().getRealPath("/")).getAbsolutePath());
+        for (File file : files) {
+            newPath.add(FileManager.directory + "/" + file.getName());
+        }
+
+        response.setContentType("application/json");
+        return "{\"path\": " + objectMapper.writeValueAsString(newPath.toArray()) + ",\"status\":\"success\"}";
+    }
+
+    /**
+     * This control the image upload.
+     *
+     * @param request take resource from request.
+     * @param response not needed but is better to keep here for set status code.
+     */
+    private String upload_image(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Part filePart = request.getPart("image");
         Path destination = FileManager.getNextDiskPath(id, getServletContext().getRealPath("/"));
         List<File> files;
         List<String> newPath = new ArrayList<>();
@@ -45,12 +97,11 @@ public class UploadImg extends HttpServlet {
             FileManager.createDirectory(destination.getParent());
             /* write file received in the right directory. this can be give IOException. Catch it. */
             FileManager.writeFile(filePart.getInputStream(), destination);
-        } catch(IOException e) {
+        } catch (IOException e) {
             /* some error happened. send result to client */
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             /* return json page with error status */
-            response.getWriter().print("{\"status\":\"I/O Error\"}");
-            return;
+            return "{\"status\":\"I/O Error\"}";
         }
 
         /* get update image list */
@@ -59,12 +110,33 @@ public class UploadImg extends HttpServlet {
             newPath.add(FileManager.directory + "/" + file.getName());
         }
 
-        String jsonPath = objectMapper.writeValueAsString(newPath.toArray());
+        return "{\"path\": " + objectMapper.writeValueAsString(newPath.toArray()) + ",\"status\":\"success\"}";
+    }
 
-        /* set status for response to 200 (OK) */
-        response.setStatus(HttpServletResponse.SC_OK);
+    /**
+     * This servlet is used for write in server directory the new immage taked from client
+     * About this we can consider:
+     *
+     * @throws IOException if we can't write in that directory, we need to catch this error and return the right status response.
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String json_result;
+
+        switch (request.getParameter("o")) {
+
+            case "upload" -> {
+                json_result = upload_image(request, response);
+            }
+            case "remove" -> {
+                json_result = remove_image(request, response);
+            }
+            default -> {
+                json_result = "{\"status\":\"Request Error\"}";
+            }
+        }
+
         /* return json page with status success */
-        response.getWriter().print("{\"path\": "+ jsonPath + ",\"status\":\"success\"}");
+        response.getWriter().print(json_result);
 
     }
 

@@ -1,5 +1,6 @@
 package org.dinosauri.dinosauri.model.utils;
 
+import javax.management.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -112,6 +113,17 @@ public class FileManager {
             logger.error("An error occurred while comparing files", e);
         }
         return false;
+    }
+
+    /**
+     * This method need for delete file using path.
+     *
+     * @param context_path absolute path from apache context path
+     */
+    public static void removeFileByPath(String context_path) {
+        File file = new File (context_path);
+        if (!file.delete())
+            throw new RuntimeException("Error to delete " + context_path + " file");
     }
 }
 

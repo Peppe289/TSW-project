@@ -19,6 +19,8 @@ const fields = document.querySelectorAll('#name, #price, #category, #nutrition, 
 register_callback_preview_image(document.getElementById("img-prev"));
 /* At load whe need to hide delete button from img */
 editImg();
+/* See function comment */
+default_zoom_preview();
 
 fields.forEach(field => {
     field.addEventListener('keydown', (e) => {
@@ -47,8 +49,11 @@ document.getElementById("applica-btn").addEventListener("click", () => {
     /* disable all fields mean confirm changes from js. */
     disableAllFields();
     /* Use fetch for request about upload img. */
-    uploadimg();
-    // TODO: upload other changes for now work only image upload
+    uploadimg_ajax();
+    /* Use fetch for request about delete img. */
+    deleteimg_ajax();
+    /* After image update reload default side preview */
+    default_zoom_preview();
 });
 
 document.getElementById("delete-btn").addEventListener("click", () => {
@@ -62,49 +67,9 @@ document.getElementById("container-img").getElementsByTagName("button")[0].addEv
     editImg();
 });
 
-/* carica di default la prima immagine dalla lista della preview */
-try {
-    document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
-} catch (e) {
-    document.getElementById("image-src").src = "img/missing.jpg"
-}
-
 /**
- * action for enable editable image list.
+ * Manage the new entry image. Print as preview to html and add EventListner using register_callback_preview_image().
  */
-function editImg() {
-    let img_items = document.getElementsByClassName("img-item");
-
-    for (let i = 0; i < img_items.length; ++i) {
-        let items_span = img_items[i].getElementsByTagName("span")[0];
-
-        if (isEditingImg) {
-            // Remove all instances of the 'hide' class
-            while (items_span.classList.contains("hide")) {
-                items_span.classList.remove("hide");
-            }
-
-            // Add the 'vibrate' class if it doesn't already exist
-            if (!img_items[i].classList.contains("vibrate")) {
-                img_items[i].classList.add("vibrate");
-            }
-        } else {
-            // Remove the 'vibrate' class if it exists
-            while (img_items[i].classList.contains("vibrate")) {
-                img_items[i].classList.remove("vibrate");
-            }
-
-            // Add the 'hide' class if it doesn't already exist
-            if (!items_span.classList.contains("hide")) {
-                items_span.classList.add("hide");
-            }
-        }
-    }
-
-    // Toggle the editing state
-    isEditingImg = !isEditingImg;
-}
-
 document.getElementById('file-upload').addEventListener('change', function (event) {
     let file = event.target.files[0];
 
@@ -115,6 +80,7 @@ document.getElementById('file-upload').addEventListener('change', function (even
             const container = document.getElementById("img-prev");
             let imgElement = createImgItem(e.target.result);
             container.prepend(imgElement);
+            register_callback_preview_image(container);
         };
 
         reader.readAsDataURL(file);
@@ -130,13 +96,61 @@ document.getElementById('file-upload').addEventListener('change', function (even
  */
 
 /**
- * this function is used for upload to server new image.
+ * This function is used for delete image.
  * no param is required.
  *
- * @function applyChanges - only this call this function
- * @function fetch - used for upload
+ * @function applyChanges - only this call this function.
+ * @function fetch - used for request.
  */
-function uploadimg() {
+function deleteimg_ajax() {
+    const id = document.getElementById("id-product").innerHTML;
+
+    if (removedPath.length === 0) return;
+
+    /**
+     * Remove locally image. Whe skip to delete this because not we skip this upload
+     * (maybe already delete locally).
+     *
+     * (deformazione professionale: o stanno sul server o non stanno. noi aggiorniamo ogni volta bruh).
+     *
+     * @type {*[]} - return array
+     */
+    removedPath = removedPath.filter(function (item) {
+        return !item.includes("data:image/");
+    });
+
+    fetch("edit-prod-request?id=" + id + "&o=remove", {
+        method: 'POST', headers: {
+            'Content-Type': 'application/json',
+        }, body: JSON.stringify(removedPath),
+    })
+        .then(/* Take response json */response => response.json())
+        .then(data => {
+            /* Notify to client result of server using json. */
+            let status = data["status"];
+            if (status.indexOf("success") < 0) {
+                notifyUserModule("Error", status);
+            } else {
+                notifyUserModule("Immagine rimossa", "immagine rimossa con successo");
+            }
+
+            reloadImgItem(data);
+        }).catch(error => {
+        console.error('Error:', error);
+    });
+
+    // clean up removed img list
+    removedPath = [];
+}
+
+/**
+ * This function is used for upload to server new image.
+ * no param is required.
+ *
+ * @function applyChanges - only this call this function.
+ * @function fetch - used for upload.
+ */
+function uploadimg_ajax() {
     const uploadImg = document.getElementsByClassName("img-item");
     for (let i = 0; i < uploadImg.length; ++i) {
         let src = uploadImg[i].getElementsByTagName("img")[0].src;
@@ -145,7 +159,21 @@ function uploadimg() {
          * Se questa sotto stringa non è presente allora è stata presa dal server l'immagine.
          * Non caricarla di nuovo sul server.
          */
-        if (!src.includes("data:image/")) continue;
+        if (!src.includes("data:image/")) {
+            continue;
+        } else if (removedPath.length > 0) {
+            /**
+             * here we know src contain data:image payload.
+             * The user can remove the newly added image.
+             */
+            let skip = false;
+            removedPath.forEach(path => {
+                if (path.includes(src)) {
+                    skip = true;
+                }
+            });
+            if (skip) continue;
+        }
 
         /* This first fetch needed for convert image to binary and make another fetch to server. */
         fetch(src)
@@ -159,7 +187,7 @@ function uploadimg() {
                 formData.append('image', blob, 'image.jpg'); // Append the Blob with a filename
                 const id = document.getElementById("id-product").innerHTML;
                 /* send data */
-                return fetch('http://localhost:8080/dinosauri_war_exploded/edit-prod-request?id=' + id, {
+                return fetch('http://localhost:8080/dinosauri_war_exploded/edit-prod-request?id=' + id + "&o=upload", {
                     method: 'POST', body: formData
                 });
             })
@@ -173,17 +201,14 @@ function uploadimg() {
             .then(data => {
                 /* Notify to client result of server using json. */
                 let status = data["status"];
-                if (status.indexOf("success") < 0) notifyUserModule("Error", status); else notifyUserModule("Immagine caricata", "immagine caricata con successo");
+                if (status.indexOf("success") < 0) {
+                    notifyUserModule("Error", status);
+                } else {
+                    notifyUserModule("Immagine caricata", "immagine caricata con successo");
+                }
 
-                /* We can remove older preview of image and replace with server image. */
-                let old = document.getElementById("img-prev").getElementsByTagName("div");
-                while (old.length !== 0) old[0].remove();
-
-                /* Load new image preview from server using json list */
-                let src_arr = data["path"];
-                let container = document.getElementById("img-prev");
-                src_arr.forEach(src => container.prepend(createImgItem("http://localhost:8080/dinosauri_war_exploded/" + src)));
-                register_callback_preview_image(container);
+                /* reload img item after ajax request. */
+                reloadImgItem(data);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -194,6 +219,24 @@ function uploadimg() {
 /**
  * 2) utils for html
  */
+
+/**
+ * This function is used for update image after change.
+ * Remove all element and create new from json.
+ *
+ * @param data - json object from result of ajax request.
+ */
+function reloadImgItem(data) {
+    /* We can remove older preview of image and replace with server image. */
+    let old = document.getElementById("img-prev").getElementsByTagName("div");
+    while (old.length !== 0) old[0].remove();
+
+    /* Load new image preview from server using json list */
+    let src_arr = Array.from(data["path"]);
+    let container = document.getElementById("img-prev");
+    src_arr.forEach(src => container.prepend(createImgItem("http://localhost:8080/dinosauri_war_exploded/" + src)));
+    register_callback_preview_image(container);
+}
 
 /**
  * Function for create new div element for image preview
@@ -248,7 +291,9 @@ function register_callback_preview_image(container) {
     addActionListnerArr(container.getElementsByTagName("span"), /* function for delete image. */
         function (el) {
             const parent = el.parentNode;
-            // TODO: finish implementation.
+            const img = parent.getElementsByTagName("img")[0];
+            // save path to remove from server.
+            removedPath.push(img.src);
             parent.classList.add("hide");
         });
     addActionListnerArr(container.getElementsByTagName("img"), /* function to change big side view */
@@ -265,6 +310,55 @@ function register_callback_preview_image(container) {
  */
 function disableAllFields() {
     fields.forEach(field => field.disabled = true);
+}
+
+/**
+ * Action for enable editable image list.
+ * This can show span with "x" content for remove specify image.
+ */
+function editImg() {
+    let img_items = document.getElementsByClassName("img-item");
+
+    for (let i = 0; i < img_items.length; ++i) {
+        let items_span = img_items[i].getElementsByTagName("span")[0];
+
+        if (isEditingImg) {
+            // Remove all instances of the 'hide' class
+            while (items_span.classList.contains("hide")) {
+                items_span.classList.remove("hide");
+            }
+
+            // Add the 'vibrate' class if it doesn't already exist
+            if (!img_items[i].classList.contains("vibrate")) {
+                img_items[i].classList.add("vibrate");
+            }
+        } else {
+            // Remove the 'vibrate' class if it exists
+            while (img_items[i].classList.contains("vibrate")) {
+                img_items[i].classList.remove("vibrate");
+            }
+
+            // Add the 'hide' class if it doesn't already exist
+            if (!items_span.classList.contains("hide")) {
+                items_span.classList.add("hide");
+            }
+        }
+    }
+
+    // Toggle the editing state
+    isEditingImg = !isEditingImg;
+}
+
+/**
+ * Just used for choose default image (first image) as side preview.
+ */
+function default_zoom_preview() {
+    /* carica di default la prima immagine dalla lista della preview */
+    try {
+        document.getElementById("image-src").src = document.getElementsByClassName("img-item")[0].getElementsByTagName("img")[0].src;
+    } catch (e) {
+        document.getElementById("image-src").src = "img/missing.jpg"
+    }
 }
 
 /*************************************************************/
