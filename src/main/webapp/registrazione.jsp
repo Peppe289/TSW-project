@@ -20,7 +20,7 @@
 
 <div id="content">
     <img src="img/login-ico.png">
-    <form id="registrazione" action="loginServlet" method="post">
+    <form id="registrazione" action="login-validate" method="post">
         <div class="input">
             <input type="text" name="nome" id="nome" required>
             <label class="field">Nome</label>
