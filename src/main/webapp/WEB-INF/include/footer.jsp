@@ -5,12 +5,8 @@
   Time: 3:14 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
-    <link type="text/css" rel="stylesheet" href="css/footer.css">
-</head>
-<body>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link type="text/css" rel="stylesheet" href="css/footer.css">
 <footer>
     <div id="footer">
         <ul>
@@ -36,5 +32,3 @@
         <p>Sito creato per progetto universitario</p>
     </div>
 </footer>
-</body>
-</html>

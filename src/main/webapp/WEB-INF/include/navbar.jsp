@@ -6,20 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
-    <link type="text/css" rel="stylesheet" href="css/navbar.css">
-    <title></title>
-</head>
-<body>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link type="text/css" rel="stylesheet" href="css/navbar.css">
 <div id="mobile-bar">
     <img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
         <!-- Use this just for support accessibility -->
         <label for="search-mobile" style="display: none">Search Bar</label>
         <input id="search-mobile" class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
-        <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico"></button>
+        <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico">
+        </button>
     </form>
     <div class="open-btn not-select" onclick="openNav()">&#9776;</div>
 </div>
@@ -56,7 +52,7 @@
         </li>
         <li></li>
         <form class="form-bar" action="${pageContext.request.contextPath}/search">
-            <input id="search-desktop" type="text" name="search" value="${lastSearch}" >
+            <input id="search-desktop" type="text" name="search" value="${lastSearch}">
             <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
             <label for="search-desktop" id="label_desktop">Search Bar</label>
             <button><img alt="search ico" src="${pageContext.request.contextPath}/img/search_ico.png"></button>
@@ -108,7 +104,7 @@
         check_for_hide_label(input_desktop.value);
     });
 
-    input_desktop.addEventListener("keypress", function() {
+    input_desktop.addEventListener("keypress", function () {
         //console.log("Sto scrivendo");
         /**
          * TODO: suggerimenti in tempo reale.
@@ -130,5 +126,3 @@
         isOpen = !isOpen;
     }
 </script>
-</body>
-</html>

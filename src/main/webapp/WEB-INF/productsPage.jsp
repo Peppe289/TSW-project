@@ -1,11 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link type="text/css" rel="stylesheet" href="css/carosello.css">
@@ -48,15 +46,13 @@
     }
 </style>
 <body style="margin: 0; padding: 0">
-
+<%@ include file="include/navbar.jsp" %>
 <a id="top-button" href="#" style="position: fixed;
     height: 50px; width: 50px; border-radius: 50%; display: flex;
     justify-content: space-around; bottom: 20px; right: 20px;
     background-color: rgb(232, 232, 232); z-index: 600000">
     <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
-
-<%@ include file="include/navbar.jsp" %>
 <script defer>
     const product_nav = document.getElementById("product_nav");
     product_nav.classList.add("curr-page");
