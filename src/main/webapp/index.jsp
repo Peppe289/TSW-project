@@ -63,17 +63,20 @@
 <!-- carosello -->
 <div class="slideshow-container not-select">
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+             style="width:100%">
         <div class="text">Caption Text</div>
     </div>
 
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+             style="width:100%">
         <div class="text">Caption Two</div>
     </div>
 
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';" style="width:100%">
+        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+             style="width:100%">
         <div class="text">Caption Three</div>
     </div>
 
@@ -97,45 +100,45 @@
         position: relative;
         width: auto;
         font-family: Arial, Helvetica, sans-serif;
+    }
 
-        & ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    #btn-page ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-        & a,
-        & a:visited,
-        & a:hover,
-        & a:active {
-            color: inherit;
-        }
+    #btn-page a,
+    #btn-page a:visited,
+    #btn-page a:hover,
+    #btn-page a:active {
+        color: inherit;
+    }
 
-        & * {
-            display: inline-block;
-            text-decoration: none;
-        }
+    #btn-page * {
+        display: inline-block;
+        text-decoration: none;
+    }
 
-        & li {
-            border-radius: 5px;
-        }
+    #btn-page li {
+        border-radius: 5px;
+    }
 
-        & a {
-            padding: 10px;
-        }
+    #btn-page a {
+        padding: 10px;
+    }
 
-        & .active {
-            color: white;
-        }
+    #btn-page .active {
+        color: white;
+    }
 
-        & .other {
-            background-color: #ececec;
-        }
+    #btn-page .other {
+        background-color: #ececec;
+    }
 
-        & .deactive {
-            pointer-events: none;
-            background-color: #939393;
-            color: #cdcdcd;
-        }
+    #btn-page .deactive {
+        pointer-events: none;
+        background-color: #939393;
+        color: #cdcdcd;
     }
 </style>
 <div id="btn-page" class="not-select">

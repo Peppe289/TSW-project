@@ -172,12 +172,12 @@ nav li .curr-page {
 
 nav .form-bar {
     position: relative;
+}
 
-    & label {
-        position: absolute;
-        left: 10px;
-        color: rgba(0, 0, 0, 0.41);
-    }
+nav .form-bar label {
+    position: absolute;
+    left: 10px;
+    color: rgba(0, 0, 0, 0.41);
 }
 
 /**
