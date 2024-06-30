@@ -24,6 +24,7 @@ public class EditProduct extends HttpServlet {
 
         Product prod = ProductDAO.doRetrieveProductByID(id);
         prod.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
+        prod.setQuantity(ProductDAO.doRetrieveProductByID(id, true).size());
 
         req.setAttribute("product", prod);
         RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/updateProduct.jsp");

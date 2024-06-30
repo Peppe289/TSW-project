@@ -128,26 +128,37 @@
         <button class="editImage">Editing</button>
     </div>
     <div class="product-form">
-        <div class="form-group"><label for="name">Nome:</label> <input type="text" id="name" value="${product.name}"
-                                                                       disabled>
+        <div class="form-group">
+            <label>ID: ${product.id}</label>
+        </div>
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" value="${product.name}" disabled>
             <button>Modifica</button>
         </div>
-        <div class="form-group"><label for="price">Prezzo:</label> <input type="text" id="price"
-                                                                          value="${product.price}" disabled>
+        <div class="form-group">
+            <label for="price">Prezzo:</label>
+            <input type="number" min="1" id="price" value="${product.price}" disabled>
             <button>Modifica</button>
         </div>
-        <div class="form-group"><label for="category">Categoria:</label> <input type="text" id="category"
-                                                                                value="${product.categoria}" disabled>
+        <div class="form-group">
+            <label for="category">Categoria:</label>
+            <input type="text" id="category" value="${product.categoria}" disabled>
             <button>Modifica</button>
         </div>
-        <div class="form-group"><label for="nutrition">Alimentazione:</label> <input type="text" id="nutrition"
-                                                                                     value="${product.alimentazione}"
-                                                                                     disabled>
+        <div class="form-group">
+            <label for="nutrition">Alimentazione:</label>
+            <input type="text" id="nutrition" value="${product.alimentazione}" disabled>
             <button>Modifica</button>
         </div>
-        <div class="form-group"><label for="description">Descrizione:</label> <textarea id="description"
-                                                                                        style="resize: none;" rows="5"
-                                                                                        disabled>${product.description}</textarea>
+        <div class="form-group">
+            <label for="quantity">Quantità:</label>
+            <input type="number" id="quantity" value="${product.quantity}" disabled>
+            <button>Modifica</button>
+        </div>
+        <div class="form-group">
+            <label for="description">Descrizione:</label>
+            <textarea id="description" style="resize: none;" rows="5" disabled>${product.description}</textarea>
             <button>Modifica</button>
         </div>
         <div class="form-actions">

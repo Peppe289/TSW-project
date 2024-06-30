@@ -1,5 +1,7 @@
 package org.dinosauri.dinosauri.model;
 
+import com.mysql.cj.xdevapi.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,26 @@ import java.util.List;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class ProductDAO {
+
+    /**
+     * This method need for update database information
+     *
+     * @param product - Product object.
+     */
+    public static void doUpdateByID(Product product) {
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE prodotto SET nome = ? , descrizione = ? , alimentazione = ? , categoria = ? , prezzo = ? WHERE id_prodotto = ?");
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getDescription());
+            ps.setString(3, product.getAlimentazione());
+            ps.setString(4, product.getCategoria());
+            ps.setDouble(5, product.getPrice());
+            ps.setString(6, product.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Retrieves a key-value pair of product discounts where:

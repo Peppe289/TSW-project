@@ -6,14 +6,12 @@
 
 /**
  * Import notify script for show Toast popup
- *
- * @
  */
 import {notifyUserModule} from '../ToastAPI.js';
 
 let isEditingImg = false;
 let removedPath = []; // TODO: list of removed image.
-const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #description');
+const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #quantity, #description');
 
 /* Register callback for first time for img */
 register_callback_preview_image(document.getElementById("img-prev"));
@@ -54,6 +52,8 @@ document.getElementById("applica-btn").addEventListener("click", () => {
     deleteimg_ajax();
     /* After image update reload default side preview */
     default_zoom_preview();
+    /* Send request with custom name, price, category ... */
+    update_database_ajax();
 });
 
 document.getElementById("delete-btn").addEventListener("click", () => {
@@ -96,6 +96,47 @@ document.getElementById('file-upload').addEventListener('change', function (even
  */
 
 /**
+ * Update database for this product. This fetch text from input text.
+ */
+function update_database_ajax() {
+    const id = document.getElementById("id-product").innerHTML;
+
+    const name = document.getElementById("name");
+    const price = document.getElementById("price");
+    const category = document.getElementById("category");
+    const nutrition = document.getElementById("nutrition");
+    const quantity = document.getElementById("quantity");
+    const description = document.getElementById("description");
+    const obj = {
+        name: name.value,
+        price: price.value,
+        category: category.value,
+        nutrition: nutrition.value,
+        quantity: quantity.value,
+        description: description.value
+    };
+    let json = JSON.stringify(obj);
+    fetch("edit-prod-request?id=" + id + "&o=update_database", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }, body: json
+    })
+        .then(/* Take response json */response => response.json())
+        .then(data => {
+            /* Notify to client result of server using json. */
+            let status = data["status"];
+            if (status.indexOf("success") < 0) {
+                notifyUserModule("Error", status);
+            } else {
+                notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
+            }
+        }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+/**
  * This function is used for delete image.
  * no param is required.
  *
@@ -131,7 +172,7 @@ function deleteimg_ajax() {
             if (status.indexOf("success") < 0) {
                 notifyUserModule("Error", status);
             } else {
-                notifyUserModule("Immagine rimossa", "immagine rimossa con successo");
+                notifyUserModule("Immagine rimossa", "immagine rimossa con successo.");
             }
 
             reloadImgItem(data);
@@ -204,7 +245,7 @@ function uploadimg_ajax() {
                 if (status.indexOf("success") < 0) {
                     notifyUserModule("Error", status);
                 } else {
-                    notifyUserModule("Immagine caricata", "immagine caricata con successo");
+                    notifyUserModule("Immagine caricata", "immagine caricata con successo.");
                 }
 
                 /* reload img item after ajax request. */

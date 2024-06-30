@@ -1,9 +1,11 @@
 package org.dinosauri.dinosauri.controller;
 
+import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
+import org.dinosauri.dinosauri.model.*;
 import org.dinosauri.dinosauri.model.utils.*;
 
 import java.io.*;
@@ -13,6 +15,42 @@ import java.util.*;
 @WebServlet("/edit-prod-request")
 @MultipartConfig
 public class UpdateProduct extends HttpServlet {
+
+    /**
+     * Method for update database information of single product.
+     *
+     * @param request - Retrieve data
+     * @param response - Set status
+     * @return json string for success or not
+     * @throws IOException - Retrieve data
+     */
+    private String update_database(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedReader reader = request.getReader();
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        Product product = new Product();
+        String id = request.getParameter("id");
+
+        while ((line = reader.readLine()) != null)
+            buffer.append(line);
+
+        String payload = buffer.toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> map = objectMapper.readValue(payload, new TypeReference<Map<String, String>>(){});
+
+        product.setId(id);
+        product.setPrice(Double.parseDouble(map.get("price")));
+        product.setCategoria(map.get("category"));
+        product.setAlimentazione(map.get("nutrition"));
+        product.setDescription(map.get("description"));
+        product.setName(map.get("name"));
+        /* TODO: fix for qantity */
+
+        ProductDAO.doUpdateByID(product);
+        response.setContentType("application/json");
+
+        return "{\"status\":\"success\"}";
+    }
 
     private String remove_image(HttpServletRequest request, HttpServletResponse response) throws IOException {
         BufferedReader reader = request.getReader();
@@ -116,16 +154,10 @@ public class UpdateProduct extends HttpServlet {
         String json_result;
 
         switch (request.getParameter("o")) {
-
-            case "upload" -> {
-                json_result = upload_image(request, response);
-            }
-            case "remove" -> {
-                json_result = remove_image(request, response);
-            }
-            default -> {
-                json_result = "{\"status\":\"Request Error\"}";
-            }
+            case "upload" -> json_result = upload_image(request, response);
+            case "remove" -> json_result = remove_image(request, response);
+            case "update_database" -> json_result = update_database(request, response);
+            default -> json_result = "{\"status\":\"Request Error\"}";
         }
 
         /* return json page with status success */
