@@ -12,16 +12,13 @@
 import {notifyUserModule} from '../ToastAPI.js';
 
 let isEditingImg = false;
-let removedPath = []; // lista delle immagini rimosse
+let removedPath = []; // TODO: list of removed image.
 const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #description');
 
-document.getElementById("applica-btn").addEventListener("click", e => applyChanges());
-
-function enableEdit(fieldId) {
-    const field = document.getElementById(fieldId);
-    field.disabled = false;
-    field.focus();
-}
+/* Register callback for first time for img */
+register_callback_preview_image(document.getElementById("img-prev"));
+/* At load whe need to hide delete button from img */
+editImg();
 
 fields.forEach(field => {
     field.addEventListener('keydown', (e) => {
@@ -30,6 +27,39 @@ fields.forEach(field => {
             disableAllFields();
         }
     });
+    /**
+     * <div class="form-group"><label for="name">Nome:</label>
+     *      <input type="text" id="name" value="${product.name}" disabled>
+     *      <button onclick="enableEdit('name')">Modifica</button>
+     * </div>
+     *
+     * In this way whe can add action listner to button from input.
+     */
+    const button = field.parentElement.getElementsByTagName("button")[0];
+    button.addEventListener("click", () => {
+        /* disable input. */
+        field.disabled = false;
+        field.focus();
+    });
+});
+
+document.getElementById("applica-btn").addEventListener("click", () => {
+    /* disable all fields mean confirm changes from js. */
+    disableAllFields();
+    /* Use fetch for request about upload img. */
+    uploadimg();
+    // TODO: upload other changes for now work only image upload
+});
+
+document.getElementById("delete-btn").addEventListener("click", () => {
+    alert('Prodotto eliminato');
+})
+
+/**
+ * Button for edit image list.
+ */
+document.getElementById("container-img").getElementsByTagName("button")[0].addEventListener("click", () => {
+    editImg();
 });
 
 /* carica di default la prima immagine dalla lista della preview */
@@ -38,42 +68,41 @@ try {
 } catch (e) {
     document.getElementById("image-src").src = "img/missing.jpg"
 }
-/* funzinoe per cambiare immagine dalla preview */
-function changeit(path, el) {
-    let img = document.getElementById("image-src");
-    img.src = path;
-}
 
+/**
+ * action for enable editable image list.
+ */
 function editImg() {
     let img_items = document.getElementsByClassName("img-item");
 
     for (let i = 0; i < img_items.length; ++i) {
+        let items_span = img_items[i].getElementsByTagName("span")[0];
+
         if (isEditingImg) {
-            try {
-                img_items[i].getElementsByTagName("span")[0].classList.remove("hide");
-            } catch (e) {
+            // Remove all instances of the 'hide' class
+            while (items_span.classList.contains("hide")) {
+                items_span.classList.remove("hide");
             }
-            img_items[i].classList.add("vibrate");
+
+            // Add the 'vibrate' class if it doesn't already exist
+            if (!img_items[i].classList.contains("vibrate")) {
+                img_items[i].classList.add("vibrate");
+            }
         } else {
-            try {
-                img_items[i].getElementsByTagName("span")[0].classList.add("hide");
-            } catch (e) {
+            // Remove the 'vibrate' class if it exists
+            while (img_items[i].classList.contains("vibrate")) {
+                img_items[i].classList.remove("vibrate");
             }
-            img_items[i].classList.remove("vibrate");
+
+            // Add the 'hide' class if it doesn't already exist
+            if (!items_span.classList.contains("hide")) {
+                items_span.classList.add("hide");
+            }
         }
     }
 
+    // Toggle the editing state
     isEditingImg = !isEditingImg;
-}
-
-editImg();
-
-function removeImg(element) {
-    const parent = element.parentNode;
-    const img = parent.getElementsByTagName("img")[0];
-    const imgpath = img.src;
-    console.log(imgpath);
-    parent.classList.add("hide");
 }
 
 document.getElementById('file-upload').addEventListener('change', function (event) {
@@ -94,83 +123,67 @@ document.getElementById('file-upload').addEventListener('change', function (even
     }
 });
 
-// Funzione per creare un nuovo elemento div con un'immagine e un pulsante di rimozione
-function createImgItem(src) {
-    // Creare l'elemento div
-    let imgItem = document.createElement('div');
-    imgItem.classList.add('img-item');
+/*************************** UTILS ***************************/
 
-    // Creare l'elemento img
-    let img = document.createElement('img');
-    img.src = src;
+/**
+ * 1) Server request
+ */
 
-    // Creare l'elemento span
-    let span = document.createElement('span');
-    span.innerHTML = '&#10006;';
-    span.onclick = function () {
-        removeImg(this);
-    };
-
-    // Aggiungere img e span a imgItem
-    imgItem.appendChild(img);
-    imgItem.appendChild(span);
-
-    return imgItem;
-}
-
-function applyChanges() {
-    // Logica per applicare le modifiche
-    //alert('Modifiche applicate');
-    disableAllFields();
+/**
+ * this function is used for upload to server new image.
+ * no param is required.
+ *
+ * @function applyChanges - only this call this function
+ * @function fetch - used for upload
+ */
+function uploadimg() {
     const uploadImg = document.getElementsByClassName("img-item");
-    for (let i = 0; i < uploadImg.length; ++i){
+    for (let i = 0; i < uploadImg.length; ++i) {
         let src = uploadImg[i].getElementsByTagName("img")[0].src;
 
         /**
          * Se questa sotto stringa non è presente allora è stata presa dal server l'immagine.
          * Non caricarla di nuovo sul server.
          */
-        if (!src.includes("data:image/"))
-            continue;
+        if (!src.includes("data:image/")) continue;
 
+        /* This first fetch needed for convert image to binary and make another fetch to server. */
         fetch(src)
             .then(response => {
+                /* Take binary of image. Need for manage image */
                 return response.blob();
             })
             .then(blob => {
+                /* after get binary prepare for send. */
                 const formData = new FormData();
                 formData.append('image', blob, 'image.jpg'); // Append the Blob with a filename
                 const id = document.getElementById("id-product").innerHTML;
-                return fetch('http://localhost:8080/dinosauri_war_exploded/uploadimg?id=' + id, {
-                    method: 'POST',
-                    body: formData
+                /* send data */
+                return fetch('http://localhost:8080/dinosauri_war_exploded/edit-prod-request?id=' + id, {
+                    method: 'POST', body: formData
                 });
             })
             .then(response => {
+                /**
+                 * From return take json. This can say if result goes well or not.
+                 * If the operation went well, the entire list of images is returned in the json.
+                 */
                 return response.json();
             })
             .then(data => {
+                /* Notify to client result of server using json. */
                 let status = data["status"];
-                if (status.indexOf("success") < 0) {
-                    notifyUserModule("Error", status);
-                } else {
-                    notifyUserModule("Immagine caricata", "immagine caricata con successo");
-                }
+                if (status.indexOf("success") < 0) notifyUserModule("Error", status); else notifyUserModule("Immagine caricata", "immagine caricata con successo");
 
                 /* We can remove older preview of image and replace with server image. */
                 let old = document.getElementById("img-prev").getElementsByTagName("div");
-                while (old.length !== 0) {
-                    old[0].remove();
-                }
+                while (old.length !== 0) old[0].remove();
 
-                /* load new image preview from server using json list */
+                /* Load new image preview from server using json list */
                 let src_arr = data["path"];
-                src_arr.forEach(src =>
-                    document.getElementById("img-prev")
-                        .prepend(createImgItem("http://localhost:8080/dinosauri_war_exploded/" + src)
-                        )
-                );
-
+                let container = document.getElementById("img-prev");
+                src_arr.forEach(src => container.prepend(createImgItem("http://localhost:8080/dinosauri_war_exploded/" + src)));
+                register_callback_preview_image(container);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -179,14 +192,79 @@ function applyChanges() {
 }
 
 /**
- * TODO: not implemented yet
+ * 2) utils for html
  */
-function deleteProduct() {
-    // Logica per eliminare il prodotto
-    alert('Prodotto eliminato');
+
+/**
+ * Function for create new div element for image preview
+ *
+ * @param src - source of image.
+ * @returns {HTMLDivElement} - element to append
+ */
+function createImgItem(src) {
+    /* create item container */
+    let imgItem = document.createElement('div');
+    imgItem.classList.add('img-item');
+
+    /* create image element for preview */
+    let img = document.createElement('img');
+    img.src = src;
+
+    /* create span element for delete action */
+    let span = document.createElement('span');
+    span.innerHTML = '&#10006;';
+    span.classList.add("hide");
+
+    /* compose item for show image and add span for remove button */
+    imgItem.appendChild(img);
+    imgItem.appendChild(span);
+
+    return imgItem;
 }
 
+/**
+ * This added dynamically ActionListner.
+ * Use callback function to register action on click.
+ * Need for button on preview image.
+ *
+ * @param element - array of element
+ * @param callback - callback function
+ */
+function addActionListnerArr(element, callback) {
+    Array.from(element).forEach(function (el) {
+        el.addEventListener("click", function () {
+            callback(el);
+        });
+    });
+}
+
+/**
+ * This function need for add actionlistner to preview image.
+ *
+ * @param container
+ */
+function register_callback_preview_image(container) {
+    /* add callback function for new image added */
+    addActionListnerArr(container.getElementsByTagName("span"), /* function for delete image. */
+        function (el) {
+            const parent = el.parentNode;
+            // TODO: finish implementation.
+            parent.classList.add("hide");
+        });
+    addActionListnerArr(container.getElementsByTagName("img"), /* function to change big side view */
+        function (el) {
+            let img = document.getElementById("image-src");
+            img.src = el.src;
+        });
+}
+
+/**
+ * Disable all fields about active input.
+ *
+ * @function applyChanges - Invoked from this for confirm changes.
+ */
 function disableAllFields() {
-    const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #description');
     fields.forEach(field => field.disabled = true);
 }
+
+/*************************************************************/

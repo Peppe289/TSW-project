@@ -48,6 +48,10 @@
         & .img-item {
             position: relative;
 
+            & img {
+                cursor: pointer;
+            }
+
             & span {
                 background-color: red;
                 color: white;
@@ -110,8 +114,8 @@
         <div id="img-prev">
             <c:forEach items="${product.photo_path}" var="photo">
                 <div class="img-item">
-                    <img src="${pageContext.request.contextPath}${photo}" onclick="changeit(this.src, this)">
-                    <span onclick="removeImg(this)">&#10006;</span>
+                    <img alt="preview image ${photo}" src="${pageContext.request.contextPath}${photo}">
+                    <span>&#10006;</span>
                 </div>
             </c:forEach>
             <form action="Upload" method="post" enctype="multipart/form-data">
@@ -121,34 +125,34 @@
                 <input id="file-upload" type="file" accept="image/*"/>
             </form>
         </div>
-        <button class="editImage" onclick="editImg()">Editing</button>
+        <button class="editImage">Editing</button>
     </div>
     <div class="product-form">
         <div class="form-group"><label for="name">Nome:</label> <input type="text" id="name" value="${product.name}"
                                                                        disabled>
-            <button onclick="enableEdit('name')">Modifica</button>
+            <button>Modifica</button>
         </div>
         <div class="form-group"><label for="price">Prezzo:</label> <input type="text" id="price"
                                                                           value="${product.price}" disabled>
-            <button onclick="enableEdit('price')">Modifica</button>
+            <button>Modifica</button>
         </div>
         <div class="form-group"><label for="category">Categoria:</label> <input type="text" id="category"
                                                                                 value="${product.categoria}" disabled>
-            <button onclick="enableEdit('category')">Modifica</button>
+            <button>Modifica</button>
         </div>
         <div class="form-group"><label for="nutrition">Alimentazione:</label> <input type="text" id="nutrition"
                                                                                      value="${product.alimentazione}"
                                                                                      disabled>
-            <button onclick="enableEdit('nutrition')">Modifica</button>
+            <button>Modifica</button>
         </div>
         <div class="form-group"><label for="description">Descrizione:</label> <textarea id="description"
                                                                                         style="resize: none;" rows="5"
                                                                                         disabled>${product.description}</textarea>
-            <button onclick="enableEdit('description')">Modifica</button>
+            <button>Modifica</button>
         </div>
         <div class="form-actions">
             <button id="applica-btn">Applica</button>
-            <button onclick="deleteProduct()">Elimina Prodotto</button>
+            <button id="delete-btn">Elimina Prodotto</button>
             <button onclick="window.close()">Chiudi</button>
         </div>
     </div>

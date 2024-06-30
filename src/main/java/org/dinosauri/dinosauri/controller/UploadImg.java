@@ -14,7 +14,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
 
-@WebServlet("/uploadimg")
+@WebServlet("/edit-prod-request")
 @MultipartConfig
 public class UploadImg extends HttpServlet {
 
