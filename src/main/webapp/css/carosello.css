@@ -42,14 +42,21 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.text {
+div.text {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+p.text {
     color: #f2f2f2;
     font-size: 15px;
-    padding-bottom: 12px;
-    position: absolute;
     bottom: 8px;
     width: 100%;
     text-align: center;
+    font-family: 'Roboto', Arial, sans-serif;
+    text-transform: uppercase;
 }
 
 @media only screen and (min-width: 300px) {
@@ -67,7 +74,7 @@
 @media only screen and (max-width: 300px) {
     .prev,
     .next,
-    .text {
+    p.text {
         font-size: 11px
     }
 }

@@ -61,21 +61,27 @@
 <!-- carosello -->
 <div class="slideshow-container not-select">
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+        <img alt="Slide" src="img/carosello/image.png" onError="this.onerror=null; this.src='img/missing.jpg';"
              style="width:100%">
-        <div class="text">Caption Text</div>
+        <div class="text">
+            <p class="text">Dinosauri sopravvissuti</p>
+        </div>
     </div>
 
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+        <img alt="Slide" src="img/carosello/image_1.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
              style="width:100%">
-        <div class="text">Caption Two</div>
+        <div class="text">
+            <p class="text">Dinosauri nuovi ogni 100 anni</p>
+        </div>
     </div>
 
     <div class="slides">
-        <img alt="Slide" src="img/missing.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+        <img alt="Slide" src="img/carosello/image_2.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
              style="width:100%">
-        <div class="text">Caption Three</div>
+        <div class="text">
+            <p class="text">Dinosauri per ogni era</p>
+        </div>
     </div>
 
     <button class="prev" onclick="plusSlides(-1)">❮</button>
