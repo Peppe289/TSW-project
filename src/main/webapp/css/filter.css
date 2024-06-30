@@ -38,6 +38,11 @@
     text-transform: uppercase;
 }
 
+.sticky-top {
+    position: sticky;
+    top: 60px;
+}
+
 #button-mobile-form-submit {
     display: none;
 }
