@@ -1,11 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link type="text/css" rel="stylesheet" href="css/carosello.css">
@@ -50,6 +49,7 @@
 <script type="module" src="js/eventListener.js"></script>
 
 <body style="margin: 0; padding: 0">
+<%@ include file="WEB-INF/include/navbar.jsp" %>
 
 <a id="top-button" href="#" style="position: fixed;
     height: 50px; width: 50px; border-radius: 50%; display: flex;
@@ -57,8 +57,6 @@
     background-color: rgb(232, 232, 232); z-index: 600000">
     <img alt="Torna su" src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
-
-<%@ include file="WEB-INF/include/navbar.jsp" %>
 
 <!-- carosello -->
 <div class="slideshow-container not-select">
