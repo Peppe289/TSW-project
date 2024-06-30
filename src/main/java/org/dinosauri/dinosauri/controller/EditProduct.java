@@ -26,7 +26,7 @@ public class EditProduct extends HttpServlet {
         prod.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
 
         req.setAttribute("product", prod);
-        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/manageProduct.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/updateProduct.jsp");
         rd.forward(req, resp);
     }
 

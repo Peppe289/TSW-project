@@ -59,7 +59,7 @@ public class SearchServlet extends HttpServlet {
         req.setAttribute("btn_page", btn_page);
         req.setAttribute("lastSearch", keyword);
         req.setAttribute("products", products);
-        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsList.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsPage.jsp");
         rd.forward(req, resp);
     }
 }

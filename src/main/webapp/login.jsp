@@ -22,7 +22,7 @@
 
 <div id="content">
     <img src="img/login-ico.png">
-    <form id="login" action="loginServlet" method="post">
+    <form id="login" action="login-validate" method="post">
         <div class="input">
             <input type="text" name="email" id="email" required>
             <label class="field">Email</label>

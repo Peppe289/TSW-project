@@ -18,7 +18,7 @@ import java.sql.SQLException;
  * servlet che si occupa di validare la sessione ed aggiungere informazioni personali.
  * Inoltre si occupa di gestire anche il database per la parte utente.
  */
-@WebServlet("/loginServlet")
+@WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
 
     @Override
