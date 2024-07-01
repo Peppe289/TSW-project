@@ -10,7 +10,7 @@
 import {notifyUserModule} from '../ToastAPI.js';
 
 let isEditingImg = false;
-let removedPath = []; // TODO: list of removed image.
+let removedPath = [];
 const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #quantity, #description');
 
 /* Register callback for first time for img */
