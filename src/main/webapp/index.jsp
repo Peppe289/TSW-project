@@ -58,6 +58,8 @@
     <img alt="Torna su" src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
+<%@ include file="WEB-INF/include/carrello_portable.html" %>
+
 <!-- carosello -->
 <div class="slideshow-container not-select">
     <div class="slides">

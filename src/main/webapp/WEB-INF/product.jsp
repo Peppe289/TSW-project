@@ -7,6 +7,7 @@
 
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
@@ -49,6 +50,7 @@
 
 <body>
 <%@ include file="include/navbar.jsp" %>
+<%@ include file="include/carrello_portable.html" %>
 <div id="container">
     <div id="view-container">
         <div id="img-container">
@@ -66,6 +68,7 @@
     </div>
     <div id="description">
         <c:if test="${not empty product}">
+            <span id="id_prod" style="display: none">${product.id}</span>
             <h1>${product.name}</h1>
             <p class="paragraph-desc">
                     ${product.description}
@@ -105,9 +108,7 @@
             </ul>
             <p>Disponibili: <span id="disp">${product.quantity}</span></p>
         </c:if>
-        <form action="" id="shop-btn">
-            <input type="submit" value="Aggiungi al carrello">
-        </form>
+        <button id="add_carrello">Aggiungi al carrello</button>
     </div>
 </div>
 
@@ -129,7 +130,6 @@
 
     function disableButton() {
         var disp = document.getElementById("disp").innerHTML;
-        console.log(disp);
         if (disp < 1) {
             document.getElementById("shop-btn").classList.add("hide");
         }
@@ -139,6 +139,67 @@
     document.addEventListener('DOMContentLoaded', function () {
         disableButton();
     });
+</script>
+<script type="module" src="./js/ToastAPI.js"></script>
+<script type="module">
+    import {notifyUserModule} from "./js/ToastAPI.js"
+
+    /**
+     * Controlla l'icona carrello.
+     */
+    let disponibility = document.getElementById("disp");
+    let id_product = document.getElementById("id_prod").innerHTML;
+    let carrello = document.getElementById("carrello");
+    let carrello_span = carrello.getElementsByTagName("span")[0];
+
+    document.getElementById("add_carrello").addEventListener("click", () => {
+        /* Need ajax request. */
+        let xhr = new XMLHttpRequest();
+        /**
+         * Ajax request for add product to cart.
+         */
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let json = JSON.parse(this.response);
+                /**
+                 * Check in response json if all is ok. Notify status to user.
+                 */
+                if (json["status"] !== "success") {
+                    notifyUserModule("Impossibile aggiungere al carrello", "Elementi non disponibili");
+                } else {
+                    notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["item"]);
+                }
+                /**
+                 * Set current number of available elements.
+                 */
+                carrello_set_number(json["elements"]);
+            }
+        }
+
+        xhr.open("GET", "carrello-add-ajax?id=" + id_product + "&add=1", true);
+        xhr.send();
+    });
+
+    function carrello_set_number(number) {
+        if (number === 0) {
+            carrello_span.style.display = "none";
+        } else {
+            carrello_span.style.display = "flex";
+        }
+        carrello_span.innerHTML = number;
+    }
+
+    function carrello_increase_number(n) {
+        let number = Number(carrello_span.innerHTML);
+        if ((number + n) <= 0) {
+            carrello_span.style.display = "none";
+            number = 0;
+        } else {
+            carrello_span.style.display = "flex";
+            number += n;
+        }
+        carrello_span.innerHTML = number;
+    }
 </script>
 
 </html>

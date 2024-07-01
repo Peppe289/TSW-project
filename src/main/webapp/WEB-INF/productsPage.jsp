@@ -53,6 +53,9 @@
     background-color: rgb(232, 232, 232); z-index: 600000">
     <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
+
+<%@ include file="include/carrello_portable.html" %>
+
 <script defer>
     const product_nav = document.getElementById("product_nav");
     product_nav.classList.add("curr-page");
