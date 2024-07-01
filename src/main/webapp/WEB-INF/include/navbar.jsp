@@ -38,8 +38,8 @@
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
                         <c:when test="${not empty user}">
+                            <a href="#">Area Personale</a>
                             <a href="${pageContext.request.contextPath}/logout">Log out</a>
-                            <a href="#">Ordini</a>
                         </c:when>
                         <c:otherwise>
                             <a href="${pageContext.request.contextPath}/login.jsp">Accedi</a>
