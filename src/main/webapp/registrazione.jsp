@@ -19,23 +19,23 @@
 </c:if>
 
 <div id="content">
-    <img src="img/login-ico.png">
+    <img alt="DinoStore ico" src="img/login-ico.png">
     <form id="registrazione" action="login-validate" method="post">
         <div class="input">
             <input type="text" name="nome" id="nome" required>
-            <label class="field">Nome</label>
+            <label for="nome" class="field">Nome</label>
         </div>
         <div class="input">
             <input type="text" name="cognome" id="cognome" required>
-            <label class="field">Cognome</label>
+            <label for="cognome" class="field">Cognome</label>
         </div>
         <div class="input">
             <input type="text" name="email" id="email" required>
-            <label class="field">Email</label>
+            <label for="email" class="field">Email</label>
         </div>
         <div class="input">
             <input type="password" name="password" id="password" required>
-            <label class="field">Password</label>
+            <label for="password" class="field">Password</label>
         </div>
         <div class="add_cookie not-select ">
             <input type="checkbox" value="stay_connect" name="checkbox" id="checkbox">
