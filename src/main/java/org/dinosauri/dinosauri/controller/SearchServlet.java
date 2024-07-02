@@ -1,47 +1,112 @@
 package org.dinosauri.dinosauri.controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.dinosauri.dinosauri.model.Product;
-import org.dinosauri.dinosauri.model.ProductDAO;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
+import org.dinosauri.dinosauri.model.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 @WebServlet(name = "search", urlPatterns = {"/search", "/product"})
 public class SearchServlet extends HttpServlet {
 
     final public int max_prod_page = 10;
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    /**
+     * Search and filter for keywords
+     *
+     * @param req - Needed for request parameter.
+     * @return - List of products.
+     */
+    private List<Product> doGetForKeyWord(HttpServletRequest req) {
+        List<Product> products;
+        String keyword = req.getParameter("search");
+        String[] keywords = keyword.split(" ");
+
+        products = new ArrayList<>();
+        for (String tmp : keywords) {
+            List<Product> list = ProductDAO.doRetrieveProducts(tmp);
+            for (Product prod : list) {
+                if (!products.contains(prod)) {
+                    products.add(prod);
+                }
+            }
+            list.clear();
+        }
+        return products;
+    }
+
+
+    private List<Product> applyFilter(List<Product> products, HttpServletRequest request) {
+        List<Product> filter;
+        String nut = request.getParameter("nut");
+        String cat = request.getParameter("cat");
+        String[] nut_words;
+        String[] cat_words;
+
+        /* filter for category. */
+        if (cat != null) {
+            filter = new ArrayList<>();
+            cat_words = cat.split(",");
+            for (Product product : products) {
+                /* multiple category entry. */
+                for (String tmp : cat_words) {
+                    if (product.getCategoria().equals(tmp)) {
+                        filter.add(product);
+                        break;
+                    }
+                }
+            }
+        } else {
+            /* if I can't make first filter, return. I can't make other filter. */
+            return products;
+        }
+
+        /* filter for nutrition. */
+        if (nut != null) {
+            nut_words = nut.split(",");
+            filter.removeIf((item) -> {
+
+                /* maybe can be "ossa" or some other stuff which not have nutrition. skipp and keep this. */
+                if (item.getAlimentazione() == null) {
+                    return false;
+                }
+
+                boolean remove = true;
+                /* multiple nutrition entry works. make AND if is required (nut != null) for remove product which not have this nut. */
+                for (String tmp : nut_words) {
+                    if (item.getAlimentazione().equals(tmp)) {
+                        remove = false;
+                        break;
+                    }
+                }
+                return remove;
+            });
+
+        }
+
+        return filter;
+    }
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
         String page = req.getParameter("page");
+
         List<Product> products;
         if (page == null) page = "0";
 
-        //Viene chiamata la servlet come search. In questo caso cerca dal pattern.
         if (keyword != null) {
-            String[] keywords = keyword.split(" ");
-
-            products = new ArrayList<>();
-            for (String tmp : keywords) {
-                List<Product> list = ProductDAO.doRetrieveProducts(tmp);
-                for (Product prod : list) {
-                    if (!products.contains(prod)) {
-                        products.add(prod);
-                    }
-                }
-                list.clear();
-            }
+            //Viene chiamata la servlet come search. In questo caso cerca dal pattern.
+            products = doGetForKeyWord(req);
         } else {
             //Viene chiamata la servlet come lista prodotti. In questo caso ci servono tutti i prodotti.
             products = ProductDAO.doRetrieveProducts();
         }
+
+        /* exec filter if is required. */
+        products = applyFilter(products, req);
 
         int min = max_prod_page * Integer.parseInt(page);
         int max = max_prod_page + (max_prod_page * Integer.parseInt(page));
