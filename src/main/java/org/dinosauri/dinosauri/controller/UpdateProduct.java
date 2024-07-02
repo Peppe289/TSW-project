@@ -125,7 +125,6 @@ public class UpdateProduct extends HttpServlet {
         response.setContentType("application/json");
 
         try {
-            FileManager.createDirectory(destination.getParent());
             /* write file received in the right directory. this can be give IOException. Catch it. */
             FileManager.writeFile(filePart.getInputStream(), destination);
         } catch (IOException e) {

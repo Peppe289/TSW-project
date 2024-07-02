@@ -1,19 +1,10 @@
 package org.dinosauri.dinosauri.model.utils;
 
-import javax.management.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class FileManager {
@@ -84,16 +75,6 @@ public class FileManager {
     }
 
     /**
-     * Creates the parent directories for the specified path if they do not exist.
-     *
-     * @param path The file path for which to create the parent directories.
-     * @throws IOException If an I/O error occurs.
-     */
-    public static void createDirectory(Path path) throws IOException {
-        Files.createDirectories(path.getParent());
-    }
-
-    /**
      * Compares two files for equality by comparing their sizes and content bytes.
      *
      * @param firstFile  The path of the first file
@@ -121,9 +102,8 @@ public class FileManager {
      * @param context_path absolute path from apache context path
      */
     public static void removeFileByPath(String context_path) {
-        File file = new File (context_path);
-        if (!file.delete())
-            throw new RuntimeException("Error to delete " + context_path + " file");
+        File file = new File(context_path);
+        if (!file.delete()) throw new RuntimeException("Error to delete " + context_path + " file");
     }
 }
 
