@@ -42,8 +42,18 @@
             <h4>Categoria</h4>
 
             <div class="single-table">
-                <input type="checkbox" id="dinosauri" name="dinosauri">
-                <label for="dinosauri">Dinosauri</label>
+                <input type="checkbox" id="terra" name="terra">
+                <label for="terra">Terra</label>
+            </div>
+
+            <div class="single-table">
+                <input type="checkbox" id="acqua" name="acqua">
+                <label for="acqua">Acqua</label>
+            </div>
+
+            <div class="single-table">
+                <input type="checkbox" id="aria" name="aria">
+                <label for="aria">Aria</label>
             </div>
 
             <div class="single-table">
