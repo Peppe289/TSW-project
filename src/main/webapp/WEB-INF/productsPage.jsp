@@ -15,36 +15,37 @@
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
     <title>DinoStore</title>
+
+    <style>
+        /**
+         * Scrolling fluido per i collegamenti interni
+         * Es. Il tasto per tornare in alto alla pagina.
+         */
+        html {
+            scroll-behavior: smooth
+        }
+
+        /* serve per far stare il footer in basso */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        a, a:visited, a:hover, a:active {
+            color: inherit;
+        }
+
+        .item {
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+    </style>
 </head>
 
-<style>
-    /**
-     * Scrolling fluido per i collegamenti interni
-     * Es. Il tasto per tornare in alto alla pagina.
-     */
-    html {
-        scroll-behavior: smooth
-    }
-
-    /* serve per far stare il footer in basso */
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    footer {
-        margin-top: auto;
-    }
-
-    a, a:visited, a:hover, a:active {
-        color: inherit;
-    }
-
-    .item {
-        font-family: 'Open Sans', Arial, sans-serif;
-    }
-</style>
 <body style="margin: 0; padding: 0">
 <%@ include file="include/navbar.jsp" %>
 <a id="top-button" href="#" style="position: fixed;
@@ -65,21 +66,26 @@
     <div id="filter" class="not-select bg-f4f5f5 sticky-top">
         <h4>Filtri di ricerca</h4>
         <form id="filter-form" action="">
-            <h4>Ambiente</h4>
+            <h4>Categoria</h4>
 
             <div class="single-table">
-                <input type="checkbox" id="terrestri" name="terrestri">
-                <label for="terrestri">Terrestri</label>
+                <input type="checkbox" id="dinosauri" name="dinosauri">
+                <label for="dinosauri">Dinosauri</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="volatili" name="volatili">
-                <label for="volatili">Volatili</label>
+                <input type="checkbox" id="ossa" name="ossa">
+                <label for="ossa">Ossa</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="acquatici" name="acquatici">
-                <label for="acquatici">Acquatici</label>
+                <input type="checkbox" id="uova" name="uova">
+                <label for="uova">Uova</label>
+            </div>
+
+            <div class="single-table">
+                <input type="checkbox" id="guinzagli" name="guinzagli">
+                <label for="guinzagli">Guinzagli</label>
             </div>
 
             <h4>Alimentazione</h4>

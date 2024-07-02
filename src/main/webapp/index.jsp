@@ -147,6 +147,7 @@
         color: #cdcdcd;
     }
 </style>
+
 <div id="btn-page" class="not-select">
     <ul>
         <li class="bg-3CB371 active"><a href="${pageContext.request.contextPath}/product">Mostra più
