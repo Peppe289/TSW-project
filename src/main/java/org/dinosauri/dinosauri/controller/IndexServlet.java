@@ -23,7 +23,7 @@ public class IndexServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(IndexServlet.class);
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Product> products = ProductDAO.doRetriveProducts();
+        List<Product> products = ProductDAO.doRetrieveProducts();
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonArray = "";
         /* nella pagina index non vogliamo mostrare più di 5 prodotti */

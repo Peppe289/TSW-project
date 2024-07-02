@@ -112,7 +112,7 @@ public class DashBoardServlet extends HttpServlet {
         List<Product> shelled;
         ObjectMapper objectMapper = new ObjectMapper();
 
-        shelled = ProductDAO.doRetriveProducts();
+        shelled = ProductDAO.doRetrieveProducts();
         result = objectMapper.writeValueAsString(shelled);
 
         return result;
