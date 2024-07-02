@@ -30,7 +30,7 @@ public class SearchServlet extends HttpServlet {
 
             products = new ArrayList<>();
             for (String tmp : keywords) {
-                List<Product> list = ProductDAO.doRetriveProducts(tmp);
+                List<Product> list = ProductDAO.doRetrieveProducts(tmp);
                 for (Product prod : list) {
                     if (!products.contains(prod)) {
                         products.add(prod);
@@ -40,7 +40,7 @@ public class SearchServlet extends HttpServlet {
             }
         } else {
             //Viene chiamata la servlet come lista prodotti. In questo caso ci servono tutti i prodotti.
-            products = ProductDAO.doRetriveProducts();
+            products = ProductDAO.doRetrieveProducts();
         }
 
         int min = max_prod_page * Integer.parseInt(page);

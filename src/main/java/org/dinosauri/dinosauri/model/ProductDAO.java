@@ -1,7 +1,5 @@
 package org.dinosauri.dinosauri.model;
 
-import com.mysql.cj.xdevapi.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,7 +73,7 @@ public class ProductDAO {
      * @param keyword the keyword to search for in the product description.
      * @return a list of products that match the keyword.
      */
-    public static List<Product> doRetriveProducts(String keyword) {
+    public static List<Product> doRetrieveProducts(String keyword) {
         List<Product> products = new ArrayList<>();
         HashMap<String, Integer> offerte = getOfferte();
 
@@ -101,7 +99,7 @@ public class ProductDAO {
      *
      * @return a list of all products.
      */
-    public static List<Product> doRetriveProducts() {
+    public static List<Product> doRetrieveProducts() {
         List<Product> products = new ArrayList<>();
         HashMap<String, Integer> offerte = getOfferte();
 
@@ -206,15 +204,26 @@ public class ProductDAO {
         return counter;
     }
 
-    public static List<Product> doRetriveProductsByCategory(String category) {
+    /**
+     * Retrieve products using category.
+     *
+     * @param category - specify for filter
+     * @return - list of products with category = @param
+     */
+    public static List<Product> doRetrieveProductsByCategory(String category) {
         List<Product> products = new ArrayList<>();
+        HashMap<String, Integer> offerte = getOfferte();
+
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE categoria = ?");
             ps.setString(1, category);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                products.add(rs.getObject("prodotto", Product.class));
+                Product prod = new Product();
+                LoadFromResult(prod, offerte, rs);
+
+                products.add(prod);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -223,15 +232,26 @@ public class ProductDAO {
         return products;
     }
 
-    public static List<Product> doRetriveProductsByAlimentazione(String alimentazione) {
+    /**
+     * Retrieve products using alimentazione.
+     *
+     * @param alimentazione - specify for filter
+     * @return - list of products with alimentazione = @param
+     */
+    public static List<Product> doRetrieveProductsByAlimentazione(String alimentazione) {
         List<Product> products = new ArrayList<>();
+        HashMap<String, Integer> offerte = getOfferte();
+
         try (Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE alimentazione = ?");
             ps.setString(1, alimentazione);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                products.add(rs.getObject("prodotto", Product.class));
+                Product prod = new Product();
+                LoadFromResult(prod, offerte, rs);
+
+                products.add(prod);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
