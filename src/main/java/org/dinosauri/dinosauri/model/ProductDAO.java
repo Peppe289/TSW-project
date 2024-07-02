@@ -205,4 +205,38 @@ public class ProductDAO {
 
         return counter;
     }
+
+    public static List<Product> doRetriveProductsByCategory(String category) {
+        List<Product> products = new ArrayList<>();
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE categoria = ?");
+            ps.setString(1, category);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                products.add(rs.getObject("prodotto", Product.class));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return products;
+    }
+
+    public static List<Product> doRetriveProductsByAlimentazione(String alimentazione) {
+        List<Product> products = new ArrayList<>();
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE alimentazione = ?");
+            ps.setString(1, alimentazione);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                products.add(rs.getObject("prodotto", Product.class));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return products;
+    }
 }
