@@ -11,42 +11,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link type="text/css" rel="stylesheet" href="css/home.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <title>DinoStore - Prodotto</title>
 
+    <style>
+        /* serve per far stare il footer in basso */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        #show-propriety {
+            list-style: none;
+            padding: 0;
+        }
+
+        li.propriety * {
+            display: inline;
+            padding: 0;
+        }
+
+        li.propriety p:first-child {
+            font-weight: bold;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
 </head>
-<style>
-    /* serve per far stare il footer in basso */
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-    }
-
-    footer {
-        margin-top: auto;
-    }
-
-    #show-propriety {
-        list-style: none;
-        padding: 0;
-    }
-
-    li.propriety * {
-        display: inline;
-        padding: 0;
-    }
-
-    li.propriety p:first-child {
-        font-weight: bold;
-    }
-
-    .hide {
-        display: none;
-    }
-</style>
 
 <body>
 <%@ include file="include/navbar.jsp" %>

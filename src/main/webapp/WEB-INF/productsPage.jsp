@@ -10,40 +10,13 @@
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
+    <link type="text/css" rel="stylesheet" href="css/home.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
     <title>DinoStore</title>
 
-    <style>
-        /**
-         * Scrolling fluido per i collegamenti interni
-         * Es. Il tasto per tornare in alto alla pagina.
-         */
-        html {
-            scroll-behavior: smooth
-        }
-
-        /* serve per far stare il footer in basso */
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        footer {
-            margin-top: auto;
-        }
-
-        a, a:visited, a:hover, a:active {
-            color: inherit;
-        }
-
-        .item {
-            font-family: 'Open Sans', Arial, sans-serif;
-        }
-    </style>
 </head>
 
 <body style="margin: 0; padding: 0">
@@ -150,56 +123,6 @@
     </div>
 </div>
 
-<style>
-    #btn-page {
-        display: inline-block;
-        text-align: center;
-        margin: auto;
-        overflow: hidden;
-        position: relative;
-        width: auto;
-        font-family: Arial, Helvetica, sans-serif;
-
-        & ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        & a,
-        & a:visited,
-        & a:hover,
-        & a:active {
-            color: inherit;
-        }
-
-        & * {
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        & li {
-            border-radius: 5px;
-        }
-
-        & a {
-            padding: 10px;
-        }
-
-        & .active {
-            color: white;
-        }
-
-        & .other {
-            background-color: #ececec;
-        }
-
-        & .deactive {
-            pointer-events: none;
-            background-color: #939393;
-            color: #cdcdcd;
-        }
-    }
-</style>
 <div id="btn-page" class="not-select">
     <ul>
         <li class="${page > 0 ? 'bg-3CB371 active' : 'deactive'}">
