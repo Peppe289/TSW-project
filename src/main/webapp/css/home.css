@@ -1,0 +1,87 @@
+/**
+        * Scrolling fluido per i collegamenti interni
+        * Es. Il tasto per tornare in alto alla pagina.
+        */
+html {
+    scroll-behavior: smooth
+}
+
+/* serve per far stare il footer in basso */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+
+a#top-button {
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-around;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(232, 232, 232); z-index: 600000
+}
+
+.item {
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+#btn-page {
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#btn-page ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#btn-page a,
+#btn-page a:visited,
+#btn-page a:hover,
+#btn-page a:active {
+    color: inherit;
+}
+
+#btn-page * {
+    display: inline-block;
+    text-decoration: none;
+}
+
+#btn-page li {
+    border-radius: 5px;
+}
+
+#btn-page a {
+    padding: 10px;
+}
+
+#btn-page .active {
+    color: white;
+}
+
+#btn-page .other {
+    background-color: #ececec;
+}
+
+#btn-page .deactive {
+    pointer-events: none;
+    background-color: #939393;
+    color: #cdcdcd;
+}

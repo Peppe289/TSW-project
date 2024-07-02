@@ -11,36 +11,9 @@
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
+    <link type="text/css" rel="stylesheet" href="css/home.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
-    <style>
-        /**
-         * Scrolling fluido per i collegamenti interni
-         * Es. Il tasto per tornare in alto alla pagina.
-         */
-        html {
-            scroll-behavior: smooth
-        }
-
-        /* serve per far stare il footer in basso */
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        footer {
-            margin-top: auto;
-        }
-
-        a, a:visited, a:hover, a:active {
-            color: inherit;
-        }
-
-        .item {
-            font-family: 'Open Sans', Arial, sans-serif;
-        }
-    </style>
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
@@ -51,10 +24,7 @@
 <body style="margin: 0; padding: 0">
 <%@ include file="WEB-INF/include/navbar.jsp" %>
 
-<a id="top-button" href="#" style="position: fixed;
-    height: 50px; width: 50px; border-radius: 50%; display: flex;
-    justify-content: space-around; bottom: 20px; right: 20px;
-    background-color: rgb(232, 232, 232); z-index: 600000">
+<a id="top-button" href="#">
     <img alt="Torna su" src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
 </a>
 
@@ -98,54 +68,7 @@
 </div>
 
 <style>
-    #btn-page {
-        display: inline-block;
-        text-align: center;
-        margin: auto;
-        overflow: hidden;
-        position: relative;
-        width: auto;
-        font-family: Arial, Helvetica, sans-serif;
-    }
 
-    #btn-page ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    #btn-page a,
-    #btn-page a:visited,
-    #btn-page a:hover,
-    #btn-page a:active {
-        color: inherit;
-    }
-
-    #btn-page * {
-        display: inline-block;
-        text-decoration: none;
-    }
-
-    #btn-page li {
-        border-radius: 5px;
-    }
-
-    #btn-page a {
-        padding: 10px;
-    }
-
-    #btn-page .active {
-        color: white;
-    }
-
-    #btn-page .other {
-        background-color: #ececec;
-    }
-
-    #btn-page .deactive {
-        pointer-events: none;
-        background-color: #939393;
-        color: #cdcdcd;
-    }
 </style>
 
 <div id="btn-page" class="not-select">
@@ -156,6 +79,7 @@
 </div>
 <%@ include file="WEB-INF/include/footer.jsp" %>
 </body>
+
 <script>
     let slideIndex = 1;
 
