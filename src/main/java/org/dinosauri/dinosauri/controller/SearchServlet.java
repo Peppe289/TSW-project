@@ -41,15 +41,12 @@ public class SearchServlet extends HttpServlet {
 
     private List<Product> applyFilter(List<Product> products, HttpServletRequest request) {
         List<Product> filter;
-        String nut = request.getParameter("nut");
-        String cat = request.getParameter("cat");
-        String[] nut_words;
-        String[] cat_words;
+        String[] nut_words = request.getParameterValues("nut");
+        String[] cat_words = request.getParameterValues("cat");
 
         /* filter for category. */
-        if (cat != null) {
+        if (cat_words != null) {
             filter = new ArrayList<>();
-            cat_words = cat.split(",");
             for (Product product : products) {
                 /* multiple category entry. */
                 for (String tmp : cat_words) {
@@ -65,8 +62,7 @@ public class SearchServlet extends HttpServlet {
         }
 
         /* filter for nutrition. */
-        if (nut != null) {
-            nut_words = nut.split(",");
+        if (nut_words != null) {
             filter.removeIf((item) -> {
 
                 /* maybe can be "ossa" or some other stuff which not have nutrition. skipp and keep this. */
