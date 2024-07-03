@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Utente</title>
+    <style>
+        * {
+            font-family: 'Open Sans', Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            /* TODO: add responsiveness */
+            min-width: 800px;
+            max-width: 1200px;
+            width: 90%;
+            background-color: white;
+            box-shadow: 0 0 10px #e8e8e8;
+
+
+            div.apply > button.apply,
+            .active {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            div.apply > button.apply:hover,
+            .active:hover {
+                background-color: #218838;
+            }
+        }
+
+        #side-bar {
+            padding-top: 40px;
+            width: 20%;
+            height: 100vh;
+            min-width: 250px;
+            border-right: 1px solid black;
+            position: sticky;
+            top: 0;
+
+            & ul {
+                top: 40px;
+                text-align: center;
+                margin: 0 auto;
+                padding: 0;
+                width: 100%;
+            }
+
+            & ul li {
+                padding: 10px 0 10px 0;
+                margin: 0;
+                cursor: pointer;
+                list-style-type: none;
+                width: 100%;
+            }
+
+            & ul li:hover {
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+
+            & a {
+                text-decoration: none;
+                /* Use parent color. */
+                color: inherit;
+            }
+        }
+
+        #content {
+            width: 80%;
+            min-width: 500px;
+            padding: 10px 20px 0 20px;
+            text-align: center;
+
+            /**
+             * Use hr (horizontal line) in new line.
+             * In flex need width 100%
+             */
+
+            hr {
+                width: 100%;
+            }
+
+            *:focus {
+                user-select: unset;
+                outline: none;
+            }
+
+            & .container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+
+                & div.apply {
+                    width: 100%;
+                }
+
+                & div.apply > button.apply {
+                    height: 40px;
+                    padding: 0 20px 0 20px;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 4px;
+                }
+            }
+
+            & .box {
+                display: inline-flex;
+                position: relative;
+                align-items: center;
+                min-width: 310px;
+                padding: 20px;
+                max-width: 100%;
+                margin: 5px;
+
+                & #show_pass {
+                    position: absolute;
+                    right: 50px;
+
+                    & span {
+                        position: absolute;
+                        height: 2px;
+                        width: 25px;
+                        display: block;
+                        background-color: black;
+                        z-index: 3;
+                        transform: rotate(45deg);
+                    }
+
+                    & img {
+                        width: 25px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            label,
+            input[type="email"],
+            input[type="text"],
+            input[type="password"],
+            button.editable {
+                display: flex;
+                align-items: center;
+                height: 30px;
+                min-width: 30px;
+                font-size: 0.9rem;
+                padding: 0 8px 0 8px;
+                margin: 0;
+            }
+
+            input.editable {
+                border: 1px solid rgba(126, 126, 126, 0.13);
+                border-right: none;
+            }
+
+            label {
+                max-width: min-content;
+            }
+
+            button.editable {
+                background: rgba(126, 126, 126, 0.13);
+                border: none;
+                margin: 0;
+                cursor: pointer;
+
+                & img {
+                    width: 20px;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="side-bar">
+        <ul>
+            <li><a href="/">Continua ad acquistare</a></li>
+            <li class="scroll-btn active">Informazioni personali</li>
+            <li class="scroll-btn">Gestisci indirizzi</li>
+            <li class="scroll-btn">Ordini effettuati</li>
+            <li><a href="/">Carrello</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <h1 class="scroll-item">Il tuo profilo</h1>
+        <div class="scroll-item container">
+            <h3>Informazioni personali</h3>
+            <hr>
+            <div class="box">
+                <label for="nome">Nome:</label>
+                <input class="editable" id="nome" name="nome" type="text" value="Pierino" disabled>
+                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+            </div>
+            <div class="box">
+                <label for="surname">Cognome:</label>
+                <input class="editable" id="surname" name="surname" type="text" value="Geppetto" disabled>
+                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+            </div>
+            <div class="box">
+                <label for="email">Email:</label>
+                <input class="editable" id="email" name="email" type="email" value="emaildefault@gmail.com" disabled>
+                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+            </div>
+            <div class="box">
+                <label for="password">Password:</label>
+                <input class="editable" id="password" name="password" type="password" value="bruh" disabled>
+                <label for="password" id="show_pass"><span></span><img alt="show password"
+                                                                       src="show_password.png"></label>
+                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+            </div>
+
+            <div class="apply">
+                <button class="apply">
+                    Applica
+                </button>
+            </div>
+        </div>
+        <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,0,0.12)">
+            <!-- TODO: implements address. -->
+        </div>
+        <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,255,0.35)">
+            <!-- TODO: implements order. -->
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script defer>
+    let input = document.getElementsByTagName("input");
+
+    /**
+     * Disable input when is focused and user press enters.
+     * Disable the default action (submit form) and make the state disabled.
+     */
+    Array.from(input).forEach((item) => {
+        /* should be single button in box with an input element. */
+        let button = item.parentElement.getElementsByTagName("button")[0];
+
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Evita che il tasto Invio invii il form
+                if (!item.disabled)
+                    item.disabled = !item.disabled;
+            }
+        });
+
+        button.addEventListener("click", () => {
+            item.disabled = !item.disabled;
+        });
+    });
+
+    let show_password = document.getElementById("show_pass");
+    let password_input = show_password.parentElement.getElementsByTagName("input")[0];
+    let password_span = show_password.getElementsByTagName("span")[0];
+    let password_image = show_password.getElementsByTagName("img")[0];
+    let show_flag = false;
+
+    /**
+     * Show and hide password text.
+     * Convert input to text for show password and remove span over image
+     * (eye animation as serious website).
+     * otherwise, use input as password and keep password hidden.
+     */
+    password_image.addEventListener("click", () => {
+        show_flag = !show_flag;
+
+        if (show_flag) {
+            password_input.type = "text";
+            password_span.style.display = "none";
+        } else {
+            password_input.type = "password";
+            password_span.style.display = "block";
+        }
+    });
+
+    /**
+     * For do unregister action listener when a window is resized, we need to save old parameter.
+     * Use this global variable to save it. after unregistering and new register,
+     * this array will be same at new actual value.
+     *
+     * @type {*[]}
+     */
+    let unregister_value = [];
+
+    /**
+     * Register scroll at the first load.
+     */
+    registerScrollEvent();
+
+    /**
+     * Register for the first time and update next time.
+     * This function is used for window action listener.
+     */
+    function registerScrollEvent() {
+        let positions = getItemPosition();
+        let button = document.getElementsByClassName("scroll-btn");
+
+        for (let i = 0; i < Array.from(button).length; ++i) {
+            button[i].removeEventListener("click", handleScroll(unregister_value[i + 1]));
+        }
+
+        for (let i = 0; i < Array.from(button).length; ++i) {
+            button[i].addEventListener("click", handleScroll(positions[i]));
+        }
+        unregister_value = positions;
+    }
+
+    /**
+     * Register event when resize page.
+     *
+     * Why? when we resize page for using flex display, the single height of div
+     * can be changed. Using this way, he can have the right update.
+     */
+    window.addEventListener('resize', function () {
+        registerScrollEvent();
+    });
+
+    /**
+     * Register at scroll action for change active item in the sidebar.
+     */
+    window.addEventListener('scroll', function () {
+        let tot = unregister_value[0];
+        let side_btn = document.getElementsByClassName("scroll-btn");
+
+        for (let i = 1; i < unregister_value.length; ++i) {
+            /**
+             * Just for the first element make different condition.
+             * Check if the top position of a window can show this page and active side button.
+             */
+            if (window.scrollY < (unregister_value[0] + unregister_value[1])) {
+                Array.from(side_btn).forEach((item) => {
+                    try {
+                        item.classList.remove("active");
+                    } catch (e) {
+                    }
+                })
+
+                side_btn[0].classList.add("active");
+                break;
+            }
+
+            /**
+             * For other do same stuff but need to addiction another height size.
+             * Show active button for correspondent page in content.
+             * Add those multiple heights.
+             */
+            if (window.scrollY >= tot + unregister_value[i + 1]) {
+                tot += unregister_value[i];
+            } else {
+                Array.from(side_btn).forEach((item) => {
+                    try {
+                        item.classList.remove("active");
+                    } catch (e) {
+                    }
+                })
+
+                /**
+                 * In some case whe can exceed the button index.
+                 * So re-calculate for right index.
+                 */
+                if (i > side_btn - 1)
+                    i = side_btn - 1;
+
+                side_btn[i].classList.add("active");
+
+                break;
+            }
+        }
+    });
+
+    /**
+     * Handle function for action lister for internal scroll.
+     *
+     * @param height
+     * @returns {(function(): void)|*}
+     */
+    function handleScroll(height) {
+        return function () {
+            window.scroll({
+                top: height,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    /************************* UTILS *************************/
+
+    /**
+     * This function catch window size and fix a scrollable page link for sync with sidebar.
+     * Retrieve all height of #content > child.
+     *
+     * @return {height[]}
+     */
+    function getItemPosition() {
+        /* Retrieve window information about size. */
+        let height = [];
+        let scrollable_point = document.getElementsByClassName("scroll-item");
+
+        Array.from(scrollable_point).forEach((item) => {
+            let positionInfo = item.getBoundingClientRect();
+            height.push(positionInfo.height + positionInfo.top);
+        });
+
+        return height;
+    }
+</script>
+
+</html>
