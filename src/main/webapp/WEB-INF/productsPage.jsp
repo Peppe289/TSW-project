@@ -42,49 +42,49 @@
             <h4>Categoria</h4>
 
             <div class="single-table">
-                <input type="checkbox" id="terra" name="terra">
+                <input type="checkbox" id="terra" name="cat" value="terra">
                 <label for="terra">Terra</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="acqua" name="acqua">
+                <input type="checkbox" id="acqua" name="cat" value="acqua">
                 <label for="acqua">Acqua</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="aria" name="aria">
+                <input type="checkbox" id="aria" name="cat" value="aria">
                 <label for="aria">Aria</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="ossa" name="ossa">
+                <input type="checkbox" id="ossa" name="cat" value="ossa">
                 <label for="ossa">Ossa</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="uova" name="uova">
+                <input type="checkbox" id="uova" name="cat" value="uova">
                 <label for="uova">Uova</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="guinzagli" name="guinzagli">
+                <input type="checkbox" id="guinzagli" name="cat" value="guinzaglio">
                 <label for="guinzagli">Guinzagli</label>
             </div>
 
             <h4>Alimentazione</h4>
 
             <div class="single-table">
-                <input type="checkbox" id="carnivori" name="carnivori">
+                <input type="checkbox" id="carnivori" name="nut" value="carnivoro">
                 <label for="carnivori">Carnivori</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="onnivori" name="onnivori">
+                <input type="checkbox" id="onnivori" name="nut" value="onnivoro">
                 <label for="onnivori">Onnivori</label>
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="erbivori" name="erbivori">
+                <input type="checkbox" id="erbivori" name="nut" value="erbivoro">
                 <label for="erbivori">Erbivori</label>
             </div>
 
@@ -92,6 +92,41 @@
         </form>
     </div>
     <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let catCheck = document.getElementsByName("cat");
+            let nutCheck = document.getElementsByName("nut");
+
+            // Funzione per caricare lo stato delle checkbox dal localStorage
+            function loadCheckboxState(checkboxes) {
+                for (let i = 0; i < checkboxes.length; i++) {
+                    let checkbox = checkboxes[i];
+                    if (localStorage.getItem(checkbox.id) === 'true') {
+                        checkbox.checked = true;
+                    }
+                }
+            }
+
+            // Funzione per salvare lo stato delle checkbox nel localStorage
+            function saveCheckboxState(checkboxes) {
+                for (let i = 0; i < checkboxes.length; i++) {
+                    let checkbox = checkboxes[i];
+                    checkbox.addEventListener('change', function() {
+                        localStorage.setItem(checkbox.id, checkbox.checked);
+                    });
+                }
+            }
+
+            // Carica lo stato delle checkbox
+            loadCheckboxState(catCheck);
+            loadCheckboxState(nutCheck);
+
+            // Aggiungi event listener per salvare lo stato quando cambia
+            saveCheckboxState(catCheck);
+            saveCheckboxState(nutCheck);
+        });
+    </script>
     <!-- end filtro ricerca-->
 
     <div id="parent-cont">
@@ -106,7 +141,7 @@
                 <div class="item-desc">
                     <p class="title-product">${product.name}</p>
                     <p class="desc overtext">
-                            ${product.description}
+                    ${product.description}
                     </p>
                     <div style="display: flex; margin: 0; padding: 5px 0 0;">
                         <c:choose>
