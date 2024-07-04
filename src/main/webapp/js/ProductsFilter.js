@@ -1,11 +1,11 @@
-let arr_nutr = document.getElementsByName("nut");
-let arr_cate = document.getElementsByName("cat");
+let inputNut = document.getElementsByName("nut");
+let inputCat = document.getElementsByName("cat");
 let nut_title = document.getElementById("nut-title");
 //Array che conterrà solo le categorie che mi interessano
 let arr_cat_utils = [];
 
 //Inserimento di sole le categorie che mi interessano
-Array.from(arr_cate).forEach(element => {
+Array.from(inputCat).forEach(element => {
     if (element.id === "terra" || element.id === "acqua" || element.id === "aria") {
         arr_cat_utils.push(element);
     }
@@ -15,48 +15,36 @@ Array.from(arr_cate).forEach(element => {
 function nut_invisible() {
     nut_title.style.display = "none";
 
-    Array.from(arr_nutr).forEach(element => {
+    Array.from(inputNut).forEach(element => {
         element.parentElement.style.display = "none";
     });
 }
 
-//Inizialmente quando tutto è disattivato il filtro non deve alimentazione non deve esserci
-nut_invisible();
-arr_cat_utils.forEach(element => {
-    element.addEventListener("change", () => {
-        let check = false;
-
-        /*
-            Mi serve per sapere se almeno uno è checkato
-            in questo modo se deseleziono uno ma l'altro è ancora checkato
-            il filtro "alimentazione" rimane visibile
-        */
-        arr_cat_utils.forEach(element => {
+arr_cat_utils.forEach(input_el => {
+    input_el.addEventListener("change", () => {
+        /**
+         * Mi serve per sapere se almeno uno è checkato
+         * in questo modo se deseleziono uno ma l'altro è ancora checkato
+         * il filtro "alimentazione" rimane visibile
+         */
+        arr_cat_utils.every(element => {
+            /**
+             * Se almeno uno è checkato allora il filtro Alimentazione compare/rimane.
+             * Altrimenti scompare.
+             */
             if (element.checked) {
-                check = true;
-            }
+                nut_title.style.display = "block";
+
+                inputNut.forEach(el => {
+                    el.parentElement.style.display = "block";
+                });
+                return false;
+            } else nut_invisible();
+
+            return true;
         });
-
-        /*
-            Se almeno uno è checkato allora il filtro Alimentazione compare/rimane.
-            Altrimenti scompare.
-        */
-        if (check) {
-            nut_title.style.display = "block";
-
-            arr_nutr.forEach(element => {
-                element.parentElement.style.display = "block";
-            });
-        } else {
-            //Deseleziono gli elementi presenti in alimentazione prima di farlo scomparire
-            arr_nutr.forEach(element => {
-                element.checked = false;
-            });
-
-            nut_invisible();
-        }
     });
-})
+});
 
 //mi prendo l'URL
 const params = new URLSearchParams(document.location.search);
@@ -87,3 +75,10 @@ Array.from(inp_elements).forEach(element => {
         })
     }
 });
+
+/**
+ * If none of arr_cat_utils elements are checked, we can hide the other filter input.
+ * Check this after checked element from url.
+ */
+if (!arr_cat_utils.some(element => element.checked)) nut_invisible();
+
