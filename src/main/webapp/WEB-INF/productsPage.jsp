@@ -38,8 +38,9 @@
     <!-- filtro ricerca -->
     <div id="filter" class="not-select bg-f4f5f5 sticky-top">
         <h4>Filtri di ricerca</h4>
+
         <form id="filter-form" action="">
-            <h4>Categoria</h4>
+            <h4 id="cat-title">Categoria</h4>
 
             <div class="single-table">
                 <input type="checkbox" id="terra" name="cat" value="terra">
@@ -71,7 +72,7 @@
                 <label for="guinzagli">Guinzagli</label>
             </div>
 
-            <h4>Alimentazione</h4>
+            <h4 id="nut-title">Alimentazione</h4>
 
             <div class="single-table">
                 <input type="checkbox" id="carnivori" name="nut" value="carnivoro">
@@ -90,41 +91,95 @@
 
             <input class="bg-3CB371" type="submit" value="filtra">
         </form>
+
+        <script>
+            let arr_nut = document.getElementsByName("nut");
+            let arr_cat = document.getElementsByName("cat");
+            let nut_title = document.getElementById("nut-title");
+            //Array che conterrà solo le categorie che mi interessano
+            let arr_cat_utils = [];
+
+            //Inserimento di sole le categorie che mi interessano
+            Array.from(arr_cat).forEach(element => {
+                if (element.id === "terra" || element.id === "acqua" || element.id === "aria") {
+                    arr_cat_utils.push(element);
+                }
+            });
+
+            //Funzione che fa sparire il filtro di alimentazione
+            function nut_invisible() {
+                nut_title.style.display = "none";
+
+                Array.from(arr_nut).forEach(element => {
+                    element.parentElement.style.display = "none";
+                });
+            }
+
+            //Inizialmente quando tutto è disattivato il filtro non deve alimentazione non deve esserci
+            nut_invisible();
+            arr_cat_utils.forEach(element => {
+                element.addEventListener("change", () => {
+                    let check = false;
+
+                    /*
+                        Mi serve per sapere se almeno uno è checkato
+                        in questo modo se deseleziono uno ma l'altro è ancora checkato
+                        il filtro "alimentazione" rimane visibile
+                    */
+                    arr_cat_utils.forEach(element => {
+                        if (element.checked) {
+                            check = true;
+                        }
+                    });
+
+                    /*
+                        Se almeno uno è checkato allora il filtro Alimentazione compare/rimane.
+                        Altrimenti scompare.
+                    */
+                    if (check) {
+                        nut_title.style.display = "block";
+
+                        arr_nut.forEach(element => {
+                            element.parentElement.style.display = "block";
+                        });
+                    } else
+                        nut_invisible();
+                });
+            });
+        </script>
     </div>
+
     <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            let catCheck = document.getElementsByName("cat");
-            let nutCheck = document.getElementsByName("nut");
+        //mi prendo l'URL
+        const params = new URLSearchParams(document.location.search);
 
-            // Funzione per caricare lo stato delle checkbox dal localStorage
-            function loadCheckboxState(checkboxes) {
-                for (let i = 0; i < checkboxes.length; i++) {
-                    let checkbox = checkboxes[i];
-                    if (localStorage.getItem(checkbox.id) === 'true') {
-                        checkbox.checked = true;
+        //prendo tutti i parametri che mi interessano e li metto in un array
+        let arr_cat = params.getAll("cat");
+        let arr_nut = params.getAll("nut");
+
+        //prendo gli elementi che mi interessano
+        let form = document.getElementById("filter-form");
+        let inp_elements = form.getElementsByTagName("input");
+
+        //scorro gli elementi
+        Array.from(inp_elements).forEach(element => {
+            if (element.name === "cat") {
+                //scorro i cat presenti nell'array di cat
+                arr_cat.forEach(string => {
+                    if (string === element.value) {
+                        element.checked = true;
                     }
-                }
+                });
+            } else {
+                //scorro i nut presenti nell'array di nut
+                arr_nut.forEach(string => {
+                    if (string === element.value) {
+                        element.checked = true;
+                    }
+                })
             }
-
-            // Funzione per salvare lo stato delle checkbox nel localStorage
-            function saveCheckboxState(checkboxes) {
-                for (let i = 0; i < checkboxes.length; i++) {
-                    let checkbox = checkboxes[i];
-                    checkbox.addEventListener('change', function() {
-                        localStorage.setItem(checkbox.id, checkbox.checked);
-                    });
-                }
-            }
-
-            // Carica lo stato delle checkbox
-            loadCheckboxState(catCheck);
-            loadCheckboxState(nutCheck);
-
-            // Aggiungi event listener per salvare lo stato quando cambia
-            saveCheckboxState(catCheck);
-            saveCheckboxState(nutCheck);
         });
     </script>
     <!-- end filtro ricerca-->
@@ -141,7 +196,7 @@
                 <div class="item-desc">
                     <p class="title-product">${product.name}</p>
                     <p class="desc overtext">
-                    ${product.description}
+                            ${product.description}
                     </p>
                     <div style="display: flex; margin: 0; padding: 5px 0 0;">
                         <c:choose>
