@@ -63,7 +63,7 @@
             </div>
 
             <div class="single-table">
-                <input type="checkbox" id="uova" name="cat" value="uova">
+                <input type="checkbox" id="uova" name="cat" value="uovo">
                 <label for="uova">Uova</label>
             </div>
 
@@ -93,14 +93,14 @@
         </form>
 
         <script>
-            let arr_nut = document.getElementsByName("nut");
-            let arr_cat = document.getElementsByName("cat");
+            let arr_nutr = document.getElementsByName("nut");
+            let arr_cate = document.getElementsByName("cat");
             let nut_title = document.getElementById("nut-title");
             //Array che conterrà solo le categorie che mi interessano
             let arr_cat_utils = [];
 
             //Inserimento di sole le categorie che mi interessano
-            Array.from(arr_cat).forEach(element => {
+            Array.from(arr_cate).forEach(element => {
                 if (element.id === "terra" || element.id === "acqua" || element.id === "aria") {
                     arr_cat_utils.push(element);
                 }
@@ -110,7 +110,7 @@
             function nut_invisible() {
                 nut_title.style.display = "none";
 
-                Array.from(arr_nut).forEach(element => {
+                Array.from(arr_nutr).forEach(element => {
                     element.parentElement.style.display = "none";
                 });
             }
@@ -139,11 +139,17 @@
                     if (check) {
                         nut_title.style.display = "block";
 
-                        arr_nut.forEach(element => {
+                        arr_nutr.forEach(element => {
                             element.parentElement.style.display = "block";
                         });
-                    } else
+                    } else {
+                        //Deseleziono gli elementi presenti in alimentazione prima di farlo scomparire
+                        arr_nutr.forEach(element => {
+                           element.checked = false;
+                        });
+
                         nut_invisible();
+                    }
                 });
             });
         </script>
