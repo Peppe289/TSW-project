@@ -94,37 +94,34 @@
     <button id="button-mobile-form-submit" class="bg-3CB371" type="submit" form="filter-form">Filtra</button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            let catCheck = document.getElementsByName("cat");
-            let nutCheck = document.getElementsByName("nut");
+        //mi prendo l'URL
+        const params = new URLSearchParams(document.location.search);
 
-            // Funzione per caricare lo stato delle checkbox dal localStorage
-            function loadCheckboxState(checkboxes) {
-                for (let i = 0; i < checkboxes.length; i++) {
-                    let checkbox = checkboxes[i];
-                    if (localStorage.getItem(checkbox.id) === 'true') {
-                        checkbox.checked = true;
+        //prendo tutti i parametri che mi interessano e li metto in un array
+        let arr_cat = params.getAll("cat");
+        let arr_nut = params.getAll("nut");
+
+        //prendo gli elementi che mi interessano
+        let form = document.getElementById("filter-form");
+        let inp_elements = form.getElementsByTagName("input");
+
+        //scorro gli elementi
+        Array.from(inp_elements).forEach(element => {
+            if (element.name === "cat") {
+                //scorro i cat presenti nell'array di cat
+                arr_cat.forEach(string => {
+                   if (string === element.value) {
+                       element.checked = true;
+                   }
+                });
+            } else {
+                //scorro i nut presenti nell'array di nut
+                arr_nut.forEach(string => {
+                    if (string === element.value) {
+                        element.checked = true;
                     }
-                }
+                })
             }
-
-            // Funzione per salvare lo stato delle checkbox nel localStorage
-            function saveCheckboxState(checkboxes) {
-                for (let i = 0; i < checkboxes.length; i++) {
-                    let checkbox = checkboxes[i];
-                    checkbox.addEventListener('change', function() {
-                        localStorage.setItem(checkbox.id, checkbox.checked);
-                    });
-                }
-            }
-
-            // Carica lo stato delle checkbox
-            loadCheckboxState(catCheck);
-            loadCheckboxState(nutCheck);
-
-            // Aggiungi event listener per salvare lo stato quando cambia
-            saveCheckboxState(catCheck);
-            saveCheckboxState(nutCheck);
         });
     </script>
     <!-- end filtro ricerca-->
