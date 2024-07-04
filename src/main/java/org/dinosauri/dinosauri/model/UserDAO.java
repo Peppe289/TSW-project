@@ -12,6 +12,32 @@ import java.sql.SQLException;
 public class UserDAO {
 
     /**
+     * From email retrieve user data.
+     *
+     * @param id - user id.
+     * @return - user data.
+     */
+    public static User doRetrieveUserFromID(String id) {
+        User user = null;
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM utente WHERE id_utente = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getString("id_utente"));
+                user.setNome(rs.getString("nome"));
+                user.setCognome(rs.getString("cognome"));
+                user.setEmail(rs.getString("email"));
+            }
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return user;
+    }
+
+    /**
      * Retrieves a user from the database based on the provided email and password.
      *
      * @param email    The user's email.

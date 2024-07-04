@@ -9,6 +9,25 @@ public class User {
     public String nome;
     public String cognome;
     public String email;
+    public boolean cookieAccess;
+
+    /**
+     * Return true if user is logged with cookie.
+     * This is needed for security reason.
+     * The user logged from cookie can't be bought or edit user settings.
+     */
+    public boolean isCookieAccess() {
+        return cookieAccess;
+    }
+
+    /**
+     * Set at login cookieAccess:
+     *
+     * @param cookieAccess - true if is logged from cookie, false otherwise.
+     */
+    public void setCookieAccess(boolean cookieAccess) {
+        this.cookieAccess = cookieAccess;
+    }
 
     /**
      * Gets the user's ID.

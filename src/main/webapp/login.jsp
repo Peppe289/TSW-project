@@ -32,8 +32,8 @@
             <label class="field">Password</label>
         </div>
         <div class="add_cookie not-select ">
-            <input type="checkbox" value="stay_connect" name="checkbox" id="checkbox">
-            <label for="checkbox">Resta connesso</label>
+            <input type="checkbox" value="stay_connect" name="stay_connect" id="stay_connect">
+            <label for="stay_connect">Resta connesso</label>
         </div>
     </form>
 

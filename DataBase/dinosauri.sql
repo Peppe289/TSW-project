@@ -51,6 +51,12 @@ cognome varchar(255) not null,
 email varchar(255) not null unique
 );
 
+create table token (
+    id_utente int primary key,
+    token varchar(50) not null,
+    foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 create table ordini (
 numero_ordine int auto_increment primary key,
 prezzo_totale double not null,
