@@ -83,7 +83,6 @@ public class LoginServlet extends HttpServlet {
         if (stayLogged != null) {
             /* create random string for crypt time and save in cookie. */
             Cookie user_id = new Cookie("user_id", user.getId());
-            System.out.println("Stay logged is ability.");
 
             String key = RandomString.generate();
             try {

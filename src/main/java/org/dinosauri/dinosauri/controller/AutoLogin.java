@@ -28,7 +28,6 @@ public class AutoLogin extends HttpServlet implements Filter {
         AccessToken accessToken = null;
 
         if (cookies == null) {
-            System.out.println("No cookies");
             return;
         }
         for (Cookie ck : cookies) {
@@ -43,7 +42,6 @@ public class AutoLogin extends HttpServlet implements Filter {
         if (sCookie != null && id != null) {
             /* check if the cookie for login is valid or not. */
             accessToken = AccessTokenDAO.doRetrieveUserToken(id);
-            System.out.println(accessToken);
             if (accessToken != null) {
                 String sData = accessToken.decrypt(sCookie);
                 LocalDateTime data = LocalDateTime.parse(sData);
