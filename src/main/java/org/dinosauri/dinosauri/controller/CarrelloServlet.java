@@ -6,22 +6,23 @@ import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
+import java.util.*;
 
 
 @WebServlet(name = "Cart", urlPatterns = {"/carrello-add-ajax", "/retrieve-cart"})
 public class CarrelloServlet extends HttpServlet {
 
     /**
-     * Try to add element to cart using id. Check if is available.
+     * Try to add an element to cart using id. Check if is available.
      *
-     * @param request - Need for GET param.
-     * @param response - Need to add Cookies.
+     * @param request  - Need for GET param.
+     * @param response - Need to add item in session.
      * @return json string with all elements and single item (from id).
      */
     private String addElementsToCart(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
-        Integer howManyProd = 0;
-        Integer totalProductCart = 0;
+        int howManyProd = 0;
+        int totalProductCart = 0;
         boolean err = false;
         int max_elements = ProductDAO.doRetrieveProductByID(id, true).size();
 
@@ -33,24 +34,25 @@ public class CarrelloServlet extends HttpServlet {
             err = true;
         }
 
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(id)) {
-                    /* just save number of product for later. skip for now in total counter. */
-                    howManyProd += Integer.parseInt(cookie.getValue());
-                    continue;
-                }
+        HttpSession session = request.getSession(true);
+        Enumeration<String> sessionEl = session.getAttributeNames();
 
-                int temp;
-                try {
-                    temp = Integer.parseInt(cookie.getValue());
-                } catch (NumberFormatException ignored) {
-                    continue;
-                }
-
-                totalProductCart += temp;
+        while (sessionEl.hasMoreElements()) {
+            String id_el = sessionEl.nextElement();
+            if (id_el.equals(id)) {
+                /* save the number of products for later. skip for now in total counter. */
+                howManyProd += Integer.parseInt((String) session.getAttribute(id_el));
+                continue;
             }
+
+            int temp;
+            try {
+                temp = Integer.parseInt((String) session.getAttribute(id_el));
+            } catch (NumberFormatException ignored) {
+                continue;
+            }
+
+            totalProductCart += temp;
         }
 
         if (max_elements < howManyProd || err) {
@@ -58,15 +60,13 @@ public class CarrelloServlet extends HttpServlet {
             err = true;
         }
 
-        /* Check if is logged or not. If isn't logged save data in cookies. If is logged save in database. */
+        /* Check if is logged or not. If isn't logged save data in session. If is logged save in database. */
         User user = (User) request.getSession().getAttribute("user");
 
         if (user != null) {
             /* TODO: insert to database about user. */
         } else {
-            Cookie ck = new Cookie(id, howManyProd.toString());
-            ck.setMaxAge(-1);
-            response.addCookie(ck);
+            session.setAttribute(id, Integer.toString(howManyProd));
         }
 
         totalProductCart += howManyProd;
@@ -78,26 +78,28 @@ public class CarrelloServlet extends HttpServlet {
     }
 
     /**
-     * Retrive all elements if we use cookies.
+     * Retrive all elements if we use session.
      *
-     * @param request - get cookies.
+     * @param request - get session.
      * @return json with number of all elements
      */
     private String doRetriveAllElementsCart(HttpServletRequest request) {
         int totalProductCart = 0;
-        // TODO: implement also without cookie for logged user.
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                int temp;
-                try {
-                    temp = Integer.parseInt(cookie.getValue());
-                } catch (NumberFormatException ignored) {
-                    continue;
-                }
+        // TODO: implement also without session for logged user.
+        HttpSession session = request.getSession(true);
 
-                totalProductCart += temp;
+        Enumeration<String> attributes = session.getAttributeNames();
+        /* see all elements */
+        while (attributes.hasMoreElements()) {
+            int temp;
+            try {
+                String element_id = attributes.nextElement();
+                temp = Integer.parseInt((String) session.getAttribute(element_id));
+            } catch (NumberFormatException ignored) {
+                continue;
             }
+
+            totalProductCart += temp;
         }
 
         return "{\"elements\":\"" + totalProductCart + "\",\"status\":\"success\"}";
