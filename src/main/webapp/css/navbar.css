@@ -69,6 +69,7 @@ nav {
     font-family: 'Open Sans';
     z-index: 20;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    background-color: white;
 }
 
 /* metti la nav bar a sinistra */
