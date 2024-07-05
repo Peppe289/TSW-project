@@ -9,6 +9,7 @@
         * {
             font-family: 'Open Sans', Arial, sans-serif;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         html, body {
@@ -27,14 +28,12 @@
             box-shadow: 0 0 10px #e8e8e8;
 
 
-            div.apply > button.apply,
-            .active {
+            div.apply > button.apply {
                 background-color: #28a745;
                 color: #fff;
             }
 
-            div.apply > button.apply:hover,
-            .active:hover {
+            div.apply > button.apply:hover {
                 background-color: #218838;
             }
         }
@@ -57,7 +56,6 @@
             }
 
             & ul li {
-                padding: 10px 0 10px 0;
                 margin: 0;
                 cursor: pointer;
                 list-style-type: none;
@@ -69,9 +67,13 @@
             }
 
             & a {
+                overflow: hidden;
                 text-decoration: none;
                 /* Use parent color. */
                 color: inherit;
+                padding: 10px 0 10px 0;
+                margin: 0;
+                display: block;
             }
         }
 
@@ -102,6 +104,10 @@
                 justify-content: center;
                 align-content: center;
                 align-items: center;
+
+                & h3 {
+                    padding-top: 40px;
+                }
 
                 & div.apply {
                     width: 100%;
@@ -228,12 +234,14 @@
                 </button>
             </div>
         </div>
-        <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,0,0.12)">
+        <div class="scroll-item container"
+             style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,0,0.12)">
             <h3 id="addr_manage">Gestione degli indirizzi</h3>
             <hr>
             <!-- TODO: implements address. -->
         </div>
-        <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,255,0.35)">
+        <div class="scroll-item container"
+             style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,255,0.35)">
             <h3 id="order_done">Ordini effettuati</h3>
             <hr>
             <!-- TODO: implements order. -->
