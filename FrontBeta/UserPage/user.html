@@ -188,16 +188,16 @@
     <div id="side-bar">
         <ul>
             <li><a href="/">Continua ad acquistare</a></li>
-            <li class="scroll-btn active">Informazioni personali</li>
-            <li class="scroll-btn">Gestisci indirizzi</li>
-            <li class="scroll-btn">Ordini effettuati</li>
+            <li><a href="#user_info">Informazioni personali</a></li>
+            <li><a href="#addr_manage">Gestisci indirizzi</a></li>
+            <li><a href="#order_done">Ordini effettuati</a></li>
             <li><a href="/">Carrello</a></li>
         </ul>
     </div>
     <div id="content">
         <h1 class="scroll-item">Il tuo profilo</h1>
         <div class="scroll-item container">
-            <h3>Informazioni personali</h3>
+            <h3 id="user_info">Informazioni personali</h3>
             <hr>
             <div class="box">
                 <label for="nome">Nome:</label>
@@ -229,9 +229,13 @@
             </div>
         </div>
         <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,0,0.12)">
+            <h3 id="addr_manage">Gestione degli indirizzi</h3>
+            <hr>
             <!-- TODO: implements address. -->
         </div>
         <div class="scroll-item container" style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,255,0.35)">
+            <h3 id="order_done">Ordini effettuati</h3>
+            <hr>
             <!-- TODO: implements order. -->
         </div>
 
@@ -287,136 +291,6 @@
         }
     });
 
-    /**
-     * For do unregister action listener when a window is resized, we need to save old parameter.
-     * Use this global variable to save it. after unregistering and new register,
-     * this array will be same at new actual value.
-     *
-     * @type {*[]}
-     */
-    let unregister_value = [];
-
-    /**
-     * Register scroll at the first load.
-     */
-    registerScrollEvent();
-
-    /**
-     * Register for the first time and update next time.
-     * This function is used for window action listener.
-     */
-    function registerScrollEvent() {
-        let positions = getItemPosition();
-        let button = document.getElementsByClassName("scroll-btn");
-
-        for (let i = 0; i < Array.from(button).length; ++i) {
-            button[i].removeEventListener("click", handleScroll(unregister_value[i + 1]));
-        }
-
-        for (let i = 0; i < Array.from(button).length; ++i) {
-            button[i].addEventListener("click", handleScroll(positions[i]));
-        }
-        unregister_value = positions;
-    }
-
-    /**
-     * Register event when resize page.
-     *
-     * Why? when we resize page for using flex display, the single height of div
-     * can be changed. Using this way, he can have the right update.
-     */
-    window.addEventListener('resize', function () {
-        registerScrollEvent();
-    });
-
-    /**
-     * Register at scroll action for change active item in the sidebar.
-     */
-    window.addEventListener('scroll', function () {
-        let tot = unregister_value[0];
-        let side_btn = document.getElementsByClassName("scroll-btn");
-
-        for (let i = 1; i < unregister_value.length; ++i) {
-            /**
-             * Just for the first element make different condition.
-             * Check if the top position of a window can show this page and active side button.
-             */
-            if (window.scrollY < (unregister_value[0] + unregister_value[1])) {
-                Array.from(side_btn).forEach((item) => {
-                    try {
-                        item.classList.remove("active");
-                    } catch (e) {
-                    }
-                })
-
-                side_btn[0].classList.add("active");
-                break;
-            }
-
-            /**
-             * For other do same stuff but need to addiction another height size.
-             * Show active button for correspondent page in content.
-             * Add those multiple heights.
-             */
-            if (window.scrollY >= tot + unregister_value[i + 1]) {
-                tot += unregister_value[i];
-            } else {
-                Array.from(side_btn).forEach((item) => {
-                    try {
-                        item.classList.remove("active");
-                    } catch (e) {
-                    }
-                })
-
-                /**
-                 * In some case whe can exceed the button index.
-                 * So re-calculate for right index.
-                 */
-                if (i > side_btn - 1)
-                    i = side_btn - 1;
-
-                side_btn[i].classList.add("active");
-
-                break;
-            }
-        }
-    });
-
-    /**
-     * Handle function for action lister for internal scroll.
-     *
-     * @param height
-     * @returns {(function(): void)|*}
-     */
-    function handleScroll(height) {
-        return function () {
-            window.scroll({
-                top: height,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    /************************* UTILS *************************/
-
-    /**
-     * This function catch window size and fix a scrollable page link for sync with sidebar.
-     * Retrieve all height of #content > child.
-     *
-     * @return {height[]}
-     */
-    function getItemPosition() {
-        /* Retrieve window information about size. */
-        let height = [];
-        let scrollable_point = document.getElementsByClassName("scroll-item");
-
-        Array.from(scrollable_point).forEach((item) => {
-            let positionInfo = item.getBoundingClientRect();
-            height.push(positionInfo.height + positionInfo.top);
-        });
-
-        return height;
-    }
 </script>
 
 </html>
