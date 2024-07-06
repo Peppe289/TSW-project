@@ -108,6 +108,16 @@
                 </c:if>
             </ul>
             <p>Disponibili: <span id="disp">${product.quantity}</span></p>
+            <c:if test="${product.quantity > 0}">
+                <p>
+                    <label for="quantity">Quantità: </label>
+                    <select name="quantity" id="quantity">
+                        <c:forEach var="option" begin="0" end="${product.quantity}">
+                            <option class="r_Element" value="${option}">${option}</option>
+                        </c:forEach>
+                    </select>
+                </p>
+            </c:if>
         </c:if>
         <button id="add_carrello">Aggiungi al carrello</button>
     </div>
@@ -145,6 +155,22 @@
 <script type="module">
     import {notifyUserModule} from "./js/ToastAPI.js"
 
+    function setDefaultSection() {
+        let options = document.getElementsByClassName("r_Element");
+
+        /* set as a default 1 option. see all elements and check the right value. */
+        Array.from(options).every((element) => {
+            if (Number(element.value) === 1) {
+                element.selected = true;
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    setDefaultSection();
+
     /**
      * Controlla l'icona carrello.
      */
@@ -152,6 +178,7 @@
     let id_product = document.getElementById("id_prod").innerHTML;
     let carrello = document.getElementById("carrello");
     let carrello_span = carrello.getElementsByTagName("span")[0];
+    let select_opt = document.getElementById("quantity");
 
     document.getElementById("add_carrello").addEventListener("click", () => {
         /* Need ajax request. */
@@ -185,7 +212,7 @@
             }
         }
 
-        xhr.open("GET", "carrello-add-ajax?id=" + id_product + "&add=1", true);
+        xhr.open("GET", "carrello-add-ajax?id=" + id_product + "&add=" + select_opt.options[select_opt.selectedIndex].value, true);
         xhr.send();
     });
 </script>
