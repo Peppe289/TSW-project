@@ -13,11 +13,9 @@
         right: 0;
         background-color: rgb(232, 232, 232);
         z-index: 600000;
-        transition: transform 0.2s linear;
-        transform-origin: right;
     }
 
-    #carrello span {
+    #carrello > span {
         position: absolute;
         top: 1px;
         right: 20px;
@@ -41,22 +39,74 @@
         padding: 5px;
     }
 
-    #carrello:hover {
-        transform: scale(1.1);
+    #show-price {
+        position: absolute;
+        top: -30px;
+        padding: 5px;
+        width: 30px;
+        color: white;
+        text-align: center;
+        cursor: default;
+
+        & > div {
+            position: absolute;
+        }
+
+        & > div:first-child {
+            top: -10px;
+            left: -10px;
+            box-sizing: border-box;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            height: 25px;
+            width: 60px;
+            z-index: 1;
+        }
+
+        & > div:nth-child(2) {
+            top: 0;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            transform: rotate(45deg);
+            z-index: 0;
+        }
     }
+
 </style>
 <!--
 <button onclick="carrello_show_number(-1)">Remove</button>
 <button onclick="carrello_show_number(1)">Add</button>
 -->
 <a id="carrello" href="#">
-    <span></span>
+    <div id="show-price">
+        <div id="price-text">bruh</div>
+        <div></div>
+    </div>
+    <span class="num-el"></span>
     <img alt="Carrello" src="img/carrello.png">
 </a>
 
 
 <script>
     let number_show = document.getElementById("carrello").getElementsByTagName("span")[0];
+    let price = document.getElementById("show-price");
+    let priceText = document.getElementById("price-text");
+    price.style.display = "none";
+
+    document.getElementById("carrello").addEventListener("mouseenter", () => {
+        /* show preview of full price when mouse entry in cart box. */
+        price.style.display = "block";
+    });
+
+    document.getElementById("carrello").addEventListener("mouseleave", () => {
+        /* hide preview of full price when mouse leave cart box. */
+        price.style.display = "none";
+    });
 
     function carrello_set_number(number) {
         if (number === 0) {
@@ -67,12 +117,39 @@
         number_show.innerHTML = number;
     }
 
+    function carrello_set_price(num) {
+        let result;
+
+        if (num < 1000) {
+            /* return the number as is if less than 1000. */
+            result = num.toString();
+        } else if (num < 1000000) {
+            /* convert to 'k' for thousands. */
+            result = (num / 1000).toFixed(1) + 'k';
+        } else if (num < 1000000000) {
+            /* convert to 'M' for millions. */
+            result = (num / 1000000).toFixed(1) + 'M';
+        } else {
+            /* convert to 'B' for billions. */
+            result = (num / 1000000000).toFixed(1) + 'B';
+        }
+        priceText.innerHTML = result;
+    }
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', "retrieve-cart", true);
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             let arr_json = JSON.parse(this.response);
             let json = arr_json[0];
+            /* get total price. */
+            let price = arr_json[1];
+            let total = 0;
+            for (let id in price) {
+                total += price[id] * json[id];
+            }
+            /* set the number of products and total price. */
+            carrello_set_price(total);
             carrello_set_number(json["total"]);
         }
     }

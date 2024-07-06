@@ -171,6 +171,13 @@
                 } else {
                     notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
                 }
+                /* get also full price. */
+                let price = arr_json[1];
+                let total = 0;
+                for (let id in price) {
+                    total += price[id] * json[id];
+                }
+                carrello_set_price(total);
                 /**
                  * Set current number of available elements.
                  */
@@ -181,27 +188,6 @@
         xhr.open("GET", "carrello-add-ajax?id=" + id_product + "&add=1", true);
         xhr.send();
     });
-
-    function carrello_set_number(number) {
-        if (number === 0) {
-            carrello_span.style.display = "none";
-        } else {
-            carrello_span.style.display = "flex";
-        }
-        carrello_span.innerHTML = number;
-    }
-
-    function carrello_increase_number(n) {
-        let number = Number(carrello_span.innerHTML);
-        if ((number + n) <= 0) {
-            carrello_span.style.display = "none";
-            number = 0;
-        } else {
-            carrello_span.style.display = "flex";
-            number += n;
-        }
-        carrello_span.innerHTML = number;
-    }
 </script>
 
 </html>
