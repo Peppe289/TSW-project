@@ -50,7 +50,7 @@ public class CarrelloServlet extends HttpServlet {
                 int single_prod = (int) session.getAttribute(id_el);
                 totalProductCart += single_prod;
                 /* add id - quantity in hashmap. */
-                cartJson.put(id_el.substring(prefix.length()), Integer.toString(single_prod));
+                cartJson.putElements(id_el.substring(prefix.length()), single_prod);
             }
         }
 
@@ -60,10 +60,10 @@ public class CarrelloServlet extends HttpServlet {
             status = "Troppi selezionati.";
 
             /* added current element after check correctly if is available. */
-            cartJson.put(id, Integer.toString(howManyProd));
+            cartJson.putElements(id, howManyProd);
         } else {
             /* return how many elements are added for this id. */
-            cartJson.setAdded(howManyProd);
+            cartJson.setAddedElements(howManyProd);
         }
 
         /* If the product isn't available in a database, this will be 0. Don't set this key and return error */
@@ -79,13 +79,14 @@ public class CarrelloServlet extends HttpServlet {
         }
 
         /* add this element with id to hashmap. if already exist will do override (no problem) */
-        cartJson.put(id, Integer.toString(howManyProd));
+        cartJson.putElements(id, howManyProd);
 
         /* calculate total items in card. */
         totalProductCart += howManyProd;
         /* set other cart data in hashmap. */
-        cartJson.setTotal(totalProductCart);
+        cartJson.setTotalElements(totalProductCart);
         cartJson.setStatus(status);
+        cartJson.loadPrice();
         /* convert hashmap to json. */
         return cartJson.generateJson();
     }
@@ -111,14 +112,15 @@ public class CarrelloServlet extends HttpServlet {
             if (element_id.indexOf(prefix) == 0) {
                 temp = (int) session.getAttribute(element_id);
                 /* add id - quantity to hashmap. */
-                cartJson.put(element_id.substring(prefix.length()), Integer.toString(temp));
+                cartJson.putElements(element_id.substring(prefix.length()), temp);
                 totalProductCart += temp;
             }
         }
 
         /* add total quantity to hashmap. */
-        cartJson.setTotal(totalProductCart);
+        cartJson.setTotalElements(totalProductCart);
         /* set the default state ("success"). */
+        cartJson.loadPrice();
         cartJson.setStatus();
         return cartJson.generateJson();
     }

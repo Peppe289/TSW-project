@@ -161,7 +161,8 @@
          */
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                let json = JSON.parse(this.response);
+                let arr_json = JSON.parse(this.response);
+                let json = arr_json[0];
                 /**
                  * Check in response json if all is ok. Notify status to user.
                  */

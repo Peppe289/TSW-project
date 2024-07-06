@@ -71,7 +71,8 @@
     xhr.open('GET', "retrieve-cart", true);
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            let json = JSON.parse(this.response);
+            let arr_json = JSON.parse(this.response);
+            let json = arr_json[0];
             carrello_set_number(json["total"]);
         }
     }
