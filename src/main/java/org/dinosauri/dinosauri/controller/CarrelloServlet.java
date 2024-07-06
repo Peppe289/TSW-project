@@ -29,8 +29,8 @@ public class CarrelloServlet extends HttpServlet {
      */
     private String addElementsToCart(HttpServletRequest request) {
         String id = request.getParameter("id");
-        Integer howManyProd;
-        Integer totalProductCart = 0;
+        int howManyProd;
+        int totalProductCart = 0;
         String status = null;
         int availableElements = ProductDAO.doRetrieveProductByID(id, true).size();
         HttpSession session = request.getSession(true);
@@ -50,8 +50,8 @@ public class CarrelloServlet extends HttpServlet {
             /* consider only session item with product prefix in name. ignore otherwise. */
             if (id_el.equals(prefix + id)) {
                 /* save the number of products for later. skip for now in total counter. */
-                howManyProd += (Integer) session.getAttribute(id_el);
-            } else if (id_el.indexOf(prefix) == 0) totalProductCart += (Integer) session.getAttribute(id_el);
+                howManyProd += (int) session.getAttribute(id_el);
+            } else if (id_el.indexOf(prefix) == 0) totalProductCart += (int) session.getAttribute(id_el);
         }
 
         /* try to add more elements. error with this. replace size with max. */
@@ -86,11 +86,11 @@ public class CarrelloServlet extends HttpServlet {
 
         /* see all elements but add only the elements which name start with product prefix. */
         while (attributes.hasMoreElements()) {
-            Integer temp;
+            int temp;
 
             String element_id = attributes.nextElement();
             if (element_id.indexOf(prefix) == 0) {
-                temp = (Integer) session.getAttribute(element_id);
+                temp = (int) session.getAttribute(element_id);
                 totalProductCart += temp;
             }
         }
