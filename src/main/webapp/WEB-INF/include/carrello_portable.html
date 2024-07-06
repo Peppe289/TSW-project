@@ -72,7 +72,7 @@
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             let json = JSON.parse(this.response);
-            carrello_set_number(json["elements"]);
+            carrello_set_number(json["total"]);
         }
     }
     xhr.send();

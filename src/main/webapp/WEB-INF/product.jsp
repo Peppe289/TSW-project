@@ -166,14 +166,14 @@
                  * Check in response json if all is ok. Notify status to user.
                  */
                 if (json["status"] !== "success") {
-                    notifyUserModule("Impossibile aggiungere al carrello", "Elementi non disponibili");
+                    notifyUserModule("Impossibile aggiungere al carrello", json["status"]);
                 } else {
-                    notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["item"]);
+                    notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
                 }
                 /**
                  * Set current number of available elements.
                  */
-                carrello_set_number(json["elements"]);
+                carrello_set_number(json["total"]);
             }
         }
 

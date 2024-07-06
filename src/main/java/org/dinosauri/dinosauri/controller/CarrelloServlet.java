@@ -1,5 +1,6 @@
 package org.dinosauri.dinosauri.controller;
 
+import com.fasterxml.jackson.core.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
@@ -14,20 +15,13 @@ public class CarrelloServlet extends HttpServlet {
     /* for ignore other elements in session specify prefix of product items. */
     public static final String prefix = "PRODUCT_";
 
-    private String stringJsonGenerate(int totalProductCart, int howManyProd, String status) {
-        /* success by default. */
-        if (status == null) status = "success";
-
-        return "{\"elements\":\"" + totalProductCart + "\",\"item\":\"" + howManyProd + "\",\"status\":\"" + status + "\"}";
-    }
-
     /**
      * Try to add an element to cart using id. Check if it is available.
      *
      * @param request - Need for GET param.
      * @return json string with all elements and single item (from id).
      */
-    private String addElementsToCart(HttpServletRequest request) {
+    private String addElementsToCart(HttpServletRequest request) throws JsonProcessingException {
         String id = request.getParameter("id");
         int howManyProd;
         int totalProductCart = 0;
@@ -37,6 +31,7 @@ public class CarrelloServlet extends HttpServlet {
         Enumeration<String> sessionEl = session.getAttributeNames();
         /* Check if is logged or not. If isn't logged save data in session. If is logged save in a database. */
         User user = (User) request.getSession().getAttribute("user");
+        Carrello cartJson = new Carrello();
 
         try {
             howManyProd = Integer.parseInt(request.getParameter("add"));
@@ -51,13 +46,29 @@ public class CarrelloServlet extends HttpServlet {
             if (id_el.equals(prefix + id)) {
                 /* save the number of products for later. skip for now in total counter. */
                 howManyProd += (int) session.getAttribute(id_el);
-            } else if (id_el.indexOf(prefix) == 0) totalProductCart += (int) session.getAttribute(id_el);
+            } else if (id_el.indexOf(prefix) == 0) {
+                int single_prod = (int) session.getAttribute(id_el);
+                totalProductCart += single_prod;
+                /* add id - quantity in hashmap. */
+                cartJson.put(id_el.substring(prefix.length()), Integer.toString(single_prod));
+            }
         }
 
         /* try to add more elements. error with this. replace size with max. */
         if (availableElements < howManyProd) {
             howManyProd = availableElements;
-            status = "Too many element";
+            status = "Troppi selezionati.";
+
+            /* added current element after check correctly if is available. */
+            cartJson.put(id, Integer.toString(howManyProd));
+        } else {
+            /* return how many elements are added for this id. */
+            cartJson.setAdded(howManyProd);
+        }
+
+        /* If the product isn't available in a database, this will be 0. Don't set this key and return error */
+        if (availableElements == 0) {
+            status = "Elemento non disponibile.";
         }
 
         /* if user is logged add cart items to database, otherwise add to session. */
@@ -67,9 +78,16 @@ public class CarrelloServlet extends HttpServlet {
             session.setAttribute(prefix + id, howManyProd);
         }
 
+        /* add this element with id to hashmap. if already exist will do override (no problem) */
+        cartJson.put(id, Integer.toString(howManyProd));
+
         /* calculate total items in card. */
         totalProductCart += howManyProd;
-        return stringJsonGenerate(totalProductCart, howManyProd, status);
+        /* set other cart data in hashmap. */
+        cartJson.setTotal(totalProductCart);
+        cartJson.setStatus(status);
+        /* convert hashmap to json. */
+        return cartJson.generateJson();
     }
 
     /**
@@ -78,10 +96,11 @@ public class CarrelloServlet extends HttpServlet {
      * @param request - get session.
      * @return json with number of all elements
      */
-    private String doRetrieveAllElementsCart(HttpServletRequest request) {
+    private String doRetrieveAllElementsCart(HttpServletRequest request) throws JsonProcessingException {
         int totalProductCart = 0;
         // TODO: implement also without session for logged user.
         HttpSession session = request.getSession(true);
+        Carrello cartJson = new Carrello();
         Enumeration<String> attributes = session.getAttributeNames();
 
         /* see all elements but add only the elements which name start with product prefix. */
@@ -91,11 +110,17 @@ public class CarrelloServlet extends HttpServlet {
             String element_id = attributes.nextElement();
             if (element_id.indexOf(prefix) == 0) {
                 temp = (int) session.getAttribute(element_id);
+                /* add id - quantity to hashmap. */
+                cartJson.put(element_id.substring(prefix.length()), Integer.toString(temp));
                 totalProductCart += temp;
             }
         }
 
-        return "{\"elements\":\"" + totalProductCart + "\",\"status\":\"success\"}";
+        /* add total quantity to hashmap. */
+        cartJson.setTotal(totalProductCart);
+        /* set the default state ("success"). */
+        cartJson.setStatus();
+        return cartJson.generateJson();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
