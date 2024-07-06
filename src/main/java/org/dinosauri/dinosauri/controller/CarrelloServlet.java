@@ -58,13 +58,13 @@ public class CarrelloServlet extends HttpServlet {
         if (availableElements < howManyProd) {
             howManyProd = availableElements;
             status = "Troppi selezionati.";
-
-            /* added current element after check correctly if is available. */
-            cartJson.putElements(id, howManyProd);
-        } else {
-            /* return how many elements are added for this id. */
-            cartJson.setAddedElements(howManyProd);
+        } else if (howManyProd < 0) {
+            /* the user not should have a negative element. */
+            howManyProd = 0;
         }
+
+        /* return how many elements are added for this id. */
+        cartJson.setAddedElements(howManyProd);
 
         /* If the product isn't available in a database, this will be 0. Don't set this key and return error */
         if (availableElements == 0) {
