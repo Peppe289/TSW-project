@@ -43,10 +43,8 @@ public class CarrelloServlet extends HttpServlet {
         while (sessionEl.hasMoreElements()) {
             String id_el = sessionEl.nextElement();
             /* consider only session item with product prefix in name. ignore otherwise. */
-            if (id_el.equals(prefix + id)) {
-                /* save the number of products for later. skip for now in total counter. */
-                howManyProd += (int) session.getAttribute(id_el);
-            } else if (id_el.indexOf(prefix) == 0) {
+            /* ignore also id in request parameter (we need to check some stuff later). */
+             if (id_el.indexOf(prefix) == 0 && !id_el.equals(prefix + id)) {
                 int single_prod = (int) session.getAttribute(id_el);
                 totalProductCart += single_prod;
                 /* add id - quantity in hashmap. */
