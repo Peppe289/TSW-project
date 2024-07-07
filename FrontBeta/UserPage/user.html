@@ -26,8 +26,6 @@
             display: flex;
             justify-content: center;
             margin: 0 auto;
-            /* TODO: add responsiveness */
-            min-width: 800px;
             max-width: 1200px;
             width: 90%;
             background-color: white;
@@ -84,7 +82,6 @@
         }
 
         #content {
-            width: 80%;
             min-width: 500px;
             padding: 10px 20px 0 20px;
             text-align: center;
@@ -125,6 +122,7 @@
                 justify-content: center;
                 align-content: center;
                 align-items: center;
+                overflow: hidden;
 
                 & h3 {
                     padding-top: 40px;
@@ -188,7 +186,7 @@
                     padding: 20px;
 
                     & > div {
-                        font-size: 20px;
+                        font-size: 0.99rem;
                     }
 
                     /*
@@ -323,6 +321,35 @@
 
         #new_addr input:focus {
             outline: 1px solid rgb(0, 102, 60);
+        }
+
+        @media screen and (max-width: 900px) {
+            #container {
+                width: 100%;
+            }
+
+            #content {
+                padding: 0;
+                min-width: unset;
+            }
+
+            #content .row-table .toggle {
+                font-size: 0.8rem;
+            }
+
+            #content .row-table {
+                font-size: 0.9rem;
+            }
+
+            #side-bar {
+                display: none;
+            }
+
+            .summary {
+                margin: 0;
+                padding: 0 !important;
+                gap: 4px;
+            }
         }
     </style>
 </head>
