@@ -646,6 +646,12 @@
     /* show order box. */
     let show_order_btn = document.getElementsByClassName("open_order");
 
+    /**
+     * Helper function for show/hide product for order
+     *
+     * @param items - elements list (row with product)
+     * @param hide - flag for hide/show
+     */
     function hide_show_order(items, hide) {
         Array.from(items).forEach((el) => {
             if (hide) {
@@ -656,8 +662,8 @@
         });
     }
 
+    /* for show product in order add event listener to all summary. */
     Array.from(show_order_btn).forEach((el) => {
-
         let items = el.parentElement.parentElement.getElementsByClassName("row-item");
         hide_show_order(items, true);
 
@@ -667,11 +673,13 @@
 
             /* hide/show order details. */
             if (Array.from(opened.classList).includes("hide")) {
+                /* when active, enable shadow */
                 el.parentElement.classList.add("active");
                 closed.classList.add("hide");
                 opened.classList.remove("hide");
                 hide_show_order(items, false);
             } else {
+                /* when deactivated, hide shadow */
                 el.parentElement.classList.remove("active");
                 closed.classList.remove("hide");
                 opened.classList.add("hide");
