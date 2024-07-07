@@ -16,6 +16,12 @@
             margin: 0;
         }
 
+        .disable_select_text {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
         #container {
             display: flex;
             justify-content: center;
@@ -164,6 +170,84 @@
                         width: 25px;
                         cursor: pointer;
                     }
+                }
+            }
+
+            * .row-table {
+                width: 100%;
+                display: block;
+                padding: 0;
+
+                & .row-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 50px;
+                    margin: 0 0 0 25px;
+                    width: calc(100% - 25px);
+                    padding: 20px;
+
+                    & > div {
+                        font-size: 20px;
+                    }
+
+                    /*
+                    & .quantity_prod {
+
+                    }
+
+                    & .name_prod {
+
+                    }
+
+                    & .price_prod {
+
+                    }
+                    */
+                }
+
+                & .row-item:nth-child(odd) {
+                    background-color: rgba(141, 141, 141, 0.08);
+                }
+
+                & .summary {
+                    height: 70px;
+                    margin: 0;
+                    padding: 0 75px 0 0;
+                    background-color: rgba(98, 98, 98, 0.12);
+                    display: flex;
+                    justify-content: space-between;
+
+                    & .order-propriety {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                & .open_order {
+                    height: 100%;
+                    width: min-content;
+                    cursor: pointer;
+                }
+
+                & .toggle {
+                    height: 100%;
+                    display: flex;
+                    width: 20px;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 10px 0 10px;
+                    padding: 0 10px 0 10px;
+                    font-size: 1.5em;
+                }
+
+                & .hide {
+                    display: none;
+                }
+
+                & .active {
+                    box-shadow: 0 5px 5px #adadad;
                 }
             }
 
@@ -362,11 +446,103 @@
             </div>
         </div>
 
-        <div class="scroll-item container"
-             style="display: block; height: 800px; width: 500px; background-color: rgba(0,0,255,0.35)">
+        <div class="scroll-item container">
             <h3 id="order_done">Ordini effettuati</h3>
             <hr>
-            <!-- TODO: implements order. -->
+            <!-- first order -->
+            <div class="box row-table">
+                <!-- pointer button for hide/show order details. -->
+                <div class="summary disable_select_text">
+                    <div class="open_order">
+                        <span class="toggle opened hide">&#x25B2;</span>
+                        <span class="toggle closed">&#x25BC;</span>
+                    </div>
+                    <div class="order-propriety">24/01/2020</div>
+                    <div class="order-propriety">Consegnato in Via Domenico Amorelli 19 </div>
+                    <div class="order-propriety">34821094820498 €</div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        T-Rex
+                    </div>
+                    <div class="price_prod">
+                        532 €
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        Ciro
+                    </div>
+                    <div class="price_prod">
+                        6363463 €
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        Guinzaglio medio
+                    </div>
+                    <div class="price_prod">
+                        6433 €
+                    </div>
+                </div>
+            </div>
+            <!-- end order -->
+            <!-- order -->
+            <div class="box row-table">
+                <!-- pointer button for hide/show order details. -->
+                <div class="summary disable_select_text">
+                    <div class="open_order">
+                        <span class="toggle opened hide">&#x25B2;</span>
+                        <span class="toggle closed">&#x25BC;</span>
+                    </div>
+                    <div class="order-propriety">24/01/2020</div>
+                    <div class="order-propriety">Consegnato in Via Domenico Amorelli 19 </div>
+                    <div class="order-propriety">34821094820498 €</div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        T-Rex
+                    </div>
+                    <div class="price_prod">
+                        532 €
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        Ciro
+                    </div>
+                    <div class="price_prod">
+                        6363463 €
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="quantity_prod">
+                        2x
+                    </div>
+                    <div class="name_prod">
+                        Guinzaglio medio
+                    </div>
+                    <div class="price_prod">
+                        6433 €
+                    </div>
+                </div>
+            </div>
+            <!-- end order -->
         </div>
     </div>
 </div>
@@ -382,6 +558,43 @@
             if (element.tagName.toLocaleUpperCase() !== "button".toUpperCase())
                 element.style.display = "none";
         }
+    });
+
+    /* show order box. */
+    let show_order_btn = document.getElementsByClassName("open_order");
+
+    function hide_show_order(items, hide) {
+        Array.from(items).forEach((el) => {
+            if (hide) {
+                el.style.display = "none";
+            } else {
+                el.style.display = "flex";
+            }
+        });
+    }
+
+    Array.from(show_order_btn).forEach((el) => {
+
+        let items = el.parentElement.parentElement.getElementsByClassName("row-item");
+        hide_show_order(items, true);
+
+        el.addEventListener("click", () => {
+            let opened = el.getElementsByClassName("opened")[0];
+            let closed = el.getElementsByClassName("closed")[0];
+
+            /* hide/show order details. */
+            if (Array.from(opened.classList).includes("hide")) {
+                el.parentElement.classList.add("active");
+                closed.classList.add("hide");
+                opened.classList.remove("hide");
+                hide_show_order(items, false);
+            } else {
+                el.parentElement.classList.remove("active");
+                closed.classList.remove("hide");
+                opened.classList.add("hide");
+                hide_show_order(items, true);
+            }
+        });
     });
 
     /**
