@@ -232,6 +232,14 @@
                 }
             }
         }
+
+        #new_addr input {
+            outline: 1px solid rgb(114, 114, 114);
+        }
+
+        #new_addr input:focus {
+            outline: 1px solid rgb(0, 102, 60);
+        }
     </style>
 </head>
 <body>
@@ -283,8 +291,37 @@
         <div class="scroll-item container">
             <h3 id="addr_manage">Gestione degli indirizzi</h3>
             <hr>
-            <div class="box grid-items">
-
+            <div id="new_addr" class="box grid-items">
+                <div class="box">
+                    <label>Destinatario:
+                        <input class="editable" name="nome" type="text" value="">
+                    </label>
+                </div>
+                <div class="box">
+                    <label>Indirizzo:
+                        <input class="editable" name="addr" type="text" value="">
+                    </label>
+                </div>
+                <div class="box">
+                    <label>Civico:
+                        <input class="editable" name="addr_num" type="number" value="">
+                    </label>
+                </div>
+                <div class="box">
+                    <label>Città:
+                        <input class="editable" name="city" type="text" value="">
+                    </label>
+                </div>
+                <div class="box">
+                    <label>Cap:
+                        <input class="editable" name="cap" type="number" value="">
+                    </label>
+                </div>
+                <div class="apply">
+                    <button class="apply">
+                        Aggiungi indirizzo
+                    </button>
+                </div>
             </div>
             <div class="box grid-items">
                 <div class="box">
@@ -340,9 +377,11 @@
 
     /* hide all apply buttons by default. */
     Array.from(document.getElementsByClassName("apply")).forEach((element) => {
-        /* ignore if class is used for button. we need to find only div.apply */
-        if (element.tagName.toLocaleUpperCase() !== "button".toUpperCase())
-            element.style.display = "none";
+        if (element.parentElement.id !== "new_addr") {
+            /* ignore if class is used for button. we need to find only div.apply */
+            if (element.tagName.toLocaleUpperCase() !== "button".toUpperCase())
+                element.style.display = "none";
+        }
     });
 
     /**
@@ -358,26 +397,36 @@
             button = item.parentElement.parentElement;
         }
 
-        button = button.getElementsByTagName("button")[0];
+        button = button.getElementsByTagName("button");
 
-        /* get apply button */
-        apply_btn = button.parentElement.parentElement.getElementsByClassName("apply")[0];
+        /* getElements retrieves always array. check if array is more larger than 0. */
+        if (button.length > 0) {
+            /* we need always only first element in box. */
+            button = button[0];
+            /* get apply button */
+            apply_btn = button.parentElement.parentElement.getElementsByClassName("apply");
 
-        item.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                /* don't submit form using enter keyboard. */
-                e.preventDefault();
-                if (!item.disabled)
-                    item.disabled = !item.disabled;
-            } else {
-                /* if whe press some button in input, this means whe have modified some char. show apply button. */
-                apply_btn.style.display = "block";
-            }
-        });
+            if (apply_btn.length <= 0)
+                apply_btn = document.getElementById("new_addr").getElementsByClassName("apply");
 
-        button.addEventListener("click", () => {
-            item.disabled = !item.disabled;
-        });
+            apply_btn = apply_btn[0];
+
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    /* don't submit form using enter keyboard. */
+                    e.preventDefault();
+                    if (!item.disabled)
+                        item.disabled = !item.disabled;
+                } else {
+                    /* if whe press some button in input, this means whe have modified some char. show apply button. */
+                    apply_btn.style.display = "block";
+                }
+            });
+
+            button.addEventListener("click", () => {
+                item.disabled = !item.disabled;
+            });
+        }
     });
 
     let show_password = document.getElementById("show_pass");
