@@ -390,17 +390,31 @@
      */
     Array.from(input).forEach((item) => {
         /* should be single button in box with an input element. */
-        let button = item.parentElement;
+        let button;
+        let boxing = item.parentElement;
         let apply_btn;
-        /* if eh button element are in label go out to parent. */
-        if (button.tagName.toUpperCase() === "label".toUpperCase()) {
-            button = item.parentElement.parentElement;
-        }
 
-        button = button.getElementsByTagName("button");
+        /* if eh button element are in label go out to parent. */
+        if (boxing.tagName.toUpperCase() === "label".toUpperCase())
+            boxing = item.parentElement.parentElement;
+
+        /**
+         * button for deactivate/active input.
+         *
+         * Example:
+         *  <div class="box">
+         *      <label for="password">Password:</label>
+         *      <input class="editable" id="password" name="password" type="password" value="bruh" disabled>
+         *      <label for="password" id="show_pass"><span></span><img alt="show password"
+         *                                                                        src="show_password.png"></label>
+         *      <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+         *  </div>
+         */
+        button = boxing.getElementsByTagName("button");
 
         /* getElements retrieves always array. check if array is more larger than 0. */
-        if (button.length > 0) {
+        /* ignore also for box for input new address. */
+        if (button.length > 0 && boxing.parentElement.id !== "new_addr") {
             /* we need always only first element in box. */
             button = button[0];
             /* get apply button */
@@ -417,6 +431,8 @@
                     e.preventDefault();
                     if (!item.disabled)
                         item.disabled = !item.disabled;
+
+                    validate_input(boxing);
                 } else {
                     /* if whe press some button in input, this means whe have modified some char. show apply button. */
                     apply_btn.style.display = "block";
@@ -452,6 +468,58 @@
             password_span.style.display = "block";
         }
     });
+
+    Array.from(document.getElementsByClassName("apply")).forEach((el) => {
+        if (el.tagName.toUpperCase() === "button".toUpperCase()) {
+            el.addEventListener("click", () => {
+                validate_input(el.parentElement.parentElement);
+
+            });
+        }
+    });
+
+    /**
+     * check if input string contains only number.
+     * using regex: ^ from start \d+ check number (one or more) $ until the end.
+     */
+    function isNumeric(value) {
+        return /^\d+$/.test(value);
+    }
+
+    /**
+     * helper function for validate_input for warning in case of wrong input.
+     *
+     * @param item - item to apply propriety
+     * @param flag - boolean flag
+     */
+    function wrong_input(item, flag) {
+        if (flag)
+            item.style.color = "red";
+        else
+            item.style.color = "black";
+    }
+
+    /**
+     * check in the box if all inputs have a right format text.
+     *
+     * @param box - root box
+     */
+    function validate_input(box) {
+        let input = box.getElementsByTagName("input");
+
+        Array.from(input).every((el) => {
+            if (el.type.toUpperCase() === "number".toUpperCase()) {
+                if (!isNumeric(el.value)) {
+                    wrong_input(el, true);
+                    return false;
+                } else {
+                    wrong_input(el, false);
+                }
+            }
+
+            return true;
+        });
+    }
 
 </script>
 
