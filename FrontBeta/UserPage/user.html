@@ -42,6 +42,10 @@
             }
         }
 
+        #side_bar_btn {
+            display: none;
+        }
+
         #side-bar {
             padding-top: 40px;
             width: 20%;
@@ -343,6 +347,12 @@
 
             #side-bar {
                 display: none;
+                position: absolute;
+                background-color: white;
+                left:0;
+                top:0;
+                height: 100vh;
+                z-index: 500;
             }
 
             .summary {
@@ -351,11 +361,30 @@
                 gap: 4px;
             }
         }
+
+        @media screen and (max-width: 900px) {
+            #side_bar_btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                cursor: pointer;
+                position: absolute;
+                top: 40px;
+                left: 0;
+                height: 60px;
+                width: 50px;
+                border-radius: 0 15px 15px 0;
+                box-shadow: 1px 0 5px black;
+                background-color: white;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="container">
+    <div id="side_bar_btn">&#9776;</div>
     <div id="side-bar">
         <ul>
             <li><a href="/">Continua ad acquistare</a></li>
@@ -577,6 +606,33 @@
 
 <script defer>
     let input = document.getElementsByTagName("input");
+    let side_bar_open = false;
+    let side_bar_btn = document.getElementById("side_bar_btn");
+    let side_bar = document.getElementById("side-bar");
+
+    /* on click show/hide the sidebar. */
+    side_bar_btn.addEventListener("click", () => {
+        side_bar_open = !side_bar_open;
+
+        if (side_bar_open) {
+            side_bar.style.display = "block";
+            /* get sidebar width for move button for show/hide. */
+            side_bar_btn.style.left = side_bar.getBoundingClientRect().width.toString() + "px";
+        } else {
+            /* hide and restore. */
+            side_bar.style.display = "none";
+            side_bar_btn.style.left = "0";
+        }
+    });
+
+    /* add event listener for force show/hide sidebar. */
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) {
+            side_bar.style.display = "block";
+        } else {
+            side_bar.style.display = "none";
+        }
+    });
 
     /* hide all apply buttons by default. */
     Array.from(document.getElementsByClassName("apply")).forEach((element) => {
