@@ -10,6 +10,7 @@ import org.dinosauri.dinosauri.model.utils.*;
 
 import java.io.*;
 import java.nio.file.*;
+import java.sql.*;
 import java.util.*;
 
 @WebServlet("/edit-prod-request")
@@ -53,7 +54,11 @@ public class UpdateProduct extends HttpServlet {
         if (map.get("new_prod").isEmpty())
             ProductDAO.doUpdateByID(product);
         else {
-            ProductDAO.doInsertProduc(product);
+            try {
+                ProductDAO.doInsertProduct(product);
+            } catch (SQLException e) {
+                return null;
+            }
         }
 
         disp = ProductDAO.doRetrieveProductByID(product.getId(), true).size();

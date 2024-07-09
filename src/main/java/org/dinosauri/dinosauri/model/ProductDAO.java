@@ -20,20 +20,16 @@ public class ProductDAO {
      *
      * @param product - product data.
      */
-    public static void doInsertProduc(Product product) {
-        try(Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO prodotto (id_prodotto, nome, descrizione, alimentazione, categoria, prezzo) VALUES (?, ?, ?, ?, ?, ?)");
-            ps.setString(1, product.getId());
-            ps.setString(2, product.getName());
-            ps.setString(3, product.getDescription());
-            ps.setString(4, product.getAlimentazione());
-            ps.setString(5, product.getCategoria());
-            ps.setDouble(6, product.getPrice());
-            ps.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void doInsertProduct(Product product) throws SQLException {
+        Connection con = ConnectionService.getConnection();
+        PreparedStatement ps = con.prepareStatement("INSERT INTO prodotto (id_prodotto, nome, descrizione, alimentazione, categoria, prezzo) VALUES (?, ?, ?, ?, ?, ?)");
+        ps.setString(1, product.getId());
+        ps.setString(2, product.getName());
+        ps.setString(3, product.getDescription());
+        ps.setString(4, product.getAlimentazione());
+        ps.setString(5, product.getCategoria());
+        ps.setDouble(6, product.getPrice());
+        ps.executeUpdate();
     }
 
     /**
