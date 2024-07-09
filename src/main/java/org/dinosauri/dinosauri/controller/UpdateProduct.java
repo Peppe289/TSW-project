@@ -48,8 +48,6 @@ public class UpdateProduct extends HttpServlet {
         product.setDescription(map.get("description"));
         product.setName(map.get("name"));
 
-        System.out.println(map.get("new_prod"));
-
         /* make insert or update. this is specified by client from input hidden. */
         if (map.get("new_prod").isEmpty())
             ProductDAO.doUpdateByID(product);
