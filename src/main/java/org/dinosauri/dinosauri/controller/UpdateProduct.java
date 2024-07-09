@@ -30,6 +30,7 @@ public class UpdateProduct extends HttpServlet {
         String line;
         Product product = new Product();
         String id = request.getParameter("id");
+        int elements;
 
         while ((line = reader.readLine()) != null)
             buffer.append(line);
@@ -44,11 +45,19 @@ public class UpdateProduct extends HttpServlet {
         product.setAlimentazione(map.get("nutrition"));
         product.setDescription(map.get("description"));
         product.setName(map.get("name"));
-        /* TODO: fix for qantity */
-
         ProductDAO.doUpdateByID(product);
-        response.setContentType("application/json");
+        elements = Integer.parseInt(map.get("quantity")) - ProductDAO.doRetrieveProductByID(product.getId(), true).size();
 
+        while (elements > 0) {
+            ProductDAO.doAddQuantityByID(product.getId());
+            elements--;
+        }
+        while (elements < 0) {
+            ProductDAO.doRemoveQuantityByID(product.getId());
+            elements++;
+        }
+
+        response.setContentType("application/json");
         return "{\"status\":\"success\"}";
     }
 

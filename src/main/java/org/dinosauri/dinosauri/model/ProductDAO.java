@@ -16,6 +16,42 @@ import java.util.List;
 public class ProductDAO {
 
     /**
+     * insert into elemento_prodotto new element.
+     *
+     * @param id - id for product to add.
+     */
+    public static void doAddQuantityByID(String id) {
+        try(Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO elemento_prodotto(id_prodotto, disponibilita) VALUES (?, ?)");
+            ps.setString(1, id);
+            /* new product should be true by default. */
+            ps.setBoolean(2, true);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * remove element from elemento_prodotto
+     *
+     * @param id - id product.
+     */
+    public static void doRemoveQuantityByID(String id) {
+        /* get a list of all elements with this id. */
+        ArrayList<Integer> list = (ArrayList<Integer>) doRetrieveProductByID(id,true);
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM elemento_prodotto WHERE id_elemento = ?");
+            /* remove one element. */
+            ps.setInt(1, list.getFirst());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * This method need for update database information
      *
      * @param product - Product object.
