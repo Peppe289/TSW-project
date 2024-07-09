@@ -12,6 +12,9 @@ import {notifyUserModule} from '../ToastAPI.js';
 let isEditingImg = false;
 let removedPath = [];
 const fields = document.querySelectorAll('#name, #price, #category, #nutrition, #quantity, #description');
+/* element contains id for new product. */
+let new_prod_id = document.getElementById("id_prod");
+let wrong_ID = false;
 
 /* Register callback for first time for img */
 register_callback_preview_image(document.getElementById("img-prev"));
@@ -42,6 +45,61 @@ fields.forEach(field => {
         field.focus();
     });
 });
+
+/**
+ * Make ajax request for seeing if ID already took.
+ * Make ajax request at all keydown with time out.
+ */
+function verify_new_id() {
+    /* ajax request for generate ID for new product. */
+    let xhr = new XMLHttpRequest();
+    let string = document.getElementById("id_prod").value;
+    xhr.open("GET", "edit-prod-request?o=new_id&id=" + string, true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            /* check if id is already present. */
+            let result = JSON.parse(this.responseText);
+            wrong_ID = result["status"] !== "ok";
+            if (wrong_ID) {
+                new_prod_id.classList.add('custom-outline');
+            } else {
+                while(new_prod_id.classList.contains("custom-outline")) {
+                    new_prod_id.classList.remove("custom-outline");
+                }
+            }
+        }
+    };
+    xhr.send();
+}
+
+/* if this button is present means we need to add new product. make request to server to check if ID already exists. */
+if (new_prod_id != null && new_prod_id.classList.contains("newProd") === true) {
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const inputElement = new_prod_id
+
+        inputElement.addEventListener('focus', () => {
+            if (wrong_ID) {
+                inputElement.classList.add('custom-outline');
+            }
+        });
+
+        inputElement.addEventListener('blur', () => {
+            if (!wrong_ID) {
+                try {
+                    while (inputElement.classList.contains("custom-outline"))
+                        inputElement.classList.remove('custom-outline');
+                } catch (e) {
+                }
+            }
+        });
+    });
+
+    new_prod_id.addEventListener("keydown", () => {
+        setTimeout(verify_new_id, 1000);
+    });
+}
+
 
 document.getElementById("applica-btn").addEventListener("click", () => {
     /* disable all fields mean confirm changes from js. */
@@ -99,7 +157,7 @@ document.getElementById('file-upload').addEventListener('change', function (even
  * Update database for this product. This fetch text from input text.
  */
 function update_database_ajax() {
-    const id = document.getElementById("id-product").innerHTML;
+    const id = document.getElementById("id_prod").value;
 
     const name = document.getElementById("name");
     const price = document.getElementById("price");
@@ -107,7 +165,9 @@ function update_database_ajax() {
     const nutrition = document.getElementById("nutrition");
     const quantity = document.getElementById("quantity");
     const description = document.getElementById("description");
+    const new_prod = document.getElementById("new_prod");
     const obj = {
+        new_prod: new_prod.value,
         name: name.value,
         price: price.value,
         category: category.value,
@@ -144,7 +204,7 @@ function update_database_ajax() {
  * @function fetch - used for request.
  */
 function deleteimg_ajax() {
-    const id = document.getElementById("id-product").innerHTML;
+    const id = document.getElementById("id_prod").value;
 
     if (removedPath.length === 0) return;
 
@@ -226,7 +286,7 @@ function uploadimg_ajax() {
                 /* after get binary prepare for send. */
                 const formData = new FormData();
                 formData.append('image', blob, 'image.jpg'); // Append the Blob with a filename
-                const id = document.getElementById("id-product").innerHTML;
+                const id = document.getElementById("id_prod").value;
                 /* send data */
                 return fetch('http://localhost:8080/dinosauri_war_exploded/edit-prod-request?id=' + id + "&o=upload", {
                     method: 'POST', body: formData

@@ -103,11 +103,15 @@
     .vibrate {
         animation: vibrate 0.4s linear infinite;
     }
+
+    input.custom-outline:focus {
+        outline: 2px solid red;
+    }
+
 </style>
 <script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
 <body>
 <div class="containerpopup">
-    <p style="display: none" id="id-product">${product.id}</p>
     <h1>Modifica Prodotto</h1>
     <div id="container-img">
         <img id="image-src">
@@ -129,7 +133,18 @@
     </div>
     <div class="product-form">
         <div class="form-group">
-            <label>ID: ${product.id}</label>
+            <c:choose>
+                <c:when test="${not empty newProd}">
+                    <input type="hidden" id="new_prod" value="new_prod">
+                    <label for="id_prod">ID:</label>
+                    <input type="text" id="id_prod" class="newProd" style="margin-right: 85px" value="${product.id}">
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" id="new_prod" value="">
+                    <label for="id_prod">ID:</label>
+                    <input type="text" id="id_prod" style="margin-right: 85px" value="${product.id}" disabled>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="form-group">
             <label for="name">Nome:</label>

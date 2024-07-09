@@ -47,7 +47,15 @@ public class UpdateProduct extends HttpServlet {
         product.setDescription(map.get("description"));
         product.setName(map.get("name"));
 
-        ProductDAO.doUpdateByID(product);
+        System.out.println(map.get("new_prod"));
+
+        /* make insert or update. this is specified by client from input hidden. */
+        if (map.get("new_prod").isEmpty())
+            ProductDAO.doUpdateByID(product);
+        else {
+            ProductDAO.doInsertProduc(product);
+        }
+
         disp = ProductDAO.doRetrieveProductByID(product.getId(), true).size();
         elements = Integer.parseInt(map.get("quantity")) - disp;
 
@@ -162,6 +170,15 @@ public class UpdateProduct extends HttpServlet {
         return "{\"path\": " + objectMapper.writeValueAsString(newPath.toArray()) + ",\"status\":\"success\"}";
     }
 
+    public String check_new_id(String id) {
+        Product product = ProductDAO.doRetrieveProductByID(id);
+
+        if (product == null)
+            return "{\"status\":\"ok\"}";
+        else
+            return "{\"status\":\"Already Present\"}";
+    }
+
     /**
      * This servlet is used for write in server directory the new immage taked from client
      * About this we can consider:
@@ -175,6 +192,10 @@ public class UpdateProduct extends HttpServlet {
             case "upload" -> json_result = upload_image(request, response);
             case "remove" -> json_result = remove_image(request, response);
             case "update_database" -> json_result = update_database(request, response);
+            case "new_id" -> {
+                json_result = check_new_id(request.getParameter("id"));
+                response.setContentType("application/json");
+            }
             default -> json_result = "{\"status\":\"Request Error\"}";
         }
 
