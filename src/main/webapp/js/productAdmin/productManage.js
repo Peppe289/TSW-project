@@ -125,12 +125,12 @@ function update_database_ajax() {
         .then(/* Take response json */response => response.json())
         .then(data => {
             /* Notify to client result of server using json. */
-            let status = data["status"];
-            if (status.indexOf("success") < 0) {
-                notifyUserModule("Error", status);
+            if (data == null) {
+                notifyUserModule("Error", "");
             } else {
                 notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
             }
+            reloadInputValue(data);
         }).catch(error => {
         console.error('Error:', error);
     });
@@ -260,6 +260,15 @@ function uploadimg_ajax() {
 /**
  * 2) utils for html
  */
+
+function reloadInputValue(json) {
+    document.getElementById("name").value = json["name"];
+    document.getElementById("price").value = json["price"];
+    document.getElementById("category").value = json["categoria"];
+    document.getElementById("nutrition").value = json["alimentazione"];
+    document.getElementById("quantity").value = json["quantity"];
+    document.getElementById("description").value = json["description"];
+}
 
 /**
  * This function is used for update image after change.

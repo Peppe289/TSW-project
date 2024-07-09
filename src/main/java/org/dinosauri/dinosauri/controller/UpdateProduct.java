@@ -31,6 +31,7 @@ public class UpdateProduct extends HttpServlet {
         Product product = new Product();
         String id = request.getParameter("id");
         int elements;
+        int disp;
 
         while ((line = reader.readLine()) != null)
             buffer.append(line);
@@ -45,20 +46,29 @@ public class UpdateProduct extends HttpServlet {
         product.setAlimentazione(map.get("nutrition"));
         product.setDescription(map.get("description"));
         product.setName(map.get("name"));
-        ProductDAO.doUpdateByID(product);
-        elements = Integer.parseInt(map.get("quantity")) - ProductDAO.doRetrieveProductByID(product.getId(), true).size();
 
+        ProductDAO.doUpdateByID(product);
+        disp = ProductDAO.doRetrieveProductByID(product.getId(), true).size();
+        elements = Integer.parseInt(map.get("quantity")) - disp;
+
+        /* add product if necessary. */
         while (elements > 0) {
             ProductDAO.doAddQuantityByID(product.getId());
             elements--;
         }
-        while (elements < 0) {
+
+        /* remove product if necessary. */
+        /* check also if available product is more than 0 */
+        while (elements < 0 && disp != 0) {
             ProductDAO.doRemoveQuantityByID(product.getId());
             elements++;
         }
 
+        product = ProductDAO.doRetrieveProductByID(product.getId());
+        product.setQuantity(ProductDAO.doRetrieveProductByID(product.getId(), true).size());
+
         response.setContentType("application/json");
-        return "{\"status\":\"success\"}";
+        return objectMapper.writeValueAsString(product);
     }
 
     private String remove_image(HttpServletRequest request, HttpServletResponse response) throws IOException {
