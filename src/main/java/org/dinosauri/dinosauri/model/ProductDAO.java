@@ -298,4 +298,31 @@ public class ProductDAO {
 
         return new ArrayList<>(new HashSet<>(nutritions));
     }
+
+    /**
+     * Check if this category has extra filtered (nutrition).
+     *
+     * @param category - category to check in database.
+     * @return - boolean. have extra filtered or not.
+     */
+    public static boolean doRetrieveNIFutritionByCategory(String category) {
+        boolean hasNutrition = false;
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT alimentazione FROM prodotto WHERE categoria = ?");
+            ps.setString(1, category);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                /* ignore row if value is null. */
+                try {
+                    if (!rs.getString("alimentazione").equals("null"))
+                        hasNutrition = true;
+                } catch (Exception ignore) {}
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return hasNutrition;
+    }
 }

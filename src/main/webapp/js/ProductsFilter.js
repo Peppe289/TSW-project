@@ -3,12 +3,13 @@ let inputCat = document.getElementsByName("cat");
 let nut_title = document.getElementById("nut-title");
 //Array che conterrà solo le categorie che mi interessano
 let arr_cat_utils = [];
+let extrafilter = document.getElementsByClassName("extra-filter");
 
 //Inserimento di sole le categorie che mi interessano
 Array.from(inputCat).forEach(element => {
-    if (element.id === "terra" || element.id === "acqua" || element.id === "aria") {
-        arr_cat_utils.push(element);
-    }
+    Array.from(extrafilter).forEach((el) =>{
+        if(element.id === el.value) arr_cat_utils.push(element)
+    });
 });
 
 //Funzione che fa sparire il filtro di alimentazione
