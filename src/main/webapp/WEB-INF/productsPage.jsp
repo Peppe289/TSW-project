@@ -1,3 +1,4 @@
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -34,6 +35,26 @@
     const product_nav = document.getElementById("product_nav");
     product_nav.classList.add("curr-page");
 </script>
+
+<%
+    HashMap<String, Integer> hashMap = (HashMap<String, Integer>) request.getServletContext().getAttribute("categories");
+
+    if (hashMap != null) {
+        Set<String> keys = hashMap.keySet();
+        for (String key : keys) {
+            if (hashMap.get(key) != 0) {
+%>
+                <input type="hidden" class="cat extra-filter" value="<%= key %>">
+<%
+            } else {
+%>
+                <input type="hidden" class="cat" value="<%= key %>">
+<%
+            }
+        }
+    }
+%>
+
 <div id="content-main">
     <!-- filtro ricerca -->
     <div id="filter" class="not-select bg-f4f5f5 sticky-top">
@@ -74,21 +95,12 @@
 
             <h4 id="nut-title">Alimentazione</h4>
 
-            <div class="single-table">
-                <input type="checkbox" id="carnivori" name="nut" value="carnivoro">
-                <label for="carnivori">Carnivori</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="onnivori" name="nut" value="onnivoro">
-                <label for="onnivori">Onnivori</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="erbivori" name="nut" value="erbivoro">
-                <label for="erbivori">Erbivori</label>
-            </div>
-
+            <c:forEach items="${nutritions}" var="nut">
+                <div class="single-table">
+                    <input type="checkbox" id="${nut}" name="nut" value="${nut}">
+                    <label for="${nut}">${nut}</label>
+                </div>
+            </c:forEach>
             <input class="bg-3CB371" type="submit" value="filtra">
         </form>
     </div>
