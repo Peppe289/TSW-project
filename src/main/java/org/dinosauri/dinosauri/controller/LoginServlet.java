@@ -108,8 +108,7 @@ public class LoginServlet extends HttpServlet {
 
         // Crea la sessione con i dati dell'utente. i dati verrano visti nella barra di navigazione e nelle specifiche pagine.
         req.getSession().setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("/");
-        rd.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
