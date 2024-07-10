@@ -61,6 +61,8 @@
 </div>
 <!-- end carosello -->
 
+<input type="hidden" value="${pageContext.request.contextPath}" id="PageContext">
+
 <div id="content-main">
     <div id="parent-cont">
 

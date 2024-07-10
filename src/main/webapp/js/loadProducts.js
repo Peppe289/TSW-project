@@ -44,9 +44,11 @@ export function requestProducts() {
  * @returns {string} The formatted HTML string.
  */
 function formatString(product) {
+    let contextPath = document.getElementById("PageContext").value;
+
     let string =
         "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
-        "                <img class=\"bg-f4f5f5\" src=\"img/logo.png\" loading=\"lazy\" alt='????ACCESSIBILITY????'" +
+        "                <img class=\"bg-f4f5f5\" src=\"??? IMG ???\" loading=\"lazy\" alt='????ACCESSIBILITY????'" +
         "                   onError=\"this.onerror=null; this.src='img/missing.jpg';\">\n" +
         " ??? " +
         "                <div class=\"item-desc\">\n" +
@@ -73,6 +75,8 @@ function formatString(product) {
     off = off.replace(" ?? ", product.sconto === 0 ? "" : (product.price.toFixed(2) + "€") )
     const price = product.sconto === 0 ? product.price : (product.price * (1 - (product.sconto / 100)));
     off = off.replace(" ? ", price.toFixed(2) + "€");
+    string = string.replace("??? IMG ???", contextPath + product.photo_path[0]);
+    console.log(contextPath + product.photo_path[0]);
     string = string.replace("????ACCESSIBILITY????", product.name);
     string = string.replace(" ??? ", product.sconto === 0 ? "" : offPercentage);
     string = string.replace(" ???? ", off);

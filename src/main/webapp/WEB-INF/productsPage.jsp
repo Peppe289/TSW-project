@@ -99,7 +99,14 @@
     <div id="parent-cont">
         <c:forEach items="${products}" var="product">
             <a href="p?product=${product.id}" class="item">
-                <img class="bg-f4f5f5" src="${pageContext.request.contextPath}/img/logo.png">
+                <c:choose>
+                    <c:when test="${not empty product.photo_path[0]}">
+                        <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/${product.photo_path[0]}" onError="this.onerror=null; this.src='img/missing.jpg'">
+                    </c:when>
+                    <c:otherwise>
+                        <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/img/missing.jpg">
+                    </c:otherwise>
+                </c:choose>
                 <c:if test="${product.sconto != 0}">
                     <div class="off">
                         <p>-${product.sconto}%</p>

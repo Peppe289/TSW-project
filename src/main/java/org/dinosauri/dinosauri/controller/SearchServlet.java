@@ -13,6 +13,12 @@ public class SearchServlet extends HttpServlet {
 
     final public int max_prod_page = 10;
 
+    /* save all paths of image. */
+    private void addImage(List<Product> products) {
+        for(Product product : products) {
+            product.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
+        }
+    }
 
     /**
      * Search and filter for keywords
@@ -115,6 +121,9 @@ public class SearchServlet extends HttpServlet {
         products = products.subList(min, max);
 
         if (btn_page < 0) btn_page = 0;
+
+        /* add an image path to all of this product. */
+        addImage(products);
 
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);

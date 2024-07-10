@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.dinosauri.dinosauri.model.Product;
 import org.dinosauri.dinosauri.model.ProductDAO;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -22,12 +22,21 @@ public class IndexServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(IndexServlet.class);
 
+    /* save all paths of image. */
+    private void addImage(List<Product> products) {
+        for(Product product : products) {
+            product.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
+        }
+    }
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Product> products = ProductDAO.doRetrieveProducts();
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonArray = "";
         /* nella pagina index non vogliamo mostrare più di 5 prodotti */
         if (products.size() > 5) products = products.subList(0, 5);
+
+        addImage(products);
 
         try {
             jsonArray = objectMapper.writeValueAsString(products.toArray());
