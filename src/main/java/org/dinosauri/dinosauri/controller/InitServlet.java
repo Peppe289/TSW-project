@@ -31,10 +31,6 @@ public class InitServlet extends HttpServlet {
         /* for some reason in this list will appear also "null" string */
         nutritions.remove(null);
 
-        for (String nutrition : nutritions) {
-            System.out.println("Nutrition: " + nutrition);
-        }
-
         config.getServletContext().setAttribute("categories", hashMap);
         config.getServletContext().setAttribute("nutritions", nutritions);
     }
