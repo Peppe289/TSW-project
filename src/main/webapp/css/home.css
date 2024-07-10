@@ -6,17 +6,6 @@ html {
     scroll-behavior: smooth
 }
 
-/* serve per far stare il footer in basso */
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-footer {
-    margin-top: auto;
-}
-
 a, a:visited, a:hover, a:active {
     color: inherit;
 }

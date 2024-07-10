@@ -17,18 +17,6 @@
     <title>DinoStore - Prodotto</title>
 
     <style>
-        /* serve per far stare il footer in basso */
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-        }
-
-        footer {
-            margin-top: auto;
-        }
-
         #show-propriety {
             list-style: none;
             padding: 0;

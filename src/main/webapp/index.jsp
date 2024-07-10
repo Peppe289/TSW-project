@@ -21,7 +21,7 @@
 </head>
 <script type="module" src="js/eventListener.js"></script>
 
-<body style="margin: 0; padding: 0">
+<body style="padding: 0">
 <%@ include file="WEB-INF/include/navbar.jsp" %>
 
 <a id="top-button" href="#">
@@ -68,10 +68,6 @@
 
     </div>
 </div>
-
-<style>
-
-</style>
 
 <div id="btn-page" class="not-select">
     <ul>

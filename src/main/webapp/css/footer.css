@@ -1,5 +1,14 @@
 footer {
     width: 100%;
+    margin-top: auto;
+}
+
+/* serve per far stare il footer in basso */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 #footer {

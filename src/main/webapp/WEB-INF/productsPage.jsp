@@ -19,7 +19,7 @@
 
 </head>
 
-<body style="margin: 0; padding: 0">
+<body>
 <%@ include file="include/navbar.jsp" %>
 <a id="top-button" href="#" style="position: fixed;
     height: 50px; width: 50px; border-radius: 50%; display: flex;
