@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * The ProductDAO class provides methods to interact with the product database.
@@ -258,58 +256,46 @@ public class ProductDAO {
     }
 
     /**
-     * Retrieve products using category.
+     * Retrieve all categories.
      *
-     * @param category - specify for filter
-     * @return - list of products with category = @param
+     * @return - list of categories.
      */
-    public static List<Product> doRetrieveProductsByCategory(String category) {
-        List<Product> products = new ArrayList<>();
-        HashMap<String, Integer> offerte = getOfferte();
+    public static List<String> doRetrieveCategories() {
+        List<String> category = new ArrayList<>();
 
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE categoria = ?");
-            ps.setString(1, category);
+            PreparedStatement ps = con.prepareStatement("SELECT categoria FROM prodotto");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Product prod = new Product();
-                LoadFromResult(prod, offerte, rs);
-
-                products.add(prod);
+                category.add(rs.getString("categoria"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return products;
+        return new ArrayList<>(new HashSet<>(category));
     }
 
     /**
-     * Retrieve products using alimentazione.
+     * Retrieve all nutrition.
      *
-     * @param alimentazione - specify for filter
-     * @return - list of products with alimentazione = @param
+     * @return - list of nutrition.
      */
-    public static List<Product> doRetrieveProductsByAlimentazione(String alimentazione) {
-        List<Product> products = new ArrayList<>();
-        HashMap<String, Integer> offerte = getOfferte();
+    public static List<String> doRetrieveNutrition() {
+        List<String> nutritions = new ArrayList<>();
 
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM prodotto WHERE alimentazione = ?");
-            ps.setString(1, alimentazione);
+            PreparedStatement ps = con.prepareStatement("SELECT alimentazione FROM prodotto");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Product prod = new Product();
-                LoadFromResult(prod, offerte, rs);
-
-                products.add(prod);
+                nutritions.add(rs.getString("alimentazione"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return products;
+        return new ArrayList<>(new HashSet<>(nutritions));
     }
 }

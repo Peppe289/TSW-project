@@ -13,10 +13,7 @@ public class InitServlet extends HttpServlet {
      * Try and init connect to database.
      */
     public void init(ServletConfig config) {
-        try {
-            ConnectionService.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        getServletContext().setAttribute("categories", ProductDAO.doRetrieveCategories());
+        getServletContext().setAttribute("nutrition", ProductDAO.doRetrieveNutrition());
     }
 }
