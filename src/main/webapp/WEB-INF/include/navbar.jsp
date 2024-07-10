@@ -26,7 +26,6 @@
         <li class="logo"><img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/logo.png"></li>
         <li><a id="home_nav" href="${pageContext.request.contextPath}/">Home</a></li>
         <li><a class="" href="#">Offerte</a></li>
-        <li><a class="" href="#">Categorie</a></li>
         <li><a id="product_nav" class="" href="${pageContext.request.contextPath}/product">Prodotti</a></li>
         <li>
             <div class="dropdown">
