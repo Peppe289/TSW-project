@@ -21,12 +21,8 @@ import java.util.List;
 public class EditProduct extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String id = req.getParameter("id");
-        String newProduct = req.getParameter("newProduct");
-        if (id == null && newProduct == null) {
-            throw new RuntimeException("Errore");
-        }
 
-        if (newProduct != null) {
+        if (id == null) {
             Product product = new Product();
             req.setAttribute("newProd", true);
             req.setAttribute("product", product);
