@@ -63,35 +63,19 @@
         <form id="filter-form" action="">
             <h4 id="cat-title">Categoria</h4>
 
-            <div class="single-table">
-                <input type="checkbox" id="terra" name="cat" value="terra">
-                <label for="terra">Terra</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="acqua" name="cat" value="acqua">
-                <label for="acqua">Acqua</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="aria" name="cat" value="aria">
-                <label for="aria">Aria</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="ossa" name="cat" value="ossa">
-                <label for="ossa">Ossa</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="uova" name="cat" value="uovo">
-                <label for="uova">Uova</label>
-            </div>
-
-            <div class="single-table">
-                <input type="checkbox" id="guinzagli" name="cat" value="guinzaglio">
-                <label for="guinzagli">Guinzagli</label>
-            </div>
+            <%
+                if (hashMap != null) {
+                    Set<String> keys = hashMap.keySet();
+                    for (String key : keys) {
+            %>
+                    <div class="single-table">
+                        <input type="checkbox" id="<%=key%>" name="cat" value="<%=key%>">
+                        <label for="<%=key%>"><%=key%></label>
+                    </div>
+            <%
+                    }
+                }
+            %>
 
             <h4 id="nut-title">Alimentazione</h4>
 
