@@ -14,9 +14,9 @@
 <div id="main_container">
     <div id="sidebar">
         <ul>
-            <li><a href="#">Prodotti</a></li>
-            <li><a class="active" href="#">Utenti</a></li>
-            <li><a href="#">Admin</a></li>
+            <li><a href="${pageContext.request.contextPath}/adminControl">Prodotti</a></li>
+            <li><a class="active" href="${pageContext.request.contextPath}/adminControl?reason=user">Utenti</a></li>
+            <li><a href="${pageContext.request.contextPath}/adminControl?reason=admin">Admin</a></li>
         </ul>
     </div>
     <div id="content">

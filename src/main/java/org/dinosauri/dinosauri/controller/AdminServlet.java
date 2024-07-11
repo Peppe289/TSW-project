@@ -19,7 +19,7 @@ public class AdminServlet extends HttpServlet {
         switch (reason) {
             case "user" -> users(req, resp);
             case "admin" -> admin(req, resp);
-            default -> {
+            case null, default -> {
                 products(req, resp);
             }
         }
