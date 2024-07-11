@@ -23,6 +23,8 @@
         <div id="prodotti" class="section">
             <h3>Prodotti</h3>
             <hr>
+            <button style="margin: 10px;" onclick='window.location.href="${pageContext.request.contextPath}/editid"'>Aggiungi Prodotti</button>
+            <button style="margin: 10px; background-color: white; color: black; border: 1px solid black;" onclick='window.location.href="${pageContext.request.contextPath}/adminControl"'>Ricarica</button>
             <table>
                 <tr>
                     <th>ID</th>

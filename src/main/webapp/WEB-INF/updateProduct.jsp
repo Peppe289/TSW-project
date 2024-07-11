@@ -2,7 +2,7 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/updateProduct.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
     <title>Modifica ${product.name}</title>
@@ -178,8 +178,6 @@
         </div>
         <div class="form-actions">
             <button id="applica-btn">Applica</button>
-            <button id="delete-btn">Elimina Prodotto</button>
-            <button onclick="window.close()">Chiudi</button>
         </div>
     </div>
 </div>
