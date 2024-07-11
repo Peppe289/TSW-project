@@ -16,7 +16,7 @@ public class AdminLogIn extends HttpServlet {
 
         if (AdminDAO.authenticate(id, password)) {
             HttpSession session = request.getSession();
-            session.setAttribute("id", id);
+            session.setAttribute("admin", id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/adminControl");
             dispatcher.forward(request, response);
         } else {
