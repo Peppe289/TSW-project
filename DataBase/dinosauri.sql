@@ -57,13 +57,29 @@ create table token (
     foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+create table prodotto_carrello (
+    /* Relativo al prodotto generale */
+    id_prodotto int,
+    numero_ordine int,
+    primary key (id_prodotto, numero_ordine),
+    foreign key (id_prodotto) references prodotto (id_prodotto) ON UPDATE CASCADE,
+    foreign key (numero_ordine) references ordini (numero_ordine)
+);
+
+create table prodotto_ordine (
+    /* Relativo allo specifico elemento */
+    id_elemento int,
+    numero_ordine int,
+    primary key (id_elemento, numero_ordine),
+    foreign key (id_elemento) references elemento_prodotto (id_elemento) ON UPDATE CASCADE,
+    foreign key (numero_ordine) references ordini (numero_ordine)
+);
+
 create table ordini (
-numero_ordine int auto_increment primary key,
-prezzo_totale double not null,
-lista_prodotti varchar (255) not null,
-data_acquisto date not null,
-id_utente int,
-foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
+    numero_ordine int auto_increment primary key,
+    data_acquisto date,
+    id_utente int,
+    foreign key (id_utente) references utente (id_utente) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 create table dati_spedizione (
