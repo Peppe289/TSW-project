@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 
 import java.io.*;
 
-@WebFilter(filterName = "/AdminFilter", urlPatterns = {"/adminControl"})
+@WebFilter(filterName = "/AdminFilter", urlPatterns = {"/adminControl", "/editid"})
 public class AdminFilter extends HttpServlet implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
