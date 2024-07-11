@@ -60,8 +60,8 @@ INSERT INTO dati_spedizione (nome, cognome, via, cap, provincia, comune, numero_
 ('Ciro', 'Esposito', 'via Chiaia', '80013', 'NA', 'Napoli', '144');
 
 INSERT INTO amministratore (password) VALUES
-('admin1'),
-('admin2');
+(SHA1('admin1')),
+(SHA1('admin2'));
 
 INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto) VALUES
 ('35.5','UTR, BR','2024-01-20'),

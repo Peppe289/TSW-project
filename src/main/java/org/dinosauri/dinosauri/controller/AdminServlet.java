@@ -12,6 +12,10 @@ import java.util.*;
 @WebServlet("/adminControl")
 public class AdminServlet extends HttpServlet {
 
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        doGet(req, resp);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String reason = req.getParameter("reason");

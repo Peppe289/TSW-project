@@ -6,6 +6,28 @@ import java.util.*;
 public class AdminDAO {
 
     /**
+     * Try to authenticate
+     *
+     * @param id       - Admin id
+     * @param password - Admin password
+     * @return - boolean if id and password matched.
+     */
+    public static boolean authenticate(String id, String password) {
+        boolean result = false;
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT identificativo FROM amministratore WHERE password = SHA1(?)");
+            ps.setString(1, password);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("identificativo") == Integer.parseInt(id)) result = true;
+            }
+        } catch (SQLException ignore) {
+        }
+
+        return result;
+    }
+
+    /**
      * Retrieve all id of admin.
      *
      * @return - List of ID
@@ -15,7 +37,7 @@ public class AdminDAO {
         List<Admin> admins = new ArrayList<>();
         Connection con = ConnectionService.getConnection();
         PreparedStatement ps = con.prepareStatement("SELECT identificativo FROM amministratore");
-        ResultSet rs =ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Admin admin = new Admin();
             admin.setId(rs.getString("identificativo"));
