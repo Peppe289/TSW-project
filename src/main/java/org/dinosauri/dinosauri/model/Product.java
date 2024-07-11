@@ -17,7 +17,8 @@ public class Product {
     private String description;
     private String alimentazione;
     private double price;
-    private int quantity;
+    private int quantity; // available quantity
+    private int bought; // bought quantity
     private List<String> photo_path; // photo path
     private String categoria; // category
     private int sconto; // discount
@@ -29,6 +30,14 @@ public class Product {
         super();
         sconto = 0;
         this.photo_path = new ArrayList<>();
+    }
+
+    public int getBought() {
+        return bought;
+    }
+
+    public void setBought(int bought) {
+        this.bought = bought;
     }
 
     public void SaveFileList(String contextPath) {

@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+#main_container {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#sidebar {
+    margin-right: 20px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    width: 300px;
+
+    & ul {
+        top: 50px;
+        margin: 0;
+        padding: 0;
+
+        & li {
+            height: 40px;
+            list-style-type: none;
+            position: relative;
+
+            a, a:visited, a:hover, a:active {
+                color: inherit;
+            }
+
+            & a {
+                text-align: center;
+                text-decoration: none;
+                align-content: center;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+            }
+
+            & a:hover {
+                background-color: rgba(173, 173, 173, 0.22);
+            }
+        }
+    }
+}
+
+#content {
+    width: calc(100% - 350px);
+}
+
+.section {
+    & h3 {
+        width: 100%;
+        text-align: center;
+    }
+
+    & hr {
+        margin: 20px auto;
+        width: 90%;
+    }
+}
+
+table, td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+th, td {
+    padding: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button.ajax_request + button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+button.ajax_request + button:hover {
+    background-color: rgba(201, 201, 201, 0.3);
+}
+
+button.edit {
+    background-color: #dc3545;
+}
+
+button.edit:hover {
+    background-color: #c82333;
+}
+
+#admin-box {
+    width: 100%;
+    display: inline;
+}
+
+#admin-box > table {
+    width: 300px;
+}
+
+#generate_admin {
+    height: 250px;
+
+    & > * {
+        margin-top: 10px;
+        display: block;
+    }
+}
+
+.active {
+    background-color: rgba(176, 176, 176, 0.21);
+}
