@@ -50,10 +50,4 @@
     </div>
 </div>
 </body>
-<script src="js/windowSize.js" defer>
-    /**
-     * the admin page should not be used from mobile devices. so use js for make
-     * redirect or show some banner when the page goes to mobile view.
-     */
-</script>
 </html>
