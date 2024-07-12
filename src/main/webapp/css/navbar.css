@@ -25,7 +25,7 @@
     top: 100%;
 
     /* Aggiungi l'animazione per il dropdown */
-    height: 0px;
+    height: 0;
     overflow: hidden;
     transition: height 1s ease;
 }
@@ -66,7 +66,7 @@ nav {
      */
     position: sticky;
     top: 0;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', Arial, sans-serif;
     z-index: 20;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     background-color: white;
@@ -204,8 +204,8 @@ nav .form-bar label {
     }
 
     .form-bar button {
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
     }
 
     .logo {
