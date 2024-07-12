@@ -80,6 +80,7 @@
 
 <body>
 <%@ include file="include/navbar.jsp" %>
+<%@ include file="include/carrello_portable.html" %>
 <div id="container">
     <c:forEach items="${products}" var="product">
         <a class="items" href="p?product=${product.id}">
