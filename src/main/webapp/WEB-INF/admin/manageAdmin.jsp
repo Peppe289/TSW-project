@@ -34,7 +34,6 @@
                         <tr>
                             <td>${admin.id}</td>
                             <td>
-                                <!-- TODO: implements revoca action. -->
                                 <button class="edit">Revoca</button>
                             </td>
                         </tr>
