@@ -93,7 +93,7 @@
 
     #filter form .single-table {
         width: min-content;
-        margin: 0px;
+        margin: 0;
     }
 
     #filter input[type="submit"] {
@@ -101,7 +101,7 @@
     }
 
     #button-mobile-form-submit {
-        margin: 0px;
+        margin: 0;
         margin-top: 10px;
         padding: 10px;
         text-transform: uppercase;

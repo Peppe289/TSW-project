@@ -2,113 +2,11 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/updateProduct.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
     <title>Modifica ${product.name}</title>
 </head>
-<style>
-    body {
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    #container-img {
-        display: flex;
-        height: 200px;
-        justify-content: center;
-
-        #image-src {
-            margin-right: 50px;
-        }
-
-        & > img {
-            object-fit: cover;
-            max-width: 400px;
-        }
-
-        & #img-prev {
-            width: 100%;
-            gap: 10px;
-            object-fit: cover;
-            display: flex;
-            flex-wrap: wrap;
-            overflow: scroll;
-
-            & img {
-                height: 60px;
-                width: 60px;
-                object-fit: contain;
-                padding: 5px;
-                border: 1px solid #494949;
-            }
-        }
-
-        & .img-item {
-            position: relative;
-
-            & img {
-                cursor: pointer;
-            }
-
-            & span {
-                background-color: red;
-                color: white;
-                padding: 5px;
-                cursor: pointer;
-                border-radius: 25%;
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-        }
-
-        & input[type="file"] {
-            display: none;
-        }
-
-        & .custom-file-upload {
-            cursor: pointer;
-        }
-
-        & form {
-            padding: 0;
-            margin: 0;
-        }
-    }
-
-    .hide {
-        display: none;
-    }
-
-    @keyframes vibrate {
-        0% {
-            transform: translateX(0);
-        }
-        25% {
-            transform: translateX(-3px);
-        }
-        50% {
-            transform: translateX(3px);
-        }
-        75% {
-            transform: translateX(-3px);
-        }
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-    .vibrate {
-        animation: vibrate 0.4s linear infinite;
-    }
-
-    input.custom-outline:focus {
-        outline: 2px solid red;
-    }
-
-</style>
 <script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
 <body>
 <div class="containerpopup">
@@ -178,8 +76,6 @@
         </div>
         <div class="form-actions">
             <button id="applica-btn">Applica</button>
-            <button id="delete-btn">Elimina Prodotto</button>
-            <button onclick="window.close()">Chiudi</button>
         </div>
     </div>
 </div>

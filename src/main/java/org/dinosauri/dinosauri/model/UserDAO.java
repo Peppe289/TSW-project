@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 /**
  * This class manages user data access operations in the database.
@@ -35,6 +36,31 @@ public class UserDAO {
         }
 
         return user;
+    }
+
+    /**
+     * Retrieve all user data (exception password for security reason).
+     *
+     * @return list of all data from all user.
+     */
+    public static List<User> doRetrieveAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT id_utente, nome, cognome, email FROM utente");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getString("id_utente"));
+                user.setNome(rs.getString("nome"));
+                user.setCognome(rs.getString("cognome"));
+                user.setEmail(rs.getString("email"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return users;
     }
 
     /**

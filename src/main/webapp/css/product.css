@@ -16,7 +16,7 @@
 }
 
 #img-container img {
-    margin: 0px;
+    margin: 0;
     /**
      * Fai in modo che l'immagine copra tutto lo spazio
      * centrale senza che cambia ratio.
@@ -55,7 +55,7 @@
 }
 
 #description * {
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 #description h1 {
@@ -105,15 +105,15 @@
 }
 
 .price p {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-weight: bold;
     font-size: 50px;
 }
 
 .price s {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     margin-left: 20px;
     font-style: italic;
     font-size: small;

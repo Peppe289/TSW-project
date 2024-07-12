@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/login.css">
-    <link type="text/css" rel="stylesheet" href="css/project.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <title>DinoStore - Log in</title>
@@ -21,29 +20,19 @@
 </c:if>
 
 <div id="content">
-    <img alt="logo" src="img/login-ico.png">
-    <form id="login" action="login-validate" method="post">
+    <img alt="logo" style="height: 200px;" src="img/admin-ico.png">
+    <form id="login" action="adminLogIn" method="post">
         <div class="input">
-            <input pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/" type="text" name="email" id="email" required>
-            <label for="email" class="field">Email</label>
+            <input type="text" name="id" id="id" required>
+            <label for="id" class="field">ID</label>
         </div>
         <div class="input">
             <input type="password" name="password" id="password" required>
             <label for="password" class="field">Password</label>
         </div>
-        <div class="add_cookie not-select ">
-            <input type="checkbox" value="stay_connect" name="stay_connect" id="stay_connect">
-            <label for="stay_connect">Resta connesso</label>
-        </div>
     </form>
 
-    <c:if test="${not empty message}">
-        <p style="color: red; margin: 4px; padding: 0;">${message}</p>
-    </c:if>
-
     <button form="login" name="button" value="login">Log in</button>
-    <button onclick="location.href='registrazione.jsp'">Registrati</button>
-    <br><a href="#">Password dimenticata?</a>
 </div>
 </body>
 

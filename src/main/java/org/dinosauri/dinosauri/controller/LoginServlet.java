@@ -12,6 +12,7 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.regex.*;
 
 /**
  * Con il metodo post al login/registazione i dati vengono passati in questa
@@ -20,12 +21,6 @@ import java.util.*;
  */
 @WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        getServletContext().setAttribute("registerCount", 0);
-    }
 
     private User register(String nome, String cognome, String email, String password) throws SQLException {
         return UserDAO.insertInDatabase(nome, cognome, email, password);
@@ -43,6 +38,14 @@ public class LoginServlet extends HttpServlet {
         String stayLogged = req.getParameter("stay_connect");
         User user = null;
         String button = req.getParameter("button");
+        Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
+
+        /* Check for valid input. The user should use the right email format. */
+        if (!(email != null && emailPattern.matcher(email).find())) {
+            String page = button.equals("login") ? "login" : "registrazione";
+            req.setAttribute("message", "Errore di " + page);
+            req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+        }
 
         switch (button) {
             case "registrazione":
@@ -52,10 +55,6 @@ public class LoginServlet extends HttpServlet {
                 }
                 try {
                     user = register(nome, cognome, email, password);
-                    //Contatore di persone registrate
-                    int registerCount = (int) getServletContext().getAttribute("registerCount");
-                    registerCount++;
-                    getServletContext().setAttribute("registerCount", registerCount);
                 } catch (SQLException e) {
                     if (e.getMessage().contains("Duplicate entry")) req.setAttribute("message", "Email già in uso");
                     else req.setAttribute("message", e.getMessage());
@@ -108,8 +107,7 @@ public class LoginServlet extends HttpServlet {
 
         // Crea la sessione con i dati dell'utente. i dati verrano visti nella barra di navigazione e nelle specifiche pagine.
         req.getSession().setAttribute("user", user);
-        RequestDispatcher rd = req.getRequestDispatcher("/");
-        rd.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

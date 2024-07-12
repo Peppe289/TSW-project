@@ -114,10 +114,6 @@ document.getElementById("applica-btn").addEventListener("click", () => {
     update_database_ajax();
 });
 
-document.getElementById("delete-btn").addEventListener("click", () => {
-    alert('Prodotto eliminato');
-})
-
 /**
  * Button for edit image list.
  */

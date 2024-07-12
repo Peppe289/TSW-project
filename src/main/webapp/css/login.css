@@ -75,7 +75,7 @@ button:first-of-type:hover {
 }
 
 .add_cookie {
-    top: 0px;
+    top: 0;
 
     & * {
         position: static !important;
