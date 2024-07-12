@@ -24,7 +24,7 @@
     <img alt="logo" src="img/login-ico.png">
     <form id="login" action="login-validate" method="post">
         <div class="input">
-            <input pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/" type="text" name="email" id="email" required>
+            <input type="text" name="email" id="email" required>
             <label for="email" class="field">Email</label>
         </div>
         <div class="input">
@@ -46,5 +46,87 @@
     <br><a href="#">Password dimenticata?</a>
 </div>
 </body>
+<script defer>
+    let email_input = document.getElementById("email");
+    /*  */
+    let validInput = {
+        email: false,
+        password: false
+    };
+    let password_input = document.getElementById("password");
 
+    /**
+     * Function to see regex for validated email.
+     * I prefer to validate from js because I can change.
+     * More flexibility than pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/"
+     *
+     * @param el
+     * @returns {boolean}
+     */
+    function email_regex(el) {
+        return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/.test(el.value);
+    }
+
+    function validatePassword() {
+        if (password_input.value.indexOf(" ") > 0 || password_input.value.length < 8) {
+            password_input.classList.add("invalid");
+            validInput["password"] = false;
+        } else {
+            while (password_input.classList.contains("invalid"))
+                password_input.classList.remove("invalid");
+
+            validInput["password"] = true;
+        }
+    }
+
+    function validateEmail() {
+        if (email_regex(email_input) === false) {
+            email_input.classList.add("invalid");
+            validInput["email"] = false;
+        } else {
+            while (email_input.classList.contains("invalid"))
+                email_input.classList.remove("invalid");
+
+            validInput["email"] = true;
+        }
+    }
+
+    email_input.onchange = function () {
+        validateEmail();
+    }
+
+    password_input.onchange = function () {
+        validatePassword();
+    }
+
+    /**
+     * add action listener on a submitted form.
+     * this code performs for check if you can execute default
+     * action or edit action.
+     */
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("login").addEventListener("submit", function(event) {
+            /* perform validation here. */
+            let isValid = validateForm();
+
+            if (!isValid) {
+                /* prevent form submit */
+                event.preventDefault();
+            }
+        });
+    });
+
+    /**
+     * check if email and password have the right value.
+     *
+     * @returns {boolean} validated or not.
+     */
+    function validateForm() {
+        validateEmail();
+        validatePassword();
+
+        return validInput["password"] && validInput["email"];
+    }
+
+</script>
 </html>
