@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Admin Page</title>
     <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
 </head>
 <body>
 <div id="main_container">
@@ -54,7 +55,9 @@
     </div>
 </div>
 </body>
-<script>
+<script type="module" src="./js/ToastAPI.js"></script>
+<script type="module">
+    import {notifyUserModule} from "./js/ToastAPI.js"
 
     /******************* ADMIN UTILS AND AJAX *******************/
 
@@ -67,9 +70,24 @@
         let row = el.parentElement.parentElement;
         let id = row.getElementsByTagName("td")[0];
         el.addEventListener("click", () => {
-            /* TODO: make ajax request for remove this admin from database. */
-            let admin_id = id.innerHTML;
-            console.log(admin_id);
+            let admin_id = {
+                id: id.innerHTML,
+                action: "removeAdmin"
+            };
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let json = JSON.parse(this.responseText)
+                    if (json["status"] !== "success") {
+                        notifyUserModule("Error", json["status"]);
+                    } else {
+                        /* if all it's ok, reload the page to update content. */
+                        location.reload();
+                    }
+                }
+            }
+            xhr.open("POST", "removeAdmin", true);
+            xhr.send(JSON.stringify(admin_id));
         });
     });
 
@@ -81,6 +99,12 @@
     /* Add event listener for copy to clipboard the password. */
     copy.addEventListener("click", () => {
         copy_to_clipboard();
+        output_password.value = "";
+        output_id.value = "";
+        let reload = function reload() {
+            location.reload()
+        }
+        setTimeout(reload, 1000);
     })
 
     /* event listener for generate random password or semi-random password. */
@@ -92,9 +116,25 @@
             password += String.fromCharCode(random);
         }
 
-        /* TODO: ajax request for insert new admin using this password. then retrieve ID generated and show it on output_id. */
-        output_id.value = "need ajax";
         output_password.value = password;
+        let xhr = new XMLHttpRequest();
+        let plyload = {
+            action: "addAdmin",
+            password: password
+        }
+
+        xhr.open("POST", "addAdmin", true);
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let json = JSON.parse(this.responseText);
+                if (json["status"] !== "success") {
+                    notifyUserModule("Error", json["status"]);
+                } else {
+                    output_id.value = json["id"];
+                }
+            }
+        }
+        xhr.send(JSON.stringify(plyload));
     });
 
     /**
