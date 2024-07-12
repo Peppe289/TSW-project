@@ -93,6 +93,19 @@
 
 
 <script>
+    let showPrice;
+
+    function mobileView(x) {
+        showPrice = !x.matches;
+    }
+
+    let view = window.matchMedia("(max-width: 1001px)")
+    mobileView(view);
+
+    view.addEventListener("change", function() {
+        mobileView(view);
+    });
+
     let number_show = document.getElementById("carrello").getElementsByTagName("span")[0];
     let price = document.getElementById("show-price");
     let priceText = document.getElementById("price-text");
@@ -100,6 +113,9 @@
 
     document.getElementById("carrello").addEventListener("mouseenter", () => {
         /* show preview of full price when mouse entry in cart box. */
+        if (!showPrice)
+            return;
+
         price.style.display = "block";
     });
 
