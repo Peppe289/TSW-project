@@ -24,7 +24,7 @@
     <img src="img/login-ico.png">
     <form id="login" action="login-validate" method="post">
         <div class="input">
-            <input type="text" name="email" id="email" required>
+            <input pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/" type="text" name="email" id="email" required>
             <label class="field">Email</label>
         </div>
         <div class="input">

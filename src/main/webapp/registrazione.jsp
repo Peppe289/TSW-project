@@ -30,7 +30,7 @@
             <label for="cognome" class="field">Cognome</label>
         </div>
         <div class="input">
-            <input type="text" name="email" id="email" required>
+            <input type="text" pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/" name="email" id="email" required>
             <label for="email" class="field">Email</label>
         </div>
         <div class="input">

@@ -12,6 +12,7 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.regex.*;
 
 /**
  * Con il metodo post al login/registazione i dati vengono passati in questa
@@ -43,6 +44,14 @@ public class LoginServlet extends HttpServlet {
         String stayLogged = req.getParameter("stay_connect");
         User user = null;
         String button = req.getParameter("button");
+        Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
+
+        /* Check for valid input. The user should use the right email format. */
+        if (!(email != null && emailPattern.matcher(email).find())) {
+            String page = button.equals("login") ? "login" : "registrazione";
+            req.setAttribute("message", "Errore di " + page);
+            req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+        }
 
         switch (button) {
             case "registrazione":
