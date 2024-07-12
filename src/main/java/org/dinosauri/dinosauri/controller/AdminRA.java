@@ -53,7 +53,7 @@ public class AdminRA extends HttpServlet {
             result = "{\"status\": \"Permission denied\" }";
         } else if (map.containsKey("id") && map.get("action").equals("removeAdmin") && Integer.parseInt(map.get("id")) > 1) {
             result = removeAdmin(map);
-        } else if (map.containsKey("password") && map.get("action").equals("addAdmin")) {
+        } else if (map.containsKey("password") && map.get("action").equals("addAdmin") && map.get("password").length() > 8) {
             result = addAdmin(map);
         } else {
             result = "{\"status\": \"error\" }";
