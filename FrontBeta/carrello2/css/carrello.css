@@ -1,0 +1,111 @@
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+#left-div {
+    width: 50%;
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+}
+
+.product {
+    display: flex;
+}
+
+.check {
+    display: flex;
+    height: 150px;
+    padding: 10px 5px;
+}
+
+.image {
+    display: flex;
+    height: 150px;
+    padding: 10px 5px 10px 0px;
+}
+
+.description-container {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+.description {
+    width: 70%;
+}
+
+.description > p {
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.product-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-name > h1 {
+    margin: 0;
+}
+
+#right-div {
+    margin-inline: 100px;
+    text-align: center;
+    padding: 20px;
+    height: max-content;
+    box-shadow: 0 0 3px black;
+}
+
+#totalPrice {
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+#button {
+    margin-top: 10px;
+}
+
+.buttons > button{
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 16px;
+}
+
+.green-button > button {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.green-button > button:hover {
+    background-color: #218838;
+}
+
+.red-button > button {
+    border: 2px solid red;
+    background-color: white;
+    color: black;
+}
+
+.red-button > button:hover {
+    background-color: red;
+    color: white;
+}
+
+.remove-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
