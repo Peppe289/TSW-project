@@ -22,12 +22,6 @@ import java.util.regex.*;
 @WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        getServletContext().setAttribute("registerCount", 0);
-    }
-
     private User register(String nome, String cognome, String email, String password) throws SQLException {
         return UserDAO.insertInDatabase(nome, cognome, email, password);
     }
@@ -61,10 +55,6 @@ public class LoginServlet extends HttpServlet {
                 }
                 try {
                     user = register(nome, cognome, email, password);
-                    //Contatore di persone registrate
-                    int registerCount = (int) getServletContext().getAttribute("registerCount");
-                    registerCount++;
-                    getServletContext().setAttribute("registerCount", registerCount);
                 } catch (SQLException e) {
                     if (e.getMessage().contains("Duplicate entry")) req.setAttribute("message", "Email già in uso");
                     else req.setAttribute("message", e.getMessage());
