@@ -37,9 +37,14 @@
         </div>
     </form>
 
-    <c:if test="${not empty message}">
-        <p style="color: red; margin: 4px; padding: 0;">${message}</p>
-    </c:if>
+    <c:choose>
+        <c:when test="${not empty message}">
+            <p id="message" style="color: red; margin: 4px; padding: 0;">${message}</p>
+        </c:when>
+        <c:otherwise>
+            <p id="message" style="color: red; margin: 4px; padding: 0;"></p>
+        </c:otherwise>
+    </c:choose>
 
     <button form="login" name="button" value="login">Log in</button>
     <button onclick="location.href='registrazione.jsp'">Registrati</button>
@@ -108,10 +113,21 @@
         document.getElementById("login").addEventListener("submit", function(event) {
             /* perform validation here. */
             let isValid = validateForm();
+            let message = document.getElementById("message");
 
             if (!isValid) {
                 /* prevent form submit */
                 event.preventDefault();
+                if (!validInput["password"]) {
+                    if (password_input.value.indexOf(" ") > 0)
+                        message.innerHTML = "Password: Non usare spazi";
+                    else
+                        message.innerHTML = "Password: Password troppo corta";
+                }
+
+                if (!validInput["email"]) {
+                    message.innerHTML = "Email: Inserisci una email valida";
+                }
             }
         });
     });
