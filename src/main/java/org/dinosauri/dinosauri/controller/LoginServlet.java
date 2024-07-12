@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
         Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
 
         /* Check for valid input. The user should use the right email format. */
-        if (!(email != null && emailPattern.matcher(email).find())) {
+        if (!(email != null && emailPattern.matcher(email).find()) ||
+                !(password != null && !password.contains(" ") && password.length() < 8)) {
             String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
