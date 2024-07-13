@@ -5,6 +5,53 @@ import java.util.*;
 
 public class AdminDAO {
 
+// UPDATE prodotto SET nome = ? , descrizione = ? , alimentazione = ? , categoria = ? , prezzo = ? WHERE id_prodotto = ?
+
+    /**
+     * Update permission of admin.
+     *
+     * @param id - admin id to update.
+     * @param permission - new permission.
+     * @return - return false in case of error. true if all going well.
+     */
+    public static boolean doUpdatePermissionByID(String id, int permission) {
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE amministratore SET permission = ? WHERE identificativo = ?");
+            ps.setInt(1, permission);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (SQLException ignore) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Retrieve different level for different admin.
+     * Default level is 2 = admin can be only edit product
+     * level:
+     * - 1: The admin can see alla pages and edit product
+     * - 0: The admin can do anything.
+     *
+     * @param id - id of admin.
+     * @return - level of admin.
+     */
+    public static int doRetrieveAdminLevelByID(String id) {
+        int permission = -1;
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT permission FROM amministratore WHERE identificativo = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                permission = rs.getInt("permission");
+            }
+        } catch (SQLException ignore) {
+        }
+
+        return permission;
+    }
+
     /**
      * Try to authenticate
      *
@@ -36,11 +83,12 @@ public class AdminDAO {
     public static List<Admin> doRetrieveAllAdmin() throws SQLException {
         List<Admin> admins = new ArrayList<>();
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT identificativo FROM amministratore");
+        PreparedStatement ps = con.prepareStatement("SELECT identificativo, permission FROM amministratore");
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Admin admin = new Admin();
             admin.setId(rs.getString("identificativo"));
+            admin.setPermission(rs.getInt("permission"));
             admins.add(admin);
         }
 

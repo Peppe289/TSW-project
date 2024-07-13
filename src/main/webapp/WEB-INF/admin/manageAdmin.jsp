@@ -22,11 +22,17 @@
                 <table style="min-width: unset">
                     <tr>
                         <th>ID</th>
+                        <th>Permission</th>
                         <th></th>
                     </tr>
                     <c:forEach items="${admins}" var="admin">
                         <tr>
                             <td>${admin.id}</td>
+                            <td>
+                                <label>
+                                    <input type="number" min="0" max="2" value="${admin.permission}">
+                                </label>
+                            </td>
                             <td>
                                 <button class="edit">Revoca</button>
                             </td>
@@ -57,6 +63,36 @@
     let admin_box = document.getElementById("admin-box");
     let admin_table = admin_box.getElementsByTagName("table")[0];
     let admin_button = admin_table.getElementsByTagName("button");
+    let admin_permission = admin_table.getElementsByTagName("input");
+
+    Array.from(admin_permission).forEach(el => {
+        el.addEventListener("change", (event) => {
+            /* form input > label > td > tr. from tr I can get first child to see id of admin. */
+            let id = event.target.parentElement.parentElement.parentElement.getElementsByTagName("td")[0].innerHTML;
+            let permission = event.target.value;
+            let obj  = {
+                id: id,
+                permission: permission.toString(),
+                action: "modify_perm"
+            }
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "changePermission", true);
+            xhr.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    let json = JSON.parse(this.responseText);
+
+                    if (json["status"] !== "success") {
+                        notifyUserModule("Error", json["status"]);
+                    } else {
+                        /* if all it's ok, reload the page to update content. */
+                        location.reload();
+                    }
+                }
+            }
+            xhr.send(JSON.stringify(obj));
+        })
+    })
 
     /* for each button, add event listener for remove admin from database. */
     Array.from(admin_button).forEach(el => {

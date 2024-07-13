@@ -20,16 +20,23 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         if (session != null) session.invalidate();
 
-        resp.sendRedirect( req.getContextPath() + "/");
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String reason = req.getParameter("reason");
+        int permission = AdminDAO.doRetrieveAdminLevelByID((String) req.getSession().getAttribute("admin"));
 
         switch (reason) {
-            case "user" -> users(req, resp);
-            case "admin" -> admin(req, resp);
+            case "user" -> {
+                if (permission != 2) users(req, resp);
+                else products(req, resp);
+            }
+            case "admin" -> {
+                if (permission != 2) admin(req, resp);
+                else products(req, resp);
+            }
             case "logout" -> logout(req, resp);
             case null, default -> {
                 products(req, resp);

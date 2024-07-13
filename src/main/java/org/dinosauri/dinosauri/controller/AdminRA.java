@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.*;
 
 
-@WebServlet(name = "/manage-admin", urlPatterns = {"/removeAdmin", "/addAdmin"})
+@WebServlet(name = "/manage-admin", urlPatterns = {"/removeAdmin", "/addAdmin", "/changePermission"})
 @SuppressWarnings("unchecked")
 public class AdminRA extends HttpServlet {
 
@@ -28,7 +28,15 @@ public class AdminRA extends HttpServlet {
         } catch (SQLException e) {
             return null;
         }
-        return "{\"id\":" + id + "}";
+        return "{\"id\":" + id + ",\"status\":\"success\"}";
+    }
+
+    private String changePermission(HashMap<String, String> map) {
+        String status = "success";
+        if (!AdminDAO.doUpdatePermissionByID(map.get("id"), Integer.parseInt(map.get("permission")))) {
+            status = "error";
+        }
+        return "{\"status\": \"" + status + "\" }";
     }
 
     /* allow only doPost */
@@ -49,13 +57,15 @@ public class AdminRA extends HttpServlet {
 
         map = mapper.readValue(stringBuilder.toString(), HashMap.class);
 
-        /* id = 1 is default admin. no one cannot remove this. */
-        if (Integer.parseInt(admin) != 1) {
+        /* Only admin with permission at level 0 can delete/add admin. */
+        if (AdminDAO.doRetrieveAdminLevelByID(admin) != 0) {
             result = "{\"status\": \"Permission denied\" }";
         } else if (map.containsKey("id") && map.get("action").equals("removeAdmin") && Integer.parseInt(map.get("id")) > 1) {
             result = removeAdmin(map);
-        } else if (map.containsKey("password") && map.get("action").equals("addAdmin") && map.get("password").length() > 8) {
+        } else if (map.containsKey("password") && map.get("action").equals("addAdmin") && map.get("password").length() >= 8) {
             result = addAdmin(map);
+        } else if (map.containsKey("permission") && map.get("action").equals("modify_perm") && map.containsKey("id")) {
+            result = changePermission(map);
         }
 
         if (result == null || result.isEmpty()) result = "{\"status\": \"error\" }";
