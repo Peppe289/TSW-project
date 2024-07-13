@@ -16,6 +16,13 @@ public class AdminServlet extends HttpServlet {
         doGet(req, resp);
     }
 
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession(false);
+        if (session != null) session.invalidate();
+
+        resp.sendRedirect( req.getContextPath() + "/");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String reason = req.getParameter("reason");
@@ -23,6 +30,7 @@ public class AdminServlet extends HttpServlet {
         switch (reason) {
             case "user" -> users(req, resp);
             case "admin" -> admin(req, resp);
+            case "logout" -> logout(req, resp);
             case null, default -> {
                 products(req, resp);
             }
