@@ -12,6 +12,7 @@ import java.util.*;
 
 
 @WebServlet(name = "/manage-admin", urlPatterns = {"/removeAdmin", "/addAdmin"})
+@SuppressWarnings("unchecked")
 public class AdminRA extends HttpServlet {
 
     private String removeAdmin(HashMap<String, String> map) {
@@ -21,7 +22,7 @@ public class AdminRA extends HttpServlet {
     }
 
     private String addAdmin(HashMap<String, String> map) {
-        int id = 0;
+        int id;
         try {
             id = AdminDAO.insertInDatabase(map.get("password"));
         } catch (SQLException e) {
@@ -37,7 +38,7 @@ public class AdminRA extends HttpServlet {
         String line;
         ObjectMapper mapper = new ObjectMapper();
         HashMap<String, String> map;
-        String result;
+        String result = null;
 
         HttpSession session = request.getSession();
         String admin = (String) session.getAttribute("admin");
@@ -55,9 +56,9 @@ public class AdminRA extends HttpServlet {
             result = removeAdmin(map);
         } else if (map.containsKey("password") && map.get("action").equals("addAdmin") && map.get("password").length() > 8) {
             result = addAdmin(map);
-        } else {
-            result = "{\"status\": \"error\" }";
         }
+
+        if (result == null || result.isEmpty()) result = "{\"status\": \"error\" }";
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
