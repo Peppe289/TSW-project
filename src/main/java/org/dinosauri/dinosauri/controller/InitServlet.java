@@ -21,10 +21,8 @@ public class InitServlet extends HttpServlet {
             boolean temp = ProductDAO.doRetrieveNIFutritionByCategory(category);
             if (temp) {
                 hashMap.put(category, 1);
-                System.out.println("Category: " + category + " has nutritions");
             } else {
                 hashMap.put(category, 0);
-                System.out.println("Category: " + category + " has no nutritions");
             }
         }
 

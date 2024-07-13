@@ -32,7 +32,6 @@ public class AdminFilter extends HttpServlet implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
-        System.out.println(req.getRequestURI());
 
         HttpSession session = req.getSession(false);
 
