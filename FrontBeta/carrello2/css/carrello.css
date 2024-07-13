@@ -61,7 +61,8 @@
     margin-inline: 100px;
     text-align: center;
     padding: 20px;
-    height: max-content;
+    height: min-content;
+    width: max-content;
     box-shadow: 0 0 3px black;
 }
 
@@ -108,4 +109,33 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+    #container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #left-div {
+        width: 80%;
+    }
+
+    #list {
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .product {
+        flex-direction: column;
+        position: relative;
+    }
+
+    .check {
+        position: absolute;
+        top: -58px;
+        left: -3px;
+        padding: 0;
+    }
 }
