@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="admin.css">
+    <title>Offerte</title>
+
+    <style>
+        .box-offerte {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            margin: 15px auto;
+            text-align: center;
+
+            & table {
+                width: 100%;
+                border-collapse: unset;
+            }
+
+            & button {
+                margin: 10px auto;
+                width: 40%;
+            }
+        }
+
+        .line {
+            display: block;
+            height: 2px;
+            width: 90%;
+            border-bottom: 1px solid black;
+            margin: 10px auto 30px auto;
+        }
+
+        .box-offerte {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+
+            & form {
+                margin: 10px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            & .form-box {
+                display: inline-flex;
+                justify-content: center;
+            }
+
+            & .row {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                margin-inline: 10px;
+                margin-block: 5px;
+            }
+
+            & input {
+                outline: none;
+                border: none;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.34);
+                height: 25px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="main_container">
+    <div id="content">
+        <div id="prodotti" class="section">
+            <h3>Offerte</h3>
+            <hr>
+            <div class="box-offerte">
+                <form id="add_offerte" method="POST" action="#">
+                    <div class="form-box">
+                        <div class="row">
+                            <label for="id_prod">ID Prodotto</label>
+                            <input id="id_prod" type="text">
+                        </div>
+                        <div class="row">
+                            <label for="percentage">Percentuale Sconto</label>
+                            <input id="percentage" type="number" min="0" max="99">
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <div class="row">
+                            <label for="startDate">Data Inizio</label>
+                            <input id="startDate" type="date">
+                        </div>
+                        <div class="row">
+                            <label for="endDate">Data Fine</label>
+                            <input id="endDate" type="date">
+                        </div>
+                    </div>
+                </form>
+                <button form="add_offerte">
+                    Aggiungi Offerta
+                </button>
+            </div>
+            <span class="line"></span>
+            <table>
+                <tr>
+                    <th>ID Offerta</th>
+                    <th>ID Prodotto</th>
+                    <th>Data Inizio</th>
+                    <th>Data Fine</th>
+                    <th>Percentuale</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>TR</td>
+                    <td>Data Inizio</td>
+                    <td>Data fine</td>
+                    <td>Percentuale</td>
+                    <td>
+                        <button class="edit">
+                            Rimuovi
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>TR</td>
+                    <td>Data Inizio</td>
+                    <td>Data fine</td>
+                    <td>Percentuale</td>
+                    <td>
+                        <button class="edit">
+                            Rimuovi
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>TR</td>
+                    <td>Data Inizio</td>
+                    <td>Data fine</td>
+                    <td>Percentuale</td>
+                    <td>
+                        <button class="edit">
+                            Rimuovi
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>
