@@ -12,13 +12,7 @@
 </head>
 <body>
 <div id="main_container">
-    <div id="sidebar">
-        <ul>
-            <li><a class="active" href="${pageContext.request.contextPath}/adminControl">Prodotti</a></li>
-            <li><a href="${pageContext.request.contextPath}/adminControl?reason=user">Utenti</a></li>
-            <li><a href="${pageContext.request.contextPath}/adminControl?reason=admin">Admin</a></li>
-        </ul>
-    </div>
+    <%@ include file="sidebar.jsp" %>
     <div id="content">
         <div id="prodotti" class="section">
             <h3>Prodotti</h3>

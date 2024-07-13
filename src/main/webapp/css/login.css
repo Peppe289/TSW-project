@@ -34,6 +34,10 @@ input[type="password"]:valid + label.field {
     color: #3CB371;
 }
 
+.invalid {
+    border-color: red !important;
+}
+
 input[type="text"],
 input[type="password"] {
     padding: 10px;

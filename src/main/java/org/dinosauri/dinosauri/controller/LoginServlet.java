@@ -1,6 +1,5 @@
 package org.dinosauri.dinosauri.controller;
 
-import jakarta.ejb.*;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
@@ -10,14 +9,12 @@ import org.dinosauri.dinosauri.model.utils.*;
 import java.io.*;
 import java.sql.*;
 import java.time.*;
-import java.time.format.*;
-import java.util.*;
 import java.util.regex.*;
 
 /**
- * Con il metodo post al login/registazione i dati vengono passati in questa
- * servlet che si occupa di validare la sessione ed aggiungere informazioni personali.
- * Inoltre si occupa di gestire anche il database per la parte utente.
+ * Using the POST method for login/registration, the data is passed to this
+ * servlet, which is responsible for validating the session and adding personal information.
+ * Additionally, it manages the database for the user side.
  */
 @WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
@@ -30,55 +27,72 @@ public class LoginServlet extends HttpServlet {
         return UserDAO.doRetrieveUser(email, password);
     }
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
         String stayLogged = req.getParameter("stay_connect");
-        User user = null;
+        User user;
         String button = req.getParameter("button");
+        String page = button.equals("login") ? "login" : "registrazione";
         Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
 
         /* Check for valid input. The user should use the right email format. */
-        if (!(email != null && emailPattern.matcher(email).find())) {
-            String page = button.equals("login") ? "login" : "registrazione";
+        if (!(email != null && emailPattern.matcher(email).find()) || !(password != null && !password.contains(" ") && password.length() > 8)) {
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+            return;
         }
 
         switch (button) {
             case "registrazione":
-                if (email.isEmpty() || password.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
+                /* need for registration. */
+                if (nome.isEmpty() || cognome.isEmpty()) {
                     req.setAttribute("message", "I campi sono richiesti");
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                    return;
                 }
                 try {
+                    /*
+                     * do insert for register user.
+                     * this can generate SQLException.
+                     * in this case, create message error and send to request.
+                     * the error can be generated for generic error or email already
+                     * used.
+                     * (unique in a database)
+                     */
                     user = register(nome, cognome, email, password);
                 } catch (SQLException e) {
                     if (e.getMessage().contains("Duplicate entry")) req.setAttribute("message", "Email già in uso");
                     else req.setAttribute("message", e.getMessage());
 
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                    return;
                 }
                 break;
             case "login":
-                if (email.isEmpty() || password.isEmpty()) {
-                    req.setAttribute("message", "I campi sono richiesti");
-                    req.getRequestDispatcher("/login.jsp").forward(req, resp);
-                }
+                /* try to retrieve user. if failed, return null. the next step will manage this error. */
                 user = login(email, password);
                 break;
             default:
-                throw new ServletException("Bruh");
+                throw new ServletException();
         }
 
+        /* if no user results after query/insert, some wrong stuff happened. return with error. */
         if (user == null) {
-            String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+            return;
         }
 
+        /*
+         * staylogged button is checkbox.
+         * in this case, save token for login into a database using
+         * key encrypt for local data.
+         * save the key and for next login do decrypt and check
+         * if data (present in token) is valid.
+         */
         if (stayLogged != null) {
             /* create random string for crypt time and save in cookie. */
             Cookie user_id = new Cookie("user_id", user.getId());
@@ -95,23 +109,16 @@ public class LoginServlet extends HttpServlet {
                 user_id.setPath("/");
                 user_id.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(user_id);
-                /* set max age to 3 day */
+                /* set max age to day 3. */
                 token.setPath("/");
                 token.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(token);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignore) {
             }
         }
 
-
-        // Crea la sessione con i dati dell'utente. i dati verrano visti nella barra di navigazione e nelle specifiche pagine.
+        /* create the session with user data. */
         req.getSession().setAttribute("user", user);
         resp.sendRedirect(req.getContextPath() + "/");
     }
-
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
-
 }

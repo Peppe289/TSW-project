@@ -11,43 +11,6 @@ body {
     justify-content: center;
 }
 
-#sidebar {
-    margin-right: 20px;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    width: 300px;
-
-    & ul {
-        top: 50px;
-        margin: 0;
-        padding: 0;
-
-        & li {
-            height: 40px;
-            list-style-type: none;
-            position: relative;
-
-            a, a:visited, a:hover, a:active {
-                color: inherit;
-            }
-
-            & a {
-                text-align: center;
-                text-decoration: none;
-                align-content: center;
-                position: absolute;
-                height: 100%;
-                width: 100%;
-            }
-
-            & a:hover {
-                background-color: rgba(173, 173, 173, 0.22);
-            }
-        }
-    }
-}
-
 #content {
     width: calc(100% - 350px);
 }
