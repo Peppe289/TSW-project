@@ -57,8 +57,10 @@ public class AdminRA extends HttpServlet {
 
         map = mapper.readValue(stringBuilder.toString(), HashMap.class);
 
-        /* Only admin with permission at level 0 can delete/add admin. */
-        if (AdminDAO.doRetrieveAdminLevelByID(admin) != 0) {
+        /* If the admin wants to change permission or remove itself, return with error. */
+        if (!map.containsKey("password") && Integer.parseInt(admin) == Integer.parseInt(map.get("id"))) {
+            result = "{\"status\": \"Non puoi modificare te stesso\"}";
+        } else if (AdminDAO.doRetrieveAdminLevelByID(admin) != 0) { /* Only admin with permission at level 0 can delete/add admin. */
             result = "{\"status\": \"Permission denied\" }";
         } else if (map.containsKey("id") && map.get("action").equals("removeAdmin") && Integer.parseInt(map.get("id")) > 1) {
             result = removeAdmin(map);
