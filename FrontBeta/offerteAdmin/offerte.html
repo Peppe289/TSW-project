@@ -49,11 +49,36 @@
             }
 
             & .row {
+                position: relative;
                 width: 50%;
                 display: flex;
                 flex-direction: column;
                 margin-inline: 10px;
                 margin-block: 5px;
+                align-self: center;
+
+                & .suggestion {
+                    display: none;
+                    position: absolute;
+                    z-index: 2;
+                    background-color: white;
+                    box-shadow: 0 0 2px black;
+                    border-radius: 0 0 10px 10px;
+                    width: 100%;
+                    top: 50px;
+                    height: 100px;
+                    overflow-y: scroll;
+                }
+
+                .suggestion > div {
+                    padding: 5px 0;
+                    cursor: pointer;
+                }
+
+                .suggestion > div:hover {
+                    background-color: rgba(173, 173, 173, 0.3);
+                }
+
             }
 
             & input {
@@ -79,6 +104,9 @@
                         <div class="row">
                             <label for="id_prod">ID Prodotto</label>
                             <input id="id_prod" type="text">
+                            <div class="suggestion">
+                                <!-- put here suggestions from json of all names. -->
+                            </div>
                         </div>
                         <div class="row">
                             <label for="percentage">Percentuale Sconto</label>
@@ -152,6 +180,64 @@
 </div>
 </body>
 <script>
+    let json = JSON.parse("[{\"id\":\"BR\",\"name\":\"Brachiosauro\",\"description\":\"Il Brachiosaurus è uno dei più grandi e imponenti dinosauri erbivori conosciuti. Caratterizzato da un corpo massiccio sostenuto da zampe anteriori più lunghe delle zampe posteriori, il Brachiosaurus si distingue per il suo lungo collo che gli consente di raggiungere i rami più alti degli alberi per nutrirsi.\",\"alimentazione\":\"erbivoro\",\"price\":25.5,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"CR\",\"name\":\"Ciro\",\"description\":\"Cir o Dinosaur\",\"alimentazione\":\"carnivoro\",\"price\":120000.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"GG\",\"name\":\"Guinzaglio gigante\",\"description\":\"Guinzaglio robusto per dinosauro gigante\",\"alimentazione\":null,\"price\":30.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"guinzaglio\",\"sconto\":0},{\"id\":\"GM\",\"name\":\"Guinzaglio medio\",\"description\":\"Guinzaglio in pelle per dinosauro di taglia media\",\"alimentazione\":null,\"price\":20.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"guinzaglio\",\"sconto\":0},{\"id\":\"MR\",\"name\":\"Microraptor\",\"description\":\"Il Microraptor è un piccolo dinosauro provvisto di quattro ali. Con i suoi circa 40 cm di lunghezza in età adulta ed un peso di circa 1 kg, il Microraptor rappresenta il più piccolo dinosauro carnivoro mai scoperto.\",\"alimentazione\":\"carnivoro\",\"price\":9.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"aria\",\"sconto\":0},{\"id\":\"OBR\",\"name\":\"Ossa di Brachiosauro\",\"description\":\"Ossa del più grande dinosauro erbivoro\",\"alimentazione\":null,\"price\":15.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OPT\",\"name\":\"Ossa di Pterodattilo\",\"description\":\"Ossa del grande rettile volante noto come Pterodattilo, con una vasta apertura alare\",\"alimentazione\":null,\"price\":8.5,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OST\",\"name\":\"Ossa di Stegosauro\",\"description\":\"Ossa di uno dei più iconici dinosauri erbivori, con le caratteristiche placche dorsali\",\"alimentazione\":null,\"price\":7.99,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OTC\",\"name\":\"Ossa di Triceratopo\",\"description\":\"Ossa del grande dinosauro erbivoro dotato di corna distintive\",\"alimentazione\":null,\"price\":6.99,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OTR\",\"name\":\"Ossa di T-rex\",\"description\":\"Ossa di uno dei più grandi e famosi dinosauri carnivori\",\"alimentazione\":null,\"price\":25.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OVL\",\"name\":\"Ossa di Velociraptor\",\"description\":\"Ossa di uno dei più noti e agili dinosauri carnivori, famoso per la sua velocità e intelligenza\",\"alimentazione\":null,\"price\":10.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"ossa\",\"sconto\":0},{\"id\":\"OVR\",\"name\":\"Oviraptor\",\"description\":\"L'Oviraptor è un piccolo dinosauro onnivoro noto per il suo becco adatto a rompere uova e ossa. Con il suo corpo leggero e le sue caratteristiche uniche, l'Oviraptor è uno degli esemplari più interessanti e studiati.\",\"alimentazione\":\"onnivoro\",\"price\":12.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"PL\",\"name\":\"Plesiosauro\",\"description\":\"Il Plesiosaurus è un grande dinosauro acquatico noto per il suo lungo collo e le grandi pinne che gli permettono di nuotare agilmente. Si nutre di pesci e altri piccoli animali marini, e il suo corpo affusolato è perfetto per la vita negli oceani.\",\"alimentazione\":\"carnivoro\",\"price\":22.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"acqua\",\"sconto\":0},{\"id\":\"PT\",\"name\":\"Pterodattilo\",\"description\":\"Il Pterodattilo è un dinosauro volante appartenente al gruppo dei pterosauri. Si distingue per la sua grande apertura alare, che può superare i sei metri. Si ritiene che sia principalmente un pescatore, ma può cacciare anche piccoli animali terrestri. Con il suo corpo leggero e le sue ali membranose, il Pterodattilo domina i cieli, rappresentando una delle più grandi creature volanti conosciute.\",\"alimentazione\":\"carnivoro\",\"price\":17.5,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"aria\",\"sconto\":0},{\"id\":\"ST\",\"name\":\"Stegosauro\",\"description\":\"Lo Stegosauro è un dinosauro erbivoro caratterizzato da una serie di placche ossee lungo il dorso e una lunga coda dotata di punte o spuntoni. Questa creatura preistorica vagabonda per le terre, nutrendosi di materiale vegetale grazie ai suoi piccoli denti piatti adatti a triturare.\",\"alimentazione\":\"erbivoro\",\"price\":18.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"TC\",\"name\":\"Triceratopo\",\"description\":\"Il Triceratopo è un grande dinosauro erbivoro caratterizzato da tre corna distintive sul cranio. Si distingue per il suo becco robusto e i denti adatti per strappare e triturare il cibo. Con il suo aspetto imponente e le sue difese naturali, il Triceratopo rappresenta una presenza dominante nel suo habitat. Si pensa che sia un animale pacifico, ma capace di difendersi dagli attacchi dei predatori con le sue corna e il suo grande corpo robusto.\",\"alimentazione\":\"erbivoro\",\"price\":17.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"TR\",\"name\":\"T-rex\",\"description\":\"Il Tyrannosaurus rex, comunemente noto come T-rex, è uno dei più grandi e famosi dinosauri carnivori. Caratterizzato da un cranio massiccio con denti lunghi e appuntiti, è un predatore formidabile. Con le sue poderose zampe posteriori, il T-rex è in grado di raggiungere velocità sorprendenti durante la caccia, rendendolo uno dei predatori dominanti.\",\"alimentazione\":\"carnivoro\",\"price\":21.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0},{\"id\":\"UBR\",\"name\":\"Uovo di Brachiosauro\",\"description\":\"Uovo di Brachiosauro parzialmente danneggiato\",\"alimentazione\":null,\"price\":15.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"UPT\",\"name\":\"Uovo di Pterodattilo\",\"description\":\"Uovo di Pterodattilo ben conservato\",\"alimentazione\":null,\"price\":8.5,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"UST\",\"name\":\"Uovo di Stegosauro\",\"description\":\"Uovo di Stegosauro ben conservato\",\"alimentazione\":null,\"price\":7.99,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"UTC\",\"name\":\"Uovo di Triceratopo\",\"description\":\"Uovo di Triceratopo leggermente aperto\",\"alimentazione\":null,\"price\":6.99,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"UTR\",\"name\":\"Uovo di T-rex\",\"description\":\"Uovo di T-rex trovato in buono stato\",\"alimentazione\":null,\"price\":10.5,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"UVL\",\"name\":\"Uovo di Velociraptor\",\"description\":\"Uovo di Velociraptor ben conservato\",\"alimentazione\":null,\"price\":10.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"uovo\",\"sconto\":0},{\"id\":\"VL\",\"name\":\"Velociraptor\",\"description\":\"Il Velociraptor è un dinosauro carnivoro noto per la sua agilità e intelligenza. Si ritiene che cacci in branco, nutrendosi principalmente di piccoli animali come altri dinosauri, rettili e insetti. Con le sue lunghe zampe posteriori e artigli affilati sulle zampe, il Velociraptor è un predatore formidabile, capace di raggiungere velocità sorprendenti durante la caccia.\",\"alimentazione\":\"carnivoro\",\"price\":15.0,\"quantity\":0,\"bought\":0,\"photo_path\":[],\"categoria\":\"terra\",\"sconto\":0}]");
+    let suggestion_box = document.getElementsByClassName("suggestion")[0];
+    let input_name = document.getElementById("id_prod");
+
+    /* take all products from json, make upperCase and sort. */
+    function generateSuggestionsArray() {
+        let arr = [];
+        for (let i = 0; i < json.length; ++i)
+            arr.push(json[i].name.toUpperCase());
+
+        arr.sort();
+        return arr;
+    }
+
+    /* Hide with delay suggestion box. This help for event click. */
+    input_name.addEventListener("focusout", () => {
+        let hide_box = function() {
+            suggestion_box.style.display = "none";
+        }
+        setTimeout(hide_box, 100);
+    });
+
+    /* Show suggestion box when focusin only if is already writtend at last one char and whe have some suggestion. */
+    input_name.addEventListener("focusin", () => {
+        if (input_name.value.length > 0 && suggestion_box.getElementsByTagName("div").length > 0)
+            suggestion_box.style.display = "block";
+    })
+
+    let suggestions = generateSuggestionsArray();
+    input_name.addEventListener("input", () => {
+        let result;
+        /* make input value as upperCase*/
+        let val = document.getElementById("id_prod").value.toUpperCase();
+
+        /* filter using prefix. */
+        result = suggestions.filter(function(item){
+            return item.indexOf(val) === 0;
+        });
+
+        /* update suggestions box. */
+        suggestion_box.innerHTML = "";
+        result.forEach(el => {
+            /* create a single item and add to suggestion box. */
+            let item = document.createElement("div");
+            item.innerHTML = el;
+
+            item.addEventListener("click", () => {
+                input_name.value = item.innerHTML;
+            });
+            suggestion_box.append(item);
+        })
+
+        /* show suggestions when written at last one character and have some suggestion. */
+        if (input_name.value.length > 0 && suggestion_box.getElementsByTagName("div").length > 0)
+            suggestion_box.style.display = "block";
+        else
+            suggestion_box.style.display = "none";
+    })
 
 </script>
 </html>
