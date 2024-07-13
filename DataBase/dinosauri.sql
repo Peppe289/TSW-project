@@ -94,8 +94,11 @@ numero_civico varchar(255) not null
 );
 
 create table amministratore (
-identificativo int auto_increment primary key,
-password varchar (255) not null
+    identificativo int auto_increment primary key,
+    password varchar (255) not null,
+    /* Permessi differenti per admin differenti. */
+    permission int NOT NULL default 2,
+    check ( permission >= 0 AND permission < 3 )
 );
 
 CREATE TABLE offerte (
