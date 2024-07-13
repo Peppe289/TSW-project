@@ -1,6 +1,5 @@
 package org.dinosauri.dinosauri.controller;
 
-import jakarta.ejb.*;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
@@ -10,14 +9,12 @@ import org.dinosauri.dinosauri.model.utils.*;
 import java.io.*;
 import java.sql.*;
 import java.time.*;
-import java.time.format.*;
-import java.util.*;
 import java.util.regex.*;
 
 /**
- * Con il metodo post al login/registazione i dati vengono passati in questa
- * servlet che si occupa di validare la sessione ed aggiungere informazioni personali.
- * Inoltre si occupa di gestire anche il database per la parte utente.
+ * Using the POST method for login/registration, the data is passed to this
+ * servlet, which is responsible for validating the session and adding personal information.
+ * Additionally, it manages the database for the user side.
  */
 @WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
@@ -36,13 +33,12 @@ public class LoginServlet extends HttpServlet {
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
         String stayLogged = req.getParameter("stay_connect");
-        User user = null;
+        User user;
         String button = req.getParameter("button");
         Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
 
         /* Check for valid input. The user should use the right email format. */
-        if (!(email != null && emailPattern.matcher(email).find()) ||
-                !(password != null && !password.contains(" ") && password.length() > 8)) {
+        if (!(email != null && emailPattern.matcher(email).find()) || !(password != null && !password.contains(" ") && password.length() > 8)) {
             String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
@@ -51,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 
         switch (button) {
             case "registrazione":
-                if (email.isEmpty() || password.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
+                if (nome.isEmpty() || cognome.isEmpty()) {
                     req.setAttribute("message", "I campi sono richiesti");
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
                     return;
@@ -67,15 +63,10 @@ public class LoginServlet extends HttpServlet {
                 }
                 break;
             case "login":
-                if (email.isEmpty() || password.isEmpty()) {
-                    req.setAttribute("message", "I campi sono richiesti");
-                    req.getRequestDispatcher("/login.jsp").forward(req, resp);
-                    return;
-                }
                 user = login(email, password);
                 break;
             default:
-                throw new ServletException("Bruh");
+                throw new ServletException();
         }
 
         if (user == null) {
@@ -101,17 +92,16 @@ public class LoginServlet extends HttpServlet {
                 user_id.setPath("/");
                 user_id.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(user_id);
-                /* set max age to 3 day */
+                /* set max age to day 3 */
                 token.setPath("/");
                 token.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(token);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignore) {
             }
         }
 
 
-        // Crea la sessione con i dati dell'utente. i dati verrano visti nella barra di navigazione e nelle specifiche pagine.
+        /* create the session with user data. */
         req.getSession().setAttribute("user", user);
         resp.sendRedirect(req.getContextPath() + "/");
     }
