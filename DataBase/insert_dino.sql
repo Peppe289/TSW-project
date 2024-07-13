@@ -59,13 +59,12 @@ INSERT INTO dati_spedizione (nome, cognome, via, cap, provincia, comune, numero_
 ('Mario', 'Rossi', 'via Roma', '10024', 'TO', 'Torino', '3' ),
 ('Ciro', 'Esposito', 'via Chiaia', '80013', 'NA', 'Napoli', '144');
 
+INSERT INTO amministratore (password, permission) VALUES
+(SHA1('admin1'), 0);
+
 INSERT INTO amministratore (password) VALUES
 (SHA1('admin1')),
 (SHA1('admin2'));
-
-INSERT INTO ordini (prezzo_totale, lista_prodotti, data_acquisto) VALUES
-('35.5','UTR, BR','2024-01-20'),
-('26','UTC, TC','2024-03-15');
 
 INSERT INTO offerte (id_prodotto, descrizione, percentuale, data_inizio, data_fine) VALUES
 ('TR', 'Offerta speciale - 10% di sconto sui T-rex', 10, '2024-04-01', '2024-04-15'),
