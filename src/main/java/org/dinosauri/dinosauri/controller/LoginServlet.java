@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
             String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+            return;
         }
 
         switch (button) {
@@ -53,6 +54,7 @@ public class LoginServlet extends HttpServlet {
                 if (email.isEmpty() || password.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
                     req.setAttribute("message", "I campi sono richiesti");
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                    return;
                 }
                 try {
                     user = register(nome, cognome, email, password);
@@ -61,12 +63,14 @@ public class LoginServlet extends HttpServlet {
                     else req.setAttribute("message", e.getMessage());
 
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
+                    return;
                 }
                 break;
             case "login":
                 if (email.isEmpty() || password.isEmpty()) {
                     req.setAttribute("message", "I campi sono richiesti");
                     req.getRequestDispatcher("/login.jsp").forward(req, resp);
+                    return;
                 }
                 user = login(email, password);
                 break;
@@ -78,6 +82,7 @@ public class LoginServlet extends HttpServlet {
             String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
+            return;
         }
 
         if (stayLogged != null) {
