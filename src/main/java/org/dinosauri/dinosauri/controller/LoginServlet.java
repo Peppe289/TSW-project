@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         return UserDAO.doRetrieveUser(email, password);
     }
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String nome = req.getParameter("nome");
@@ -35,11 +35,11 @@ public class LoginServlet extends HttpServlet {
         String stayLogged = req.getParameter("stay_connect");
         User user;
         String button = req.getParameter("button");
+        String page = button.equals("login") ? "login" : "registrazione";
         Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
 
         /* Check for valid input. The user should use the right email format. */
         if (!(email != null && emailPattern.matcher(email).find()) || !(password != null && !password.contains(" ") && password.length() > 8)) {
-            String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
             return;
@@ -47,12 +47,21 @@ public class LoginServlet extends HttpServlet {
 
         switch (button) {
             case "registrazione":
+                /* need for registration. */
                 if (nome.isEmpty() || cognome.isEmpty()) {
                     req.setAttribute("message", "I campi sono richiesti");
                     req.getRequestDispatcher("/registrazione.jsp").forward(req, resp);
                     return;
                 }
                 try {
+                    /*
+                     * do insert for register user.
+                     * this can generate SQLException.
+                     * in this case, create message error and send to request.
+                     * the error can be generated for generic error or email already
+                     * used.
+                     * (unique in a database)
+                     */
                     user = register(nome, cognome, email, password);
                 } catch (SQLException e) {
                     if (e.getMessage().contains("Duplicate entry")) req.setAttribute("message", "Email già in uso");
@@ -63,19 +72,27 @@ public class LoginServlet extends HttpServlet {
                 }
                 break;
             case "login":
+                /* try to retrieve user. if failed, return null. the next step will manage this error. */
                 user = login(email, password);
                 break;
             default:
                 throw new ServletException();
         }
 
+        /* if no user results after query/insert, some wrong stuff happened. return with error. */
         if (user == null) {
-            String page = button.equals("login") ? "login" : "registrazione";
             req.setAttribute("message", "Errore di " + page);
             req.getRequestDispatcher("/" + page + ".jsp").forward(req, resp);
             return;
         }
 
+        /*
+         * staylogged button is checkbox.
+         * in this case, save token for login into a database using
+         * key encrypt for local data.
+         * save the key and for next login do decrypt and check
+         * if data (present in token) is valid.
+         */
         if (stayLogged != null) {
             /* create random string for crypt time and save in cookie. */
             Cookie user_id = new Cookie("user_id", user.getId());
@@ -92,7 +109,7 @@ public class LoginServlet extends HttpServlet {
                 user_id.setPath("/");
                 user_id.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(user_id);
-                /* set max age to day 3 */
+                /* set max age to day 3. */
                 token.setPath("/");
                 token.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(token);
@@ -100,14 +117,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
 
-
         /* create the session with user data. */
         req.getSession().setAttribute("user", user);
         resp.sendRedirect(req.getContextPath() + "/");
     }
-
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
-
 }
