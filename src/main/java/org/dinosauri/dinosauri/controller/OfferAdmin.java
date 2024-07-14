@@ -14,6 +14,7 @@ import java.util.*;
 
 
 @WebServlet(name = "offer", urlPatterns = "/offer")
+@SuppressWarnings("unchecked")
 public class OfferAdmin extends HttpServlet {
 
     /**
@@ -38,17 +39,17 @@ public class OfferAdmin extends HttpServlet {
      * Make insert of new offers. Validate input and check if all it's ok with the logic of data.
      * Retrieve json as a response to the status of operations.
      *
-     * @param request - about servlet parameter
+     * @param parameter - about servlet parameter
      * @return - json with status.
      * @throws JsonProcessingException - while convert hashmap to json.
      */
-    private String insertOffer(HttpServletRequest request) throws JsonProcessingException {
+    private String insertOffer(HashMap<String, String> parameter) throws JsonProcessingException {
         HashMap<String, String> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-        String startDate_str = request.getParameter("startDate");
-        String endDate_str = request.getParameter("endDate");
-        String id = request.getParameter("id_prod");
-        String percentage = request.getParameter("percentage");
+        String startDate_str = parameter.get("startDate");
+        String endDate_str = parameter.get("endDate");
+        String id = parameter.get("id");
+        String percentage = parameter.get("percent");
         LocalDate startDate = LocalDate.parse(startDate_str);
         LocalDate endDate = LocalDate.parse(endDate_str);
         List<Offerta> offs;
@@ -97,14 +98,23 @@ public class OfferAdmin extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String json;
-        String reason = request.getParameter("reason");
-        switch (reason) {
-            case "add" -> json = insertOffer(request);
-            case "rmove" -> json = removeOffer(request);
+        String json, line;
+        StringBuilder req_json = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        ObjectMapper mapper = new ObjectMapper();
+        HashMap<String, String> parameter = new HashMap<>();
+
+        while((line = reader.readLine()) != null) {
+            req_json.append(line);
+        }
+
+        parameter = mapper.readValue(req_json.toString(), HashMap.class);
+
+        switch (parameter.get("reason")) {
+            case "add" -> json = insertOffer(parameter);
+            case "remove" -> json = removeOffer(request);
             case null, default -> {
                 List<Offerta> offers = OfferteDAO.doRetrieveOffers();
-                ObjectMapper mapper = new ObjectMapper();
                 json = mapper.writeValueAsString(offers.toArray());
             }
         }
@@ -114,7 +124,12 @@ public class OfferAdmin extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        doPost(request, response);
+        String json;
+        List<Offerta> offers = OfferteDAO.doRetrieveOffers();
+        ObjectMapper mapper = new ObjectMapper();
+        json = mapper.writeValueAsString(offers.toArray());
+        response.setContentType("application/json");
+        response.getWriter().print(json);
     }
 
 }
