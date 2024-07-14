@@ -107,10 +107,12 @@ public class LoginServlet extends HttpServlet {
 
                 Cookie token = new Cookie("token", accessToken.encrypt(formattedDateTime));
                 user_id.setPath("/");
+                user_id.setSecure(true);
                 user_id.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(user_id);
                 /* set max age to day 3. */
                 token.setPath("/");
+                token.setSecure(true);
                 token.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(token);
             } catch (Exception ignore) {
