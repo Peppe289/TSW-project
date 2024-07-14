@@ -292,6 +292,13 @@
         return tr;
     }
 
+    /* fix time zone. */
+    function adjustDateForTimezone(dateStr) {
+        const date = new Date(dateStr);
+        const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+        return new Date(date.getTime() - userTimezoneOffset).toISOString().split("T")[0];
+    }
+
     /* generate table after ajax request. */
     function generateTable(json_offers) {
         /* retrieve from server the list of all produtcs. */
@@ -305,8 +312,8 @@
             }
         });
         Array.from(json_offers).forEach(el => {
-            let startDate = new Date(el["startDate"]).toISOString().split("T")[0];
-            let endDate = new Date(el["endDate"]).toISOString().split("T")[0];
+            let startDate = adjustDateForTimezone(el["startDate"])
+            let endDate = adjustDateForTimezone (el["endDate"]);
             table.append(createTableRow(el["id_offerta"], el["id_prodotto"], el["description"], startDate, endDate, el["percentage"] + "%"));
         });
     }
