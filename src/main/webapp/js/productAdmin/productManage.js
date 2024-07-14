@@ -284,7 +284,7 @@ function uploadimg_ajax() {
                 formData.append('image', blob, 'image.jpg'); // Append the Blob with a filename
                 const id = document.getElementById("id_prod").value;
                 /* send data */
-                return fetch('http://localhost:8080/dinosauri_war_exploded/edit-prod-request?id=' + id + "&o=upload", {
+                return fetch('edit-prod-request?id=' + id + "&o=upload", {
                     method: 'POST', body: formData
                 });
             })
@@ -340,7 +340,7 @@ function reloadImgItem(data) {
     /* Load new image preview from server using json list */
     let src_arr = Array.from(data["path"]);
     let container = document.getElementById("img-prev");
-    src_arr.forEach(src => container.prepend(createImgItem("http://localhost:8080/dinosauri_war_exploded/" + src)));
+    src_arr.forEach(src => container.prepend(createImgItem("dinosauri_war_exploded/" + src)));
     register_callback_preview_image(container);
 }
 
