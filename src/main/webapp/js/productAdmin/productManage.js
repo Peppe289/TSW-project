@@ -213,7 +213,7 @@ function deleteimg_ajax() {
      * @type {*[]} - return array
      */
     removedPath = removedPath.filter(function (item) {
-        return !item.includes("data:image/");
+        return !item.includes("data:image");
     });
 
     fetch("edit-prod-request?id=" + id + "&o=remove", {
@@ -256,7 +256,7 @@ function uploadimg_ajax() {
          * Se questa sotto stringa non è presente allora è stata presa dal server l'immagine.
          * Non caricarla di nuovo sul server.
          */
-        if (!src.includes("data:image/")) {
+        if (!src.includes("data:image")) {
             continue;
         } else if (removedPath.length > 0) {
             /**
@@ -340,7 +340,7 @@ function reloadImgItem(data) {
     /* Load new image preview from server using json list */
     let src_arr = Array.from(data["path"]);
     let container = document.getElementById("img-prev");
-    src_arr.forEach(src => container.prepend(createImgItem("dinosauri_war_exploded/" + src)));
+    src_arr.forEach(src => container.prepend(createImgItem(src)));
     register_callback_preview_image(container);
 }
 
@@ -357,7 +357,7 @@ function createImgItem(src) {
 
     /* create image element for preview */
     let img = document.createElement('img');
-    img.src = src;
+    img.src = src.replace("/", "");
 
     /* create span element for delete action */
     let span = document.createElement('span');
