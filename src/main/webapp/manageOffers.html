@@ -270,6 +270,24 @@
         buttonTd.appendChild(button);
         tr.appendChild(buttonTd);
 
+        buttonTd.addEventListener("click", () => {
+           let xhr = new XMLHttpRequest();
+           xhr.open("POST", "offer", true);
+           let obj = {
+               id: id,
+               reason: "remove"
+           }
+           xhr.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    let result = JSON.parse(this.responseText);
+                    if (result["status"] === "success") {
+                        loadOffersAjax();
+                    }
+                }
+           }
+           xhr.send(JSON.stringify(obj));
+        });
+
         // Return the complete table row
         return tr;
     }
