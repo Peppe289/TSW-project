@@ -20,11 +20,11 @@ public class OfferAdmin extends HttpServlet {
     /**
      * Remove offer from id.
      *
-     * @param request - need to retrieve id.
+     * @param parameter - need to retrieve id.
      * @return - json with status.
      */
-    private String removeOffer(HttpServletRequest request) {
-        String id = request.getParameter("id");
+    private String removeOffer(HashMap<String, String> parameter) {
+        String id = parameter.get("id");
         String status = "success";
 
         try {
@@ -116,7 +116,7 @@ public class OfferAdmin extends HttpServlet {
 
         switch (parameter.get("reason")) {
             case "add" -> json = insertOffer(parameter);
-            case "remove" -> json = removeOffer(request);
+            case "remove" -> json = removeOffer(parameter);
             case null, default -> {
                 List<Offerta> offers = OfferteDAO.doRetrieveOffers();
                 json = mapper.writeValueAsString(offers.toArray());
