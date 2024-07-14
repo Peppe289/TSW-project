@@ -237,15 +237,12 @@
     let table = document.getElementById("table");
 
     function createTableRow(id, productId, description, startDate, endDate, percentage) {
-        // Create the table row element
         const tr = document.createElement('tr');
 
-        // Create and append the ID cell
         const idTd = document.createElement('td');
         idTd.textContent = id;
         tr.appendChild(idTd);
 
-        // Create and append the Product ID cell
         const productIdTd = document.createElement('td');
         productIdTd.textContent = productId;
         tr.appendChild(productIdTd);
@@ -254,28 +251,22 @@
         descriptionTd.textContent = description;
         tr.appendChild(descriptionTd)
 
-        // Create and append the Start Date cell
         const startDateTd = document.createElement('td');
         startDateTd.textContent = startDate;
         tr.appendChild(startDateTd);
 
-        // Create and append the End Date cell
         const endDateTd = document.createElement('td');
         endDateTd.textContent = endDate;
         tr.appendChild(endDateTd);
 
-        // Create and append the Percentage cell
         const percentageTd = document.createElement('td');
         percentageTd.textContent = percentage;
         tr.appendChild(percentageTd);
 
-        // Create the button
         const button = document.createElement('button');
         button.textContent = 'Rimuovi';
         button.classList.add('edit');
-        // Optionally, add an event listener to the button for functionality
 
-        // Create the cell for the button and append the button to it
         const buttonTd = document.createElement('td');
         buttonTd.appendChild(button);
         tr.appendChild(buttonTd);
@@ -298,7 +289,6 @@
            xhr.send(JSON.stringify(obj));
         });
 
-        // Return the complete table row
         return tr;
     }
 
