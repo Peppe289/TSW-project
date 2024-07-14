@@ -145,13 +145,6 @@ public class UpdateProduct extends HttpServlet {
         List<String> newPath = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        /*
-         * Needed for fix this:
-         *
-         * XML Parsing Error: not well-formed
-         * Location: http://localhost:8080/dinosauri_war_exploded/uploadimg?id=OBR
-         * Line Number 1, Column 1:
-         */
         response.setContentType("application/json");
 
         try {
