@@ -50,6 +50,7 @@ public class OfferAdmin extends HttpServlet {
         String endDate_str = parameter.get("endDate");
         String id = parameter.get("id");
         String percentage = parameter.get("percent");
+        String description = parameter.get("description");
         LocalDate startDate = LocalDate.parse(startDate_str);
         LocalDate endDate = LocalDate.parse(endDate_str);
         List<Offerta> offs;
@@ -86,8 +87,7 @@ public class OfferAdmin extends HttpServlet {
         }
         Offerta off = new Offerta();
 
-        /* TODO: add description. empty for now */
-        off.setDescription("");
+        off.setDescription(description);
         off.setId_prodotto(id);
         off.setStartDate(Date.valueOf(startDate));
         off.setEndDate(Date.valueOf(endDate));
