@@ -73,9 +73,13 @@ public class OfferAdmin extends HttpServlet {
              * Prevent multiple offerts at the same time.
              * If endDate or start date of new input offert is after start date of k-offert and is before end data of k-offert make error.
              */
-            boolean endDate_invalid = endDate.isAfter(off.getStartDate().toLocalDate()) && endDate.isBefore(off.getEndDate().toLocalDate());
-            boolean startDate_invalid = startDate.isAfter(off.getStartDate().toLocalDate()) && startDate.isBefore(off.getEndDate().toLocalDate());
-            if (endDate_invalid || startDate_invalid) {
+            /* Means: ( s1 < eN < e1 ) || e1 == eN */
+            boolean endDate_invalid = (endDate.isAfter(off.getStartDate().toLocalDate()) && endDate.isBefore(off.getEndDate().toLocalDate())) || endDate.isEqual(off.getEndDate().toLocalDate());
+            /* Means: ( s1 < sN < e1 ) || s1 == sN */
+            boolean startDate_invalid = (startDate.isAfter(off.getStartDate().toLocalDate()) && startDate.isBefore(off.getEndDate().toLocalDate())) || startDate.isEqual(off.getEndDate().toLocalDate());
+            /* Means: check if some point (end/start) had the same time with others. */
+            boolean equalsPoint_invalid = startDate.isEqual(off.getStartDate().toLocalDate()) || endDate.isEqual(off.getStartDate().toLocalDate());
+            if (endDate_invalid || startDate_invalid || equalsPoint_invalid) {
                 map.put("status", "Un'altra offerta è presente in questo periodo.");
                 return mapper.writeValueAsString(map);
             }
