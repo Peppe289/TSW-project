@@ -1,3 +1,8 @@
+<%@ page import="java.util.*" %>
+<%@ page import="org.dinosauri.dinosauri.model.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,6 +118,7 @@
 <body>
 
 <div id="main_container">
+    <%@ include file="sidebar.jsp" %>
     <div id="content">
         <div id="prodotti" class="section">
             <h3>Offerte</h3>

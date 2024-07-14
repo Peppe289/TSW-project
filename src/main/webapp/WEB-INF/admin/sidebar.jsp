@@ -59,6 +59,7 @@
         <li><a id="product_nav_li" href="adminControl">Prodotti</a></li>
         <li><a id="user_nav_li" href="adminControl?reason=user">Utenti</a></li>
         <li><a id="admin_nav_li" href="adminControl?reason=admin">Admin</a></li>
+        <li><a id="admin_nav_offers" href="adminControl?reason=offers">Offers</a></li>
     </ul>
     <button onclick='window.location.href = "${pageContext.request.contextPath}/adminControl?reason=logout"'>Log out
     </button>
@@ -68,6 +69,7 @@
     const product = document.getElementById("product_nav_li");
     const user = document.getElementById("user_nav_li");
     const admin = document.getElementById("admin_nav_li");
+    const offers = document.getElementById("admin_nav_offers");
 
     let reason = params.get("reason");
 
@@ -76,6 +78,8 @@
             user.classList.add("active");
         } else if (reason.indexOf("admin") === 0) {
             admin.classList.add("active");
+        }else if (reason.indexOf("offers") === 0) {
+            offers.classList.add("active");
         } else {
             product.classList.add("active");
         }

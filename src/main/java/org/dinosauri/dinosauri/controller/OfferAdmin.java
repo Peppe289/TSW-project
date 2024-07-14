@@ -107,19 +107,24 @@ public class OfferAdmin extends HttpServlet {
         BufferedReader reader = request.getReader();
         ObjectMapper mapper = new ObjectMapper();
         HashMap<String, String> parameter = new HashMap<>();
+        int permission = AdminDAO.doRetrieveAdminLevelByID((String) request.getSession().getAttribute("admin"));
 
-        while((line = reader.readLine()) != null) {
-            req_json.append(line);
-        }
+        if (permission == 2) {
+            json = "{\"status\": \"Permission Denied\"}";
+        } else {
+            while ((line = reader.readLine()) != null) {
+                req_json.append(line);
+            }
 
-        parameter = mapper.readValue(req_json.toString(), HashMap.class);
+            parameter = mapper.readValue(req_json.toString(), HashMap.class);
 
-        switch (parameter.get("reason")) {
-            case "add" -> json = insertOffer(parameter);
-            case "remove" -> json = removeOffer(parameter);
-            case null, default -> {
-                List<Offerta> offers = OfferteDAO.doRetrieveOffers();
-                json = mapper.writeValueAsString(offers.toArray());
+            switch (parameter.get("reason")) {
+                case "add" -> json = insertOffer(parameter);
+                case "remove" -> json = removeOffer(parameter);
+                case null, default -> {
+                    List<Offerta> offers = OfferteDAO.doRetrieveOffers();
+                    json = mapper.writeValueAsString(offers.toArray());
+                }
             }
         }
 
