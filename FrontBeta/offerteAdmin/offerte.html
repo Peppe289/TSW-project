@@ -188,7 +188,7 @@
     function generateSuggestionsArray() {
         let arr = [];
         for (let i = 0; i < json.length; ++i)
-            arr.push(json[i].name.toUpperCase());
+            arr.push(json[i].id + " - " + json[i].name.toUpperCase());
 
         arr.sort();
         return arr;
@@ -216,7 +216,8 @@
 
         /* filter using prefix. */
         result = suggestions.filter(function(item){
-            return item.indexOf(val) === 0;
+            let arr = item.split(" - ");
+            return arr[0].indexOf(val) === 0 || arr[1].indexOf(val) === 0;
         });
 
         /* update suggestions box. */
@@ -227,7 +228,7 @@
             item.innerHTML = el;
 
             item.addEventListener("click", () => {
-                input_name.value = item.innerHTML;
+                input_name.value = item.innerHTML.split(" - ")[0];
             });
             suggestion_box.append(item);
         })
