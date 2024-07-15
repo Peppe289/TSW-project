@@ -41,6 +41,10 @@ public class UpdateProduct extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = objectMapper.readValue(payload, new TypeReference<Map<String, String>>(){});
 
+        if (id.isEmpty()) {
+            return "{\"status\":\"ID vuoto\"}";
+        }
+
         product.setId(id);
         product.setPrice(Double.parseDouble(map.get("price")));
         product.setCategoria(map.get("category"));
