@@ -1,5 +1,6 @@
-.slideshow-container .slides {
-    display: none;
+.slides {
+    width: 100%;
+    scroll-snap-align: center;
 }
 
 .slideshow-container img {
@@ -11,7 +12,8 @@
 .slideshow-container {
     position: relative;
     margin: auto;
-    width: 100%;
+    width: 300%;
+    display: flex;
 }
 
 .prev,
@@ -44,7 +46,6 @@
 
 div.text {
     position: absolute;
-    width: 100%;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.55);
 }

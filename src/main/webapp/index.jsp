@@ -31,33 +31,36 @@
 <%@ include file="WEB-INF/include/carrello_portable.html" %>
 
 <!-- carosello -->
-<div class="slideshow-container not-select">
-    <div class="slides">
-        <img alt="Slide" src="img/carosello/image.png" onError="this.onerror=null; this.src='img/missing.jpg';"
-             style="width:100%">
-        <div class="text">
-            <p class="text">Dinosauri sopravvissuti</p>
+<div style="overflow-x: scroll; scroll-snap-type: x mandatory">
+    <div class="slideshow-container not-select">
+        <div class="slides">
+            <img alt="Slide" src="img/carosello/image.png" onError="this.onerror=null; this.src='img/missing.jpg';"
+                 style="width:100%">
+            <div class="text">
+                <p class="text">Dinosauri sopravvissuti</p>
+            </div>
         </div>
-    </div>
 
-    <div class="slides">
-        <img alt="Slide" src="img/carosello/image_1.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
-             style="width:100%">
-        <div class="text">
-            <p class="text">Dinosauri nuovi ogni 100 anni</p>
+        <div class="slides">
+            <img alt="Slide" src="img/carosello/image_1.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+                 style="width:100%">
+            <div class="text">
+                <p class="text">Dinosauri nuovi ogni 100 anni</p>
+            </div>
         </div>
-    </div>
 
-    <div class="slides">
-        <img alt="Slide" src="img/carosello/image_2.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
-             style="width:100%">
-        <div class="text">
-            <p class="text">Dinosauri per ogni era</p>
+        <div class="slides">
+            <img alt="Slide" src="img/carosello/image_2.jpg" onError="this.onerror=null; this.src='img/missing.jpg';"
+                 style="width:100%">
+            <div class="text">
+                <p class="text">Dinosauri per ogni era</p>
+            </div>
         </div>
+<!--
+        <button class="prev" onclick="plusSlides(-1)">❮</button>
+        <button class="next" onclick="plusSlides(1)">❯</button>
+-->
     </div>
-
-    <button class="prev" onclick="plusSlides(-1)">❮</button>
-    <button class="next" onclick="plusSlides(1)">❯</button>
 </div>
 <!-- end carosello -->
 
@@ -77,30 +80,5 @@
 </div>
 <%@ include file="WEB-INF/include/footer.jsp" %>
 </body>
-
-<script>
-    let slideIndex = 1;
-
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("slides");
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slides[slideIndex - 1].style.display = "block";
-    }
-</script>
 
 </html>
