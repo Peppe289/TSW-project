@@ -69,7 +69,7 @@
      * @returns {boolean}
      */
     function email_regex(el) {
-        return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/.test(el.value);
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(el.value);
     }
 
     function validatePassword() {
