@@ -61,29 +61,6 @@
                 margin-inline: 10px;
                 margin-block: 5px;
                 align-self: center;
-
-                & .suggestion {
-                    display: none;
-                    position: absolute;
-                    z-index: 2;
-                    background-color: white;
-                    box-shadow: 0 0 2px black;
-                    border-radius: 0 0 10px 10px;
-                    width: 100%;
-                    top: 50px;
-                    height: 100px;
-                    overflow-y: scroll;
-                }
-
-                .suggestion > div {
-                    padding: 5px 0;
-                    cursor: pointer;
-                }
-
-                .suggestion > div:hover {
-                    background-color: rgba(173, 173, 173, 0.3);
-                }
-
             }
 
             & input {
@@ -128,10 +105,10 @@
                     <div class="form-box">
                         <div class="row">
                             <label for="id_prod">ID Prodotto</label>
-                            <input name="id_prod" id="id_prod" type="text">
-                            <div class="suggestion">
+                            <input list="suggestion" name="id_prod" id="id_prod" type="text">
+                            <datalist id="suggestion">
                                 <!-- put here suggestions from json of all names. -->
-                            </div>
+                            </datalist>
                         </div>
                         <div class="row percentage">
                             <label for="percentage">Percentuale Sconto</label>
@@ -178,7 +155,6 @@
 </body>
 <script>
     let json_prod = [];
-    let suggestions;
 
     function loadProdAjax() {
         let xhr = new XMLHttpRequest();
@@ -186,7 +162,7 @@
         xhr.open("GET", "products-json", true);
         xhr.onload = function() {
             json_prod = Array.from(JSON.parse(this.responseText));
-            suggestions = generateSuggestionsArray();
+            generateSuggestionsArray();
         }
         xhr.send();
     }
@@ -229,8 +205,6 @@
         xhr.onload = function () {
             let json_res = JSON.parse(this.responseText);
             if (json_res["status"] === "success") {
-                /* retrieve from server the list of all produtcs. */
-                loadProdAjax();
                 /* retrieve from server the list of all offerts. */
                 loadOffersAjax();
             }
@@ -307,9 +281,6 @@
 
     /* generate table after ajax request. */
     function generateTable(json_offers) {
-        /* retrieve from server the list of all produtcs. */
-        loadProdAjax();
-
         /* before add the new element, remove all content inside. */
         let table_row = table.getElementsByTagName("tr");
         Array.from(table_row).forEach(el => {
@@ -401,7 +372,7 @@
 
     /************************ Add offer: Suggestion box ID ************************/
 
-    let suggestion_box = document.getElementsByClassName("suggestion")[0];
+    let suggestion_box = document.getElementById("suggestion");
     let input_name = document.getElementById("id_prod");
 
     /* take all products from json, make upperCase and sort. */
@@ -411,64 +382,13 @@
             arr.push(json_prod[i].id + " - " + json_prod[i].name.toUpperCase());
 
         arr.sort();
-        return arr;
-    }
 
-    /* Hide with delay suggestion box. This help for event click. */
-    input_name.addEventListener("focusout", () => {
-        let hide_box = function() {
-            suggestion_box.style.display = "none";
-        }
-        setTimeout(hide_box, 100);
-    });
-
-    /* Show suggestion box when focusin only if is already writtend at last one char and whe have some suggestion. */
-    input_name.addEventListener("focusin", () => {
-        if (input_name.value.length > 0 && suggestion_box.getElementsByTagName("div").length > 0)
-            suggestion_box.style.display = "block";
-    })
-
-    input_name.addEventListener("input", () => {
-        let result;
-        /* make input value as upperCase*/
-        let val = document.getElementById("id_prod").value.toUpperCase();
-
-        /* filter using prefix. */
-        result = suggestions.filter(function(item){
-            let arr = item.split(" - ");
-            return arr[0].indexOf(val) === 0 || arr[1].indexOf(val) === 0;
+        arr.forEach(item => {
+            const option = document.createElement("option");
+            option.textContent = item;
+            option.value = item.split(" - ")[0];
+            suggestion_box.appendChild(option);
         });
-
-        /* update suggestions box. */
-        suggestion_box.innerHTML = "";
-        result.forEach(el => {
-            /* create a single item and add to suggestion box. */
-            let item = document.createElement("div");
-            item.innerHTML = el;
-
-            item.addEventListener("click", () => {
-                input_name.value = item.innerHTML.split(" - ")[0];
-                /* when we choose new ID let's show price. */
-                show_set_price(input_name.value);
-            });
-            suggestion_box.append(item);
-        })
-
-        /* if we don't click in suggestion box, retrieve price when find the right match with ID. */
-        suggestions.every((el) => {
-            if (el.split(" - ")[0] === val) {
-                show_set_price(input_name.value);
-                return false;
-            }
-
-            return true;
-        })
-
-        /* show suggestions when written at last one character and have some suggestion. */
-        if (input_name.value.length > 0 && suggestion_box.getElementsByTagName("div").length > 0)
-            suggestion_box.style.display = "block";
-        else
-            suggestion_box.style.display = "none";
-    })
+    }
 </script>
 </html>
