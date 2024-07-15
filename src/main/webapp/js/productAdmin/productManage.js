@@ -155,6 +155,11 @@ document.getElementById('file-upload').addEventListener('change', function (even
 function update_database_ajax() {
     const id = document.getElementById("id_prod").value;
 
+    if (id === "") {
+        notifyUserModule("Error", "Inserisci un ID");
+        return;
+    }
+
     const name = document.getElementById("name");
     const price = document.getElementById("price");
     const category = document.getElementById("category");
@@ -181,10 +186,14 @@ function update_database_ajax() {
         .then(/* Take response json */response => response.json())
         .then(data => {
             /* Notify to client result of server using json. */
-            if (data == null) {
-                notifyUserModule("Error", "");
-            } else {
-                notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
+            if (data != null) {
+                try {
+                    if (data["status"] !== "success")
+                        notifyUserModule("Error", data["status"]);
+                    else
+                        notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
+
+                } catch(e) {}
             }
             reloadInputValue(data);
         }).catch(error => {
