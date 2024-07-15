@@ -31,7 +31,7 @@
 <%@ include file="WEB-INF/include/carrello_portable.html" %>
 
 <!-- carosello -->
-<div style="overflow-x: scroll; scroll-snap-type: x mandatory">
+<div id="carousel" style="overflow-x: scroll; scroll-snap-type: x mandatory">
     <div class="slideshow-container not-select">
         <div class="slides">
             <img alt="Slide" src="img/carosello/image.png" onError="this.onerror=null; this.src='img/missing.jpg';"
@@ -56,12 +56,10 @@
                 <p class="text">Dinosauri per ogni era</p>
             </div>
         </div>
-<!--
-        <button class="prev" onclick="plusSlides(-1)">❮</button>
-        <button class="next" onclick="plusSlides(1)">❯</button>
--->
     </div>
 </div>
+<button class="prev" onclick="changeSlide(-1)">❮</button>
+<button class="next" onclick="changeSlide(1)">❯</button>
 <!-- end carosello -->
 
 <input type="hidden" value="${pageContext.request.contextPath}" id="PageContext">
@@ -80,5 +78,17 @@
 </div>
 <%@ include file="WEB-INF/include/footer.jsp" %>
 </body>
+<script>
+    let slideIndex = 0;
+    let carousel = document.getElementById("carousel");
+    let position = carousel.scrollWidth / 3;
 
+    function changeSlide(index) {
+        slideIndex = (slideIndex + index + 3) % 3;
+        carousel.scrollTo({
+           left: position * slideIndex,
+           behavior: 'smooth'
+        });
+    }
+</script>
 </html>
