@@ -48,6 +48,7 @@ public class AutoLogin extends HttpServlet implements Filter {
                 long daysBetween = ChronoUnit.DAYS.between(data, LocalDateTime.now());
                 if (daysBetween > 3) {
                     // invalidate this cookie. time expired.
+                    token.setSecure(true);
                     token.setMaxAge(0);
                 } else {
                     User user = UserDAO.doRetrieveUserFromID(id);

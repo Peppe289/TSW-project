@@ -18,6 +18,7 @@ public class LogoutServlet extends HttpServlet {
         for (Cookie ck : cookies) {
             if (ck.getName().equals("user_id") || ck.getName().equals("token")) {
                 ck.setMaxAge(0);
+                ck.setSecure(true);
                 ck.setValue("");
                 ck.setPath("/");
                 response.addCookie(ck);

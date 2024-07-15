@@ -36,7 +36,8 @@ public class LoginServlet extends HttpServlet {
         User user;
         String button = req.getParameter("button");
         String page = button.equals("login") ? "login" : "registrazione";
-        Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$", Pattern.CASE_INSENSITIVE);
+        /* ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$ */
+        Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
         /* Check for valid input. The user should use the right email format. */
         if (!(email != null && emailPattern.matcher(email).find()) || !(password != null && !password.contains(" ") && password.length() > 8)) {
@@ -107,10 +108,12 @@ public class LoginServlet extends HttpServlet {
 
                 Cookie token = new Cookie("token", accessToken.encrypt(formattedDateTime));
                 user_id.setPath("/");
+                user_id.setSecure(true);
                 user_id.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(user_id);
                 /* set max age to day 3. */
                 token.setPath("/");
+                token.setSecure(true);
                 token.setMaxAge(60 * 60 * 24 * 3);
                 resp.addCookie(token);
             } catch (Exception ignore) {

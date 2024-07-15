@@ -38,6 +38,14 @@ public class AdminServlet extends HttpServlet {
                 else products(req, resp);
             }
             case "logout" -> logout(req, resp);
+            case "offers" -> {
+                if (permission != 2) {
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/manageOffers.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
+                    products(req, resp);
+                }
+            }
             case null, default -> {
                 products(req, resp);
             }

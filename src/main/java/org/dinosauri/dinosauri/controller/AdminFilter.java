@@ -7,7 +7,7 @@ import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
 
-@WebFilter(filterName = "/AdminFilter", urlPatterns = {"/adminControl", "/editid", "/removeAdmin", "/addAdmin", "/changePermission"})
+@WebFilter(filterName = "/AdminFilter", urlPatterns = {"/adminControl", "/editid", "/removeAdmin", "/addAdmin", "/changePermission", "/offer", "/products-json"})
 public class AdminFilter extends HttpServlet implements Filter {
 
     /**
