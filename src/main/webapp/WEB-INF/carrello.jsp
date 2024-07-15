@@ -7,55 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" href="../../src/main/webapp/css/navbar.css">
-    <link type="text/css" rel="stylesheet" href="../../src/main/webapp/css/footer.css">
-    <link type="text/css" rel="stylesheet" href="css/carrello.css">
+    <link type="text/css" rel="stylesheet" href="../css/navbar.css">
+    <link type="text/css" rel="stylesheet" href="../css/footer.css">
+    <link type="text/css" rel="stylesheet" href="../css/carrello.css">
 </head>
 
 <body>
-<div id="mobile-bar">
-    <img alt="DinoStore Logo" src="img/solo_logo.png">
-    <form class="form-bar">
-        <!-- Use this just for support accessibility -->
-        <label for="search-mobile" style="display: none">Search Bar</label>
-        <input id="search-mobile" class="bg-f4f5f5" type="text" name="search">
-        <button class="bg-f4f5f5"><img src="img/search_ico.png" alt="search ico">
-        </button>
-    </form>
-    <div class="open-btn not-select" onclick="openNav()">&#9776;</div>
-</div>
-
-<nav class="bg-f4f5f5" id="navbar">
-    <ul>
-        <!-- il logo si nasconde quando siamo da mobile -->
-        <li class="logo"><img alt="DinoStore Logo" src="img/logo.png"></li>
-        <li><a id="home_nav">Home</a></li>
-        <li><a class="" href="#">Offerte</a></li>
-        <li><a class="" href="#">Categorie</a></li>
-        <li><a id="product_nav" class="">Prodotti</a></li>
-        <li>
-            <div class="dropdown">
-                <button class="dropbtn">
-                    Area Utente
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Area Utente</a>
-                    <a href="#">Prodotti</a>
-                    <a href="#">Carrello</a>
-                    <a href="#">Rickroll</a>
-                    <a href="#">Logout</a>
-                </div>
-            </div>
-        </li>
-        <li></li>
-        <form class="form-bar">
-            <input id="search-desktop" type="text" name="search">
-            <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
-            <label for="search-desktop" id="label_desktop">Search Bar</label>
-            <button><img alt="search ico" src="img/search_ico.png"></button>
-        </form>
-    </ul>
-</nav>
+<%@ include file="include/navbar.jsp" %>
 
 <div id="container">
     <div id="left-div">
@@ -130,30 +88,6 @@
     </div>
 </div>
 
-<footer>
-    <div id="footer">
-        <ul>
-            <li>Contattaci</li>
-            <li><a href="#">Email</a></li>
-            <li><a href="#">Altre cose</a></li>
-        </ul>
-
-        <ul>
-            <li>Chi siamo</li>
-            <li><a href="#">3 tizi</a></li>
-        </ul>
-
-        <ul>
-            <li>Pagamenti tramite</li>
-            <li>GPay</li>
-            <li>VISA</li>
-            <li>Altre cose</li>
-            <li>L'importante è pagare</li>
-        </ul>
-    </div>
-    <div id="disclamer">
-        <p>Sito creato per progetto universitario</p>
-    </div>
-</footer>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>
