@@ -17,7 +17,11 @@
         <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico">
         </button>
     </form>
-    <div class="open-btn not-select" onclick="openNav()">&#9776;</div>
+    <div class="open-btn not-select menu-button" id="menuButton">
+        <div class="line line1"></div>
+        <div class="line line2"></div>
+        <div class="line line3"></div>
+    </div>
 </div>
 
 <nav class="bg-f4f5f5" id="navbar">
@@ -115,7 +119,9 @@
      *
      * @function openNav - used from button in html.
      */
-    function openNav() {
+    const menuButton = document.getElementById('menuButton');
+    menuButton.addEventListener('click', () => {
+        menuButton.classList.toggle('open');
         if (!isOpen) {
             navBarStyle.left = "0";
         } else {
@@ -123,5 +129,5 @@
         }
 
         isOpen = !isOpen;
-    }
+    });
 </script>
