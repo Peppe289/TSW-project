@@ -15,17 +15,17 @@ import java.util.*;
 
 @WebServlet("/edit-prod-request")
 @MultipartConfig
+@SuppressWarnings("unchecked")
 public class UpdateProduct extends HttpServlet {
 
     /**
      * Method for update database information of single product.
      *
-     * @param request - Retrieve data
-     * @param response - Set status
+     * @param request  Retrieve data
      * @return json string for success or not
-     * @throws IOException - Retrieve data
+     * @throws IOException if some get wrong return this error.
      */
-    private String update_database(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private String update_database(HttpServletRequest request) throws IOException {
         BufferedReader reader = request.getReader();
         StringBuilder buffer = new StringBuilder();
         String line;
@@ -34,12 +34,11 @@ public class UpdateProduct extends HttpServlet {
         int elements;
         int disp;
 
-        while ((line = reader.readLine()) != null)
-            buffer.append(line);
+        while ((line = reader.readLine()) != null) buffer.append(line);
 
         String payload = buffer.toString();
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, String> map = objectMapper.readValue(payload, new TypeReference<Map<String, String>>(){});
+        Map<String, String> map = objectMapper.readValue(payload, HashMap.class);
 
         if (id.isEmpty()) {
             return "{\"status\":\"ID vuoto\"}";
@@ -53,9 +52,9 @@ public class UpdateProduct extends HttpServlet {
         product.setName(map.get("name"));
 
         /* make insert or update. this is specified by client from input hidden. */
-        if (map.get("new_prod").isEmpty())
+        if (map.get("new_prod").isEmpty()) {
             ProductDAO.doUpdateByID(product);
-        else {
+        } else {
             try {
                 ProductDAO.doInsertProduct(product);
             } catch (SQLException e) {
@@ -82,7 +81,6 @@ public class UpdateProduct extends HttpServlet {
         product = ProductDAO.doRetrieveProductByID(product.getId());
         product.setQuantity(ProductDAO.doRetrieveProductByID(product.getId(), true).size());
 
-        response.setContentType("application/json");
         return objectMapper.writeValueAsString(product);
     }
 
@@ -131,8 +129,7 @@ public class UpdateProduct extends HttpServlet {
             newPath.add(FileManager.directory + "/" + file.getName());
         }
 
-        response.setContentType("application/json");
-        return "{\"path\": " + objectMapper.writeValueAsString(newPath.toArray()) + ",\"status\":\"success\"}";
+        return "{\"path\": " + objectMapper.writeValueAsString(newPath.toArray()) + "}";
     }
 
     /**
@@ -140,6 +137,7 @@ public class UpdateProduct extends HttpServlet {
      *
      * @param request  take resource from request.
      * @param response not needed but is better to keep here for set status code.
+     * @throws IOException get error if some get wrong.
      */
     private String upload_image(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
@@ -148,8 +146,6 @@ public class UpdateProduct extends HttpServlet {
         List<File> files;
         List<String> newPath = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-
-        response.setContentType("application/json");
 
         try {
             /* write file received in the right directory. this can be give IOException. Catch it. */
@@ -173,34 +169,55 @@ public class UpdateProduct extends HttpServlet {
     public String check_new_id(String id) {
         Product product = ProductDAO.doRetrieveProductByID(id);
 
-        if (product == null)
-            return "{\"status\":\"ok\"}";
-        else
-            return "{\"status\":\"Already Present\"}";
+        if (product == null) return "{\"status\":\"ok\"}";
+        else return "{\"status\":\"Already Present\"}";
     }
 
     /**
      * This servlet is used for write in server directory the new immage taked from client
-     * About this we can consider:
-     *
-     * @throws IOException if we can't write in that directory, we need to catch this error and return the right status response.
+     * If some get wrong whe set response status at 500.
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String json_result;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String json_result = null;
 
         switch (request.getParameter("o")) {
-            case "upload" -> json_result = upload_image(request, response);
-            case "remove" -> json_result = remove_image(request, response);
-            case "update_database" -> json_result = update_database(request, response);
+            case "upload" -> {
+                try {
+                    json_result = upload_image(request, response);
+                } catch (IOException e) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            }
+            case "remove" -> {
+                try {
+                    json_result = remove_image(request, response);
+                } catch (IOException e) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            }
+            case "update_database" -> {
+                try {
+                    json_result = update_database(request);
+                } catch (IOException e) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            }
             case "new_id" -> {
                 json_result = check_new_id(request.getParameter("id"));
-                response.setContentType("application/json");
             }
-            default -> json_result = "{\"status\":\"Request Error\"}";
+            default -> {
+
+            }
         }
 
-        /* return json page with status success */
-        response.getWriter().print(json_result);
+        response.setContentType("application/json");
+
+        try {
+            /* return json page with status success */
+            response.getWriter().print(json_result);
+        } catch (IOException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

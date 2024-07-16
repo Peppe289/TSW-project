@@ -183,18 +183,16 @@ function update_database_ajax() {
             'Content-Type': 'application/json',
         }, body: json
     })
-        .then(/* Take response json */response => response.json())
-        .then(data => {
-            /* Notify to client result of server using json. */
-            if (data != null) {
-                try {
-                    if (data["status"] !== "success")
-                        notifyUserModule("Error", data["status"]);
-                    else
-                        notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
-
-                } catch(e) {}
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                notifyUserModule("Error", "");
+                throw new Error('Something went wrong');
             }
+        })
+        .then(data => {
+            notifyUserModule("Dati Aggiornati", "Dati aggiornati con successo.");
             reloadInputValue(data);
         }).catch(error => {
         console.error('Error:', error);
@@ -230,15 +228,17 @@ function deleteimg_ajax() {
             'Content-Type': 'application/json',
         }, body: JSON.stringify(removedPath),
     })
-        .then(/* Take response json */response => response.json())
-        .then(data => {
-            /* Notify to client result of server using json. */
-            let status = data["status"];
-            if (status.indexOf("success") < 0) {
-                notifyUserModule("Error", status);
-            } else {
-                notifyUserModule("Immagine rimossa", "immagine rimossa con successo.");
+        .then(response => {
+            if (response.status === 200)
+                return response.json();
+            else {
+                notifyUserModule("Error", "");
+                throw new Error('Something went wrong');
             }
+        })
+        .then(data => {
+            /* Notify to a client the result of server using json. */
+            notifyUserModule("Immagine rimossa", "immagine rimossa con successo.");
 
             reloadImgItem(data);
         }).catch(error => {
@@ -298,20 +298,15 @@ function uploadimg_ajax() {
                 });
             })
             .then(response => {
-                /**
-                 * From return take json. This can say if result goes well or not.
-                 * If the operation went well, the entire list of images is returned in the json.
-                 */
-                return response.json();
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    notifyUserModule("Error", "");
+                    throw new Error('Something went wrong');
+                }
             })
             .then(data => {
-                /* Notify to client result of server using json. */
-                let status = data["status"];
-                if (status.indexOf("success") < 0) {
-                    notifyUserModule("Error", status);
-                } else {
-                    notifyUserModule("Immagine caricata", "immagine caricata con successo.");
-                }
+                notifyUserModule("Immagine caricata", "immagine caricata con successo.");
 
                 /* reload img item after ajax request. */
                 reloadImgItem(data);
