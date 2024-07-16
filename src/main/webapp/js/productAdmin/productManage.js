@@ -102,6 +102,12 @@ if (new_prod_id != null && new_prod_id.classList.contains("newProd") === true) {
 
 
 document.getElementById("applica-btn").addEventListener("click", () => {
+
+    if (wrong_ID) {
+        notifyUserModule("Error", "ID già presente")
+        return;
+    }
+
     /* disable all fields mean confirm changes from js. */
     disableAllFields();
     /* Use fetch for request about upload img. */
