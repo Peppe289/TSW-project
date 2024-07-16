@@ -213,6 +213,9 @@ public class UpdateProduct extends HttpServlet {
         response.setContentType("application/json");
 
         try {
+            if (json_result == null) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
             /* return json page with status success */
             response.getWriter().print(json_result);
         } catch (IOException e) {
