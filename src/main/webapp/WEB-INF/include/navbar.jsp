@@ -1,3 +1,4 @@
+<%--@elvariable id="lastSearch" type="jakarta"--%>
 <%--
   Created by IntelliJ IDEA.
   User: peppe289
@@ -6,8 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link type="text/css" rel="stylesheet" href="css/navbar.css">
+<%@ page contentType="text/html;charset=UTF-8" %>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/navbar.css">
 <div id="mobile-bar">
     <img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
@@ -36,6 +37,7 @@
                     <a href="#">Carrello</a>
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
+                        <%--@elvariable id="user" type=""--%>
                         <c:when test="${not empty user}">
                             <a href="#">Area Personale</a>
                             <a href="${pageContext.request.contextPath}/logout">Log out</a>
