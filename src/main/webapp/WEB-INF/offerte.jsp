@@ -12,25 +12,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
-    <link type="text/css" rel="stylesheet" href="css/home.css">
+    <link type="text/css" rel="stylesheet" href="css/project.css">
     <meta charset="UTF-8">
     <title>Offerte</title>
 </head>
 
 <style>
-    body {
-        margin: 0;
-    }
-
     #container {
         display: flex;
         flex-direction: column;
         width: 100%;
-    }
-
-    a, a:visited, a:hover, a:active {
-        color: inherit;
-        text-decoration: none;
     }
 
     .items {
@@ -83,7 +74,7 @@
 <%@ include file="include/carrello_portable.html" %>
 <div id="container">
     <c:forEach items="${products}" var="product">
-        <a class="items" href="p?product=${product.id}">
+        <a class="items text" href="p?product=${product.id}">
             <div class="img">
                 <c:choose>
                     <c:when test="${not empty product.photo_path[0]}">

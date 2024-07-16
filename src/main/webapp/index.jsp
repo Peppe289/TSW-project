@@ -11,7 +11,6 @@
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
-    <link type="text/css" rel="stylesheet" href="css/home.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
 
@@ -23,11 +22,7 @@
 
 <body style="padding: 0">
 <%@ include file="WEB-INF/include/navbar.jsp" %>
-
-<a id="top-button" href="#">
-    <img alt="Torna su" src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
-</a>
-
+<%@ include file="WEB-INF/include/upButton.html" %>
 <%@ include file="WEB-INF/include/carrello_portable.html" %>
 
 <!-- carosello -->
@@ -70,12 +65,7 @@
     </div>
 </div>
 
-<div id="btn-page" class="not-select">
-    <ul>
-        <li class="bg-3CB371 active"><a href="${pageContext.request.contextPath}/product">Mostra più
-            prodotti</a></li>
-    </ul>
-</div>
+<%@ include file="WEB-INF/include/btn_page.jsp" %>
 <%@ include file="WEB-INF/include/footer.jsp" %>
 </body>
 <script>

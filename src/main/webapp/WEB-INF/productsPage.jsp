@@ -11,7 +11,6 @@
     <link type="text/css" rel="stylesheet" href="css/filter.css">
     <link type="text/css" rel="stylesheet" href="css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
-    <link type="text/css" rel="stylesheet" href="css/home.css">
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
@@ -22,13 +21,7 @@
 
 <body>
 <%@ include file="include/navbar.jsp" %>
-<a id="top-button" href="#" style="position: fixed;
-    height: 50px; width: 50px; border-radius: 50%; display: flex;
-    justify-content: space-around; bottom: 20px; right: 20px;
-    background-color: rgb(232, 232, 232); z-index: 600000">
-    <img src="${pageContext.request.contextPath}/img/arrows.png" style="padding: 5px">
-</a>
-
+<%@ include file="include/upButton.html" %>
 <%@ include file="include/carrello_portable.html" %>
 
 <script defer>
@@ -94,7 +87,7 @@
 
     <div id="parent-cont">
         <c:forEach items="${products}" var="product">
-            <a href="p?product=${product.id}" class="item">
+            <a href="p?product=${product.id}" class="item text">
                 <c:choose>
                     <c:when test="${not empty product.photo_path[0]}">
                         <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/${product.photo_path[0]}" onError="this.onerror=null; this.src='img/missing.jpg'">
@@ -138,21 +131,7 @@
     </div>
 </div>
 
-<div id="btn-page" class="not-select">
-    <ul>
-        <li class="${page > 0 ? 'bg-3CB371 active' : 'deactive'}">
-            <a href="${pageContext.request.contextPath}/product?page=${page - 1}&search=${lastSearch}">Precedente</a>
-        </li>
-        <c:forEach var="number" begin="0" end="${btn_page}">
-            <li class="${page == number ? 'bg-3CB371 active' : 'other'}">
-                <a href="${pageContext.request.contextPath}/product?page=${number}&search=${lastSearch}">${number + 1}</a>
-            </li>
-        </c:forEach>
-        <li class="${page < btn_page ? 'bg-3CB371 active' : 'deactive'}">
-            <a href="${pageContext.request.contextPath}/product?page=${page + 1}&search=${lastSearch}">Successiva</a>
-        </li>
-    </ul>
-</div>
+<%@ include file="include/btn_page.jsp" %>
 <%@ include file="include/footer.jsp" %>
 </body>
 <script src="${pageContext.request.contextPath}/js/ProductsFilter.js"></script>
