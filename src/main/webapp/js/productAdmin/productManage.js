@@ -75,7 +75,7 @@ function verify_new_id() {
 /* if this button is present means we need to add new product. make request to server to check if ID already exists. */
 if (new_prod_id != null && new_prod_id.classList.contains("newProd") === true) {
 
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('DOMContentLoaded', () => {
         const inputElement = new_prod_id
 
         inputElement.addEventListener('focus', () => {
