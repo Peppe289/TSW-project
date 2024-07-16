@@ -50,13 +50,13 @@
             </div>
         </li>
         <li></li>
-        <form class="form-bar" action="${pageContext.request.contextPath}/search">
-            <input id="search-desktop" type="text" name="search" value="${lastSearch}">
-            <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
-            <label for="search-desktop" id="label_desktop">Search Bar</label>
-            <button><img alt="search ico" src="${pageContext.request.contextPath}/img/search_ico.png"></button>
-        </form>
     </ul>
+    <form class="form-bar" action="${pageContext.request.contextPath}/search">
+        <input id="search-desktop" type="text" name="search" value="${lastSearch}">
+        <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
+        <label for="search-desktop" id="label_desktop">Search Bar</label>
+        <button><img alt="search ico" src="${pageContext.request.contextPath}/img/search_ico.png"></button>
+    </form>
 </nav>
 <script>
 
