@@ -7,7 +7,7 @@
     <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
     <title>Modifica ${product.name}</title>
 </head>
-<script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js" defer></script>
 <body>
 <div class="containerpopup">
     <h1>Modifica Prodotto</h1>
@@ -56,12 +56,18 @@
         </div>
         <div class="form-group">
             <label for="category">Categoria:</label>
-            <input type="text" id="category" value="${product.categoria}" disabled>
+            <input type="text" id="category" list="suggestion_cat" value="${product.categoria}" disabled>
+            <datalist id="suggestion_cat">
+                <!-- options -->
+            </datalist>
             <button>Modifica</button>
         </div>
         <div class="form-group">
             <label for="nutrition">Alimentazione:</label>
-            <input type="text" id="nutrition" value="${product.alimentazione}" disabled>
+            <input type="text" list="suggestion_nut" id="nutrition" value="${product.alimentazione}" disabled>
+            <datalist id="suggestion_nut">
+                <!-- options -->
+            </datalist>
             <button>Modifica</button>
         </div>
         <div class="form-group">

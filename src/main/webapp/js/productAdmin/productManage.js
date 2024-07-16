@@ -47,6 +47,46 @@ fields.forEach(field => {
 });
 
 /**
+ * Retrieve json with all the category. This whill showed in the input box when set category for product.
+ */
+function requestCategorySuggestin() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "products-json?reason=cat", true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            /* if for a some reasons we can't get json with categiries ignore it. this isn't fatal error. */
+            try {
+                let json = JSON.parse(this.responseText);
+                createSuggestionCat(json, document.getElementById("suggestion_cat"));
+            } catch (e) {}
+        } else {}
+    }
+    xhr.send();
+}
+
+/**
+ * Retrieve json with all the nutrition type. This whill showed in the input box when set nutrition for product.
+ */
+function requestNutritionSuggestin() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "products-json?reason=nut", true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            /* if for a some reasons we can't get json with categiries ignore it. this isn't fatal error. */
+            try {
+                let json = JSON.parse(this.responseText);
+                createSuggestionCat(json, document.getElementById("suggestion_nut"));
+            } catch (e) {}
+        }
+    }
+    xhr.send();
+}
+
+/* request for json at the first time for a suggestion. */
+requestCategorySuggestin();
+requestNutritionSuggestin();
+
+/**
  * Make ajax request for seeing if ID already took.
  * Make ajax request at all keydown with time out.
  */
@@ -463,6 +503,22 @@ function editImg() {
 
     // Toggle the editing state
     isEditingImg = !isEditingImg;
+}
+
+/**
+ * create a suggestion list for defined input.
+ *
+ * @param json json with data.
+ * @param parent use for appending child.
+ */
+function createSuggestionCat(json, parent) {
+    const arr = Array.from(json);
+    arr.forEach(item => {
+        const option = document.createElement("option");
+        option.textContent = item.toString();
+        option.value = item.toString();
+        parent.appendChild(option);
+    })
 }
 
 /**
