@@ -46,8 +46,18 @@ public class UpdateProduct extends HttpServlet {
 
         product.setId(id);
         product.setPrice(Double.parseDouble(map.get("price")));
-        product.setCategoria(map.get("category"));
-        product.setAlimentazione(map.get("nutrition"));
+
+        String cat = map.get("category");
+        /* check if match with white space. */
+        if (cat != null)
+            cat = cat.matches("^\\s*$") || cat.isBlank() ? null : cat;
+
+        String nut = map.get("nutrition");
+        if (nut != null)
+            nut = nut.matches("^\\s*$") || nut.isBlank() ? null : nut;
+
+        product.setCategoria(cat);
+        product.setAlimentazione(nut);
         product.setDescription(map.get("description"));
         product.setName(map.get("name"));
 

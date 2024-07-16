@@ -290,7 +290,10 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                nutritions.add(rs.getString("alimentazione"));
+                String nut = rs.getString("alimentazione");
+                /* check if nut is not null or not empty string. */
+                if (nut != null && !nut.matches("^\\s+$") && !nut.isBlank())
+                    nutritions.add(rs.getString("alimentazione"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
