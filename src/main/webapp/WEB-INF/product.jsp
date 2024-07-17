@@ -184,7 +184,10 @@
                 if (json["status"] !== "success") {
                     notifyUserModule("Impossibile aggiungere al carrello", json["status"]);
                 } else {
-                    notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
+                    if (json["added"] !== "0")
+                        notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
+                    else
+                        notifyUserModule("Elemento rimosso dal carrello", "");
                 }
                 /* get also full price. */
                 let price = arr_json[1];
