@@ -27,10 +27,8 @@ public class ConfirmProductServlet  extends HttpServlet {
 
                 if (product.getPhoto_path().isEmpty())
                     temp.setPhotoPath(null);
-                else {
-                    List<String> path = product.getPhoto_path();
+                else
                     temp.setPhotoPath(product.getPhoto_path().getFirst());
-                }
 
                 if (product.getSconto() == 0) temp.setPrice(product.getPrice());
                 else temp.setPrice(product.getPrice() * (1 - ((double) product.getSconto() / 100)));
