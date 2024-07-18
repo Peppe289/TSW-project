@@ -12,7 +12,7 @@
         <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico">
         </button>
     </form>
-    <div class="open-btn not-select menu-button" id="menuButton">
+    <div tabindex=0 role="menu" class="open-btn not-select menu-button" id="menuButton">
         <div class="line line1"></div>
         <div class="line line2"></div>
         <div class="line line3"></div>
