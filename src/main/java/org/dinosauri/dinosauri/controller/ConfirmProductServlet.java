@@ -6,7 +6,6 @@ import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
-import java.sql.*;
 import java.util.*;
 
 @WebServlet("/compra")
@@ -15,7 +14,6 @@ public class ConfirmProductServlet  extends HttpServlet {
     private List<ConfirmProd> getOrderForBuy(HttpServletRequest req) {
         List<ConfirmProd> list = new ArrayList<>();
         HttpSession session = req.getSession();
-        Enumeration<String> attributes = session.getAttributeNames();
         User user = (User) session.getAttribute("user");
         Integer total = 0;
         double price = 0.0;
@@ -62,7 +60,7 @@ public class ConfirmProductServlet  extends HttpServlet {
         List<ConfirmProd> list = getOrderForBuy(req);
 
         if (list.isEmpty()) {
-            resp.sendRedirect(req.getContextPath() + "/");;
+            resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
 
