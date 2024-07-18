@@ -110,6 +110,12 @@ public class SearchServlet extends HttpServlet {
         /* exec filter if is required. */
         products = applyFilter(products, req);
 
+        /* remove product that isn't available. */
+        products.removeIf((item) -> {
+            List<Integer> prods_id = ProductDAO.doRetrieveProductByID(item.getId(), true);
+            return prods_id.isEmpty();
+        });
+
         int min = max_prod_page * Integer.parseInt(page);
         int max = max_prod_page + (max_prod_page * Integer.parseInt(page));
 
