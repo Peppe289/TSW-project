@@ -72,6 +72,8 @@ create table ordini
 create table prodotto_carrello
 (
     /* Relativo al prodotto generale */
+    quantita int not null default 0,
+    check ( quantita >= 0 ),
     id_prodotto   varchar(50),
     numero_ordine int,
     primary key (id_prodotto, numero_ordine),
