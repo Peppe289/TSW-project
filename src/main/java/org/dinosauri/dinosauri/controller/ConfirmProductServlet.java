@@ -48,6 +48,14 @@ public class ConfirmProductServlet  extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
+
         List<ConfirmProd> list = loadProdFromSession(req);
 
         if (list.isEmpty()) {
