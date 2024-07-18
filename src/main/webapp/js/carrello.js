@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productName = document.createElement("h1");
                     productName.textContent = json[4][jkeyId];
                     const productPrice = document.createElement("h1");
-                    productPrice.textContent = `${json[1][jkeyId]}€`;
+                    const price = parseFloat(json[1][jkeyId]).toFixed(2);
+                    productPrice.textContent = `${price}€`;
                     totalPrice += json[1][jkeyId] * json[0][jkeyId];
 
                     productNameDiv.appendChild(productName);
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     listDiv.appendChild(hr);
                 });
 
-                totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${totalPrice}€`;
+                totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${parseFloat(totalPrice).toFixed(2)}€`;
             } else {
                 const noProductsMessage = document.createElement("b");
                 noProductsMessage.textContent = "Non ci sono prodotti";
