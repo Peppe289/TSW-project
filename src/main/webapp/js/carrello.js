@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     hr.style.margin = '10px auto';
 
                     buttonsDiv.appendChild(quantityLabel);
-                    buttonsDiv.appendChild(quantitySelect);
                     buttonsDiv.appendChild(removeButton);
 
                     descriptionContainer.appendChild(productNameDiv);
