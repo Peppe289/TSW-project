@@ -17,7 +17,7 @@
 
         <ul>
             <li>Chi siamo</li>
-            <li><a href="#">3 tizi</a></li>
+            <li><a href="chi_siamo.jsp">About us</a></li>
         </ul>
 
         <ul>
