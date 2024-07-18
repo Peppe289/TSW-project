@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 jkeysId.forEach(jkeyId => {
                     if (jkeyId === "total" || jkeyId === "status")
                         return;
-                    //console.log(json[0][jkeyId]);
+
                     const productDiv = document.createElement("div");
                     productDiv.classList.add("product");
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         const option = document.createElement("option");
                         option.value = i.toString();
                         option.textContent = i.toString();
-                        if (i === jkeyId.quantity) {
+                        if (i === Number(json[0][jkeyId])) {
                             option.selected = true;
                         }
                         quantitySelect.appendChild(option);
