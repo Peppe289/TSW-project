@@ -50,6 +50,11 @@ public class ConfirmProductServlet  extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ConfirmProd> list = loadProdFromSession(req);
 
+        if (list.isEmpty()) {
+            resp.sendRedirect(req.getContextPath() + "/");;
+            return;
+        }
+
         req.setAttribute("prodotti", list);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/acquista.jsp");
         requestDispatcher.forward(req, resp);
