@@ -27,6 +27,10 @@ public class OfferteServlet extends HttpServlet {
         /* remove all elements without a sale. */
         List<Product> filtered = products.stream().filter(b -> b.getSconto() != 0).toList();
 
+        /* only for this page use product description as offer description. */
+        for (Product prod : filtered) {
+            prod.setDescription(OfferteDAO.getOfferDescriptionFromID(prod.getId()));
+        }
 
         /* add an image path to all of this product. */
         addImage(filtered);

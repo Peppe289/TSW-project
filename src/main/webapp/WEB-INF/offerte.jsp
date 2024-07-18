@@ -69,24 +69,31 @@
 <%@ include file="include/navbar.jsp" %>
 <%@ include file="include/carrello_portable.html" %>
 <div id="container">
-    <c:forEach items="${products}" var="product">
-        <a class="items text" href="p?product=${product.id}">
-            <div class="img">
-                <c:choose>
-                    <c:when test="${not empty product.photo_path[0]}">
-                        <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/${product.photo_path[0]}" onError="this.onerror=null; this.src='img/missing.jpg'">
-                    </c:when>
-                    <c:otherwise>
-                        <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/img/missing.jpg">
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <div class="overtext info">
-                <h1>${product.name}</h1>
-                <p>${product.description}</p>
-            </div>
-        </a>
-    </c:forEach>
+    <c:choose>
+        <c:when test="${not empty products}">
+            <c:forEach items="${products}" var="product">
+                <a class="items text" href="p?product=${product.id}">
+                    <div class="img">
+                        <c:choose>
+                            <c:when test="${not empty product.photo_path[0]}">
+                                <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/${product.photo_path[0]}" onError="this.onerror=null; this.src='img/missing.jpg'">
+                            </c:when>
+                            <c:otherwise>
+                                <img alt="${product.name}" class="bg-f4f5f5" src="${pageContext.request.contextPath}/img/missing.jpg">
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="overtext info">
+                        <h1>${product.name}</h1>
+                        <p>${product.description}</p>
+                    </div>
+                </a>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <p style="text-align: center; width: 100%;">Nessun offerta disponibile.</p>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <script defer>

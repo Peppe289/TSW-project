@@ -1,6 +1,7 @@
 package org.dinosauri.dinosauri.model;
 
 import java.sql.*;
+import java.time.*;
 import java.util.*;
 
 public class OfferteDAO {
@@ -96,5 +97,35 @@ public class OfferteDAO {
         off.setPercentage(rs.getInt("percentuale"));
 
         return off;
+    }
+
+    /**
+     * Retrieve offer description. Only for current date valid description.
+     *
+     * @param id Product id.
+     * @return Description string for current offert. Return null if not found.
+     */
+    public static String getOfferDescriptionFromID(String id) {
+        HashMap<String, Integer> offerte = new HashMap<>();
+
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT descrizione, data_inizio, data_fine FROM offerte WHERE id_prodotto = ?");
+            ps.setString(1, id);
+            ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LocalDate start = rs.getDate("data_inizio").toLocalDate();
+                LocalDate stop = rs.getDate("data_fine").toLocalDate();
+                LocalDate today = LocalDate.now();
+
+                if ((today.isEqual(start) || today.isAfter(start)) && today.isBefore(stop)) {
+                    return rs.getString("descrizione");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }
