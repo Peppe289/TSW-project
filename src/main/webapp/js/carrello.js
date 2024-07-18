@@ -39,8 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productName = document.createElement("h1");
                     productName.textContent = json[4][jkeyId];
                     const productPrice = document.createElement("h1");
-                    productPrice.textContent = `${json[1][jkeyId]}€`;
+                    const price = parseFloat(json[1][jkeyId]).toFixed(2);
+                    productPrice.textContent = `${price}€`;
                     totalPrice += json[1][jkeyId] * json[0][jkeyId];
+                    totalPrice = parseFloat(totalPrice).toFixed(2);
 
                     productNameDiv.appendChild(productName);
                     productNameDiv.appendChild(productPrice);
