@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Admin Page</title>
     <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 </head>
 <body>
 <div id="main_container">

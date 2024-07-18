@@ -12,7 +12,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <link type="text/css" rel="stylesheet" href="css/home.css">
-    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 
     <title>DinoStore - Prodotto</title>
 

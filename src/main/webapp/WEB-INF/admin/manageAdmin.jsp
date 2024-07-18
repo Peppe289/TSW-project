@@ -10,6 +10,7 @@
     <title>Admin Page</title>
     <link type="text/css" rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 </head>
 <body>
 <div id="main_container">

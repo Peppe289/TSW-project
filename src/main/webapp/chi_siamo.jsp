@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <title>Chi Siamo - DinoStore</title>
     <style>

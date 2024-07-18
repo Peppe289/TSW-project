@@ -10,6 +10,8 @@
     <link type="text/css" rel="stylesheet" href="../css/navbar.css">
     <link type="text/css" rel="stylesheet" href="../css/footer.css">
     <link type="text/css" rel="stylesheet" href="../css/carrello.css">
+
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 </head>
 
 <body>

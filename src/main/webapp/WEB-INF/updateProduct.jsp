@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/updateProduct.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
-    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <title>Modifica ${product.name}</title>
 </head>
 <script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js" defer></script>
