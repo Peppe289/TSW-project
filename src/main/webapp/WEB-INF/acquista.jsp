@@ -1,3 +1,5 @@
+<%--@elvariable id="price" type="java.lang.Double"--%>
+<%--@elvariable id="total" type="java.lang.Integer"--%>
 <%--@elvariable id="prodotti" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -147,7 +149,7 @@
     </div>
     <div class="side_right">
         <div style="width: 100%; text-align: center">
-            <h3 style="padding: 0; margin: 10px;">45 Prodotti totali</h3>
+            <h3 style="padding: 0; margin: 10px;">${total} Prodotti totali</h3>
             <hr style="width: 80%">
         </div>
         <div style="width: 100%; text-align: center">
@@ -186,7 +188,7 @@
                         PayPal
                     </label>
                 </div>
-                <h3>Prezzo totale: <span class="total_price">43000 €</span></h3>
+                <h3>Prezzo totale: <span class="total_price">${price} €</span></h3>
             </form>
         </div>
         <div style="width: 100%; text-align: center">

@@ -17,6 +17,8 @@ public class ConfirmProductServlet  extends HttpServlet {
         HttpSession session = req.getSession();
         Enumeration<String> attributes = session.getAttributeNames();
         User user = (User) session.getAttribute("user");
+        Integer total = 0;
+        double price = 0.0;
 
         HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
         if (products != null) {
@@ -33,13 +35,17 @@ public class ConfirmProductServlet  extends HttpServlet {
                 if (product.getSconto() == 0) temp.setPrice(product.getPrice());
                 else temp.setPrice(product.getPrice() * (1 - ((double) product.getSconto() / 100)));
 
+                total += entry.getValue();
+                price += temp.getPrice() * entry.getValue();
+
                 temp.setQuantity(entry.getValue());
                 temp.setTile(product.getName());
                 temp.setId(entry.getKey());
                 list.add(temp);
             }
         }
-
+        req.setAttribute("price", price);
+        req.setAttribute("total", total);
         return list;
     }
 
