@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const checkboxLabel = document.createElement("label");
                     checkboxLabel.classList.add("check");
+                    checkboxLabel.ariaLabel = "checkbox";
                     const checkboxInput = document.createElement("input");
                     checkboxInput.type = "checkbox";
                     checkboxLabel.appendChild(checkboxInput);
