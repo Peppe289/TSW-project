@@ -1,11 +1,5 @@
-<%--@elvariable id="lastSearch" type="jakarta"--%>
-<%--
-  Created by IntelliJ IDEA.
-  User: peppe289
-  Date: 5/11/24
-  Time: 3:00 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%--@elvariable id="lastSearch" type="String"--%>
+<%--@elvariable id="user" type="User"--%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/navbar.css">
@@ -37,7 +31,6 @@
                     <a href="#">Carrello</a>
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
-                        <%--@elvariable id="user" type=""--%>
                         <c:when test="${not empty user}">
                             <a href="#">Area Personale</a>
                             <a href="${pageContext.request.contextPath}/logout">Log out</a>
@@ -55,7 +48,7 @@
     </ul>
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
         <input id="search-desktop" type="text" name="search" value="${lastSearch}">
-        <!-- This bar isn't empty. I use js for populate dynamically this using interval -->
+        <!-- This bar isn't empty. I use js to dynamically populate this using interval -->
         <label for="search-desktop" id="label_desktop">Search Bar</label>
         <button><img alt="search ico" src="${pageContext.request.contextPath}/img/search_ico.png"></button>
     </form>
@@ -78,7 +71,7 @@
     /**
      * Hide label used for placeholder. This is only for desktop view.
      * @function check_for_hide_label
-     * @param value - Check if is present some string in box. if is present hide this label.
+     * @param value - Check if is present some string in box. if it is present, hide this label.
      */
     function check_for_hide_label(value) {
         if (value === "") {
@@ -95,8 +88,8 @@
     check_for_hide_label(input_desktop.value);
 
     /**
-     * For accessibility and flexibility I use label as placeholder.
-     * So, when some text are in input area I need to hide this "placeholder".
+     * For accessibility and flexibility, I use label as placeholder.
+     * So, when some text is in the input area, I need to hide this "placeholder".
      * Check it at focusout.
      *
      * @function check_for_hide_label
@@ -113,7 +106,8 @@
     });
 
     /**
-     * Needed for mobile view. This can open and close sidebar.
+     * Needed for mobile view.
+     * This can open and close the sidebar.
      *
      * @function openNav - used from button in html.
      */

@@ -1,5 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--@elvariable id="product" type="org.dinosauri.dinosauri.model.Product"--%>
+<%--@elvariable id="newProd" type="org.dinosauri.dinosauri.model.Product"--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/updateProduct.css">
@@ -12,7 +15,7 @@
 <div class="containerpopup">
     <h1>Modifica Prodotto</h1>
     <div id="container-img">
-        <img id="image-src">
+        <img alt="image" src="" id="image-src">
         <div id="img-prev">
             <c:forEach items="${product.photo_path}" var="photo">
                 <div class="img-item">
@@ -20,9 +23,9 @@
                     <span>&#10006;</span>
                 </div>
             </c:forEach>
-            <form action="Upload" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <label for="file-upload" class="custom-file-upload">
-                    <img src="${pageContext.request.contextPath}/img/plus-icon.jpg">
+                    <img alt="add more photo" src="${pageContext.request.contextPath}/img/plus-icon.jpg">
                 </label>
                 <input id="file-upload" type="file" accept="image/*"/>
             </form>

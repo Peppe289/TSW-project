@@ -1,6 +1,5 @@
-<%@ page import="java.util.*" %>
-<%@ page import="org.dinosauri.dinosauri.model.*" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--@elvariable id="admins" type="org.dinosauri.dinosauri.model.Admin"--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -8,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Page</title>
-    <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
     <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 </head>
@@ -68,7 +67,7 @@
 
     Array.from(admin_permission).forEach(el => {
         el.addEventListener("change", (event) => {
-            /* form input > label > td > tr. from tr I can get first child to see id of admin. */
+            /* form input > label > td > tr. from tr I can get the first child to see id of admin. */
             let id = event.target.parentElement.parentElement.parentElement.getElementsByTagName("td")[0].innerHTML;
             let permission = event.target.value;
             let obj  = {
@@ -95,7 +94,7 @@
         })
     })
 
-    /* for each button, add event listener for remove admin from database. */
+    /* for each button, add event listener for remove admin from a database. */
     Array.from(admin_button).forEach(el => {
         let row = el.parentElement.parentElement;
         let id = row.getElementsByTagName("td")[0];

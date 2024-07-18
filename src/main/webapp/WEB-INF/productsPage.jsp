@@ -1,5 +1,7 @@
+<%--@elvariable id="products" type="org.dinosauri.dinosauri.model.Product"--%>
+<%--@elvariable id="nutritions" type="java.util.List"--%>
 <%@ page import="java.util.*" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -7,10 +9,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" href="css/carosello.css">
-    <link type="text/css" rel="stylesheet" href="css/filter.css">
-    <link type="text/css" rel="stylesheet" href="css/listproduct.css">
-    <link type="text/css" rel="stylesheet" href="css/project.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/carosello.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/filter.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/listproduct.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/project.css">
     <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>

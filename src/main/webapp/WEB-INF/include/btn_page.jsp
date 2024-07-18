@@ -1,3 +1,6 @@
+<%--@elvariable id="page" type="java.lang.Integer"--%>
+<%--@elvariable id="lastSearch" type=""--%>
+<%--@elvariable id="btn_page" type=""--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <style>
     #btn-page {

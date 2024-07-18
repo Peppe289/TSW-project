@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: peppe289
-  Date: 5/11/24
-  Time: 3:14 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link type="text/css" rel="stylesheet" href="css/footer.css">
+<%@ page contentType="text/html;charset=UTF-8" %>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
 <footer>
     <div id="footer">
         <ul>
@@ -17,7 +10,7 @@
 
         <ul>
             <li>Chi siamo</li>
-            <li><a href="chi_siamo.jsp">About us</a></li>
+            <li><a href="${pageContext.request.contextPath}/chi_siamo.jsp">About us</a></li>
         </ul>
 
         <ul>
