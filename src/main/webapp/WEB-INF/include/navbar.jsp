@@ -7,8 +7,9 @@
     <img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/solo_logo.png">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
         <!-- Use this just for support accessibility -->
-        <label for="search-mobile" style="display: none">Search Bar</label>
-        <input id="search-mobile" class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
+        <label>
+            <input aria-label="Cerca" placeholder="Cerca" id="search-mobile" class="bg-f4f5f5" type="text" name="search" value="${lastSearch}">
+        </label>
         <button class="bg-f4f5f5"><img src="${pageContext.request.contextPath}/img/search_ico.png" alt="search ico">
         </button>
     </form>

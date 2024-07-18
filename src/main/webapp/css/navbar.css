@@ -98,19 +98,25 @@ nav {
     margin: 0;
 }
 
-.form-bar input[type="text"],
-.form-bar input[type="text"]:focus {
+.form-bar input[type="text"] {
+    color: #121212;
     padding: 10px;
     border: 2px solid #3CB371;
-    background-color: #fff;
+    background-color: #f4f4f4;
     font-size: 16px;
-    outline: none;
     transition: border-color 0.3s ease;
     width: 300px;
     border-right: none;
     margin: 0;
     box-sizing: border-box;
     height: 45px;
+}
+
+.form-bar input[type="text"]:focus,
+.form-bar input[type="text"]:focus-visible {
+    background-color: #fff;
+    color: #000000;
+    outline: none;
 }
 
 .form-bar button {
