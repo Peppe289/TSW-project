@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <title>Chi Siamo - DinoStore</title>
     <style>
         body {
@@ -59,7 +60,7 @@
         }
     </style>
 </head>
-<body>
+<body style="padding: 0">
 <%@ include file="WEB-INF/include/navbar.jsp" %>
 <header>
     <h1>DinoStore - Chi Siamo</h1>
