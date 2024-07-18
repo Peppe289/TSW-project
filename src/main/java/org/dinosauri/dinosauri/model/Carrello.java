@@ -8,11 +8,17 @@ import java.util.*;
 public class Carrello {
     private final HashMap<String, String> elements;
     private final HashMap<String, String> price;
+    private final HashMap<String, String> description;
+    private final HashMap<String, String> available;
+    private final HashMap<String, String> name;
 
     public Carrello() {
         super();
         elements = new HashMap<>();
         price = new HashMap<>();
+        description = new HashMap<>();
+        available = new HashMap<>();
+        name = new HashMap<>();
     }
 
     /**
@@ -23,7 +29,6 @@ public class Carrello {
     }
 
     public void loadPrice() {
-        ArrayList<Product> products = new ArrayList<>();
         ArrayList<String> id_list = this.getID();
 
         for (String id : id_list) {
@@ -32,6 +37,10 @@ public class Carrello {
 
             /* this maybe can contain "total" or other stuff in hashmap. ignore it. */
             if (prod == null) continue;
+
+            description.put(id, prod.getDescription());
+            available.put(id, ((Integer) ProductDAO.doRetrieveProductByID(id, true).size()).toString());
+            name.put(id, prod.getName());
 
             /* check if this product has some discount. */
             if (prod.getSconto() == 0) price.put(id, Double.toString(prod.getPrice()));
@@ -67,6 +76,9 @@ public class Carrello {
         ArrayList<HashMap<String, String>> hashMapArrayList = new ArrayList<>();
         hashMapArrayList.add(elements);
         hashMapArrayList.add(price);
+        hashMapArrayList.add(description);
+        hashMapArrayList.add(available);
+        hashMapArrayList.add(name);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(hashMapArrayList);
     }
