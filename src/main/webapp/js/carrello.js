@@ -2,13 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const listDiv = document.getElementById("list");
     const totalPriceDiv = document.getElementById("totalPrice");
 
-    fetch("/retrieve-cart")
+    fetch("retrieve-cart")
         .then(response => response.json())
         .then(json => {
-            if (json.elements && json.elements.length > 0) {
+            if (Number(json[0].total) > 0) {
+                let jkeysId = Object.keys(json[0]);
+                let jkeysPrice = Object.keys(json[1]);
                 let totalPrice = 0;
 
-                json.elements.forEach(product => {
+                jkeysId.forEach(jkeyId => {
+                    if (jkeyId === "total" || jkeyId === "status")
+                        return;
+                    //console.log(json[0][jkeyId]);
                     const productDiv = document.createElement("div");
                     productDiv.classList.add("product");
 
@@ -32,39 +37,54 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productNameDiv = document.createElement("div");
                     productNameDiv.classList.add("product-name", "description-items");
                     const productName = document.createElement("h1");
-                    productName.textContent = product.name;
+                    productName.textContent = json[4][jkeyId];
                     const productPrice = document.createElement("h1");
-                    productPrice.textContent = `${product.price}€`;
+                    productPrice.textContent = `${json[1][jkeyId]}€`;
+                    totalPrice += json[1][jkeyId] * json[0][jkeyId];
+
                     productNameDiv.appendChild(productName);
                     productNameDiv.appendChild(productPrice);
 
                     const descriptionDiv = document.createElement("div");
                     descriptionDiv.classList.add("description", "description-items");
                     const description = document.createElement("p");
-                    description.textContent = product.description;
+                    description.textContent = json[2][jkeyId];
                     descriptionDiv.appendChild(description);
 
                     const buttonsDiv = document.createElement("div");
                     buttonsDiv.classList.add("buttons", "red-button", "remove-button");
                     const quantityLabel = document.createElement("label");
-                    quantityLabel.setAttribute("for", "quantity");
                     quantityLabel.textContent = "Quantità:";
                     const quantitySelect = document.createElement("select");
-                    quantitySelect.id = "quantity";
-                    [1, 2, 3].forEach(value => { //TODO: Inserire la quantià e le varie opzioni
+                    quantitySelect.name = "quantity";
+                    quantityLabel.appendChild(quantitySelect);
+                    for (let i = 1; i <= Number(json[3][jkeyId]); i++) {
                         const option = document.createElement("option");
-                        option.value = value;
-                        option.textContent = value;
-                        if (value === product.quantity) {
+                        option.value = i.toString();
+                        option.textContent = i.toString();
+                        if (i === jkeyId.quantity) {
                             option.selected = true;
                         }
                         quantitySelect.appendChild(option);
+                    }
+
+                    let indexQuantity = quantitySelect.selectedIndex;
+                    quantitySelect.addEventListener("change", () => {
+                        fetch("carrello-add-ajax?id=" + jkeyId + "&add=" + quantitySelect.options[indexQuantity])
+                            .then()
                     });
+
                     const removeButton = document.createElement("button");
                     removeButton.textContent = "Rimuovi";
                     removeButton.addEventListener("click", () => {
-                        // Logica per rimuovere il prodotto dal carrello
+                        fetch("carrello-add-ajax?id=" + jkeyId + "&add=0")
+                            .then(() => location.reload())
                     });
+
+                    const hr = document.createElement('hr');
+                    hr.style.width = '90%';
+                    hr.style.margin = '10px auto';
+
                     buttonsDiv.appendChild(quantityLabel);
                     buttonsDiv.appendChild(quantitySelect);
                     buttonsDiv.appendChild(removeButton);
@@ -78,11 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     productDiv.appendChild(descriptionContainer);
 
                     listDiv.appendChild(productDiv);
-
-                    totalPrice += product.price * product.quantity;
+                    listDiv.appendChild(hr);
                 });
 
-                totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${totalPrice}€`; //TODO: mettere il prezzo totale
+                totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${totalPrice}€`;
             } else {
                 const noProductsMessage = document.createElement("b");
                 noProductsMessage.textContent = "Non ci sono prodotti";
