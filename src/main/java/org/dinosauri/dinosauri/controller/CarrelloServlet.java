@@ -6,6 +6,7 @@ import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 
@@ -39,16 +40,27 @@ public class CarrelloServlet extends HttpServlet {
             /* If we don't have how many elements to add return null. (Ignore error, just response as no data) */
             return null;
         }
-
-        while (sessionEl.hasMoreElements()) {
-            String id_el = sessionEl.nextElement();
-            /* consider only session item with product prefix in name. ignore otherwise. */
-            /* ignore also id in request parameter (we need to check some stuff later). */
-             if (id_el.indexOf(prefix) == 0 && !id_el.equals(prefix + id)) {
-                int single_prod = (int) session.getAttribute(id_el);
-                totalProductCart += single_prod;
-                /* add id - quantity in hashmap. */
-                cartJson.putElements(id_el.substring(prefix.length()), single_prod);
+        if (user == null) {
+            while (sessionEl.hasMoreElements()) {
+                String id_el = sessionEl.nextElement();
+                /* consider only session item with product prefix in name. ignore otherwise. */
+                /* ignore also id in request parameter (we need to check some stuff later). */
+                if (id_el.indexOf(prefix) == 0 && !id_el.equals(prefix + id)) {
+                    int single_prod = (int) session.getAttribute(id_el);
+                    totalProductCart += single_prod;
+                    /* add id - quantity in hashmap. */
+                    cartJson.putElements(id_el.substring(prefix.length()), single_prod);
+                }
+            }
+        } else {
+            HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
+            if (products != null) {
+                for (Map.Entry<String, Integer> entry : products.entrySet()) {
+                    if (!entry.getKey().equals(id)) {
+                        totalProductCart += entry.getValue();
+                        cartJson.putElements(entry.getKey(), entry.getValue());
+                    }
+                }
             }
         }
 
@@ -69,9 +81,17 @@ public class CarrelloServlet extends HttpServlet {
             status = "Elemento non disponibile.";
         }
 
-        /* if user is logged add cart items to database, otherwise add to session. */
+        /* if user is logged add cart items to the database, otherwise add to session. */
         if (user != null) {
-            /* TODO: insert to database about user. */
+            int userId = Integer.parseInt(user.getId());
+            try {
+                /* delete all products for make new insert with new number of products. */
+                if (howManyProd == 0) {
+                    CarrelloDAO.doDeleteProdByID(userId, id);
+                } else {
+                    CarrelloDAO.doInsertProdByID(userId, id, howManyProd);
+                }
+            } catch (SQLException ignore) { /* should be fine. */ }
         } else {
             session.setAttribute(prefix + id, howManyProd);
         }
@@ -97,21 +117,31 @@ public class CarrelloServlet extends HttpServlet {
      */
     private String doRetrieveAllElementsCart(HttpServletRequest request) throws JsonProcessingException {
         int totalProductCart = 0;
-        // TODO: implement also without session for logged user.
         HttpSession session = request.getSession(true);
         Carrello cartJson = new Carrello();
         Enumeration<String> attributes = session.getAttributeNames();
+        User user = (User) session.getAttribute("user");
 
-        /* see all elements but add only the elements which name start with product prefix. */
-        while (attributes.hasMoreElements()) {
-            int temp;
+        if (user != null) {
+            HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
+            if (products != null) {
+                for (Map.Entry<String, Integer> entry : products.entrySet()) {
+                    totalProductCart += entry.getValue();
+                    cartJson.putElements(entry.getKey(), entry.getValue());
+                }
+            }
+        } else {
+            /* see all elements but add only the elements which name start with product prefix. */
+            while (attributes.hasMoreElements()) {
+                int temp;
 
-            String element_id = attributes.nextElement();
-            if (element_id.indexOf(prefix) == 0) {
-                temp = (int) session.getAttribute(element_id);
-                /* add id - quantity to hashmap. */
-                cartJson.putElements(element_id.substring(prefix.length()), temp);
-                totalProductCart += temp;
+                String element_id = attributes.nextElement();
+                if (element_id.indexOf(prefix) == 0) {
+                    temp = (int) session.getAttribute(element_id);
+                    /* add id - quantity to hashmap. */
+                    cartJson.putElements(element_id.substring(prefix.length()), temp);
+                    totalProductCart += temp;
+                }
             }
         }
 

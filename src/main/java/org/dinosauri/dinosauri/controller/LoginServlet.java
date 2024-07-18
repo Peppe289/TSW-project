@@ -9,6 +9,7 @@ import org.dinosauri.dinosauri.model.utils.*;
 import java.io.*;
 import java.sql.*;
 import java.time.*;
+import java.util.*;
 import java.util.regex.*;
 
 /**
@@ -18,6 +19,7 @@ import java.util.regex.*;
  */
 @WebServlet("/login-validate")
 public class LoginServlet extends HttpServlet {
+    public static final String prefix = "PRODUCT_";
 
     private User register(String nome, String cognome, String email, String password) throws SQLException {
         return UserDAO.insertInDatabase(nome, cognome, email, password);
@@ -25,6 +27,26 @@ public class LoginServlet extends HttpServlet {
 
     private User login(String email, String password) {
         return UserDAO.doRetrieveUser(email, password);
+    }
+
+    private void loadProdFromSession(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        Enumeration<String> sessionEl = session.getAttributeNames();
+        HashMap<String, Integer> map = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
+
+        while (sessionEl.hasMoreElements()) {
+            String id_el = sessionEl.nextElement();
+            if (id_el.indexOf(prefix) == 0) {
+                int el = (Integer) session.getAttribute(id_el);
+                id_el = id_el.replace(prefix, "");
+                if (map != null && (map.get(id_el) == null || el > map.get(id_el))) {
+                    try {
+                        CarrelloDAO.doInsertProdByID(Integer.parseInt(user.getId()), id_el, el);
+                    } catch (SQLException ignore) {}
+                }
+            }
+        }
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -122,6 +144,7 @@ public class LoginServlet extends HttpServlet {
 
         /* create the session with user data. */
         req.getSession().setAttribute("user", user);
+        loadProdFromSession(req);
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }

@@ -1,3 +1,5 @@
+<%--@elvariable id="user" type="User"--%>
+<%--@elvariable id="message" type="String"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/login.css">
     <link type="text/css" rel="stylesheet" href="css/project.css">
-    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 
     <title>DinoStore - Log in</title>
 </head>

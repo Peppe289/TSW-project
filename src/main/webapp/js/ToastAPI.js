@@ -74,7 +74,6 @@ function notifyUser(header, message) {
             box.setAttribute("id", "nofifyBox");
             document.getElementsByTagName("body")[0].appendChild(box);
             let positionInfo = footer.getBoundingClientRect();
-            console.log(positionInfo.height);
             //box.style.bottom = (box.style.bottom ? parseInt(box.style.bottom) : 0) + positionInfo.height + "px";
             box.style.bottom = positionInfo.height + "px";
         } catch (e) {

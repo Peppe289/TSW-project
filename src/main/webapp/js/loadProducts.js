@@ -47,7 +47,7 @@ function formatString(product) {
     let contextPath = document.getElementById("PageContext").value;
 
     let string =
-        "            <a href=\"p?product=?????id?????\" class=\"item\">\n" +
+        "            <a href=\"p?product=?????id?????\" class=\"item text\">\n" +
         "                <img class=\"bg-f4f5f5\" src=\"??? IMG ???\" loading=\"lazy\" alt='????ACCESSIBILITY????'" +
         "                   onError=\"this.onerror=null; this.src='img/missing.jpg';\">\n" +
         " ??? " +

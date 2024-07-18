@@ -1,5 +1,5 @@
-<%@ page import="org.dinosauri.dinosauri.model.Product" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--@elvariable id="product" type="org.dinosauri.dinosauri.model.Product"--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -11,8 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-    <link type="text/css" rel="stylesheet" href="css/home.css">
-    <link type="image/x-icon" rel="icon" href="img/solo_logo.png">
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 
     <title>DinoStore - Prodotto</title>
 
@@ -44,12 +43,12 @@
     <div id="view-container">
         <div id="img-container">
             <!-- l'immagina viene caricata dopo da js -->
-            <img id="img-main">
+            <img alt="immagine del prodotto" src="" id="img-main">
         </div>
         <div class="some-photo">
             <c:if test="${not empty product}">
                 <c:forEach items="${product.photo_path}" var="photo">
-                    <img class="preview-img" onclick="changeit(this.src, this)"
+                    <img alt="preview" class="preview-img" onclick="changeit(this.src)"
                          src="${pageContext.request.contextPath}${photo}">
                 </c:forEach>
             </c:if>
@@ -122,13 +121,13 @@
     }
 
     /* funzinoe per cambiare immagine dalla preview */
-    function changeit(path, el) {
-        var img = document.getElementById("img-main");
+    function changeit(path) {
+        let img = document.getElementById("img-main");
         img.src = path;
     }
 
     function disableButton() {
-        var disp = document.getElementById("disp").innerHTML;
+        let disp = document.getElementById("disp").innerHTML;
         if (disp < 1) {
             document.getElementById("shop-btn").classList.add("hide");
         }
@@ -184,7 +183,10 @@
                 if (json["status"] !== "success") {
                     notifyUserModule("Impossibile aggiungere al carrello", json["status"]);
                 } else {
-                    notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
+                    if (json["added"] !== "0")
+                        notifyUserModule("Elemento aggiunto al carrello", "Quantità totali: " + json["added"]);
+                    else
+                        notifyUserModule("Elemento rimosso dal carrello", "");
                 }
                 /* get also full price. */
                 let price = arr_json[1];

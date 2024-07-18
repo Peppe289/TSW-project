@@ -33,6 +33,13 @@ public class IndexServlet extends HttpServlet {
         List<Product> products = ProductDAO.doRetrieveProducts();
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonArray = "";
+
+        /* remove product that isn't available. */
+        products.removeIf((item) -> {
+            List<Integer> prods_id = ProductDAO.doRetrieveProductByID(item.getId(), true);
+            return prods_id.isEmpty();
+        });
+
         /* nella pagina index non vogliamo mostrare più di 5 prodotti */
         if (products.size() > 5) products = products.subList(0, 5);
 
