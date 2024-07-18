@@ -12,12 +12,11 @@ import java.util.*;
 @WebServlet("/compra")
 public class ConfirmProductServlet  extends HttpServlet {
 
-    private List<ConfirmProd> loadProdFromSession(HttpServletRequest req) {
+    private List<ConfirmProd> getOrderForBuy(HttpServletRequest req) {
         List<ConfirmProd> list = new ArrayList<>();
         HttpSession session = req.getSession();
         Enumeration<String> attributes = session.getAttributeNames();
         User user = (User) session.getAttribute("user");
-
 
         HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
         if (products != null) {
@@ -56,7 +55,7 @@ public class ConfirmProductServlet  extends HttpServlet {
             return;
         }
 
-        List<ConfirmProd> list = loadProdFromSession(req);
+        List<ConfirmProd> list = getOrderForBuy(req);
 
         if (list.isEmpty()) {
             resp.sendRedirect(req.getContextPath() + "/");;
