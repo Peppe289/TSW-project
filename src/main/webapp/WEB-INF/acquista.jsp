@@ -85,30 +85,18 @@
             margin: 0 10px;
         }
 
-        .form {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            margin: 5px 30px 5px 30px;
-        }
-
-        input {
-            padding: 15px;
-            box-shadow: 0 0  3px #d9d9d9;
-        }
-
-        input:focus {
-            outline: none;
-            border: 1px solid white;
-            border-bottom: 1px solid #218838;
+        #indirizzi p {
+            text-align: left;
+            width: 80%;
+            margin: 10px auto;
+            color: #595959;
         }
 
         button:hover {
             background-color: #218838;
         }
 
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: 1250px) {
             #main_container {
                 flex-direction: column-reverse;
                 flex-wrap: wrap;
@@ -153,29 +141,10 @@
             <hr style="width: 80%">
         </div>
         <div style="width: 100%; text-align: center">
-            <form id="indirizzi" action="#" method="POST">
+            <div id="indirizzi">
                 <h3>Indirizzo per questo ordine</h3>
-                <div class="form">
-                    <label>
-                        <input type="text" placeholder="Nome" value="Default Name" required>
-                    </label>
-                    <label>
-                        <input type="text" placeholder="Via" value="default Via" required>
-                    </label>
-                    <label>
-                        <input type="text" placeholder="Numero Civico" value="Default Civico" required  >
-                    </label>
-                    <label>
-                        <input type="text" placeholder="Comune" value="Default Comune" required>
-                    </label>
-                    <label>
-                        <input type="text" placeholder="CAP" value="default CAP" required>
-                    </label>
-                    <label>
-                        <input type="text" placeholder="Provincia" value="Default Provincia" required>
-                    </label>
-
-                </div>
+                <p>${addr_name} ${addr_cognome}<br>${addr_via} ${addr_num}, ${addr_cap} ${addr_city} (${addr_prov})</p>
+                <a href="${pageContext.request.contextPath}/address_page">Cambia indirizzo</a>
                 <hr style="width: 80%">
                 <h3>Scegli come Pagare</h3>
                 <div class="form">
@@ -189,7 +158,7 @@
                     </label>
                 </div>
                 <h3>Prezzo totale: <span class="total_price">${price} €</span></h3>
-            </form>
+            </div>
         </div>
         <div style="width: 100%; text-align: center">
             <button form="indirizzi" style="width: 80%">Compra</button>
