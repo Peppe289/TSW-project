@@ -137,17 +137,14 @@ h1 {
     height: 200px;
     justify-content: center;
 
-    #image-src {
-        margin-right: 50px;
-    }
-
-    & > img {
-        object-fit: cover;
-        max-width: 400px;
+    & #image-src {
+        object-fit: contain;
+        width: 200px;
+        height: 200px;
     }
 
     & #img-prev {
-        width: 100%;
+        width: calc(100% - 40px);
         gap: 10px;
         object-fit: cover;
         display: flex;

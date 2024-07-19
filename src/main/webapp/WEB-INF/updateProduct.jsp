@@ -17,7 +17,9 @@
 <div class="containerpopup">
     <h1>Modifica Prodotto</h1>
     <div id="container-img">
-        <img alt="image" src="" id="image-src">
+        <div style="margin: 0 20px; width: 210px; height: 210px; display: flex; justify-content: center; align-items: center">
+            <img alt="image" src="" id="image-src">
+        </div>
         <div id="img-prev">
             <c:forEach items="${product.photo_path}" var="photo">
                 <div class="img-item">
