@@ -50,7 +50,7 @@ public class ChangeAddress extends HttpServlet {
         request.getSession().setAttribute("address", addr);
 
         if (reason.equalsIgnoreCase("ORDER")) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/acquista.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/compra");
             requestDispatcher.forward(request, response);
         } else {
             AddressDAO.doUpdateAddress(Integer.parseInt(user.getId()), addr);
