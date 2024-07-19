@@ -149,7 +149,14 @@
     <c:if test="${not empty message}">
         <p>${message}</p>
     </c:if>
-    <button form="address">Salva indirizzo</button>
+    <c:choose>
+        <c:when test="${not empty btn_message}">
+            <button form="address">${btn_message}</button>
+        </c:when>
+        <c:otherwise>
+            <button form="address">Salva</button>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <script>

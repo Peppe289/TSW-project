@@ -22,8 +22,10 @@ public class AddressData extends HttpServlet {
 
         if (reason != null && reason.equalsIgnoreCase("ORDER")) {
             address_view = (Address) session.getAttribute("address");
+            req.setAttribute("btn_message", "Procedi all'ordine");
         } else {
             address_view = AddressDAO.doRetrieveAddress(Integer.parseInt(user.getId()));
+            req.setAttribute("btn_message", "Aggiorna Indirizzo");
         }
 
         if (address_view != null) {

@@ -31,6 +31,7 @@ public class ChangeAddress extends HttpServlet {
                 || comune == null || comune.isEmpty() || cap == null || cap.isEmpty() || civico == null || civico.isEmpty()
                 || provincia == null || provincia.isEmpty()) {
             request.setAttribute("reason", reason);
+            request.setAttribute("message", "Nessun campo deve essere vuoto");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/address.jsp");
             requestDispatcher.forward(request, response);
             return;
