@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(json => {
             if (Number(json[0].total) > 0) {
                 let jkeysId = Object.keys(json[0]);
-                let jkeysPrice = Object.keys(json[1]);
                 let totalPrice = 0;
 
                 jkeysId.forEach(jkeyId => {
@@ -71,13 +70,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     quantitySelect.addEventListener("change", () => {
+                        if (!(quantitySelect.value > 0 && quantitySelect.value <= json[3][jkeyId])) {
+                            console.log("Invalid select");
+                            return;
+                        }
+
                         fetch("carrello-add-ajax?id=" + jkeyId + "&add=" + quantitySelect.value)
-                            .then()
+                            .then(() => {
+                            location.reload();
+                        }).catch(e => console.log(e));
                     });
 
                     const removeButton = document.createElement("button");
                     removeButton.textContent = "Rimuovi";
                     removeButton.addEventListener("click", () => {
+                        if (!confirm("Vuoi davvero rimuovere " + json[4][jkeyId] + " dal carrello?"))
+                            return;
+
                         fetch("carrello-add-ajax?id=" + jkeyId + "&add=0")
                             .then(() => location.reload())
                     });
@@ -104,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${parseFloat(totalPrice).toFixed(2)}€`;
             } else {
                 const noProductsMessage = document.createElement("b");
+                document.getElementById("right-div").style.display = "none";
                 noProductsMessage.textContent = "Non ci sono prodotti";
                 listDiv.appendChild(noProductsMessage);
             }
