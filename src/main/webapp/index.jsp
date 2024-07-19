@@ -17,8 +17,9 @@
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 
     <title>DinoStore</title>
+
+    <script type="module" src="js/eventListener.js"></script>
 </head>
-<script type="module" src="js/eventListener.js"></script>
 
 <body style="padding: 0">
 <%@ include file="WEB-INF/include/navbar.jsp" %>
@@ -67,7 +68,6 @@
 
 <%@ include file="WEB-INF/include/btn_page.jsp" %>
 <%@ include file="WEB-INF/include/footer.jsp" %>
-</body>
 <script>
     let slideIndex = 0;
     let carousel = document.getElementById("carousel");
@@ -76,9 +76,10 @@
     function changeSlide(index) {
         slideIndex = (slideIndex + index + 3) % 3;
         carousel.scrollTo({
-           left: position * slideIndex,
-           behavior: 'smooth'
+            left: position * slideIndex,
+            behavior: 'smooth'
         });
     }
 </script>
+</body>
 </html>

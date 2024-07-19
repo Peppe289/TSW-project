@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/NotifyUser.css">
     <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <title>Modifica ${product.name}</title>
+
+    <script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js" defer></script>
 </head>
-<script type="module" src="${pageContext.request.contextPath}/js/productAdmin/productManage.js" defer></script>
+
 <body>
 <div class="containerpopup">
     <h1>Modifica Prodotto</h1>

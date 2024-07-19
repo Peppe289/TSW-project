@@ -52,7 +52,6 @@
     <button onclick="location.href='registrazione.jsp'">Registrati</button>
     <br><a href="#">Password dimenticata?</a>
 </div>
-</body>
 <script defer>
     let email_input = document.getElementById("email");
     /*  */
@@ -147,4 +146,5 @@
     }
 
 </script>
+</body>
 </html>

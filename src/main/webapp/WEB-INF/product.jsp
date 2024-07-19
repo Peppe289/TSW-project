@@ -111,7 +111,6 @@
 </div>
 
 <%@ include file="include/footer.jsp" %>
-</body>
 <script>
     try {
         /* carica di default la prima immagine dalla lista della preview */
@@ -206,5 +205,6 @@
         xhr.send();
     });
 </script>
+</body>
 
 </html>

@@ -57,7 +57,6 @@
     <button form="registrazione" name="button" value="registrazione">Registrati</button>
     <button onclick="location.href='login.jsp'">Accedi</button>
 </div>
-</body>
 <script defer>
     let email_input = document.getElementById("email");
     /*  */
@@ -152,4 +151,5 @@
     }
 
 </script>
+</body>
 </html>

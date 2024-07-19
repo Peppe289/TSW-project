@@ -135,6 +135,6 @@
 
 <%@ include file="include/btn_page.jsp" %>
 <%@ include file="include/footer.jsp" %>
-</body>
 <script src="${pageContext.request.contextPath}/js/ProductsFilter.js"></script>
+</body>
 </html>
