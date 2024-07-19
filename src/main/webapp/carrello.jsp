@@ -11,6 +11,8 @@
     <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link type="text/css" rel="stylesheet" href="css/footer.css">
     <link type="text/css" rel="stylesheet" href="css/carrello.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 </head>
 
 <body>
