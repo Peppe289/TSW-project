@@ -70,9 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         quantitySelect.appendChild(option);
                     }
 
-                    let indexQuantity = quantitySelect.selectedIndex;
                     quantitySelect.addEventListener("change", () => {
-                        fetch("carrello-add-ajax?id=" + jkeyId + "&add=" + quantitySelect.options[indexQuantity])
+                        fetch("carrello-add-ajax?id=" + jkeyId + "&add=" + quantitySelect.value)
                             .then()
                     });
 
