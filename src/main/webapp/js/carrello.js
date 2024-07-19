@@ -65,9 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     productName.textContent = json[4][jkeyId];
                     const productPrice = document.createElement("h1");
                     const price = parseFloat(json[1][jkeyId]).toFixed(2);
-                    productPrice.textContent = `${price * json[0][jkeyId]}€`;
-                    totalPrice += json[1][jkeyId] * json[0][jkeyId];
-
+                    if (Number(json[3][jkeyId]) > 0) {
+                        productPrice.textContent = `${price * json[0][jkeyId]}€`;
+                        totalPrice += json[1][jkeyId] * json[0][jkeyId];
+                    } else {
+                        productPrice.textContent = "";
+                    }
                     productNameDiv.appendChild(productName);
                     productNameDiv.appendChild(productPrice);
 
@@ -84,14 +87,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     const quantitySelect = document.createElement("select");
                     quantitySelect.name = "quantity";
                     quantityLabel.appendChild(quantitySelect);
-                    for (let i = 1; i <= Number(json[3][jkeyId]); i++) {
-                        const option = document.createElement("option");
-                        option.value = i.toString();
-                        option.textContent = i.toString();
-                        if (i === Number(json[0][jkeyId])) {
-                            option.selected = true;
+                    if (Number(json[3][jkeyId]) > 0) {
+                        for (let i = 1; i <= Number(json[3][jkeyId]); i++) {
+                            const option = document.createElement("option");
+                            option.value = i.toString();
+                            option.textContent = i.toString();
+                            if (i === Number(json[0][jkeyId])) {
+                                option.selected = true;
+                            }
+                            quantitySelect.appendChild(option);
                         }
-                        quantitySelect.appendChild(option);
+                    } else {
+                        quantityLabel.innerHTML = "Prodotto non più disponibile";
                     }
 
                     quantitySelect.addEventListener("change", () => {
