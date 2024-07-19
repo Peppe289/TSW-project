@@ -2,6 +2,7 @@
 <%--@elvariable id="total" type="java.lang.Integer"--%>
 <%--@elvariable id="prodotti" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +130,7 @@
                 <div class="info">
                     <h1>${prod.getTile()}</h1>
                     <br>
-                    <span>Quantità: ${prod.quantity}</span><p>${prod.price * prod.quantity} €</p>
+                    <span>Quantità: ${prod.quantity}</span><p><fmt:formatNumber value="${prod.price * prod.quantity}" type="number" minFractionDigits="2" maxFractionDigits="2"/> €</p>
                 </div>
             </div>
             <hr>
@@ -157,7 +158,7 @@
                         PayPal
                     </label>
                 </div>
-                <h3>Prezzo totale: <span class="total_price">${price} €</span></h3>
+                <h3>Prezzo totale: <span class="total_price"><fmt:formatNumber value="${price}" type="number" minFractionDigits="2" maxFractionDigits="2"/> €</span></h3>
             </div>
         </div>
         <div style="width: 100%; text-align: center">
