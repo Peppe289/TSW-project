@@ -16,6 +16,7 @@
 
 .product {
     display: flex;
+    align-items: center;
 }
 
 .check {
@@ -27,9 +28,14 @@
 .image {
     display: flex;
     height: 150px;
-    padding: 10px 5px 10px 0;
-    width: 180px;
+    width: 150px;
     justify-content: center;
+}
+
+.image img {
+    object-fit: contain;
+    width: 150px;
+    height: 150px;
 }
 
 .description-container {
@@ -135,15 +141,23 @@
         position: relative;
     }
 
-    .image,
     .description-container {
         width: unset;
     }
 
+    .image {
+        background-color: rgba(14, 14, 14, 0.04);
+        width: 100%;
+    }
+
     .check {
         position: absolute;
-        top: -58px;
-        left: -3px;
+        top: 3px;
+        left: 3px;
         padding: 0;
+    }
+
+    .check input {
+        height: 20px;
     }
 }
