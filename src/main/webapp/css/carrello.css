@@ -27,13 +27,16 @@
 .image {
     display: flex;
     height: 150px;
-    padding: 10px 5px 10px 0px;
+    padding: 10px 5px 10px 0;
+    width: 180px;
+    justify-content: center;
 }
 
 .description-container {
     display: flex;
     flex-flow: column;
     width: 100%;
+    margin-inline: 30px;
 }
 
 .description {
@@ -130,6 +133,11 @@
     .product {
         flex-direction: column;
         position: relative;
+    }
+
+    .image,
+    .description-container {
+        width: unset;
     }
 
     .check {
