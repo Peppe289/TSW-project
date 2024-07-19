@@ -75,8 +75,12 @@ function formatString(product) {
     off = off.replace(" ?? ", product.sconto === 0 ? "" : (product.price.toFixed(2) + "€") )
     const price = product.sconto === 0 ? product.price : (product.price * (1 - (product.sconto / 100)));
     off = off.replace(" ? ", price.toFixed(2) + "€");
-    string = string.replace("??? IMG ???", contextPath + product.photo_path[0]);
-    console.log(contextPath + product.photo_path[0]);
+
+    if (typeof product.photo_path[0] !== "undefined")
+        string = string.replace("??? IMG ???", contextPath + product.photo_path[0]);
+    else
+        string = string.replace("??? IMG ???", "img/missing.jpg");
+
     string = string.replace("????ACCESSIBILITY????", product.name);
     string = string.replace(" ??? ", product.sconto === 0 ? "" : offPercentage);
     string = string.replace(" ???? ", off);
