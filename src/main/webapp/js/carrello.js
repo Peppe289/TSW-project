@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         image.src = json[5][jkeyId].replace("/", "");
 
                     image.alt = "image";
-                    image.style.objectFit = "contain";
                     imageDiv.appendChild(image);
 
                     const descriptionContainer = document.createElement("div");
