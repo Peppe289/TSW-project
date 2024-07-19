@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         Array.from(allcheck).forEach(element => {
                             if (element.type.toString().toUpperCase() === "CHECKBOX") {
-                                if (element.checked === true) {
+                                if (element.checked === true && Number(json[3][element.id]) > 0) {
                                     recalc += json[0][element.id] * json[1][element.id];
                                 }
                             }
