@@ -24,6 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkboxLabel.ariaLabel = "checkbox";
                     const checkboxInput = document.createElement("input");
                     checkboxInput.type = "checkbox";
+                    checkboxInput.id = jkeyId;
+                    checkboxInput.checked = true;
+
+                    checkboxInput.addEventListener("change", () => {
+                        let recalc = 0;
+                        let allcheck = document.getElementsByTagName("input");
+
+                        Array.from(allcheck).forEach(element => {
+                            if (element.type.toString().toUpperCase() === "CHECKBOX") {
+                                if (element.checked === true) {
+                                    recalc += json[0][element.id] * json[1][element.id];
+                                }
+                            }
+                        })
+
+                        totalPriceDiv.querySelector("b").textContent = `Prezzo totale: ${parseFloat(recalc).toFixed(2)}€`
+                    });
+
                     checkboxLabel.appendChild(checkboxInput);
 
                     const imageDiv = document.createElement("div");
