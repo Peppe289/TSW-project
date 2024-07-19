@@ -81,7 +81,7 @@ public class ConfirmProductServlet extends HttpServlet {
             req.setAttribute("addr_city", address_view.getComune());
             req.setAttribute("addr_num", address_view.getNumero_civico());
         } else {
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/address_page.jsp");
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/address_page");
             requestDispatcher.forward(req, resp);
             return;
         }
