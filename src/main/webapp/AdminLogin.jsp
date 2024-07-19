@@ -15,8 +15,8 @@
 <body>
 
 <!-- Nel caso in cui l'utente sia già loggato fai un redirect verso la pagina di index. -->
-<c:if test="${not empty user}">
-    <c:redirect url="/"/>
+<c:if test="${not empty admin}">
+    <c:redirect url="/adminControl"/>
 </c:if>
 
 <div id="content">
