@@ -35,6 +35,6 @@
 </div>
 
 <%@ include file="WEB-INF/include/footer.jsp" %>
-<script src="js/carrello.js"></script>
+<script src="js/carrello.js" defer></script>
 </body>
 </html>
