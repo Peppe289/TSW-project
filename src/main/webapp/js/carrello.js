@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (jkeyId === "total" || jkeyId === "status")
                         return;
 
+                    if (json[0][jkeyId] === "0")
+                        return;
+
                     const productDiv = document.createElement("div");
                     productDiv.classList.add("product");
 
