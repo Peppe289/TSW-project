@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,6 +75,19 @@
             pointer-events: none;
         }
 
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
     </style>
 
 </head>
@@ -79,24 +95,32 @@
 
 <div id="main_box">
     <h3>Inserisci dettagli di spedizione</h3>
-    <form method="post" action="">
+    <form id="address" method="post" action="change_address">
+        <c:choose>
+            <c:when test="${not empty reason}">
+                <input type="hidden" name="reason" value="${reason}">
+            </c:when>
+            <c:otherwise>
+                <input type="hidden" name="reason" value="settings">
+            </c:otherwise>
+        </c:choose>
         <div>
             <div class="input">
-                <input type="text" id="nome" name="nome" required>
+                <input type="text" id="nome" name="nome" required value="${addr_name}">
                 <label for="nome">Nome</label>
             </div>
             <div class="input">
-                <input type="text" id="cognome" name="cognome" required>
+                <input type="text" id="cognome" name="cognome" required value="${addr_cognome}">
                 <label for="cognome">Cognome</label>
             </div>
             <div class="input">
-                <input type="text" id="via" name="via" required>
+                <input type="text" id="via" name="via" required value="${addr_via}">
                 <label for="via">Via</label>
             </div>
         </div>
         <div>
             <div class="input">
-                <input type="text" list="sugg_comune" id="comune" name="comune" required>
+                <input type="text" list="sugg_comune" id="comune" name="comune" required value="${addr_city}">
                 <label for="comune">Comune</label>
                 <datalist id="sugg_comune">
                     <!-- options -->
@@ -104,7 +128,7 @@
             </div>
 
             <div class="input">
-                <input type="text" list="sugg_cap" id="cap" name="cap" required>
+                <input type="text" list="sugg_cap" id="cap" name="cap" required value="${addr_cap}">
                 <label for="cap">Cap</label>
                 <datalist id="sugg_cap">
                     <!-- options -->
@@ -112,17 +136,27 @@
             </div>
 
             <div class="input">
-                <input type="text" id="civico" name="civico" required>
+                <input type="text" id="civico" name="civico" required value="${addr_num}">
                 <label for="civico">Civico</label>
             </div>
 
             <div class="input">
-                <input type="text" id="provincia" name="provincia" required>
+                <input type="text" id="provincia" name="provincia" required value="${addr_prov}">
                 <label for="provincia">Provincia</label>
             </div>
         </div>
-
     </form>
+    <c:if test="${not empty message}">
+        <p>${message}</p>
+    </c:if>
+    <c:choose>
+        <c:when test="${not empty btn_message}">
+            <button form="address">${btn_message}</button>
+        </c:when>
+        <c:otherwise>
+            <button form="address">Salva</button>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <script>
