@@ -67,11 +67,11 @@
 }
 
 #right-div {
-    margin-inline: 100px;
+    margin-inline: 50px;
     text-align: center;
     padding: 20px;
     height: min-content;
-    width: max-content;
+    width: 360px;
     box-shadow: 0 0 3px black;
 }
 
@@ -136,13 +136,13 @@
 }
 
 @media screen and (max-width: 700px) {
+    #right-div {
+        width: 230px;
+    }
+
     .product {
         flex-direction: column;
         position: relative;
-    }
-
-    .description-container {
-        width: unset;
     }
 
     .image {
