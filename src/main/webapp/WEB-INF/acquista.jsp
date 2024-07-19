@@ -25,7 +25,7 @@
             display: flex;
             justify-content: space-between;
             width: 60%;
-            min-width: 300px;
+            min-width: 902px;
             box-shadow: 0 0 5px #b4b4b4;
             padding: 40px;
         }
@@ -105,6 +105,7 @@
                 padding: 10px;
                 width: calc(100% - 60px);
                 box-shadow: none;
+                min-width: 250px;
             }
 
             #main_container > div {
