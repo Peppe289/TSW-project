@@ -33,7 +33,7 @@
                     Area Utente
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Carrello</a>
+                    <a href="${pageContext.request.contextPath}/carrello.jsp">Carrello</a>
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
                         <c:when test="${not empty user}">
