@@ -138,7 +138,7 @@
 
         if (num < 1000) {
             /* return the number as is if less than 1000. */
-            result = num.toString();
+            result = num.toFixed(2).toString();
         } else if (num < 1000000) {
             /* convert to 'k' for thousands. */
             result = (num / 1000).toFixed(1) + 'k';
