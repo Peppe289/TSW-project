@@ -7,6 +7,7 @@ import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 
 @WebServlet("/compra")
 public class ConfirmProductServlet extends HttpServlet {
@@ -85,6 +86,9 @@ public class ConfirmProductServlet extends HttpServlet {
             requestDispatcher.forward(req, resp);
             return;
         }
+
+        /* remove empty products. */
+        list = list.stream().filter(item -> item.getQuantity() != 0).collect(Collectors.toList());
 
         req.setAttribute("prodotti", list);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/acquista.jsp");
