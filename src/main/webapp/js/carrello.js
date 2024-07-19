@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     quantityLabel.textContent = "Quantità:";
                     const quantitySelect = document.createElement("select");
                     quantitySelect.name = "quantity";
+                    quantitySelect.id = jkeyId;
                     quantityLabel.appendChild(quantitySelect);
                     if (Number(json[3][jkeyId]) > 0) {
                         for (let i = 1; i <= Number(json[3][jkeyId]); i++) {
@@ -101,9 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         quantityLabel.innerHTML = "Prodotto non più disponibile";
                     }
 
-                    quantitySelect.addEventListener("change", () => {
-                        if (!(quantitySelect.value > 0 && quantitySelect.value <= json[3][jkeyId])) {
-                            console.log("Invalid select");
+                    quantitySelect.addEventListener("change", (event) => {
+                        if (!(quantitySelect.value > 0 && quantitySelect.value <= Number(json[3][event.target.id]))) {
+                            console.log("Invalid select " + quantitySelect.value + " - " + json[3][event.target.id]);
                             return;
                         }
 
