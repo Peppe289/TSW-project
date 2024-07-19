@@ -11,14 +11,18 @@ public class Carrello {
     private final HashMap<String, String> description;
     private final HashMap<String, String> available;
     private final HashMap<String, String> name;
+    private final HashMap<String, String> path; // photo path
+    private final String context;
 
-    public Carrello() {
+    public Carrello(String context) {
         super();
         elements = new HashMap<>();
         price = new HashMap<>();
         description = new HashMap<>();
         available = new HashMap<>();
         name = new HashMap<>();
+        this.context = context;
+        path = new HashMap<>();
     }
 
     /**
@@ -37,10 +41,16 @@ public class Carrello {
 
             /* this maybe can contain "total" or other stuff in hashmap. ignore it. */
             if (prod == null) continue;
-
+            try {
+                prod.SaveFileList(context);
+            } catch (NoSuchElementException ignore) {}
             description.put(id, prod.getDescription());
             available.put(id, ((Integer) ProductDAO.doRetrieveProductByID(id, true).size()).toString());
             name.put(id, prod.getName());
+
+            /* load only one photo path. */
+            if (!prod.getPhoto_path().isEmpty())
+                path.put(id, prod.getPhoto_path().getFirst());
 
             /* check if this product has some discount. */
             if (prod.getSconto() == 0) price.put(id, Double.toString(prod.getPrice()));
@@ -79,6 +89,7 @@ public class Carrello {
         hashMapArrayList.add(description);
         hashMapArrayList.add(available);
         hashMapArrayList.add(name);
+        hashMapArrayList.add(path);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(hashMapArrayList);
     }

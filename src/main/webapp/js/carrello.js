@@ -26,7 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const imageDiv = document.createElement("div");
                     imageDiv.classList.add("image");
                     const image = document.createElement("img");
-                    image.src = "https://via.placeholder.com/150x150/00ff00/ffffff"; //TODO: inserire l'immagine
+
+                    if (typeof json[5][jkeyId] === "undefined")
+                        image.src = "img/missing.jpg";
+                    else
+                        image.src = json[5][jkeyId].replace("/", "");
+
                     image.alt = "image";
                     image.style.objectFit = "contain";
                     imageDiv.appendChild(image);

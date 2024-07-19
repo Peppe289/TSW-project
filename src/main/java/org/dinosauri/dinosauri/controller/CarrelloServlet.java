@@ -32,7 +32,7 @@ public class CarrelloServlet extends HttpServlet {
         Enumeration<String> sessionEl = session.getAttributeNames();
         /* Check if is logged or not. If isn't logged save data in session. If is logged save in a database. */
         User user = (User) request.getSession().getAttribute("user");
-        Carrello cartJson = new Carrello();
+        Carrello cartJson = new Carrello(new File(getServletContext().getRealPath("/")).getAbsolutePath());
 
         try {
             howManyProd = Integer.parseInt(request.getParameter("add"));
@@ -118,7 +118,7 @@ public class CarrelloServlet extends HttpServlet {
     private String doRetrieveAllElementsCart(HttpServletRequest request) throws JsonProcessingException {
         int totalProductCart = 0;
         HttpSession session = request.getSession(true);
-        Carrello cartJson = new Carrello();
+        Carrello cartJson = new Carrello(new File(getServletContext().getRealPath("/")).getAbsolutePath());
         Enumeration<String> attributes = session.getAttributeNames();
         User user = (User) session.getAttribute("user");
 
