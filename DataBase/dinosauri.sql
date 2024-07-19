@@ -91,16 +91,29 @@ create table prodotto_ordine
     foreign key (numero_ordine) references ordini (numero_ordine)
 );
 
+create table address(
+    id_utente int primary key,
+    nome          varchar(255)  not null,
+    cognome       varchar(255)  not null,
+    via           varchar(255)  not null,
+    cap           int           null,
+    provincia     varchar(5)    not null,
+    comune        varchar(255)  not null,
+    numero_civico varchar(255)  not null,
+    foreign key (id_utente) references utente (id_utente)
+);
+
 create table dati_spedizione
 (
     nome          varchar(255) not null,
     cognome       varchar(255) not null,
-    id_spedizione int auto_increment primary key,
+    id_spedizione int primary key,
     via           varchar(255) not null,
     cap           char(5)      not null,
     provincia     char(2)      not null,
     comune        varchar(255) not null,
-    numero_civico varchar(255) not null
+    numero_civico varchar(255) not null,
+    foreign key (id_spedizione) references ordini (numero_ordine)
 );
 
 create table amministratore
