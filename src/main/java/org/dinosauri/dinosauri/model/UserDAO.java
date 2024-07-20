@@ -115,4 +115,42 @@ public class UserDAO {
 
         return user;
     }
+
+    /**
+     * Update user info in database.
+     *
+     * @param user user beans.
+     */
+    public static void doUpdateUserByID(User user) {
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? WHERE id_utente = ?");
+            ps.setString(1, user.getNome());
+            ps.setString(2, user.getCognome());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Update user info with also password.
+     *
+     * @param user user beans.
+     * @param password password.
+     */
+    public static void doUpdateUserByID(User user, String password) {
+        try (Connection con = ConnectionService.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? , password_utente = SHA1(?) WHERE id_utente = ?");
+            ps.setString(1, user.getNome());
+            ps.setString(2, user.getCognome());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, password);
+            ps.setString(5, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

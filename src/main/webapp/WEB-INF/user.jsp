@@ -327,14 +327,6 @@
             }
         }
 
-        #new_addr input {
-            outline: 1px solid rgb(114, 114, 114);
-        }
-
-        #new_addr input:focus {
-            outline: 1px solid rgb(0, 102, 60);
-        }
-
         @media screen and (max-width: 900px) {
             #container {
                 width: 100%;
@@ -402,45 +394,53 @@
     </div>
     <div id="content">
         <h1 class="scroll-item">Il tuo profilo</h1>
-        <div class="scroll-item container">
-            <h3 id="user_info">Informazioni personali</h3>
-            <hr>
-            <div class="box">
-                <label for="nome">Nome:</label>
-                <input class="editable" id="nome" name="nome" type="text" value="${user.nome}" disabled>
-                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
-            </div>
+            <form id="info" method="post" action="${pageContext.request.contextPath}/user_page"
+                  class="scroll-item container">
+                <input type="hidden" name="reason" value="changeInfo">
+                <h3 id="user_info">Informazioni personali</h3>
+                <hr>
+                <div class="box">
+                    <label for="nome">Nome:</label>
+                    <input class="editable" id="nome" name="nome" type="text" value="${user.nome}" disabled>
+                    <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
+                    </button>
+                </div>
             <div class="box">
                 <label for="surname">Cognome:</label>
                 <input class="editable" id="surname" name="surname" type="text" value="${user.cognome}" disabled>
-                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
+                </button>
             </div>
             <div class="box">
                 <label for="email">Email:</label>
                 <input class="editable" id="email" name="email" type="email" value="${user.email}" disabled>
-                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
+                </button>
             </div>
             <div class="box">
                 <label for="password">Change Password:</label>
                 <input class="editable" id="password" name="password" type="password" value="" disabled>
                 <label for="password" id="show_pass"><span></span><img alt="show password"
                                                                        src="${pageContext.request.contextPath}/img/show_password.png"></label>
-                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
+                </button>
             </div>
 
             <div class="apply">
-                <button class="apply">
+                <button form="info" id="submit_info" class="apply">
                     Applica
                 </button>
             </div>
-        </div>
+        </form>
+        <p>${message}</p>
         <div class="scroll-item container">
             <h3 id="addr_manage">Gestione degli indirizzi</h3>
             <hr>
             <div id="address" class="box grid-items">
                 <div class="box">
                     <label>Destinatario:
-                        <input class="editable" name="nome" type="text" value="${address.name} ${address.cognome}" disabled>
+                        <input class="editable" name="nome" type="text" value="${address.name} ${address.cognome}"
+                               disabled>
                     </label>
                 </div>
                 <div class="box">
@@ -463,7 +463,8 @@
                         <input class="editable" name="cap" type="number" value="${address.cap}" disabled>
                     </label>
                 </div>
-                <button id="change_address" onclick='location.href=`${pageContext.request.contextPath}/address_page`' class="change_address">
+                <button id="change_address" onclick='location.href=`${pageContext.request.contextPath}/address_page`'
+                        class="change_address">
                     Modifica Indirizzo
                 </button>
             </div>
@@ -601,15 +602,6 @@
         }
     });
 
-    /* hide all apply buttons by default. */
-    Array.from(document.getElementsByClassName("apply")).forEach((element) => {
-        if (element.parentElement.id !== "new_addr") {
-            /* ignore if class is used for button. we need to find only div.apply */
-            if (element.tagName.toLocaleUpperCase() !== "button".toUpperCase())
-                element.style.display = "none";
-        }
-    });
-
     /* show order box. */
     let show_order_btn = document.getElementsByClassName("open_order");
 
@@ -663,7 +655,6 @@
         /* should be single button in box with an input element. */
         let button;
         let boxing = item.parentElement;
-        let apply_btn;
 
         /* if eh button element are in label go out to parent. */
         if (boxing.tagName.toUpperCase() === "label".toUpperCase())
@@ -684,32 +675,9 @@
         button = boxing.getElementsByTagName("button");
 
         /* getElements retrieves always array. check if array is more larger than 0. */
-        /* ignore also for box for input new address. */
-        if (button.length > 0 && boxing.parentElement.id !== "new_addr") {
+        if (button.length > 0) {
             /* we need always only first element in box. */
             button = button[0];
-            /* get apply button */
-            apply_btn = button.parentElement.parentElement.getElementsByClassName("apply");
-
-            if (apply_btn.length <= 0)
-                apply_btn = document.getElementById("new_addr").getElementsByClassName("apply");
-
-            apply_btn = apply_btn[0];
-
-            item.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    /* don't submit form using enter keyboard. */
-                    e.preventDefault();
-                    if (!item.disabled)
-                        item.disabled = !item.disabled;
-
-                    validate_input(boxing);
-                } else {
-                    /* if whe press some button in input, this means whe have modified some char. show apply button. */
-                    apply_btn.style.display = "block";
-                }
-            });
-
             button.addEventListener("click", () => {
                 item.disabled = !item.disabled;
             });
@@ -740,57 +708,19 @@
         }
     });
 
-    Array.from(document.getElementsByClassName("apply")).forEach((el) => {
-        if (el.tagName.toUpperCase() === "button".toUpperCase()) {
-            el.addEventListener("click", () => {
-                validate_input(el.parentElement.parentElement);
-            });
-        }
-    });
+    /* prevent default action for all button. */
+    document.getElementById("info").addEventListener("submit", (event) => {
+        event.preventDefault();
+    })
 
-    /**
-     * check if input string contains only number.
-     * using regex: ^ from start \d+ check number (one or more) $ until the end.
-     */
-    function isNumeric(value) {
-        return /^\d+$/.test(value);
-    }
-
-    /**
-     * helper function for validate_input for warning in case of wrong input.
-     *
-     * @param item - item to apply propriety
-     * @param flag - boolean flag
-     */
-    function wrong_input(item, flag) {
-        if (flag)
-            item.style.color = "red";
-        else
-            item.style.color = "black";
-    }
-
-    /**
-     * check in the box if all inputs have a right format text.
-     *
-     * @param box - root box
-     */
-    function validate_input(box) {
-        let input = box.getElementsByTagName("input");
-
-        Array.from(input).every((el) => {
-            if (el.type.toUpperCase() === "number".toUpperCase()) {
-                if (!isNumeric(el.value)) {
-                    wrong_input(el, true);
-                    return false;
-                } else {
-                    wrong_input(el, false);
-                }
-            }
-
-            return true;
-        });
-    }
-
+    /* make submit only with dedicated button. */
+    document.getElementById("submit_info").addEventListener("click", () => {
+        const from_input = document.getElementsByTagName("input");
+        Array.from(from_input).forEach(item => {
+            item.disabled = false;
+        })
+        document.getElementById("info").submit();
+    })
 </script>
 
 </html>
