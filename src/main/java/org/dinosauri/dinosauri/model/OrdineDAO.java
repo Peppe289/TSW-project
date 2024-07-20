@@ -8,6 +8,31 @@ import java.util.*;
 public class OrdineDAO {
 
     /**
+     * Retrieve total price from id elements list.
+     *
+     * @param id_elements list of product for this order.
+     * @return total price for this order.
+     */
+    private static double doRetrieveTotalPrice(List<Integer> id_elements) {
+        double total = 0;
+
+        try (Connection con = ConnectionService.getConnection()) {
+            for (Integer id : id_elements) {
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM elemento_prodotto WHERE id_elemento = ?");
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    total += rs.getDouble("prezzo");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return total;
+    }
+
+    /**
      * Do retrieve name from protto table using id prodotto.
      *
      * @param products_id list of product id.
@@ -165,6 +190,7 @@ public class OrdineDAO {
                 tmp.quantity = doRetrieveQuantityFromID(id_elements);
                 List<String> keys = new ArrayList<>(tmp.quantity.keySet());
                 tmp.name = doRetrieveProductName(keys);
+                tmp.total_price = doRetrieveTotalPrice(id_elements);
                 orders.add(tmp);
             }
         } catch (SQLException e) {
