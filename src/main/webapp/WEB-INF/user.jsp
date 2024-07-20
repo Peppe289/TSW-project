@@ -347,7 +347,7 @@
 
             #side-bar {
                 display: none;
-                position: absolute;
+                position: fixed;
                 background-color: white;
                 left: 0;
                 top: 0;
@@ -367,7 +367,7 @@
                 align-items: center;
                 font-size: 1.5rem;
                 cursor: pointer;
-                position: absolute;
+                position: fixed;
                 top: 40px;
                 left: 0;
                 height: 60px;
