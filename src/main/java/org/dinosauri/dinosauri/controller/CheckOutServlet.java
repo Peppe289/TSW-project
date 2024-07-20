@@ -29,18 +29,31 @@ public class CheckOutServlet extends HttpServlet {
                 if (product.getPhoto_path().isEmpty()) temp.setPhotoPath(null);
                 else temp.setPhotoPath(product.getPhoto_path().getFirst());
 
+                /* setta direttamente con lo sconto. */
                 if (product.getSconto() == 0) temp.setPrice(product.getPrice());
                 else temp.setPrice(product.getPrice() * (1 - ((double) product.getSconto() / 100)));
 
-                total += entry.getValue();
-                price += temp.getPrice() * entry.getValue();
+                /* check if whe have required quantity of product. */
+                List<Integer> quantity = ProductDAO.doRetrieveProductByID(product.getId(), true);
+                if (quantity.isEmpty()) continue;
 
-                temp.setQuantity(entry.getValue());
+                /* put the right quantity in case whe need more than available. */
+                if (entry.getValue() > quantity.size()) {
+                    temp.setQuantity(quantity.size());
+                    total += quantity.size();
+                    price += temp.getPrice() * quantity.size();
+                } else {
+                    temp.setQuantity(entry.getValue());
+                    total += entry.getValue();
+                    price += temp.getPrice() * entry.getValue();
+                }
+
                 temp.setTile(product.getName());
                 temp.setId(entry.getKey());
                 list.add(temp);
             }
         }
+
         req.setAttribute("price", price);
         req.setAttribute("total", total);
         return list;
@@ -88,21 +101,7 @@ public class CheckOutServlet extends HttpServlet {
         }
 
         /* remove empty products. */
-        list = list.stream().filter(item -> {
-
-            /* check if whe have required quantity of product. */
-            List<Integer> quantity = ProductDAO.doRetrieveProductByID(item.getId(), true);
-            if (quantity.isEmpty()) {
-                return false;
-            } else {
-                /* put the right quantity in case whe need more than available. */
-                if (item.getQuantity() > quantity.size()) {
-                    item.setQuantity(quantity.size());
-                }
-            }
-
-            return item.getQuantity() != 0;
-        }).collect(Collectors.toList());
+        list = list.stream().filter(item -> item.getQuantity() != 0).collect(Collectors.toList());
 
         req.setAttribute("prodotti", list);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/acquista.jsp");
