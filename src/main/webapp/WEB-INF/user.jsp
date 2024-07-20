@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -405,25 +407,25 @@
             <hr>
             <div class="box">
                 <label for="nome">Nome:</label>
-                <input class="editable" id="nome" name="nome" type="text" value="Pierino" disabled>
-                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+                <input class="editable" id="nome" name="nome" type="text" value="${user.nome}" disabled>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
             </div>
             <div class="box">
                 <label for="surname">Cognome:</label>
-                <input class="editable" id="surname" name="surname" type="text" value="Geppetto" disabled>
-                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+                <input class="editable" id="surname" name="surname" type="text" value="${user.cognome}" disabled>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
             </div>
             <div class="box">
                 <label for="email">Email:</label>
-                <input class="editable" id="email" name="email" type="email" value="emaildefault@gmail.com" disabled>
-                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+                <input class="editable" id="email" name="email" type="email" value="${user.email}" disabled>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
             </div>
             <div class="box">
                 <label for="password">Change Password:</label>
                 <input class="editable" id="password" name="password" type="password" value="" disabled>
                 <label for="password" id="show_pass"><span></span><img alt="show password"
-                                                                       src="show_password.png"></label>
-                <button class="editable"><img alt="edit" src="edit-ico.png"></button>
+                                                                       src="${pageContext.request.contextPath}/img/show_password.png"></label>
+                <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png"></button>
             </div>
 
             <div class="apply">
@@ -438,30 +440,30 @@
             <div id="address" class="box grid-items">
                 <div class="box">
                     <label>Destinatario:
-                        <input class="editable" name="nome" type="text" value="Geppetto" disabled>
+                        <input class="editable" name="nome" type="text" value="${address.name} ${address.cognome}" disabled>
                     </label>
                 </div>
                 <div class="box">
-                    <label>Indirizzo:
-                        <input class="editable" name="addr" type="text" value="Via Matteo Rossi" disabled>
+                    <label>Via:
+                        <input class="editable" name="addr" type="text" value="${address.via}" disabled>
                     </label>
                 </div>
                 <div class="box">
                     <label>Civico:
-                        <input class="editable" name="addr_num" type="number" value="56" disabled>
+                        <input class="editable" name="addr_num" type="text" value="${address.numero_civico}" disabled>
                     </label>
                 </div>
                 <div class="box">
                     <label>Città:
-                        <input class="editable" name="city" type="text" value="Verona" disabled>
+                        <input class="editable" name="city" type="text" value="${address.comune}" disabled>
                     </label>
                 </div>
                 <div class="box">
                     <label>Cap:
-                        <input class="editable" name="cap" type="number" value="696969" disabled>
+                        <input class="editable" name="cap" type="number" value="${address.cap}" disabled>
                     </label>
                 </div>
-                <button id="change_address" onclick='location.href=`bruh`' class="change_address">
+                <button id="change_address" onclick='location.href=`${pageContext.request.contextPath}/address_page`' class="change_address">
                     Modifica Indirizzo
                 </button>
             </div>
