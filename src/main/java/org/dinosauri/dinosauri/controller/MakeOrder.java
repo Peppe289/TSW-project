@@ -17,6 +17,7 @@ public class MakeOrder extends HttpServlet {
         HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
         HashMap<Integer, Double> saveForDatabase = new HashMap<>();
         int remove;
+        Address address = (Address) session.getAttribute("address");
 
         /* if the user try to confirm order without elements. */
         if (products == null) {
@@ -53,9 +54,9 @@ public class MakeOrder extends HttpServlet {
              * Add into the database from hashmap with id_elemento and price.
              * This grants we have old price always in order history.
              */
-            OrdineDAO.convalidateOrder(Integer.parseInt(user.getId()), saveForDatabase);
+            OrdineDAO.convalidateOrder(Integer.parseInt(user.getId()), saveForDatabase, address);
         } catch (SQLException e) {
-            throw new ServletException("Some Error During Order");
+            e.printStackTrace();
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/fakePayment.jsp");
