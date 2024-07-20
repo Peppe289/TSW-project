@@ -163,7 +163,7 @@
             </div>
         </div>
         <div style="width: 100%; text-align: center">
-            <button form="indirizzi" style="width: 80%">Compra</button>
+            <button style="width: 80%" onclick="location.href = '${pageContext.request.contextPath}/make_order'">Compra</button>
         </div>
     </div>
 </div>
