@@ -54,9 +54,11 @@ public class ChangeAddress extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else {
             AddressDAO.doUpdateAddress(Integer.parseInt(user.getId()), addr);
-            /* TODO: implement user page. */
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/user.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user_page");
         }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 }
