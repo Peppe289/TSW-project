@@ -473,100 +473,36 @@
         <div class="scroll-item container">
             <h3 id="order_done">Ordini effettuati</h3>
             <hr>
-            <!-- first order -->
-            <div class="box row-table">
-                <!-- pointer button for hide/show order details. -->
-                <div class="summary disable_select_text">
-                    <div class="open_order">
-                        <span class="toggle opened hide">&#x25B2;</span>
-                        <span class="toggle closed">&#x25BC;</span>
+            <%--@elvariable id="orderList" type="java.util.List"--%>
+            <c:forEach items="${orderList}" var="ordine">
+                <!-- first order -->
+                <div class="box row-table">
+                    <!-- pointer button for hide/show order details. -->
+                    <div class="summary disable_select_text">
+                        <div class="open_order">
+                            <span class="toggle opened hide">&#x25B2;</span>
+                            <span class="toggle closed">&#x25BC;</span>
+                        </div>
+                        <div class="order-propriety">${ordine.date}</div>
+                        <div class="order-propriety">${ordine.address.via}, ${ordine.address.comune} (${ordine.address.provincia})</div>
+                        <div class="order-propriety">${ordine.total_price} €</div>
                     </div>
-                    <div class="order-propriety">24/01/2020</div>
-                    <div class="order-propriety">Consegnato in Via Domenico Amorelli 19</div>
-                    <div class="order-propriety">34821094820498 €</div>
+                    <c:forEach var="entry" items="${ordine.name}">
+                        <div class="row-item">
+                            <div class="quantity_prod">
+                                ${ordine.quantity[entry.key]}x
+                            </div>
+                            <div class="name_prod">
+                                ${entry.value}
+                            </div>
+                            <div class="price_prod">
+                                ${ordine.price[entry.key]} €
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        T-Rex
-                    </div>
-                    <div class="price_prod">
-                        532 €
-                    </div>
-                </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        Ciro
-                    </div>
-                    <div class="price_prod">
-                        6363463 €
-                    </div>
-                </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        Guinzaglio medio
-                    </div>
-                    <div class="price_prod">
-                        6433 €
-                    </div>
-                </div>
-            </div>
-            <!-- end order -->
-            <!-- order -->
-            <div class="box row-table">
-                <!-- pointer button for hide/show order details. -->
-                <div class="summary disable_select_text">
-                    <div class="open_order">
-                        <span class="toggle opened hide">&#x25B2;</span>
-                        <span class="toggle closed">&#x25BC;</span>
-                    </div>
-                    <div class="order-propriety">24/01/2020</div>
-                    <div class="order-propriety">Consegnato in Via Domenico Amorelli 19</div>
-                    <div class="order-propriety">34821094820498 €</div>
-                </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        T-Rex
-                    </div>
-                    <div class="price_prod">
-                        532 €
-                    </div>
-                </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        Ciro
-                    </div>
-                    <div class="price_prod">
-                        6363463 €
-                    </div>
-                </div>
-                <div class="row-item">
-                    <div class="quantity_prod">
-                        2x
-                    </div>
-                    <div class="name_prod">
-                        Guinzaglio medio
-                    </div>
-                    <div class="price_prod">
-                        6433 €
-                    </div>
-                </div>
-            </div>
-            <!-- end order -->
+                <!-- end order -->
+            </c:forEach>
         </div>
     </div>
 </div>
