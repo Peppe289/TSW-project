@@ -22,6 +22,14 @@ public class Ordine {
         this.address = address;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public Double getTotal_price() {
         return total_price;
     }
