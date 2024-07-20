@@ -5,53 +5,53 @@
 <html lang="it">
 <head>
     <title>DinoStore - Pagamento</title>
-</head>
 
-<style>
-    body {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width: 100%;
-    }
-
-    #main {
-        display: block;
-        height: 80vh;
-        min-width: 300px;
-        width: 90%  ;
-        max-width: 1200px;
-        box-shadow: 0 0 5px #bebebe;
-        border-radius: 10px;
-    }
-
-    h2 {
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid black;
-        font-size: 35px;
-    }
-
-    .item {
-        width: 100%;
-        text-align: center;
-        font-size: 25px;
-        height: 35px;
-    }
-
-    .item.img {
-        width: 100%;
-        height: calc(100% - 35px);
-
-        & img {
-            width: 300px;
-            height: 100%;
-            object-fit: contain;
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
         }
-    }
-</style>
+
+        #main {
+            display: block;
+            height: 80vh;
+            min-width: 300px;
+            width: 90%  ;
+            max-width: 1200px;
+            box-shadow: 0 0 5px #bebebe;
+            border-radius: 10px;
+        }
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid black;
+            font-size: 35px;
+        }
+
+        .item {
+            width: 100%;
+            text-align: center;
+            font-size: 25px;
+            height: 35px;
+        }
+
+        .item.img {
+            width: 100%;
+            height: calc(100% - 35px);
+
+            & img {
+                width: 300px;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <div id="main">
@@ -65,10 +65,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        setTimeout(function() {
+            location.href = "/";
+        }, 4900)
+    </script>
 </body>
-<script>
-    setTimeout(function() {
-        location.href = "/";
-    }, 4900)
-</script>
 </html>

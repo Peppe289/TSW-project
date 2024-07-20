@@ -281,7 +281,7 @@
         provincia.value = arr[0].Provincia;
     }
 
-    provincia.addEventListener("focusout", (e) => {
+    provincia.addEventListener("focus", (e) => {
         setSuggestion();
     });
 
@@ -290,7 +290,7 @@
         setSuggestion();
     });
 
-    comune.addEventListener("focusout", () => {
+    comune.addEventListener("focus", () => {
         setSuggestion();
     });
 
