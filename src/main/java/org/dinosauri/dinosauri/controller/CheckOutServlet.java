@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.*;
 
 @WebServlet("/compra")
-public class ConfirmProductServlet extends HttpServlet {
+public class CheckOutServlet extends HttpServlet {
 
     private List<ConfirmProd> getOrderForBuy(HttpServletRequest req) {
         List<ConfirmProd> list = new ArrayList<>();
