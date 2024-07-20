@@ -19,6 +19,10 @@ public class MakeOrder extends HttpServlet {
         int remove;
         Address address = (Address) session.getAttribute("address");
 
+        if (address == null) {
+            address = AddressDAO.doRetrieveAddress(Integer.parseInt(user.getId()));
+        }
+
         /* if the user try to confirm order without elements. */
         if (products == null) {
             throw new ServletException("You joke me?");
