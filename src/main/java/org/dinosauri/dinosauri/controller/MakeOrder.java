@@ -5,12 +5,13 @@ import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
 
+import java.io.*;
 import java.sql.*;
 import java.util.*;
 
 @WebServlet("/make_order")
 public class MakeOrder extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
@@ -56,9 +57,12 @@ public class MakeOrder extends HttpServlet {
         } catch (SQLException e) {
             throw new ServletException("Some Error During Order");
         }
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/fakePayment.jsp");
+        requestDispatcher.forward(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 }
