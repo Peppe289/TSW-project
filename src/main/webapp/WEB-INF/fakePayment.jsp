@@ -68,7 +68,7 @@
 
     <script>
         setTimeout(function() {
-            location.href = "/";
+            location.href = "${pageContext.request.contextPath}";
         }, 4900)
     </script>
 </body>
