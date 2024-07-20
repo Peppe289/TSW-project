@@ -20,6 +20,7 @@ public class ChangeAddress extends HttpServlet {
         String provincia = request.getParameter("provincia");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        Address addr;
 
         /* without login don't should become here. */
         if (user == null) {
@@ -31,17 +32,15 @@ public class ChangeAddress extends HttpServlet {
         if (name == null || name.isEmpty() || cognome == null || cognome.isEmpty() || via == null || via.isEmpty()
                 || comune == null || comune.isEmpty() || cap == null || cap.isEmpty() || civico == null || civico.isEmpty()
                 || provincia == null || provincia.isEmpty()) {
-            request.setAttribute("reason", reason);
             request.setAttribute("message", "Nessun campo deve essere vuoto");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/address.jsp");
             requestDispatcher.forward(request, response);
             return;
         }
-        Address addr = null;
+
         try {
             addr = new Address(name, cognome, via, Integer.parseInt(cap), provincia, comune, civico);
         } catch (NumberFormatException e) {
-            request.setAttribute("reason", reason);
             request.setAttribute("message", "Input non valido. Controlla il cap e riprova.");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/address.jsp");
             requestDispatcher.forward(request, response);
