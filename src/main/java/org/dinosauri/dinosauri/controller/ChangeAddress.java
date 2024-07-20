@@ -24,6 +24,7 @@ public class ChangeAddress extends HttpServlet {
         /* without login don't should become here. */
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/");
+            return;
         }
 
         /* check input. */
