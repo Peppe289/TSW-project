@@ -76,7 +76,7 @@
             margin: 20px;
         }
 
-        button {
+        button.submit {
             padding: 10px 20px;
             border: none;
             background-color: #28a745;
@@ -93,7 +93,7 @@
             color: #595959;
         }
 
-        button:hover {
+        button.submit:hover {
             background-color: #218838;
         }
 
@@ -163,7 +163,7 @@
             </div>
         </div>
         <div style="width: 100%; text-align: center">
-            <button style="width: 80%" onclick="location.href = '${pageContext.request.contextPath}/make_order'">Compra</button>
+            <button class="submit" style="width: 80%" onclick="location.href = '${pageContext.request.contextPath}/make_order'">Compra</button>
         </div>
     </div>
 </div>
