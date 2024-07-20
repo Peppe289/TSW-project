@@ -88,7 +88,21 @@ public class ConfirmProductServlet extends HttpServlet {
         }
 
         /* remove empty products. */
-        list = list.stream().filter(item -> item.getQuantity() != 0).collect(Collectors.toList());
+        list = list.stream().filter(item -> {
+
+            /* check if whe have required quantity of product. */
+            List<Integer> quantity = ProductDAO.doRetrieveProductByID(item.getId(), true);
+            if (quantity.isEmpty()) {
+                return false;
+            } else {
+                /* put the right quantity in case whe need more than available. */
+                if (item.getQuantity() > quantity.size()) {
+                    item.setQuantity(quantity.size());
+                }
+            }
+
+            return item.getQuantity() != 0;
+        }).collect(Collectors.toList());
 
         req.setAttribute("prodotti", list);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/acquista.jsp");
