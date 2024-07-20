@@ -389,7 +389,7 @@
             <li><a href="#user_info">Informazioni personali</a></li>
             <li><a href="#addr_manage">Gestisci indirizzi</a></li>
             <li><a href="#order_done">Ordini effettuati</a></li>
-            <li><a href="/">Carrello</a></li>
+            <li><a href="${pageContext.request.contextPath}/carrello.jsp">Carrello</a></li>
         </ul>
     </div>
     <div id="content">

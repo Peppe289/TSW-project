@@ -37,7 +37,7 @@
                     <!-- user dovrebbe stare nella sessione -->
                     <c:choose>
                         <c:when test="${not empty user}">
-                            <a href="#">Area Personale</a>
+                            <a href="${pageContext.request.contextPath}/user_page">Area Personale</a>
                             <a href="${pageContext.request.contextPath}/logout">Log out</a>
                         </c:when>
                         <c:otherwise>
