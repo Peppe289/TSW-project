@@ -32,11 +32,13 @@
             box-shadow: 0 0 10px #e8e8e8;
 
 
+            button.change_address,
             div.apply > button.apply {
                 background-color: #28a745;
                 color: #fff;
             }
 
+            button.change_address,
             div.apply > button.apply:hover {
                 background-color: #218838;
             }
@@ -119,6 +121,10 @@
                 outline: none;
             }
 
+            button.change_address {
+                width: 60%;
+            }
+
             & .container {
                 display: flex;
                 flex-direction: row;
@@ -136,6 +142,7 @@
                     width: 100%;
                 }
 
+                button.change_address,
                 & div.apply > button.apply {
                     height: 40px;
                     padding: 0 20px 0 20px;
@@ -412,8 +419,8 @@
                 <button class="editable"><img alt="edit" src="edit-ico.png"></button>
             </div>
             <div class="box">
-                <label for="password">Password:</label>
-                <input class="editable" id="password" name="password" type="password" value="bruh" disabled>
+                <label for="password">Change Password:</label>
+                <input class="editable" id="password" name="password" type="password" value="" disabled>
                 <label for="password" id="show_pass"><span></span><img alt="show password"
                                                                        src="show_password.png"></label>
                 <button class="editable"><img alt="edit" src="edit-ico.png"></button>
@@ -428,74 +435,35 @@
         <div class="scroll-item container">
             <h3 id="addr_manage">Gestione degli indirizzi</h3>
             <hr>
-            <div id="new_addr" class="box grid-items">
-                <div class="box">
-                    <label>Destinatario:
-                        <input class="editable" name="nome" type="text" value="">
-                    </label>
-                </div>
-                <div class="box">
-                    <label>Indirizzo:
-                        <input class="editable" name="addr" type="text" value="">
-                    </label>
-                </div>
-                <div class="box">
-                    <label>Civico:
-                        <input class="editable" name="addr_num" type="number" value="">
-                    </label>
-                </div>
-                <div class="box">
-                    <label>Città:
-                        <input class="editable" name="city" type="text" value="">
-                    </label>
-                </div>
-                <div class="box">
-                    <label>Cap:
-                        <input class="editable" name="cap" type="number" value="">
-                    </label>
-                </div>
-                <div class="apply">
-                    <button class="apply">
-                        Aggiungi indirizzo
-                    </button>
-                </div>
-            </div>
-            <div class="box grid-items">
+            <div id="address" class="box grid-items">
                 <div class="box">
                     <label>Destinatario:
                         <input class="editable" name="nome" type="text" value="Geppetto" disabled>
                     </label>
-                    <button class="editable"><img alt="edit" src="edit-ico.png"></button>
                 </div>
                 <div class="box">
                     <label>Indirizzo:
                         <input class="editable" name="addr" type="text" value="Via Matteo Rossi" disabled>
                     </label>
-                    <button class="editable"><img alt="edit" src="edit-ico.png"></button>
                 </div>
                 <div class="box">
                     <label>Civico:
                         <input class="editable" name="addr_num" type="number" value="56" disabled>
                     </label>
-                    <button class="editable"><img alt="edit" src="edit-ico.png"></button>
                 </div>
                 <div class="box">
                     <label>Città:
                         <input class="editable" name="city" type="text" value="Verona" disabled>
                     </label>
-                    <button class="editable"><img alt="edit" src="edit-ico.png"></button>
                 </div>
                 <div class="box">
                     <label>Cap:
                         <input class="editable" name="cap" type="number" value="696969" disabled>
                     </label>
-                    <button class="editable"><img alt="edit" src="edit-ico.png"></button>
                 </div>
-                <div class="apply">
-                    <button class="apply">
-                        Applica
-                    </button>
-                </div>
+                <button id="change_address" onclick='location.href=`bruh`' class="change_address">
+                    Modifica Indirizzo
+                </button>
             </div>
         </div>
 
@@ -774,7 +742,6 @@
         if (el.tagName.toUpperCase() === "button".toUpperCase()) {
             el.addEventListener("click", () => {
                 validate_input(el.parentElement.parentElement);
-                /* TODO: make ajax request here */
             });
         }
     });
