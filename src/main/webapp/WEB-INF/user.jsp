@@ -385,7 +385,7 @@
     <div id="side_bar_btn">&#9776;</div>
     <div id="side-bar">
         <ul>
-            <li><a href="/">Continua ad acquistare</a></li>
+            <li><a href="${pageContext.request.contextPath}">Continua ad acquistare</a></li>
             <li><a href="#user_info">Informazioni personali</a></li>
             <li><a href="#addr_manage">Gestisci indirizzi</a></li>
             <li><a href="#order_done">Ordini effettuati</a></li>
