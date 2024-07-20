@@ -5,6 +5,7 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/navbar.css">
 <div id="mobile-bar">
     <img alt="DinoStore Logo" src="${pageContext.request.contextPath}/img/solo_logo.png">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/project.css">
     <form class="form-bar" action="${pageContext.request.contextPath}/search">
         <!-- Use this just for support accessibility -->
         <label>
