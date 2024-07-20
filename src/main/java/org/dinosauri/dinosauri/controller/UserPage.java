@@ -6,6 +6,7 @@ import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
+import java.util.*;
 
 
 @WebServlet("/user_page")
@@ -17,16 +18,22 @@ public class UserPage extends HttpServlet {
         Address address = AddressDAO.doRetrieveAddress(Integer.parseInt(user.getId()));
         String reason = req.getParameter("reason");
         String id = user.getId();
+        List<Ordine> ordineList = OrdineDAO.doRetrieveOrderListInfo(Integer.parseInt(id));
+
+        if (address == null) {
+            address = (Address) session.getAttribute("address");
+        }
+
+        if (address == null) {
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/address_page");
+            requestDispatcher.forward(req, resp);
+            return;
+        }
 
         req.setAttribute("address", address);
+        req.setAttribute("orderList", ordineList);
 
         if (reason == null) {
-            if (address == null) {
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/address_page");
-                requestDispatcher.forward(req, resp);
-                return;
-            }
-
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
             requestDispatcher.forward(req, resp);
         } else if (reason.equals("changeInfo")) {
