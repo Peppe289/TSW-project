@@ -50,7 +50,6 @@
 
     <button form="login" name="button" value="login">Log in</button>
     <button onclick="location.href='registrazione.jsp'">Registrati</button>
-    <br><a href="#">Password dimenticata?</a>
 </div>
 <script defer>
     let email_input = document.getElementById("email");
