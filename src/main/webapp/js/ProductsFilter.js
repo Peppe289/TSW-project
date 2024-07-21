@@ -1,6 +1,7 @@
 let inputNut = document.getElementsByName("nut");
 let inputCat = document.getElementsByName("cat");
 let nut_title = document.getElementById("nut-title");
+let nut_title_show_boolean = true;
 //Array che conterrà solo le categorie che mi interessano
 let arr_cat_utils = [];
 let extrafilter = document.getElementsByClassName("extra-filter");
@@ -14,8 +15,8 @@ Array.from(inputCat).forEach(element => {
 
 //Funzione che fa sparire il filtro di alimentazione
 function nut_invisible() {
-    nut_title.style.display = "none";
-
+    nut_title_show_boolean = false;
+    show_nut_on_resize(window);
     Array.from(inputNut).forEach(element => {
         element.parentElement.style.display = "none";
     });
@@ -34,10 +35,10 @@ arr_cat_utils.forEach(input_el => {
              * Altrimenti scompare.
              */
             if (element.checked) {
-                nut_title.style.display = "block";
-
                 inputNut.forEach(el => {
+                    nut_title_show_boolean = true;
                     el.parentElement.style.display = "block";
+                    show_nut_on_resize(window);
                 });
                 return false;
             } else nut_invisible();
@@ -45,6 +46,20 @@ arr_cat_utils.forEach(input_el => {
             return true;
         });
     });
+});
+
+/* show/hide title nutrition. */
+function show_nut_on_resize(element) {
+    if (element.innerWidth > 900 && nut_title_show_boolean) {
+        nut_title.style.display = "block";
+    } else {
+        nut_title.style.display = "none";
+    }
+}
+
+/* event listener on resize of page. */
+window.addEventListener("resize", (event) => {
+    show_nut_on_resize(event.target);
 });
 
 //mi prendo l'URL
@@ -72,6 +87,8 @@ Array.from(inp_elements).forEach(element => {
         arr_nut.forEach(string => {
             if (string === element.value) {
                 element.checked = true;
+                nut_title_show_boolean = true;
+                show_nut_on_resize(window);
             }
         })
     }
@@ -81,5 +98,10 @@ Array.from(inp_elements).forEach(element => {
  * If none of arr_cat_utils elements are checked, we can hide the other filter input.
  * Check this after checked element from url.
  */
-if (!arr_cat_utils.some(element => element.checked)) nut_invisible();
+if (!arr_cat_utils.some(element => element.checked)) {
+    nut_title_show_boolean = false;
+    nut_invisible();
+}
 
+/* check if default nutrition title if necessary or not. */
+show_nut_on_resize(window);
