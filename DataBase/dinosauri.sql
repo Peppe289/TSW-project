@@ -21,7 +21,6 @@ CREATE TABLE elemento_prodotto
     id_prodotto   VARCHAR(50),
     /* id_elemento specifica il singolo elemento come prodotto. */
     id_elemento   INT AUTO_INCREMENT PRIMARY KEY,
-    iva           FLOAT DEFAULT 0.22,
     /**
      * Consideriamo questo valore solo se non c'è più disponibilità.
      * Significa che il prodotto è già acquistato e dobbiamo vedere il prezzo "congelato".
