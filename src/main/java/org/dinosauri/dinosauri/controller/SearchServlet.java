@@ -92,10 +92,37 @@ public class SearchServlet extends HttpServlet {
         return filter;
     }
 
+    /* save filter for next page. we will put this in btn page linker. */
+    private String saveFilter(HttpServletRequest req) {
+        String[] nut_words = req.getParameterValues("nut");
+        String[] cat_words = req.getParameterValues("cat");
+        String sort = req.getParameter("sort");
+        StringBuilder result = new StringBuilder();
+
+        if (nut_words != null) {
+            for (String tmp : nut_words) {
+                result.append("&nut=").append(tmp);
+            }
+        }
+
+        if (cat_words != null) {
+            for (String tmp : cat_words) {
+                result.append("&cat=").append(tmp);
+            }
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            result.append("&sort=").append(sort);
+        }
+
+        return result.toString();
+    }
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
         String page = req.getParameter("page");
         String sort = req.getParameter("sort");
+        String persistentFilter = saveFilter(req);
 
         List<Product> products;
         if (page == null) page = "0";
@@ -146,6 +173,7 @@ public class SearchServlet extends HttpServlet {
 
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);
+        req.setAttribute("saveFilter", persistentFilter);
         req.setAttribute("lastSearch", keyword);
         req.setAttribute("products", products);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/productsPage.jsp");

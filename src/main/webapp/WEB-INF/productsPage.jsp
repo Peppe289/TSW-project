@@ -58,8 +58,8 @@
         <form id="filter-form" action="">
             <label>
                 Ordina Per
-                <select name="sort">
-                    <option value="seleziona" selected="selected">seleziona</option>
+                <select name="sort" id="order_filter">
+                    <option value="seleziona" selected disabled hidden>seleziona</option>
                     <option value="price_cresc">Prezzo Crescente</option>
                     <option value="price_dec">Prezzo Decrescente</option>
                     <option value="quantity_cresc">Quantità Crescente</option>

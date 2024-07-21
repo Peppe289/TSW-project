@@ -68,6 +68,14 @@ const params = new URLSearchParams(document.location.search);
 //prendo tutti i parametri che mi interessano e li metto in un array
 let arr_cat = params.getAll("cat");
 let arr_nut = params.getAll("nut");
+let order_filter = params.get("sort");
+
+/* restore old order sort. */
+function loadDefaultSelectedSort() {
+    const orderElements = document.getElementById("order_filter");
+    orderElements.value = order_filter;
+}
+loadDefaultSelectedSort();
 
 //prendo gli elementi che mi interessano
 let form = document.getElementById("filter-form");
