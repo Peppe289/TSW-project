@@ -12,17 +12,35 @@ import java.util.stream.*;
 @WebServlet("/compra")
 public class CheckOutServlet extends HttpServlet {
 
+    private static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for (String item : items) {
+            if (inputStr.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private List<ConfirmProd> getOrderForBuy(HttpServletRequest req) {
         List<ConfirmProd> list = new ArrayList<>();
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         Integer total = 0;
         double price = 0.0;
+        String[] id_list = req.getParameterValues("el");
+        /* set in session for make_order page. */
+        session.setAttribute("checked", id_list);
 
         HashMap<String, Integer> products = CarrelloDAO.doRetrieveAllIDFromUser(Integer.parseInt(user.getId()));
         if (products != null) {
             for (Map.Entry<String, Integer> entry : products.entrySet()) {
                 ConfirmProd temp = new ConfirmProd();
+
+                /* skip if isn't checked in cart page. */
+                if (!stringContainsItemFromList(entry.getKey(), id_list))
+                    continue;
+
                 Product product = ProductDAO.doRetrieveProductByID(entry.getKey());
                 product.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
 

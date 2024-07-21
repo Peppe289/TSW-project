@@ -11,6 +11,16 @@ import java.util.*;
 
 @WebServlet("/make_order")
 public class MakeOrder extends HttpServlet {
+    private static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for (String item : items) {
+            if (inputStr.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -18,6 +28,7 @@ public class MakeOrder extends HttpServlet {
         HashMap<Integer, Double> saveForDatabase = new HashMap<>();
         int remove;
         Address address = (Address) session.getAttribute("address");
+        String[] id_list = (String[]) session.getAttribute("checked");
 
         if (address == null) {
             address = AddressDAO.doRetrieveAddress(Integer.parseInt(user.getId()));
@@ -32,6 +43,11 @@ public class MakeOrder extends HttpServlet {
         for (Map.Entry<String, Integer> entry : products.entrySet()) {
             /* retrieve product info. */
             Product product = ProductDAO.doRetrieveProductByID(entry.getKey());
+
+            /* skip unchecked elements. */
+            if (!stringContainsItemFromList(entry.getKey(), id_list))
+                continue;
+
             /* id of all available elements */
             List<Integer> elements = ProductDAO.doRetrieveProductByID(entry.getKey(), true);
 

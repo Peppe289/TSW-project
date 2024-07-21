@@ -29,7 +29,8 @@
             <b>Prezzo Totale: 0€</b>
         </div>
         <div class="buttons green-button">
-            <button onclick='location.href="${pageContext.request.contextPath}/compra"'>Procedi con l'ordine</button>
+            <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
+            <button id="btn_submit">Procedi con l'ordine</button>
         </div>
     </div>
 </div>

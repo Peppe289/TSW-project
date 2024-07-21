@@ -1,3 +1,6 @@
+/* retrieve from hidden input in the HTML the context path */
+let contextPath = document.getElementById("contextPath").value;
+
 document.addEventListener("DOMContentLoaded", function () {
     const listDiv = document.getElementById("list");
     const totalPriceDiv = document.getElementById("totalPrice");
@@ -158,4 +161,21 @@ document.addEventListener("DOMContentLoaded", function () {
             listDiv.appendChild(errorMessage);
         });
 });
+
+
+/* send using js parameter in post with checked product. */
+document.getElementById("btn_submit").addEventListener("click", (event) => {
+    const input = document.getElementsByTagName("input");
+    let url= `${contextPath}/compra?`;
+
+    Array.from(input).forEach(item => {
+        if (item.type.toUpperCase() === "CHECKBOX") {
+            if (item.checked) {
+                url += "el=" + item.id + "&";
+            }
+        }
+    });
+
+    location.href = url;
+})
 
