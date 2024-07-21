@@ -78,22 +78,16 @@ public class CheckOutServlet extends HttpServlet {
         }
 
         /* this means we need to go in order page after some action in address page. */
-        session.setAttribute("reason", "ORDER");
+        req.setAttribute("reason", "ORDER");
 
-        /* only temporaly address are saved in session. */
+        /* only temporaly address is saved in session. */
         address_view = (Address) session.getAttribute("address");
         if (address_view == null) {
             address_view = AddressDAO.doRetrieveAddress(Integer.parseInt(user.getId()));
         }
 
         if (address_view != null) {
-            req.setAttribute("addr_name", address_view.getName());
-            req.setAttribute("addr_cognome", address_view.getCognome());
-            req.setAttribute("addr_via", address_view.getVia());
-            req.setAttribute("addr_cap", address_view.getCap());
-            req.setAttribute("addr_prov", address_view.getProvincia());
-            req.setAttribute("addr_city", address_view.getComune());
-            req.setAttribute("addr_num", address_view.getNumero_civico());
+            req.setAttribute("address_resp", address_view);
         } else {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/address_page");
             requestDispatcher.forward(req, resp);

@@ -106,21 +106,21 @@
         </c:choose>
         <div>
             <div class="input">
-                <input type="text" id="nome" name="nome" required value="${addr_name}">
+                <input type="text" id="nome" name="nome" required value="${address_resp.name}">
                 <label for="nome">Nome</label>
             </div>
             <div class="input">
-                <input type="text" id="cognome" name="cognome" required value="${addr_cognome}">
+                <input type="text" id="cognome" name="cognome" required value="${address_resp.cognome}">
                 <label for="cognome">Cognome</label>
             </div>
             <div class="input">
-                <input type="text" id="via" name="via" required value="${addr_via}">
+                <input type="text" id="via" name="via" required value="${address_resp.via}">
                 <label for="via">Via</label>
             </div>
         </div>
         <div>
             <div class="input">
-                <input type="text" list="sugg_comune" id="comune" name="comune" required value="${addr_city}">
+                <input type="text" list="sugg_comune" id="comune" name="comune" required value="${address_resp.comune}">
                 <label for="comune">Comune</label>
                 <datalist id="sugg_comune">
                     <!-- options -->
@@ -128,7 +128,7 @@
             </div>
 
             <div class="input">
-                <input type="text" list="sugg_cap" id="cap" name="cap" required value="${addr_cap}">
+                <input type="text" list="sugg_cap" id="cap" name="cap" required value="${address_resp.cap}">
                 <label for="cap">Cap</label>
                 <datalist id="sugg_cap">
                     <!-- options -->
@@ -136,12 +136,12 @@
             </div>
 
             <div class="input">
-                <input type="text" id="civico" name="civico" required value="${addr_num}">
+                <input type="text" id="civico" name="civico" required value="${address_resp.numero_civico}">
                 <label for="civico">Civico</label>
             </div>
 
             <div class="input">
-                <input type="text" id="provincia" name="provincia" required value="${addr_prov}">
+                <input type="text" id="provincia" name="provincia" required value="${address_resp.provincia}">
                 <label for="provincia">Provincia</label>
             </div>
         </div>
