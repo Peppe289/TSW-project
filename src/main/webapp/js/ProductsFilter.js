@@ -73,7 +73,9 @@ let order_filter = params.get("sort");
 /* restore old order sort. */
 function loadDefaultSelectedSort() {
     const orderElements = document.getElementById("order_filter");
-    orderElements.value = order_filter;
+    if (!(order_filter === null || order_filter === "")) {
+        orderElements.value = order_filter;
+    }
 }
 loadDefaultSelectedSort();
 
