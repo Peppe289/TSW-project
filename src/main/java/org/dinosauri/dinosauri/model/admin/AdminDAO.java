@@ -1,4 +1,6 @@
-package org.dinosauri.dinosauri.model;
+package org.dinosauri.dinosauri.model.admin;
+
+import org.dinosauri.dinosauri.model.*;
 
 import java.sql.*;
 import java.util.*;

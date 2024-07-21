@@ -1,10 +1,10 @@
-package org.dinosauri.dinosauri.controller;
+package org.dinosauri.dinosauri.controller.admin;
 
 import com.fasterxml.jackson.databind.*;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
-import org.dinosauri.dinosauri.model.*;
+import org.dinosauri.dinosauri.model.admin.*;
 
 import java.io.*;
 import java.sql.*;

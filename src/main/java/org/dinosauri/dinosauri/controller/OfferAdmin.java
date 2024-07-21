@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import org.dinosauri.dinosauri.model.*;
+import org.dinosauri.dinosauri.model.admin.*;
 
 import java.io.*;
 import java.sql.*;
