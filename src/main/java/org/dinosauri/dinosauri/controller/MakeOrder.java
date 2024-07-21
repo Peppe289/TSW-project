@@ -13,6 +13,9 @@ import java.util.*;
 public class MakeOrder extends HttpServlet {
     private static boolean stringContainsItemFromList(String inputStr, String[] items)
     {
+        if (items == null || inputStr == null)
+            return false;
+
         for (String item : items) {
             if (inputStr.equals(item)) {
                 return true;
