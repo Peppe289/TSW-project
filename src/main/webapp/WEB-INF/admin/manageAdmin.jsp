@@ -23,13 +23,13 @@
                     <tr>
                         <th>ID</th>
                         <th>Permission</th>
-                        <th></th>
+                        <th aria-label="vuoto"></th>
                     </tr>
                     <c:forEach items="${admins}" var="admin">
                         <tr>
                             <td>${admin.id}</td>
                             <td>
-                                <label>
+                                <label aria-label="inputNumber">
                                     <input type="number" min="0" max="2" value="${admin.permission}">
                                 </label>
                             </td>
@@ -43,8 +43,10 @@
                     <h3>Genera un nuovo amministratore</h3>
                     <p>L'admin è generato con ID semi-casuale. La password verrà generate in modo casuale.</p>
                     <button id="new_admin">Crea Admin</button>
-                    <label>
+                    <label aria-label="nameGenerator">
                         <input id="id_admin" type="text" value="" disabled>
+                    </label>
+                    <label aria-label="passwordGenerator">
                         <input id="pwd_generated" type="text" value="" disabled>
                         <input id="copy" type="submit" value="copia">
                     </label>

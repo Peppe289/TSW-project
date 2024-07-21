@@ -104,7 +104,6 @@ public class CarrelloDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt("numero_ordine");
-                //id_prods.add(rs.getString("id_prodotto"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

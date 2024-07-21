@@ -85,11 +85,6 @@ button.edit:hover {
 
 #generate_admin {
     height: 250px;
-
-    & > * {
-        margin-top: 10px;
-        display: block;
-    }
 }
 
 .active {

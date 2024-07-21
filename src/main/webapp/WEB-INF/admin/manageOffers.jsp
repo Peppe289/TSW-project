@@ -145,7 +145,7 @@
                     <th>Data Inizio</th>
                     <th>Data Fine</th>
                     <th>Percentuale</th>
-                    <th></th>
+                    <th aria-label="vuoto"></th>
                 </tr>
             </table>
         </div>
