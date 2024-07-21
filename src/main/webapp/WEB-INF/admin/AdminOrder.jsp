@@ -6,12 +6,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-
+    <title>Ordini di ${userProfile.nome}</title>
     <style>
 
         p {
             pointer-events: none;
+        }
+
+        .gesture {
+            width: 100%;
+            margin: 20px;
+        }
+
+        .gesture button {
+            padding: 10px;
         }
 
         .order {
@@ -89,6 +97,10 @@
         Questo utente non ha effettuato ordini.
     </span>
 </c:if>
+
+<div class="gesture">
+    <button onclick="history.back()">Torna indietro</button>
+</div>
 
 <%--@elvariable id="orderList" type="java.util.List"--%>
 <c:forEach items="${orderList}" var="ordine">
