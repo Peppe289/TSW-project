@@ -56,6 +56,16 @@
         <h4>Filtri di ricerca</h4>
 
         <form id="filter-form" action="">
+            <label>
+                Ordina Per
+                <select name="sort">
+                    <option value="seleziona" selected="selected">seleziona</option>
+                    <option value="price_cresc">Prezzo Crescente</option>
+                    <option value="price_dec">Prezzo Decrescente</option>
+                    <option value="quantity_cresc">Quantità Crescente</option>
+                    <option value="quantity_dec">Quantità Decrescente</option>
+                </select>
+            </label>
             <h4 id="cat-title">Categoria</h4>
 
             <%

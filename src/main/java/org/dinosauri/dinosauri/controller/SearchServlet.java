@@ -95,6 +95,7 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("search");
         String page = req.getParameter("page");
+        String sort = req.getParameter("sort");
 
         List<Product> products;
         if (page == null) page = "0";
@@ -130,6 +131,18 @@ public class SearchServlet extends HttpServlet {
 
         /* add an image path to all of this product. */
         addImage(products);
+
+        if (sort != null) {
+            if (sort.equals("price_cresc")) {
+                products.sort((item1, item2) -> (int) (item1.getPrice() - item2.getPrice()));
+            } else if (sort.equals("price_dec")) {
+                products.sort((item1, item2) -> (int) (item2.getPrice() - item1.getPrice()));
+            } else if (sort.equals("quantity_cresc")) {
+                products.sort((item1, item2) ->  ProductDAO.doRetrieveProductByID(item1.getId(), true).size() - ProductDAO.doRetrieveProductByID(item2.getId(), true).size());
+            } else if (sort.equals("quantity_dec")) {
+                products.sort((item1, item2) -> ProductDAO.doRetrieveProductByID(item2.getId(), true).size() - ProductDAO.doRetrieveProductByID(item1.getId(), true).size());
+            }
+        }
 
         req.setAttribute("page", page);
         req.setAttribute("btn_page", btn_page);
