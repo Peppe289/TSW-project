@@ -24,6 +24,7 @@
                     <th>Nome</th>
                     <th>Cognome</th>
                     <th>Email</th>
+                    <th>Ordini</th>
                 </tr>
 
                 <%
@@ -36,6 +37,7 @@
                         <td><%= user.getNome() %></td>
                         <td><%= user.getCognome() %></td>
                         <td><%= user.getEmail() %></td>
+                        <td><a href="${pageContext.request.contextPath}/AdminOrderInfo?id=<%= user.getId() %>">INFO</a></td>
                     </tr>
                 <%
                     }
