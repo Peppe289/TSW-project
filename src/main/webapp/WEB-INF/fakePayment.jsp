@@ -5,7 +5,7 @@
 <html lang="it">
 <head>
     <title>DinoStore - Pagamento</title>
-
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <style>
         body {
             margin: 0;

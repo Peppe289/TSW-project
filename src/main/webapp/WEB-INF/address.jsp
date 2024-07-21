@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Modifica Indirizzo</title>
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
 
     <style>
         #main_box {

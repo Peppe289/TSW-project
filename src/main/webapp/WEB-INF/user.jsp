@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Utente</title>
     <style>

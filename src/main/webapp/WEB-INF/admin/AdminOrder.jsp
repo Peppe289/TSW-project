@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ordini di ${userProfile.nome}</title>
+    <link type="image/x-icon" rel="icon" href="${pageContext.request.contextPath}/img/solo_logo.png">
     <style>
 
         p {
