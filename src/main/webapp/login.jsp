@@ -64,7 +64,6 @@
     /**
      * Function to see regex for validated email.
      * I prefer to validate from js because I can change.
-     * More flexibility than pattern="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$/"
      *
      * @param el
      * @returns {boolean}
