@@ -145,8 +145,8 @@
         <div style="width: 100%; text-align: center">
             <div id="indirizzi">
                 <h3>Indirizzo per questo ordine</h3>
-                <p>${addr_name} ${addr_cognome}<br>${addr_via} ${addr_num}, ${addr_cap} ${addr_city} (${addr_prov})</p>
-                <a href="${pageContext.request.contextPath}/address_page">Cambia indirizzo</a>
+                <p>${address_resp.name} ${address_resp.cognome}<br>${address_resp.via} ${address_resp.numero_civico}, ${address_resp.cap} ${address_resp.comune} (${address_resp.provincia})</p>
+                <a href="${pageContext.request.contextPath}/address_page?reason=ORDER">Cambia indirizzo</a>
                 <hr style="width: 80%">
                 <h3>Scegli come Pagare</h3>
                 <div class="form">

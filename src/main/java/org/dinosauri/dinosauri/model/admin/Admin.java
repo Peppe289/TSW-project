@@ -1,4 +1,4 @@
-package org.dinosauri.dinosauri.model;
+package org.dinosauri.dinosauri.model.admin;
 
 public class Admin {
     String id;
