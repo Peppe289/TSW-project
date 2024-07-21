@@ -27,7 +27,7 @@
                     <th>Quantità Disponibile</th>
                     <th>Quantità Venduta</th>
                     <th>Prezzo</th>
-                    <th></th>
+                    <th aria-label="vuoto"></th>
                 </tr>
                 <c:forEach items="${products}" var="prod">
                 <tr>

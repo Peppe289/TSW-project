@@ -421,7 +421,7 @@
                 <label for="password">Change Password:</label>
                 <input class="editable" id="password" name="password" type="password" value="" disabled>
                 <label for="password" id="show_pass"><span></span><img alt="show password"
-                                                                       src="${pageContext.request.contextPath}/img/show_password.png"></label>
+                                                                       src="${pageContext.request.contextPath}/img/show_password.png" tabindex="0"></label>
                 <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
                 </button>
             </div>
