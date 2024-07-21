@@ -70,7 +70,7 @@
      * @returns {boolean}
      */
     function email_regex(el) {
-        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(el.value);
+        return /^[\w.%+-]+@[A-z]+\.[A-z]{2,6}$/.test(el.value);
     }
 
     function validatePassword() {
