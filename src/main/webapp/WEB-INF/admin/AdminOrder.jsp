@@ -109,7 +109,8 @@
         <div class="head">
             <p>${ordine.date}</p>
             <p>${ordine.address.via}, ${ordine.address.comune} (${ordine.address.provincia})</p>
-            <p>${ordine.total_price} €</p>
+            <p><fmt:formatNumber value="${ordine.total_price}"
+                                 type="number" minFractionDigits="2" maxFractionDigits="2"/> €</p>
         </div>
         <table class="hide">
             <tbody>
@@ -123,8 +124,10 @@
                 <tr>
                     <td>${ordine.quantity[entry.key]}x</td>
                     <td>${entry.value}</td>
-                    <td>${ordine.price[entry.key]} €</td>
-                    <td>${ordine.quantity[entry.key] * ordine.price[entry.key]} €</td>
+                    <td><fmt:formatNumber value="${ordine.price[entry.key]}"
+                                          type="number" minFractionDigits="2" maxFractionDigits="2"/> €</td>
+                    <td><fmt:formatNumber value="${ordine.quantity[entry.key] * ordine.price[entry.key]}"
+                                          type="number" minFractionDigits="2" maxFractionDigits="2"/> €</td>
                 </tr>
             </c:forEach>
             </tbody>
