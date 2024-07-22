@@ -1,3 +1,6 @@
+<%--@elvariable id="address" type="org.dinosauri.dinosauri.model.Address"--%>
+<%--@elvariable id="message" type="java.lang.String"--%>
+<%--@elvariable id="user" type="org.dinosauri.dinosauri.model.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
@@ -557,7 +560,7 @@
         });
     }
 
-    /* for show product in order add event listener to all summary. */
+    /* for show product in order add event listener to all summaries. */
     Array.from(show_order_btn).forEach((el) => {
         let items = el.parentElement.parentElement.getElementsByClassName("row-item");
         hide_show_order(items, true);
@@ -610,9 +613,9 @@
          */
         button = boxing.getElementsByTagName("button");
 
-        /* getElements retrieves always array. check if array is more larger than 0. */
+        /* getElements retrieves always array. check if an array is larger than 0. */
         if (button.length > 0) {
-            /* we need always only first element in box. */
+            /* we need always only the first element in the box. */
             button = button[0];
             button.addEventListener("click", () => {
                 item.disabled = !item.disabled;
@@ -649,7 +652,7 @@
         event.preventDefault();
     })
 
-    /* make submit only with dedicated button. */
+    /* make submitting only with dedicated button. */
     document.getElementById("submit_info").addEventListener("click", () => {
         const from_input = document.getElementsByTagName("input");
         Array.from(from_input).forEach(item => {
