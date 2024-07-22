@@ -81,4 +81,15 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * Check if input is valid.
+     *
+     * @return true if is valid. false if isn't valid.
+     */
+    public boolean validInput() {
+        return (this.nome != null && !this.nome.trim().isEmpty()) &&
+                (this.cognome != null && !this.cognome.trim().isEmpty()) &&
+                (this.email != null && !this.email.trim().isEmpty());
+    }
 }

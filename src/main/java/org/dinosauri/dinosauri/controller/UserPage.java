@@ -29,46 +29,29 @@ public class UserPage extends HttpServlet {
         req.setAttribute("address", address);
         req.setAttribute("orderList", ordineList);
 
-        if (reason == null) {
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
-            requestDispatcher.forward(req, resp);
-        } else if (reason.equals("changeInfo")) {
+        if (reason != null && reason.equals("changeInfo")) {
             String name = req.getParameter("nome");
             String cognome = req.getParameter("surname");
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-
-            if (!((name != null && !name.trim().isEmpty()) &&
-                    (cognome != null && !cognome.trim().isEmpty()) &&
-                    (email != null && !email.trim().isEmpty()))) {
-
-                req.setAttribute("message", "Campi non validi");
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
-                requestDispatcher.forward(req, resp);
-                return;
-            }
-
             User updated = new User();
             updated.setId(id);
             updated.setNome(name);
             updated.setCognome(cognome);
             updated.setEmail(email);
 
-            if (password == null || password.trim().isEmpty()) {
+            if (!(updated.validInput())) {
+                req.setAttribute("message", "Campi non validi");
+                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
+                requestDispatcher.forward(req, resp);
+                return;
+            } else if (password == null || password.trim().isEmpty()) {
                 UserDAO.doUpdateUserByID(updated);
+            } else if(!password.contains(" ") && password.length() >= 8) {
+                UserDAO.doUpdateUserByID(updated, password);
             } else {
-                if (!password.contains(" ") && password.length() >= 8)
-                    UserDAO.doUpdateUserByID(updated, password);
-                else {
-                    req.setAttribute("message", "password non valida.");
-                    RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
-                    requestDispatcher.forward(req, resp);
-                }
+                req.setAttribute("message", "password non valida.");
             }
-        } else {
-            req.setAttribute("message", "Campi non validi");
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
-            requestDispatcher.forward(req, resp);
         }
 
         user = UserDAO.doRetrieveUserFromID(id);
