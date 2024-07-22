@@ -13,14 +13,17 @@ public class AdminLogIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession();
 
-        if (AdminDAO.authenticate(id, password)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminControl");
-            dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect("index.jsp");
+        if (session.getAttribute("admin") == null) {
+            if (AdminDAO.authenticate(id, password)) {
+                session.setAttribute("admin", id);
+            } else {
+                response.sendRedirect("index.jsp");
+                return;
+            }
         }
+
+        response.sendRedirect(request.getContextPath() + "/adminControl");
     }
 }
