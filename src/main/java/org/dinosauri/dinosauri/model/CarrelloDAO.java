@@ -14,11 +14,13 @@ public class CarrelloDAO {
      */
     public static void doDeleteProdByID(int user_id, String prodID) throws SQLException {
         Connection con = ConnectionService.getConnection();
-        int cartID = doCreateNewCart(user_id);
-        PreparedStatement ps = con.prepareStatement("DELETE FROM prodotto_carrello WHERE numero_ordine = ? AND id_prodotto = ?");
-        ps.setInt(1, cartID);
-        ps.setString(2, prodID);
-        ps.executeUpdate();
+        synchronized (CarrelloDAO.class) {
+            int cartID = doCreateNewCart(user_id);
+            PreparedStatement ps = con.prepareStatement("DELETE FROM prodotto_carrello WHERE numero_ordine = ? AND id_prodotto = ?");
+            ps.setInt(1, cartID);
+            ps.setString(2, prodID);
+            ps.executeUpdate();
+        }
     }
 
     /**
@@ -36,18 +38,20 @@ public class CarrelloDAO {
         ps.setInt(2, cartID);
         ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            ps = con.prepareStatement("UPDATE prodotto_carrello SET quantita = ? WHERE id_prodotto = ? AND numero_ordine = ?");
-            ps.setInt(1, quant);
-            ps.setString(2, productID);
-            ps.setInt(3, cartID);
-            ps.executeUpdate();
-        } else {
-            ps = con.prepareStatement("INSERT INTO prodotto_carrello (id_prodotto, numero_ordine, quantita) VALUES (?, ?, ?)");
-            ps.setString(1, productID);
-            ps.setInt(2, cartID);
-            ps.setInt(3, quant);
-            ps.executeUpdate();
+        synchronized (CarrelloDAO.class) {
+            if (rs.next()) {
+                ps = con.prepareStatement("UPDATE prodotto_carrello SET quantita = ? WHERE id_prodotto = ? AND numero_ordine = ?");
+                ps.setInt(1, quant);
+                ps.setString(2, productID);
+                ps.setInt(3, cartID);
+                ps.executeUpdate();
+            } else {
+                ps = con.prepareStatement("INSERT INTO prodotto_carrello (id_prodotto, numero_ordine, quantita) VALUES (?, ?, ?)");
+                ps.setString(1, productID);
+                ps.setInt(2, cartID);
+                ps.setInt(3, quant);
+                ps.executeUpdate();
+            }
         }
     }
 
@@ -125,9 +129,11 @@ public class CarrelloDAO {
             return cartID;
         }
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT INTO ordini(id_utente) VALUES (?)");
-        ps.setInt(1, userID);
-        ps.executeUpdate();
+        synchronized (CarrelloDAO.class) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO ordini(id_utente) VALUES (?)");
+            ps.setInt(1, userID);
+            ps.executeUpdate();
+        }
         /* retrieve new id. */
         return doRetrieveCartID(userID);
     }

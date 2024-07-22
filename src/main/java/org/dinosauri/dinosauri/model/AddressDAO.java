@@ -34,28 +34,30 @@ public class AddressDAO {
         Address database_addr = doRetrieveAddress(user_id);
         try(Connection con = ConnectionService.getConnection()) {
             PreparedStatement ps;
-            if (database_addr == null) {
-                ps = con.prepareStatement("INSERT INTO address(id_utente, nome, cognome, via, cap, provincia, comune, numero_civico) VALUE (?, ?, ?, ?, ?, ?, ?, ?)");
-                ps.setInt(1, user_id);
-                ps.setString(2, address.getName());
-                ps.setString(3, address.getCognome());
-                ps.setString(4, address.getVia());
-                ps.setInt(5, address.getCap());
-                ps.setString(6, address.getProvincia());
-                ps.setString(7, address.getComune());
-                ps.setString(8, address.getNumero_civico());
-                ps.executeUpdate();
-            } else {
-                ps = con.prepareStatement("UPDATE address SET nome = ?, cognome = ?, via = ?, cap = ?, provincia = ?, comune = ?, numero_civico = ? WHERE id_utente = ?");
-                ps.setInt(8, user_id);
-                ps.setString(1, address.getName());
-                ps.setString(2, address.getCognome());
-                ps.setString(3, address.getVia());
-                ps.setInt(4, address.getCap());
-                ps.setString(5, address.getProvincia());
-                ps.setString(6, address.getComune());
-                ps.setString(7, address.getNumero_civico());
-                ps.executeUpdate();
+            synchronized (AddressDAO.class) {
+                if (database_addr == null) {
+                    ps = con.prepareStatement("INSERT INTO address(id_utente, nome, cognome, via, cap, provincia, comune, numero_civico) VALUE (?, ?, ?, ?, ?, ?, ?, ?)");
+                    ps.setInt(1, user_id);
+                    ps.setString(2, address.getName());
+                    ps.setString(3, address.getCognome());
+                    ps.setString(4, address.getVia());
+                    ps.setInt(5, address.getCap());
+                    ps.setString(6, address.getProvincia());
+                    ps.setString(7, address.getComune());
+                    ps.setString(8, address.getNumero_civico());
+                    ps.executeUpdate();
+                } else {
+                    ps = con.prepareStatement("UPDATE address SET nome = ?, cognome = ?, via = ?, cap = ?, provincia = ?, comune = ?, numero_civico = ? WHERE id_utente = ?");
+                    ps.setInt(8, user_id);
+                    ps.setString(1, address.getName());
+                    ps.setString(2, address.getCognome());
+                    ps.setString(3, address.getVia());
+                    ps.setInt(4, address.getCap());
+                    ps.setString(5, address.getProvincia());
+                    ps.setString(6, address.getComune());
+                    ps.setString(7, address.getNumero_civico());
+                    ps.executeUpdate();
+                }
             }
         } catch (SQLException ignore) {}
     }

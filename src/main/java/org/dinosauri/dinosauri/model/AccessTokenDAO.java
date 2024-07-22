@@ -12,14 +12,16 @@ public class AccessTokenDAO {
      */
     public static void doInsertUserToken(String id, AccessToken token) {
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM token WHERE id_utente = ?");
-            ps.setString(1, id);
-            ps.executeUpdate();
+            synchronized (AccessTokenDAO.class) {
+                PreparedStatement ps = con.prepareStatement("DELETE FROM token WHERE id_utente = ?");
+                ps.setString(1, id);
+                ps.executeUpdate();
 
-            ps = con.prepareStatement("INSERT INTO token (id_utente, token) VALUES (?, ?)");
-            ps.setString(1, id);
-            ps.setString(2, token.getRandomKey());
-            ps.executeUpdate();
+                ps = con.prepareStatement("INSERT INTO token (id_utente, token) VALUES (?, ?)");
+                ps.setString(1, id);
+                ps.setString(2, token.getRandomKey());
+                ps.executeUpdate();
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

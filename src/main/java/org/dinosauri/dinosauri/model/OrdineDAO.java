@@ -210,40 +210,42 @@ public class OrdineDAO {
     public static void convalidateOrder(int user_id, HashMap<Integer, Double> id_elemento, Address address) throws SQLException {
         int key;
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT INTO ordini(id_utente, data_acquisto) VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-        ps.setInt(1, user_id);
-        ps.setDate(2, Date.valueOf(LocalDate.now()));
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-
-        if (rs.next()) {
-            key = rs.getInt(1);
-        } else {
-            throw new SQLException();
-        }
-
-        for (Map.Entry<Integer, Double> entry : id_elemento.entrySet()) {
-            ps = con.prepareStatement("INSERT INTO prodotto_ordine (id_elemento, numero_ordine) VALUES(?, ?)");
-            ps.setInt(1, entry.getKey());
-            ps.setInt(2, key);
+        synchronized (OrdineDAO.class) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO ordini(id_utente, data_acquisto) VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, user_id);
+            ps.setDate(2, Date.valueOf(LocalDate.now()));
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
 
-            ps = con.prepareStatement("UPDATE elemento_prodotto SET prezzo = ?, disponibilita = ? WHERE id_elemento = ?");
-            ps.setFloat(1, Float.parseFloat(entry.getValue().toString()));
-            ps.setBoolean(2, false);
-            ps.setInt(3, entry.getKey());
+            if (rs.next()) {
+                key = rs.getInt(1);
+            } else {
+                throw new SQLException();
+            }
+
+            for (Map.Entry<Integer, Double> entry : id_elemento.entrySet()) {
+                ps = con.prepareStatement("INSERT INTO prodotto_ordine (id_elemento, numero_ordine) VALUES(?, ?)");
+                ps.setInt(1, entry.getKey());
+                ps.setInt(2, key);
+                ps.executeUpdate();
+
+                ps = con.prepareStatement("UPDATE elemento_prodotto SET prezzo = ?, disponibilita = ? WHERE id_elemento = ?");
+                ps.setFloat(1, Float.parseFloat(entry.getValue().toString()));
+                ps.setBoolean(2, false);
+                ps.setInt(3, entry.getKey());
+                ps.executeUpdate();
+            }
+
+            ps = con.prepareStatement("INSERT INTO dati_spedizione(id_spedizione, nome, cognome, via, cap, provincia, comune, numero_civico) VALUE (?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, key);
+            ps.setString(2, address.getName());
+            ps.setString(3, address.getCognome());
+            ps.setString(4, address.getVia());
+            ps.setInt(5, address.getCap());
+            ps.setString(6, address.getProvincia());
+            ps.setString(7, address.getComune());
+            ps.setString(8, address.getNumero_civico());
             ps.executeUpdate();
         }
-
-        ps = con.prepareStatement("INSERT INTO dati_spedizione(id_spedizione, nome, cognome, via, cap, provincia, comune, numero_civico) VALUE (?, ?, ?, ?, ?, ?, ?, ?)");
-        ps.setInt(1, key);
-        ps.setString(2, address.getName());
-        ps.setString(3, address.getCognome());
-        ps.setString(4, address.getVia());
-        ps.setInt(5, address.getCap());
-        ps.setString(6, address.getProvincia());
-        ps.setString(7, address.getComune());
-        ps.setString(8, address.getNumero_civico());
-        ps.executeUpdate();
     }
 }

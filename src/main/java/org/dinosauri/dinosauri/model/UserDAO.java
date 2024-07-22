@@ -104,12 +104,14 @@ public class UserDAO {
     public static User insertInDatabase(String nome, String cognome, String email, String password) throws SQLException {
         User user;
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
-        ps.setString(1, nome);
-        ps.setString(2, cognome);
-        ps.setString(3, email);
-        ps.setString(4, password);
-        ps.execute();
+        synchronized (UserDAO.class) {
+            PreparedStatement ps = con.prepareStatement("insert into utente(nome, cognome, email, password_utente) values (?, ?, ?, SHA1(?))");
+            ps.setString(1, nome);
+            ps.setString(2, cognome);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            ps.execute();
+        }
 
         user = doRetrieveUser(email, password);
 
@@ -123,12 +125,14 @@ public class UserDAO {
      */
     public static void doUpdateUserByID(User user) {
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? WHERE id_utente = ?");
-            ps.setString(1, user.getNome());
-            ps.setString(2, user.getCognome());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getId());
-            ps.executeUpdate();
+            synchronized (UserDAO.class) {
+                PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? WHERE id_utente = ?");
+                ps.setString(1, user.getNome());
+                ps.setString(2, user.getCognome());
+                ps.setString(3, user.getEmail());
+                ps.setString(4, user.getId());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -142,13 +146,15 @@ public class UserDAO {
      */
     public static void doUpdateUserByID(User user, String password) {
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? , password_utente = SHA1(?) WHERE id_utente = ?");
-            ps.setString(1, user.getNome());
-            ps.setString(2, user.getCognome());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, password);
-            ps.setString(5, user.getId());
-            ps.executeUpdate();
+            synchronized (UserDAO.class) {
+                PreparedStatement ps = con.prepareStatement("UPDATE utente SET nome = ? , cognome = ? , email = ? , password_utente = SHA1(?) WHERE id_utente = ?");
+                ps.setString(1, user.getNome());
+                ps.setString(2, user.getCognome());
+                ps.setString(3, user.getEmail());
+                ps.setString(4, password);
+                ps.setString(5, user.getId());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

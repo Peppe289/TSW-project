@@ -20,14 +20,16 @@ public class ProductDAO {
      */
     public static void doInsertProduct(Product product) throws SQLException {
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT INTO prodotto (id_prodotto, nome, descrizione, alimentazione, categoria, prezzo) VALUES (?, ?, ?, ?, ?, ?)");
-        ps.setString(1, product.getId());
-        ps.setString(2, product.getName());
-        ps.setString(3, product.getDescription());
-        ps.setString(4, product.getAlimentazione());
-        ps.setString(5, product.getCategoria());
-        ps.setDouble(6, product.getPrice());
-        ps.executeUpdate();
+        synchronized (ProductDAO.class) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO prodotto (id_prodotto, nome, descrizione, alimentazione, categoria, prezzo) VALUES (?, ?, ?, ?, ?, ?)");
+            ps.setString(1, product.getId());
+            ps.setString(2, product.getName());
+            ps.setString(3, product.getDescription());
+            ps.setString(4, product.getAlimentazione());
+            ps.setString(5, product.getCategoria());
+            ps.setDouble(6, product.getPrice());
+            ps.executeUpdate();
+        }
     }
 
     /**
@@ -37,11 +39,13 @@ public class ProductDAO {
      */
     public static void doAddQuantityByID(String id) {
         try(Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO elemento_prodotto(id_prodotto, disponibilita) VALUES (?, ?)");
-            ps.setString(1, id);
-            /* new product should be true by default. */
-            ps.setBoolean(2, true);
-            ps.executeUpdate();
+            synchronized (ProductDAO.class) {
+                PreparedStatement ps = con.prepareStatement("INSERT INTO elemento_prodotto(id_prodotto, disponibilita) VALUES (?, ?)");
+                ps.setString(1, id);
+                /* new product should be true by default. */
+                ps.setBoolean(2, true);
+                ps.executeUpdate();
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -57,10 +61,12 @@ public class ProductDAO {
         /* get a list of all elements with this id. */
         ArrayList<Integer> list = (ArrayList<Integer>) doRetrieveProductByID(id,true);
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM elemento_prodotto WHERE id_elemento = ?");
-            /* remove one element. */
-            ps.setInt(1, list.getFirst());
-            ps.executeUpdate();
+            synchronized (ProductDAO.class) {
+                PreparedStatement ps = con.prepareStatement("DELETE FROM elemento_prodotto WHERE id_elemento = ?");
+                /* remove one element. */
+                ps.setInt(1, list.getFirst());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -73,14 +79,16 @@ public class ProductDAO {
      */
     public static void doUpdateByID(Product product) {
         try (Connection con = ConnectionService.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE prodotto SET nome = ? , descrizione = ? , alimentazione = ? , categoria = ? , prezzo = ? WHERE id_prodotto = ?");
-            ps.setString(1, product.getName());
-            ps.setString(2, product.getDescription());
-            ps.setString(3, product.getAlimentazione());
-            ps.setString(4, product.getCategoria());
-            ps.setDouble(5, product.getPrice());
-            ps.setString(6, product.getId());
-            ps.executeUpdate();
+            synchronized (ProductDAO.class) {
+                PreparedStatement ps = con.prepareStatement("UPDATE prodotto SET nome = ? , descrizione = ? , alimentazione = ? , categoria = ? , prezzo = ? WHERE id_prodotto = ?");
+                ps.setString(1, product.getName());
+                ps.setString(2, product.getDescription());
+                ps.setString(3, product.getAlimentazione());
+                ps.setString(4, product.getCategoria());
+                ps.setDouble(5, product.getPrice());
+                ps.setString(6, product.getId());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

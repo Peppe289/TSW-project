@@ -14,9 +14,11 @@ public class OfferteDAO {
      */
     public static void removeOffer(String id) throws  SQLException{
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("DELETE FROM offerte WHERE id_offerta = ?");
-        ps.setString(1, id);
-        ps.execute();
+        synchronized (OfferteDAO.class) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM offerte WHERE id_offerta = ?");
+            ps.setString(1, id);
+            ps.execute();
+        }
     }
 
     /**
@@ -27,13 +29,15 @@ public class OfferteDAO {
      */
     public static void InsertOffers(Offerta offerta) throws SQLException {
         Connection con = ConnectionService.getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT INTO offerte (id_prodotto, descrizione, percentuale, data_inizio, data_fine) VALUES (?, ?, ?, ?, ?)");
-        ps.setString(1, offerta.getId_prodotto());
-        ps.setString(2, offerta.getDescription());
-        ps.setInt(3, offerta.getPercentage());
-        ps.setDate(4, offerta.getStartDate());
-        ps.setDate(5, offerta.getEndDate());
-        ps.execute();
+        synchronized (OfferteDAO.class) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO offerte (id_prodotto, descrizione, percentuale, data_inizio, data_fine) VALUES (?, ?, ?, ?, ?)");
+            ps.setString(1, offerta.getId_prodotto());
+            ps.setString(2, offerta.getDescription());
+            ps.setInt(3, offerta.getPercentage());
+            ps.setDate(4, offerta.getStartDate());
+            ps.setDate(5, offerta.getEndDate());
+            ps.execute();
+        }
     }
 
     /**
