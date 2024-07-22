@@ -132,8 +132,7 @@
                         </div>
                     </div>
                     <label style="margin-top: 10px;">Descrizione Prodotto
-                        <textarea id="description" style="width: 100%; resize: none;" rows="3">
-                        </textarea>
+                        <textarea id="description" style="width: 100%; resize: none;" rows="3"></textarea>
                     </label>
                 </form>
                 <button form="add_offerte">
