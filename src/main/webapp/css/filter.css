@@ -101,15 +101,12 @@
     }
 
     #button-mobile-form-submit {
-        margin: 0;
-        margin-top: 10px;
         padding: 10px;
         text-transform: uppercase;
         width: calc(100% - 10px);
         border: none;
         color: white;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 10px 5px 0;
         /**
          * Per mettere il bottone filtra sempre in basso all'ultima riga.
          */
