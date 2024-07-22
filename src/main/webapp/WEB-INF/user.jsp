@@ -3,6 +3,7 @@
 <%--@elvariable id="user" type="org.dinosauri.dinosauri.model.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -488,7 +489,9 @@
                         </div>
                         <div class="order-propriety">${ordine.date}</div>
                         <div class="order-propriety">${ordine.address.via}, ${ordine.address.comune} (${ordine.address.provincia})</div>
-                        <div class="order-propriety">${ordine.total_price} €</div>
+                        <div class="order-propriety">
+                            <fmt:formatNumber value="${ordine.total_price}"
+                                              type="number" minFractionDigits="2" maxFractionDigits="2"/>  €</div>
                     </div>
                     <c:forEach var="entry" items="${ordine.name}">
                         <div class="row-item">
@@ -499,7 +502,8 @@
                                 ${entry.value}
                             </div>
                             <div class="price_prod">
-                                ${ordine.price[entry.key]} €
+                                <fmt:formatNumber value="${ordine.price[entry.key]}"
+                                                  type="number" minFractionDigits="2" maxFractionDigits="2"/> €
                             </div>
                         </div>
                     </c:forEach>
