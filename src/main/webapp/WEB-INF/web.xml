@@ -4,6 +4,9 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
+    <error-page>
+        <location>/WEB-INF/error_page.html</location>
+    </error-page>
     <context-param>
         <!--
         Definisci l'email come parametro di init.
