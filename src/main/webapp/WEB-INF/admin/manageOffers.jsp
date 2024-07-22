@@ -70,6 +70,10 @@
                 width: 100%;
             }
 
+            & input:focus {
+                color: #020202;
+            }
+
             div.percentage > div {
                 display: flex;
                 flex-direction: row;
@@ -244,13 +248,15 @@
 
         const button = document.createElement('button');
         button.textContent = 'Rimuovi';
+        button.tabIndex = 0;
+        button.role = "button";
         button.classList.add('edit');
 
         const buttonTd = document.createElement('td');
         buttonTd.appendChild(button);
         tr.appendChild(buttonTd);
 
-        buttonTd.addEventListener("click", () => {
+        button.addEventListener("click", () => {
            let xhr = new XMLHttpRequest();
            xhr.open("POST", "offer", true);
            let obj = {
