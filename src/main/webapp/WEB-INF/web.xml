@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-<context-param>
-    <!--
-    Definisci l'email come parametro di init.
-    In questo modo tutte le servlet possono accedervi tramite initParam["emailSupport"] o initParam.emailSupport.
-    -->
-    <param-name>emailSupport</param-name>
-    <param-value>support@dinostore.com</param-value>
-</context-param>
+    <context-param>
+        <!--
+        Definisci l'email come parametro di init.
+        In questo modo tutte le servlet possono accedervi tramite initParam["emailSupport"] o initParam.emailSupport.
+        -->
+        <param-name>emailSupport</param-name>
+        <param-value>support@dinostore.com</param-value>
+    </context-param>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>All</web-resource-name>
@@ -24,11 +24,17 @@
     <filter>
         <filter-name>httpHeaderSecurity</filter-name>
         <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
-        <init-param><param-name>xssProtectionEnabled</param-name><param-value>true</param-value>
+        <init-param>
+            <param-name>xssProtectionEnabled</param-name>
+            <param-value>true</param-value>
         </init-param>
-        <init-param><param-name>antiClickJackingEnabled</param-name><param-value>true</param-value>
+        <init-param>
+            <param-name>antiClickJackingEnabled</param-name>
+            <param-value>true</param-value>
         </init-param>
-        <init-param><param-name>antiClickJackingOption</param-name><param-value>DENY</param-value>
+        <init-param>
+            <param-name>antiClickJackingOption</param-name>
+            <param-value>DENY</param-value>
         </init-param>
     </filter>
     <filter-mapping>
