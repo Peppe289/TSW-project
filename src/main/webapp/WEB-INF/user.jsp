@@ -420,8 +420,8 @@
             <div class="box">
                 <label for="password">Change Password:</label>
                 <input class="editable" id="password" name="password" type="password" value="" disabled>
-                <label for="password" id="show_pass"><span></span><img alt="show password"
-                                                                       src="${pageContext.request.contextPath}/img/show_password.png" tabindex="0"></label>
+                <label for="password" id="show_pass"><span></span><img aria-label="mostra password" alt="show password"
+                                                                       src="${pageContext.request.contextPath}/img/show_password.png" tabindex="0" role="button"></label>
                 <button class="editable"><img alt="edit" src="${pageContext.request.contextPath}/img/edit-ico.png">
                 </button>
             </div>
@@ -479,7 +479,7 @@
                 <div class="box row-table">
                     <!-- pointer button for hide/show order details. -->
                     <div class="summary disable_select_text">
-                        <div class="open_order">
+                        <div class="open_order" tabindex="0" role="menu">
                             <span class="toggle opened hide">&#x25B2;</span>
                             <span class="toggle closed">&#x25BC;</span>
                         </div>
