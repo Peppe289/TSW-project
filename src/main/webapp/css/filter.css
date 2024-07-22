@@ -1,5 +1,5 @@
 #filter {
-    height: 30px;
+    height: 100%;
     padding: 20px;
     margin-top: 40px;
     margin-left: 20px;
@@ -55,7 +55,7 @@
         overflow-y: hidden;
         white-space: nowrap;
 
-        height: 10px;
+        height: 30px;
         padding-top: 10px;
         padding-left: 2px;
         padding-right: 2px;
