@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productPrice = document.createElement("h1");
                     const price = parseFloat(json[1][jkeyId]).toFixed(2);
                     if (Number(json[3][jkeyId]) > 0) {
-                        productPrice.textContent = `${price * json[0][jkeyId]}€`;
+                        productPrice.textContent = (price * json[0][jkeyId]).toFixed(2) + "€";
                         totalPrice += json[1][jkeyId] * json[0][jkeyId];
                     } else {
                         productPrice.textContent = "";
