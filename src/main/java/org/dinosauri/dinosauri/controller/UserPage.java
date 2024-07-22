@@ -21,10 +21,6 @@ public class UserPage extends HttpServlet {
         List<Ordine> ordineList = OrdineDAO.doRetrieveOrderListInfo(Integer.parseInt(id));
 
         if (address == null) {
-            address = (Address) session.getAttribute("address");
-        }
-
-        if (address == null) {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/address_page");
             requestDispatcher.forward(req, resp);
             return;
