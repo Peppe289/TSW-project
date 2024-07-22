@@ -57,8 +57,4 @@ public class ChangeAddress extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/user_page");
         }
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
 }
