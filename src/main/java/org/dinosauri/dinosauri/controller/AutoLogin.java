@@ -8,9 +8,7 @@ import org.dinosauri.dinosauri.model.*;
 
 import java.io.*;
 import java.time.*;
-import java.time.format.*;
 import java.time.temporal.*;
-import java.util.*;
 
 /**
  * This filter will do auto login using cookies.
@@ -20,12 +18,12 @@ import java.util.*;
  */
 @WebFilter(filterName = "/AutoLogin", urlPatterns = "/*")
 public class AutoLogin extends HttpServlet implements Filter {
-    private void loginUsingCookie(HttpServletRequest req, HttpServletResponse resp) {
+    private void loginUsingCookie(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         Cookie token = null;
         String sCookie = null;
         String id = null;
-        AccessToken accessToken = null;
+        AccessToken accessToken;
 
         if (cookies == null) {
             return;
@@ -60,15 +58,13 @@ public class AutoLogin extends HttpServlet implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
-
         HttpSession session = req.getSession(false);
 
         /* if a user isn't in session, try to log in using cookie. */
         if (session == null) {
-            loginUsingCookie(req, resp);
+            loginUsingCookie(req);
         } else if (session.getAttribute("user") == null) {
-            loginUsingCookie(req, resp);
+            loginUsingCookie(req);
         }
 
         chain.doFilter(request, response);

@@ -11,10 +11,8 @@ import java.util.*;
 
 @WebServlet("/make_order")
 public class MakeOrder extends HttpServlet {
-    private static boolean stringContainsItemFromList(String inputStr, String[] items)
-    {
-        if (items == null || inputStr == null)
-            return false;
+    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
+        if (items == null || inputStr == null) return false;
 
         for (String item : items) {
             if (inputStr.equals(item)) {
@@ -48,8 +46,7 @@ public class MakeOrder extends HttpServlet {
             Product product = ProductDAO.doRetrieveProductByID(entry.getKey());
 
             /* skip unchecked elements. */
-            if (!stringContainsItemFromList(entry.getKey(), id_list))
-                continue;
+            if (!stringContainsItemFromList(entry.getKey(), id_list)) continue;
 
             /* id of all available elements */
             List<Integer> elements = ProductDAO.doRetrieveProductByID(entry.getKey(), true);
@@ -67,7 +64,7 @@ public class MakeOrder extends HttpServlet {
                 try {
                     CarrelloDAO.doInsertProdByID(Integer.parseInt(user.getId()), product.getId(), entry.getValue() - remove);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new ServletException(e);
                 }
             }
         }
@@ -79,7 +76,7 @@ public class MakeOrder extends HttpServlet {
              */
             OrdineDAO.convalidateOrder(Integer.parseInt(user.getId()), saveForDatabase, address);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/fakePayment.jsp");

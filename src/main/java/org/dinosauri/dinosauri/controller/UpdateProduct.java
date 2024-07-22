@@ -1,6 +1,5 @@
 package org.dinosauri.dinosauri.controller;
 
-import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
@@ -19,10 +18,10 @@ import java.util.*;
 public class UpdateProduct extends HttpServlet {
 
     /**
-     * Method for update database information of single product.
+     * Method for update database information of a single product.
      *
-     * @param request  Retrieve data
-     * @return json string for success or not
+     * @param request Retrieve data
+     * @return JSON string for success or not
      * @throws IOException if some get wrong return this error.
      */
     private String update_database(HttpServletRequest request) throws IOException {
@@ -49,12 +48,10 @@ public class UpdateProduct extends HttpServlet {
 
         String cat = map.get("category");
         /* check if match with white space. */
-        if (cat != null)
-            cat = cat.matches("^\\s*$") || cat.isBlank() ? null : cat;
+        if (cat != null) cat = cat.matches("^\\s*$") || cat.isBlank() ? null : cat;
 
         String nut = map.get("nutrition");
-        if (nut != null)
-            nut = nut.matches("^\\s*$") || nut.isBlank() ? null : nut;
+        if (nut != null) nut = nut.matches("^\\s*$") || nut.isBlank() ? null : nut;
 
         product.setCategoria(cat);
         product.setAlimentazione(nut);
@@ -94,10 +91,10 @@ public class UpdateProduct extends HttpServlet {
         return objectMapper.writeValueAsString(product);
     }
 
-    private String remove_image(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private String remove_image(HttpServletRequest request) throws IOException {
         BufferedReader reader = request.getReader();
         String id = request.getParameter("id");
-        /* read array from json (request) */
+        /* read array from JSON (request) */
         String line;
         StringBuilder buffer = new StringBuilder();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -106,21 +103,22 @@ public class UpdateProduct extends HttpServlet {
 
         while ((line = reader.readLine()) != null) buffer.append(line);
 
-        /* string with url path of image to remove. */
+        /* string with an url path of image to remove. */
         String[] array = objectMapper.readValue(buffer.toString(), String[].class);
         /*
-         * Use this as filter. whe need only name of file, so remove other stuff.
-         * Is better make this from server bcs whe need to check file to remove.
-         * This work as filter for save file remove.
+         * Use this as a filter.
+         * Whe need only name of file, so remove other stuff.
+         * It Is better to make this from server bcs whe need to check file to remove.
+         * This works as filter for save file remove.
          *
-         * For example for block request from client to remove /etc/passwd
-         * (in this case whe receive only "passwd" and this can be safe).
+         * For example, for block request from client to remove /etc/passwd
+         * (in this case, he receives only "passwd" and this can be safe).
          *
          * Also check if ID is equal to keywords in filename.
          *
          * Work as:
          * input : http://localhost:8080/dinosauri_war_exploded/upload/OTC_3_image.jpg
-         * output : OTC_3_image.jpg
+         * output: OTC_3_image.jpg
          */
         for (int i = 0; i < array.length; ++i) {
             String[] name = array[i].split("/");
@@ -143,7 +141,7 @@ public class UpdateProduct extends HttpServlet {
     }
 
     /**
-     * This control the image upload.
+     * This controls the image upload.
      *
      * @param request  take resource from request.
      * @param response not needed but is better to keep here for set status code.
@@ -158,12 +156,12 @@ public class UpdateProduct extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            /* write file received in the right directory. this can be give IOException. Catch it. */
+            /* Write file received in the right directory. This can be give IOException. Catch it. */
             FileManager.writeFile(filePart.getInputStream(), destination);
         } catch (IOException e) {
-            /* some error happened. send result to client */
+            /* some error happened. send a result to a client */
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-            /* return json page with error status */
+            /* return JSON page with error status */
             return "{\"status\":\"I/O Error\"}";
         }
 
@@ -200,7 +198,7 @@ public class UpdateProduct extends HttpServlet {
             }
             case "remove" -> {
                 try {
-                    json_result = remove_image(request, response);
+                    json_result = remove_image(request);
                 } catch (IOException e) {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
@@ -212,12 +210,7 @@ public class UpdateProduct extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
             }
-            case "new_id" -> {
-                json_result = check_new_id(request.getParameter("id"));
-            }
-            default -> {
-
-            }
+            case "new_id" -> json_result = check_new_id(request.getParameter("id"));
         }
 
         response.setContentType("application/json");
@@ -226,7 +219,7 @@ public class UpdateProduct extends HttpServlet {
             if (json_result == null) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
-            /* return json page with status success */
+            /* return JSON page with status success */
             response.getWriter().print(json_result);
         } catch (IOException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

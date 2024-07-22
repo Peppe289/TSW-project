@@ -47,9 +47,7 @@ public class AdminServlet extends HttpServlet {
                     products(req, resp);
                 }
             }
-            case null, default -> {
-                products(req, resp);
-            }
+            case null, default -> products(req, resp);
         }
     }
 
@@ -61,7 +59,7 @@ public class AdminServlet extends HttpServlet {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/admin/manageAdmin.jsp");
             dispatcher.forward(req, resp);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
     }
 

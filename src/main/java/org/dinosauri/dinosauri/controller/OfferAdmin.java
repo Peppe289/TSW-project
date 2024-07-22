@@ -22,7 +22,7 @@ public class OfferAdmin extends HttpServlet {
      * Remove offer from id.
      *
      * @param parameter - need to retrieve id.
-     * @return - json with status.
+     * @return - JSON with status.
      */
     private String removeOffer(HashMap<String, String> parameter) {
         String id = parameter.get("id");
@@ -38,10 +38,10 @@ public class OfferAdmin extends HttpServlet {
 
     /**
      * Make insert of new offers. Validate input and check if all it's ok with the logic of data.
-     * Retrieve json as a response to the status of operations.
+     * Retrieve JSON as a response to the status of operations.
      *
-     * @param parameter - about servlet parameter
-     * @return - json with status.
+     * @param parameter about servlet parameter
+     * @return JSON with status.
      * @throws JsonProcessingException - while convert hashmap to json.
      */
     private String insertOffer(HashMap<String, String> parameter) throws JsonProcessingException {
@@ -107,7 +107,7 @@ public class OfferAdmin extends HttpServlet {
         StringBuilder req_json = new StringBuilder();
         BufferedReader reader = request.getReader();
         ObjectMapper mapper = new ObjectMapper();
-        HashMap<String, String> parameter = new HashMap<>();
+        HashMap<String, String> parameter;
         int permission = AdminDAO.doRetrieveAdminLevelByID((String) request.getSession().getAttribute("admin"));
 
         if (permission == 2) {

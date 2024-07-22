@@ -23,9 +23,4 @@ public class AdminLogIn extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
     }
-
-    /* Do nothing with doGet. */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

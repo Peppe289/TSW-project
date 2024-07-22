@@ -15,7 +15,7 @@ public class SearchServlet extends HttpServlet {
 
     /* save all paths of image. */
     private void addImage(List<Product> products) {
-        for(Product product : products) {
+        for (Product product : products) {
             product.SaveFileList(new File(getServletContext().getRealPath("/")).getAbsolutePath());
         }
     }
@@ -63,7 +63,7 @@ public class SearchServlet extends HttpServlet {
                 }
             }
         } else {
-            /* if I can't make first filter, return. I can't make other filter. */
+            /* if I can't make the first filter, return. I can't make another filter. */
             return products;
         }
 
@@ -71,13 +71,16 @@ public class SearchServlet extends HttpServlet {
         if (nut_words != null) {
             filter.removeIf((item) -> {
 
-                /* maybe can be "ossa" or some other stuff which not have nutrition. skipp and keep this. */
+                /* maybe can be "ossa" or some other stuff that not have nutrition. skipp and keep this. */
                 if (item.getAlimentazione() == null) {
                     return false;
                 }
 
                 boolean remove = true;
-                /* multiple nutrition entry works. make AND if is required (nut != null) for remove product which not have this nut. */
+                /*
+                 * multiple nutrition entry works.
+                 * make AND if is required (nut != null) for remove product which does not have this nut.
+                 */
                 for (String tmp : nut_words) {
                     if (item.getAlimentazione().equals(tmp)) {
                         remove = false;
@@ -92,7 +95,7 @@ public class SearchServlet extends HttpServlet {
         return filter;
     }
 
-    /* save filter for next page. we will put this in btn page linker. */
+    /* save filter for the next page. we will put this in btn page linker. */
     private String saveFilter(HttpServletRequest req) {
         String[] nut_words = req.getParameterValues("nut");
         String[] cat_words = req.getParameterValues("cat");
@@ -149,7 +152,7 @@ public class SearchServlet extends HttpServlet {
                 case "price_cresc" -> products.sort((item1, item2) -> (int) (item1.getPrice() - item2.getPrice()));
                 case "price_dec" -> products.sort((item1, item2) -> (int) (item2.getPrice() - item1.getPrice()));
                 case "quantity_cresc" ->
-                        products.sort((item1, item2) -> ProductDAO.doRetrieveProductByID(item1.getId(), true).size() - ProductDAO.doRetrieveProductByID(item2.getId(), true).size());
+                        products.sort(Comparator.comparingInt(item -> ProductDAO.doRetrieveProductByID(item.getId(), true).size()));
                 case "quantity_dec" ->
                         products.sort((item1, item2) -> ProductDAO.doRetrieveProductByID(item2.getId(), true).size() - ProductDAO.doRetrieveProductByID(item1.getId(), true).size());
             }

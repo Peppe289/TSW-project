@@ -20,7 +20,7 @@ public class OfferteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = new ArrayList<>();
+        List<Product> products;
 
         products = ProductDAO.doRetrieveProducts();
 

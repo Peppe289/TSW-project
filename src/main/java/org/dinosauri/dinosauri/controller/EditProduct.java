@@ -1,21 +1,11 @@
 package org.dinosauri.dinosauri.controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.dinosauri.dinosauri.model.Product;
-import org.dinosauri.dinosauri.model.ProductDAO;
-import org.dinosauri.dinosauri.model.utils.FileManager;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
+import org.dinosauri.dinosauri.model.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.*;
-import java.lang.String;
-import java.util.List;
+import java.io.*;
 
 @WebServlet("/editid")
 public class EditProduct extends HttpServlet {

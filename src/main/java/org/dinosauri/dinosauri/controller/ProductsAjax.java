@@ -1,6 +1,5 @@
 package org.dinosauri.dinosauri.controller;
 
-import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
@@ -12,7 +11,7 @@ import java.util.*;
 @WebServlet("/products-json")
 public class ProductsAjax extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String json =  null;
+        String json;
         String reason = request.getParameter("reason");
         ObjectMapper mapper = new ObjectMapper();
 

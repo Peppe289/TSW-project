@@ -10,7 +10,7 @@ import java.util.*;
 @WebServlet(name = "init", urlPatterns = "/init-servlet", loadOnStartup = 0)
 public class InitServlet extends HttpServlet {
     /**
-     * Try and init connect to database.
+     * Try and init connect to a database.
      */
     public void init(ServletConfig config) {
         HashMap<String, Integer> hashMap = new HashMap<>();

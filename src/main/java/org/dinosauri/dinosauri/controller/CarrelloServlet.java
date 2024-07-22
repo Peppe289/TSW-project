@@ -20,7 +20,7 @@ public class CarrelloServlet extends HttpServlet {
      * Try to add an element to cart using id. Check if it is available.
      *
      * @param request - Need for GET param.
-     * @return json string with all elements and single item (from id).
+     * @return JSON string with all elements and single item (from id).
      */
     private String addElementsToCart(HttpServletRequest request) throws JsonProcessingException {
         String id = request.getParameter("id");
@@ -105,7 +105,7 @@ public class CarrelloServlet extends HttpServlet {
         cartJson.setTotalElements(totalProductCart);
         cartJson.setStatus(status);
         cartJson.loadPrice();
-        /* convert hashmap to json. */
+        /* convert hashmap to JSON. */
         return cartJson.generateJson();
     }
 
@@ -113,7 +113,7 @@ public class CarrelloServlet extends HttpServlet {
      * Retrieve all elements if we use session.
      *
      * @param request - get session.
-     * @return json with number of all elements
+     * @return JSON with number of all elements
      */
     private String doRetrieveAllElementsCart(HttpServletRequest request) throws JsonProcessingException {
         int totalProductCart = 0;

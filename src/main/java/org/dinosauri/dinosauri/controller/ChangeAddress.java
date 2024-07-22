@@ -22,7 +22,7 @@ public class ChangeAddress extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Address addr;
 
-        /* without login don't should become here. */
+        /* without login shouldn't become here. */
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/");
             return;

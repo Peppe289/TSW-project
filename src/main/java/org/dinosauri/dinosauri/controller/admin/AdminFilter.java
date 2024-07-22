@@ -22,7 +22,8 @@ public class AdminFilter extends HttpServlet implements Filter {
     /**
      * If admin has permission, 1 can modify edit product, see other pages, but con't remove/add admin.
      * If admin has permission, 2 can only access to admin page use "adminControll" uri and edit product.
-     * @param url - url access
+     *
+     * @param url        - url access
      * @param permission - admin permission
      * @return - boolean for allowing or not access.
      */
@@ -41,19 +42,17 @@ public class AdminFilter extends HttpServlet implements Filter {
             return;
         }
 
-        int permission = AdminDAO.doRetrieveAdminLevelByID((String)session.getAttribute("admin"));
+        int permission = AdminDAO.doRetrieveAdminLevelByID((String) session.getAttribute("admin"));
 
         if (permission == 0) {
-            notifyConsole((String)session.getAttribute("admin"));
+            notifyConsole((String) session.getAttribute("admin"));
             chain.doFilter(request, response);
         } else if (checkValidity(req.getRequestURI(), permission)) {
             chain.doFilter(request, response);
-            return;
         } else {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("{\"status\":\"Permission denied\"}");
         }
-
     }
 }
