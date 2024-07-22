@@ -128,7 +128,7 @@
     function disableButton() {
         let disp = document.getElementById("disp").innerHTML;
         if (disp < 1) {
-            document.getElementById("shop-btn").classList.add("hide");
+            document.getElementById("add_carrello").classList.add("hide");
         }
     }
 
