@@ -151,7 +151,7 @@
                 <h3>Scegli come Pagare</h3>
                 <div class="form">
                     <label>
-                        <input name="pagamento" value="Visa" type="radio">
+                        <input name="pagamento" value="Visa" type="radio" required>
                         Visa
                     </label>
                     <label>
