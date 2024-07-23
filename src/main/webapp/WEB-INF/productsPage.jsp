@@ -9,7 +9,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/carosello.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/filter.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/listproduct.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/project.css">

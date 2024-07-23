@@ -104,13 +104,6 @@
         check_for_hide_label(input_desktop.value);
     });
 
-    input_desktop.addEventListener("keypress", function () {
-        //console.log("Sto scrivendo");
-        /**
-         * TODO: suggerimenti in tempo reale.
-         */
-    });
-
     /**
      * Needed for mobile view.
      * This can open and close the sidebar.
