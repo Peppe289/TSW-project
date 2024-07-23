@@ -71,9 +71,9 @@
 <script>
     let slideIndex = 0;
     let carousel = document.getElementById("carousel");
-    let position = carousel.scrollWidth / 3;
 
     function changeSlide(index) {
+        const position = carousel.scrollWidth / 3;
         slideIndex = (slideIndex + index + 3) % 3;
         carousel.scrollTo({
             left: position * slideIndex,
