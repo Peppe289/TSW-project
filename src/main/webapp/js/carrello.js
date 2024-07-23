@@ -1,7 +1,7 @@
 /* retrieve from hidden input in the HTML the context path */
 let contextPath = document.getElementById("contextPath").value;
 
-document.addEventListener("DOMContentLoaded", function () {
+function ajaxRequest() {
     const listDiv = document.getElementById("list");
     const totalPriceDiv = document.getElementById("totalPrice");
 
@@ -13,11 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 let totalPrice = 0;
 
                 jkeysId.forEach(jkeyId => {
-                    if (jkeyId === "total" || jkeyId === "status")
-                        return;
+                    if (jkeyId === "total" || jkeyId === "status") return;
 
-                    if (json[0][jkeyId] === "0")
-                        return;
+                    if (json[0][jkeyId] === "0") return;
 
                     const productDiv = document.createElement("div");
                     productDiv.classList.add("product");
@@ -51,10 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     imageDiv.classList.add("image");
                     const image = document.createElement("img");
 
-                    if (typeof json[5][jkeyId] === "undefined")
-                        image.src = "img/missing.jpg";
-                    else
-                        image.src = json[5][jkeyId].replace("/", "");
+                    if (typeof json[5][jkeyId] === "undefined") image.src = "img/missing.jpg"; else image.src = json[5][jkeyId].replace("/", "");
 
                     image.alt = "image";
                     imageDiv.appendChild(image);
@@ -113,18 +108,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         fetch("carrello-add-ajax?id=" + jkeyId + "&add=" + quantitySelect.value)
                             .then(() => {
-                            location.reload();
-                        }).catch(e => console.log(e));
+                                document.getElementById("list").innerHTML = "";
+                                ajaxRequest();
+                            }).catch(e => console.log(e));
                     });
 
                     const removeButton = document.createElement("button");
                     removeButton.textContent = "Rimuovi";
                     removeButton.addEventListener("click", () => {
-                        if (!confirm("Vuoi davvero rimuovere " + json[4][jkeyId] + " dal carrello?"))
-                            return;
+                        if (!confirm("Vuoi davvero rimuovere " + json[4][jkeyId] + " dal carrello?")) return;
 
                         fetch("carrello-add-ajax?id=" + jkeyId + "&add=0")
-                            .then(() => location.reload())
+                            .then(() => {
+                                document.getElementById("list").innerHTML = "";
+                                ajaxRequest();
+                            })
                     });
 
                     const hr = document.createElement('hr');
@@ -160,13 +158,17 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMessage.textContent = "Errore nel recupero dei dati del carrello.";
             listDiv.appendChild(errorMessage);
         });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    ajaxRequest();
 });
 
 
 /* send using js parameter in post with checked product. */
 document.getElementById("btn_submit").addEventListener("click", (event) => {
     const input = document.getElementsByTagName("input");
-    let url= `${contextPath}/compra?`;
+    let url = `${contextPath}/compra?`;
 
     Array.from(input).forEach(item => {
         if (item.type.toUpperCase() === "CHECKBOX") {
